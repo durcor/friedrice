@@ -1,0 +1,2 @@
+#!/bin/sh
+torify curl -F file=@$1 "https://lewd.se/api.php?d=upload-tool"

@@ -1,0 +1,2 @@
+#!/bin/sh
+tmux splitw -v -p 20 youtube-dl -icw --embed-thumbnail --add-metadata --extract-audio --audio-format mp3 --audio-quality 0 -o '/mnt/ios/vlc/mus/nb/%(title)s.%(ext)s' $1

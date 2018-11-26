@@ -1,0 +1,12 @@
+#!/bin/sh
+
+url="$1"
+title="$2"
+#description="$3"
+#feed_title="$4"
+
+echo -e "<p><a href=$url>$title</a> $(date '+%Y-%m-%d %H%M-%S')</p>" > /tmp/nbsshbkmk.html
+scp /tmp/nbsshbkmk.html virmire:/tmp/nbsshbkmk.html
+ssh virmire
+cat /tmp/nbsshbkmk.html >> /mnt/ios/edhita/bkmk.html
+exit

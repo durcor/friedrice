@@ -1,0 +1,17 @@
+/*
+ * ~/prg/slock/config.h
+ * vi:ft=c
+ */
+
+/* user and group to drop privileges to */
+static const char *user  = "ty";
+static const char *group = "ty";
+
+static const char *colorname[NUMCOLS] = {
+	[INIT] =   "#<COLOR0>",     /* after initialization */
+	[INPUT] =  "#<COLOR8>",   /* during input */
+	[FAILED] = "#<COLOR3>",   /* wrong password */
+};
+
+/* treat a cleared input like a wrong password (color) */
+static const int failonclear = 1;

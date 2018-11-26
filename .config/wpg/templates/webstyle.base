@@ -1,0 +1,15 @@
+/*
+ * vim:ft=css
+ */
+
+body {
+  margin: 50px auto;
+  max-width:600px;
+  line-height:1.6;
+  font-size:18px;
+  background-color: #<COLOR0>;
+  color: #<COLOR15>;
+  font-family: sans-serif;
+}
+a:link {color: #<COLOR12>;}
+a:visited {color: #<COLOR4>;}

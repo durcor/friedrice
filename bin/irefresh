@@ -1,0 +1,5 @@
+#!/bin/sh
+
+sudo killall usbmuxd
+sudo usbmuxd -U usbmux
+notify-send "The usbmux daemon has been refreshed. You should now be able to mount your iOS device"

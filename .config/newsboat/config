@@ -1,0 +1,135 @@
+# ~/.config/newsboat/config
+# vi:ft=python
+
+auto-reload yes
+reload-time 5
+reload-threads 2
+suppress-first-reload yes
+
+show-keymap-hint no
+
+external-url-viewer "urlscan -dc"
+
+datetime-format "%m/%d %H%M"
+
+bookmark-cmd nbphonebkmkhtml
+bookmark-interactive no
+bookmark-autopilot yes
+
+text-width 80
+
+download-retries 4
+download-timeout 30
+
+prepopulate-query-feeds yes
+cleanup-on-quit yes
+
+# use-proxy yes
+# proxy-type socks5
+# proxy 127.0.0.1:9050
+
+# ssl-verifypeer no
+# ssl-verifyhost no
+
+notify-program "/usr/bin/notify-send -i /usr/share/icons/Papirus/64x64/apps/RSS_feeds.svg"
+notify-always yes
+notify-beep yes
+notify-screen yes
+notify-xterm yes
+notify-format "%d new articles"
+#notify-format "%d %n %f"
+
+articlelist-format "%4i | %D | %?T?|%-17T| ?%t"
+feedlist-format "%4i | %11u | %25t | %S | %T"
+
+feedlist-title-format "%t feeds"
+selecttag-title-format "tags"
+articlelist-title-format "articles in feed '%T' (%u unread, %t total)"
+
+always-display-description yes
+
+confirm-exit no
+
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
+# bind-key q hard-quit
+unbind-key q
+bind-key Z hard-quit
+bind-key R reload-all
+bind-key t set-tag
+bind-key E edit-urls
+bind-key i sort
+bind-key I rev-sort
+bind-key g home
+bind-key G end
+bind-key u show-urls
+bind-key w show-urls
+bind-key a toggle-article-read
+bind-key ^F pagedown
+bind-key ^B pageup
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key o open-in-browser
+bind-key b bookmark
+bind-key SPACE macro-prefix
+
+# standout, underline, reverse, blink, dim, bold, protect, invis
+#			fg	bg	style
+color listnormal	color4	color0
+color listnormal_unread	color15	color0
+
+color listfocus 	color0	color3
+color listfocus_unread 	color7	color3
+
+color info		color9	color8
+color article 		color15	color8
+color background 	color9	color8
+
+# highlight article "^(Feed|Title|Author|Link|Date):.*" yellow default bold
+# highlight feedlist "^ *[0-9]+ *N " color12 default
+# highlight articlelist "^ *[0-9]+ *N " color12 default
+# highlight article "^(Feed|Title|Author|Link|Date|Linux):.*" color14 default
+# highlight article "^Podcast Download URL:.*" color14 default
+# highlight article "^Links:" white color11 underline
+# highlight article "\\[[0-9][0-9]*\\]" color14 default bold
+# highlight article "\\[image [0-9][0-9]*\\]" color14 default bold
+# highlight article "\\[embedded flash: [0-9][0-9]*\\]" color12 default bold
+# highlight article ":.*\\(link\\)$" color12 default
+# highlight article ":.*\\(image\\)$" color12 default
+# highlight article ":.*\\(embedded flash\\)$" color12 default
+# highlight all "linux,Linux" red magenta bold
+
+highlight feedlist "https?://[^ ]+" cyan default
+highlight feedlist "#[[:space:]].+$" blue default bold
+highlight articlelist "[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}" cyan default
+highlight article "https?://[^ ]+" cyan default
+highlight article "^(Feed|Title|Author|Link|Date):" blue default
+
+browser "qutebrowser %u"
+macro SPACE open-in-browser
+
+# open url in mpv
+macro v set browser "setsid nohup mpv %u >> /dev/null & disown" ; open-in-browser-and-mark-read ; set browser "qutebrowser %u"
+
+# download url audio w/ youtube-dl
+macro a set browser "youtube-dl %u" ; open-in-browser ; set browser "qutebrowser %u"
+
+# save music url to file
+macro m set browser "nbmusdl" ; open-in-browser ; set browser "qutebrowser %u"
+
+# macro g quit ; :goto ; set browser "qutebrowser %u"
+
+# open url in w3m
+macro w set browser "setsid nohup st -e w3m %u &" ; open-in-browser-and-mark-read ; set browser "qutebrowser %u"
+
+# save selected url to clipboard
+macro y set browser "echo %u | xclip -i -se c" ; open-in-browser ; set browser "qutebrowser %u"
+
+# convert the selected article's url into a qr code that is printed to /tmp/qrl
+macro q set browser "echo %u | ttyqr > /tmp/qrl" ; open-in-browser ; set browser "qutebrowser %u"
+
+macro b bookmark ; toggle-article-read
+
+macro q hard-quit

@@ -1,0 +1,2 @@
+#!/bin/sh
+$HOME/prg/ungoogled-chromium.AppImage --no-sandbox

@@ -1,0 +1,4 @@
+#!/bin/sh
+sudo mkdir /mnt/thc
+sudo chown $USER /mnt/thc
+sudo mount /dev/sdb1

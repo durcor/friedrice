@@ -1,0 +1,2 @@
+#!/bin/sh
+xinit /usr/bin/steam -bigpicture -- :1 vt$XDG_VTNR

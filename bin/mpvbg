@@ -1,0 +1,2 @@
+#!/bin/sh
+setsid nohup mpv "$1" 2>/dev/null & disown

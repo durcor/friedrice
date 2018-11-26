@@ -1,0 +1,316 @@
+#!/bin/bash
+
+## ytp
+## by drew
+## also anjune
+## uo.is.ou@gmail.com
+## https://gitlab.com/uoou/ytp
+## GPL v. 2
+
+api_key="AIzaSyB-7sMMx9lMexjq3ZWZAzw3Csi7zOF98nE"
+# these API keys have quotas. If you hit limits, create your own here: https://console.developers.google.com/
+maxresults=10
+player="setsid mpv" # mpv works, try other players at your own P E R I L
+
+magenta="\033[35;1m"
+cyan="\033[36;1m"
+green="\033[32;1m"
+yellow="\033[33;1m"
+red="\033[31m"
+bold="\e[1m"
+nc="\033[m"
+
+for thing in jq youtube-dl mktemp $player; do
+	if ! hash $thing 2>/dev/null; then
+		echo -e "This script requires ${magenta}$thing${nc}. It's probably in your repos."
+		exit
+	fi
+done
+
+if [[ "$#" -gt 2 ]] || [[ "$1" = "-h" ]] || [[ "$1" = "--help" ]]; then
+	echo -e "Usage: `basename $0` \"some search\" [maxresults]\n\nwhere [maxresults] is an integer from 1 to 10 (defaults to $maxresults)"
+	exit
+elif [[ ! -z "$2" ]] && [[ "$2" =~ ^[0-9]+$ ]] && [[ "$2" -le 10 ]] && [[ "$2" -ge 1 ]]; then
+	maxresults=$2
+fi
+
+searchterm=$1
+
+if [[ "$searchterm" = "" ]]; then
+	searchterm="friday"
+fi
+
+api_url="https://www.googleapis.com/youtube/v3/search"
+video_url="https://www.youtube.com/watch?v="
+pagenum=1
+showhelp=true
+searchtype="search"
+letters=(a s d f j k l w e i)
+declare -A numbers=([a]=1 [s]=2 [d]=3 [f]=4 [j]=5 [k]=6 [l]=7 [w]=8 [e]=9 [i]=10)
+
+ytsearch () {
+	echo "Searching ..."
+	if [[ -z "$1" ]]; then
+		videolist=$(curl -G "$api_url" --data-urlencode "key=$api_key" --data-urlencode "part=snippet" --data-urlencode "type=video" --data-urlencode "maxResults=$maxresults" --data-urlencode "fields=items(snippet/title,snippet/channelTitle,snippet/description,snippet/publishedAt,id/videoId),nextPageToken,prevPageToken" --data-urlencode "q=$searchterm" 2>/dev/null)
+	else
+		videolist=$(curl -G "$api_url" --data-urlencode "key=$api_key" --data-urlencode "part=snippet" --data-urlencode "type=video" --data-urlencode "maxResults=$maxresults" --data-urlencode "fields=items(snippet/title,snippet/channelTitle,snippet/description,snippet/publishedAt,id/videoId),nextPageToken,prevPageToken" --data-urlencode "q=$searchterm" --data-urlencode "pageToken=$1" 2>/dev/null)
+	fi
+	prev=$(echo $videolist | jq -r "[.][].prevPageToken")
+	next=$(echo $videolist | jq -r "[.][].nextPageToken")
+	draw_search
+}
+
+search_related () {
+	videolist=$(curl -G "$api_url" --data-urlencode "key=$api_key" --data-urlencode "part=snippet" --data-urlencode "type=video" --data-urlencode "maxResults=$maxresults" --data-urlencode "fields=items(snippet/title,snippet/channelTitle,snippet/description,snippet/publishedAt,id/videoId),nextPageToken,prevPageToken" --data-urlencode "relatedToVideoId=$vidid" 2>/dev/null)
+	prev=$(echo $videolist | jq -r "[.][].prevPageToken")
+	next=$(echo $videolist | jq -r "[.][].nextPageToken")
+	draw_search
+}
+
+search_header () {
+	if [[ "$searchtype" = "search" ]]; then
+		echo -e "Searched for: $searchterm"
+	else
+		echo -e "Related to: $vidtitle"
+	fi
+	echo -e "Page: $pagenum\n"
+}
+
+search_footer () {
+	if $showhelp; then
+		echo -e "Enter a ${magenta}number${nc} to watch the video in $player. Add a ${bold}!${nc} to add to playlist."
+		echo -e "Enter a ${yellow}Capital Letter${nc} to play only the audio portion of the video."
+		echo -e "Enter a ${cyan}letter${nc} for more information and related videos."
+
+		nexttext=""
+		if [[ "$next" != "null" ]]; then
+			nexttext="[${green}n${nc}]ext page"
+		fi
+		if [[ "$prev" != "null" ]]; then
+			nextsep=""
+			if [[ "$nexttext" != "" ]]; then
+				nextsep=", "
+			fi
+			nexttext="$nexttext$nextsep[${green}p${nc}]revious page"
+		fi
+		nexttext="$nexttext, [${green}x${nc}] new search, [${green}c${nc}]hange max results, [${green}?${nc}] toggle showing of help"
+		if [[ ! -z $playlistfile ]]; then
+			nexttext="$nexttext, [${green}t${nc}] play playlist"
+		fi
+		echo -e $nexttext
+	fi
+}
+
+draw_details () {
+	vidid=$(echo $videolist | jq -r "[.][].items[$1].id.videoId")
+	vidtitle=$(echo $videolist | jq -r "[.][].items[$1].snippet.title")
+	channeltitle=$(echo $videolist | jq -r "[.][].items[$1].snippet.channelTitle")
+	pubdate=$(echo $videolist | jq -r "[.][].items[$1].snippet.publishedAt")
+	description=$(echo $videolist | jq -r "[.][].items[$1].snippet.description")
+	echo -e "\n  ${bold}${red}$vidtitle${nc}"
+	echo -e "  by $channeltitle"
+	echo -e "\n$description"
+	pdate=$(date -d "$pubdate" "+%A %-d %B, %Y")
+	echo -e "\n  Published: $pdate"
+	echo -e "  url: $video_url$vidid\n"
+	details_footer
+}
+
+details_footer () {
+	if $showhelp; then
+		echo -en "[${green}w${nc}]atch, [${green}u${nc}] play audio, [${green}m${nc}] see related videos, [${green}b${nc}]ack to search"
+		if hash xclip 2>/dev/null; then
+			echo -en ", [${green}y${nc}] copy url to clipboard"
+		fi
+		echo ""
+	fi
+	command_line
+}
+
+add_to_playlist () {
+	if [[ -z "$playlistfile" ]]; then
+		playlistfile=$(mktemp -d "${TMPDIR:-/tmp/}$(basename $0).XXXXXXXXXXXX")
+		playlistfile="$playlistfile/playlist.m3u"
+		firstitem=true
+	fi
+	echo $video_url${vididsa[$1]} >> $playlistfile
+	echo -e "Added ${red}${vidtitlesa[$1]}${nc} to playlist."
+	if $firstitem; then
+		echo -e "([${green}t${nc}] to play playlist)"
+		firstitem=false
+	fi
+}
+
+new_maxresults () {
+	read -p "Enter a number (1-10): " newmaxresults
+	if [[ "$newmaxresults" =~ ^[0-9]+$ ]] && [[ "$newmaxresults" -le 10 ]] && [[ "$newmaxresults" -ge 1 ]]; then
+		maxresults=$newmaxresults
+		pagenum=1
+		if [[ "$searchtype" = "search" ]]; then
+			ytsearch
+		else
+			search_related
+		fi
+	else
+		echo "Invalid number, try again..."
+		new_maxresults
+	fi
+
+}
+
+command_line () {
+	if [[ ! -z "$1" ]]; then
+		echo $1
+	fi
+	read -p "Command: " userinput
+	handle_input
+}
+
+draw_search () {
+	search_header
+	vidids=$(echo $videolist | jq -r "[.][].items[].id.videoId")
+	mapfile -t vididsa < <( printf "%s\n" "$vidids" )
+	vidtitles=$(echo $videolist | jq -r "[.][].items[].snippet.title")
+	mapfile -t vidtitlesa < <( printf "%s\n" "$vidtitles" )
+	for v in "${!vididsa[@]}"; do
+		n=$(( $v + 1 ))
+		sep=" "
+		if [ "$n" -ge 10 ]; then
+			sep=""
+		fi
+		echo -en "  $sep${magenta}$n${nc}. "
+		echo -en "[${yellow}${letters[$v]^^}${nc}] "
+		echo -e "[${cyan}${letters[$v]}${nc}] ${bold}${vidtitlesa[$v]}${nc}"
+	done
+	echo ""
+	search_footer
+	command_line
+}
+
+play_audio_only () {
+    echo -e "Opening ${red}${vidtitlesa[$playvid]}${nc} (audio only) in $player"
+    if [ -z "$DISPLAY" ]; then
+        $player --no-video $video_url${vididsa[$playvid]} 1>/dev/null 2>&1
+        echo # insert newline to compensate for ^C
+    else
+        $player --no-video --player-operation-mode=pseudo-gui $video_url${vididsa[$playvid]} 1>/dev/null 2>&1 &
+    fi
+}
+
+handle_input () {
+	case $userinput in
+		[asdfjkleri] )
+			selectedvid=$(( ${numbers[$userinput]} - 1 ))
+			draw_details $selectedvid
+			;;
+		[1-9]|10 )
+			if [[ $userinput -le $maxresults ]]; then
+				playvid=$(( $userinput -1 ))
+				echo -e "Opening ${red}${vidtitlesa[$playvid]}${nc} in $player"
+				$player $video_url${vididsa[$playvid]} 1>/dev/null 2>&1 &
+				command_line
+			else
+				command_line "Invalid number"
+			fi
+			;;
+		[ASDFJKLERI] )
+			userinput=${numbers[${userinput,,}]}
+			if [[ $userinput -le $maxresults ]]; then
+				playvid=$(( $userinput - 1 ))
+				play_audio_only
+				command_line
+			else
+				command_line "Invalid command"
+			fi
+			;;
+		[1-9]!|10! )
+			addvid=$(( $(echo $userinput | cut -d "!" -f 1) - 1 ))
+			if [[ $(( $addvid + 1 )) -le $maxresults ]]; then
+				add_to_playlist $addvid
+			fi
+			command_line
+			;;
+		n )
+			if [[ "$next" != "null" ]]; then
+				pagenum=$(( pagenum + 1 ))
+				ytsearch $next
+			else
+				command_line "Invalid command"
+			fi
+			;;
+		N )
+			if [[ "$prev" != "null" ]]; then
+				pagenum=$(( pagenum - 1 ))
+				ytsearch $prev
+			else
+				command_line "Invalid command"
+			fi
+			;;
+		o )
+			read -p "Search for: " searchterm
+			pagenum=1
+			searchtype="search"
+			ytsearch
+			;;
+		c )
+			new_maxresults
+			;;
+		w )
+			play_videoecho -e "Opening ${red}$vidtitle${nc} in $player"
+			$player $video_url$vidid 1>/dev/null 2>&1 &
+			command_line
+			;;
+		u )
+			play_audio_only
+            command_line
+			;;
+		m )
+			if [[ -z "$vidid" ]]; then
+				command_line "Invalid command"
+			else
+				pagenum=1
+				searchtype="related"
+				search_related
+			fi
+			;;
+		t )
+			if [[ ! -z $playlistfile ]]; then
+				$player $playlistfile 1>/dev/null 2>&1 &
+				echo "Opening playlist in $player"
+				command_line
+			else
+				command_line "Invalid command"
+			fi
+			;;
+		"?" )
+			if $showhelp; then
+				showhelp=false
+				echo "Help is now off"
+			else
+				showhelp=true
+				echo "Help is now on"
+			fi
+			command_line
+			;;
+		x )
+			draw_search
+			;;
+		y )
+			if hash xclip 2>/dev/null && [[ "$vidid" != "" ]]; then
+				echo "$video_url$vidid" | xclip -selection clipboard
+				echo "url copied to clipboard"
+				command_line
+			else
+				command_line "Invalid command"
+			fi
+			;;
+		q|:q|exit|close|quit )
+			exit
+			;;
+		* )
+			command_line "Invalid command"
+			;;
+	esac
+}
+
+ytsearch

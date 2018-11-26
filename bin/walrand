@@ -1,0 +1,4 @@
+#!/bin/bash
+wpg -m
+configrefresh
+notify-send 'walrand complete'

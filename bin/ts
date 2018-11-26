@@ -1,0 +1,4 @@
+#!/bin/sh
+s=$@
+qutebrowser https://duckduckgo.com/?q=$s
+#$BROWSER https://github.com/search?q=$search

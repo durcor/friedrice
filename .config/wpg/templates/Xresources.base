@@ -1,0 +1,73 @@
+! ~/.Xresources
+! vi:ft=xdefaults
+
+! X colors.
+*foreground:        #<COLOR15>
+*background:        #<COLOR0>
+*.foreground:       #<COLOR15>
+*.background:       #<COLOR0>
+emacs*foreground:   #<COLOR15>
+emacs*background:   #<COLOR0>
+URxvt*foreground:   #<COLOR15>
+XTerm*foreground:   #<COLOR15>
+UXTerm*foreground:  #<COLOR15>
+URxvt*background:   [100]#<COLOR0>
+XTerm*background:   #<COLOR0>
+UXTerm*background:  #<COLOR0>
+URxvt*cursorColor:  #<COLOR15>
+XTerm*cursorColor:  #<COLOR15>
+UXTerm*cursorColor: #<COLOR15>
+URxvt*borderColor:  [100]#<COLOR0>
+
+! Colors 0-15.
+*.color0: #<COLOR0>
+*color0:  #<COLOR0>
+*.color1: #<COLOR1>
+*color1:  #<COLOR1>
+*.color2: #<COLOR2>
+*color2:  #<COLOR2>
+*.color3: #<COLOR3>
+*color3:  #<COLOR3>
+*.color4: #<COLOR4>
+*color4:  #<COLOR4>
+*.color5: #<COLOR5>
+*color5:  #<COLOR5>
+*.color6: #<COLOR6>
+*color6:  #<COLOR6>
+*.color7: #<COLOR7>
+*color7:  #<COLOR7>
+*.color8: #<COLOR8>
+*color8:  #<COLOR8>
+*.color9: #<COLOR9>
+*color9:  #<COLOR9>
+*.color10: #<COLOR10>
+*color10:  #<COLOR10>
+*.color11: #<COLOR11>
+*color11:  #<COLOR11>
+*.color12: #<COLOR12>
+*color12:  #<COLOR12>
+*.color13: #<COLOR13>
+*color13:  #<COLOR13>
+*.color14: #<COLOR14>
+*color14:  #<COLOR14>
+*.color15: #<COLOR15>
+*color15:  #<COLOR15>
+
+! Black color that will not be affected by bold highlighting.
+*.color66: #<COLOR0>
+*color66:  #<COLOR0>
+
+! Xclock colors.
+XClock*foreground: #<COLOR15>
+XClock*background: #<COLOR0>
+! XClock*majorColor:  rgba:ff/f8/ff/ff
+! XClock*minorColor:  rgba:ff/f8/ff/ff
+! XClock*hourColor:   rgba:ff/f8/ff/ff
+! XClock*minuteColor: rgba:ff/f8/ff/ff
+! XClock*secondColor: rgba:ff/f8/ff/ff
+
+! Set depth to make transparency work.
+URxvt*depth: 32
+
+*.def-font: <def-font>
+*def-font: <def-font>

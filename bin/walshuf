@@ -1,0 +1,4 @@
+#!/bin/sh
+wpg -z $(wpg -c)
+configrefresh
+notify-send 'walshuf complete'

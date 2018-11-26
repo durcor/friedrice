@@ -1,0 +1,105 @@
+#!/bin/sh
+# ~/.shal
+
+ealias e='echo'
+ealias c='cat'
+#end() {sed $1 '$!d'}
+
+ealias ls='ls --color=auto'
+ealias ll='ls -alF'
+ealias la='ls -A'
+ealias l='ls -CF'
+
+cl() { cd $@ ; ls --color=auto ;}
+
+ealias p="$PAGER"
+ealias b="$BROWSER"
+ealias v="$EDITOR"
+ealias sudov="sudo $EDITOR"
+ealias re="$READER"
+ealias fm="$FILEMAN"
+ealias tm="$TASKMAN"
+
+ealias ZZ="exit"
+ealias ZQ="exit"
+ealias :q="exit"
+ealias rn='tty-clock -csb -C 7'
+ealias ytdl='youtube-dl'
+ealias zath='zathura'
+ealias ytdl-mus='youtube-dl -icw --embed-thumbnail --add-metadata --write-thumbnail --exact-audio --audio-quality 0'
+ealias ytdl-ytmus='youtube-dl -icw --embed-thumbnail --add-metadata --write-thumbnail --extract-audio --audio-format mp3 --audio-quality 0'
+ealias pandochtml='pandoc $1 -o $1.html'
+ealias rbsh='source ~/.bashrc'
+ealias rzsh='source ~/.zshrc'
+ealias bc='bc -ql'
+ealias pushsite='neocities push ~/doc/web/on'
+ealias scrw='maim -i $(xdotool getactivewindow) -o'
+ealias smci='sudo make clean install'
+ealias webscrw='nf && maim -i $(xdotool getactivewindow) -o ~/doc/web/on/nf.png'
+ealias ka='killall'
+ealias trem='transmission-remote'
+ealias t='tmux'
+ealias x='exit'
+ealias g='git'
+ealias fetch='neofetch'
+ealias kp='kpcli --kdb=$HOME/pass.kdbx'
+ealias nb='newsboat'
+
+ealias rcbsh='$EDITOR ~/.bashrc'
+ealias rczsh='$EDITOR ~/.zshrc'
+ealias rci3='$EDITOR ~/.config/i3/config'
+ealias rci3b='$EDITOR ~/.config/wpg/templates/i3blocks.base'
+ealias rcdm='$EDITOR ~/.config/wpg/templates/dmenu.base'
+ealias rcdu='$EDITOR ~/.config/wpg/templates/dunst.base'
+ealias rcdwm='$EDITOR ~/.config/wpg/templates/dwm.base'
+ealias rcmpv='$EDITOR ~/.config/wpg/templates/mpv.base'
+ealias rcqbc='$EDITOR ~/.config/wpg/templates/qutebrowser.base'
+ealias rcqb='$EDITOR ~/.config/qutebrowser/config.py'
+ealias rcqbu='$EDITOR ~/.config/qutebrowser/urls.py'
+ealias rcqbse='$EDITOR ~/.config/qutebrowser/searchengines.py'
+ealias rcqbkb='$EDITOR ~/.config/qutebrowser/keybinds.py'
+ealias rcly='$EDITOR ~/.lynxrc'
+ealias rcst='$EDITOR ~/.config/wpg/templates/st.base'
+ealias rcrof='$EDITOR ~/.config/wpg/templates/rofi.base'
+ealias rcsl='$EDITOR ~/.config/wpg/templates/slock.base'
+ealias rcnbu='$EDITOR ~/.config/newsboat/urls'
+ealias rcnb='$EDITOR ~/.config/newsboat/config'
+ealias rcrn='$EDITOR ~/.config/ranger/rc.conf'
+ealias rcxin='$EDITOR ~/.xinitrc'
+ealias rcpro='$EDITOR ~/.profile'
+ealias rctm='$EDITOR ~/.tmux.conf'
+ealias rcvi='$EDITOR ~/.config/nvim/init.vim'
+ealias rcvb='$EDITOR ~/.config/vimb/config'
+ealias rcnf='$EDITOR ~/.config/neofetch/config.conf'
+ealias rcal='$EDITOR ~/.shal'
+ealias rcncmp='$EDITOR ~/.ncmpcpp/config'
+ealias rcncmpk='$EDITOR ~/.ncmpcpp/bindings'
+ealias rcmu='$EDITOR ~/.config/mutt/muttrc'
+
+ealias wpgrf='wpg -s $(wpg -c)'
+ealias rng='ranger --choosedir=$HOME/.rangerdir;LASTDIR=$(cat $HOME/.rangerdir);cd "$LASTDIR"'
+
+ealias whatismyip='curl http://icanhazip.com'
+ealias whatismyip2='curl ipecho.net/plain;echo'
+
+ealias cdw='cd ~/wal'
+ealias cds='cd ~/scr'
+ealias cdpic='cd ~/pic'
+
+ealias sctl-re='sudo systemctl restart'
+ealias sctl-en='sudo systemctl enable'
+ealias sctl-rm='sudo systemctl disable'
+
+ealias annihilate='shred -zu -n 5 $1'
+ealias mv='mv -i'
+ealias cp='cp -i'
+ealias pipes='pipes -R'
+
+ealias pw='$EDITOR /mnt/ios/localstorage/imp/p.gpg'
+ealias bkmk='$EDITOR /mnt/ios/edhita/bkmk.html'
+ealias calcurse='calcurse -D /mnt/thic/conf/.calcurse'
+
+ealias bak='cp "$1" ~/doc/bak/$1_$(date)'
+ealias garbclean='shred -zu -n 5 ~/.garb/*'
+
+scihubdl() { curl -O $(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o http.*pdf) ;}

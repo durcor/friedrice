@@ -1,0 +1,9 @@
+#!/bin/sh
+
+url="$1"
+title="$2"
+#description="$3"
+#feed_title="$4"
+
+echo -e "[${title}](${url}) $(date '+%Y-%m-%d %H%M-%S')
+" >> /mnt/ios/edhita/bkmk.md

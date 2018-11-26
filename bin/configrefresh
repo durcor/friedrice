@@ -1,0 +1,17 @@
+#!/bin/sh
+
+razerwal
+killall dunst
+nohup dunst > /dev/null 2>&1&
+qutebrowser :config-source &
+$HOME/prg/wal-discord/wal-discord -b wpg -t &
+i3 restart &
+cd $HOME/prg/st
+sudo make clean install
+cd $HOME/prg/dmenu
+sudo make clean install
+cd $HOME/prg/slock
+sudo make clean install
+#cd $HOME/prg/dwm
+#sudo make clean install
+wal_steam -g

@@ -1,0 +1,1703 @@
+/*
+ * vim:ft=css
+ */
+
+* {
+  border-color: #<COLOR11> !important;
+}
+a {
+  color: #<COLOR4> !important;
+}
+a:visited {
+  color: #<COLOR13> !important;
+}
+body {
+  background-color: #<COLOR8> !important;
+  color: #<COLOR12> !important;
+}
+html {
+  background-color: #<COLOR8> !important;
+}
+input,
+textarea {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR12> !important;
+}
+blockquote,
+pre {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR12> !important;
+}
+.post-actions {
+  background-color: #<COLOR0> !important;
+}
+.textarea-wrapper {
+  background-color: #<COLOR8> !important;
+  color: #<COLOR12> !important;
+}
+.search--adv {
+  background-color: #<COLOR0> !important;
+}
+.search__autocomplete > .acp-wrap {
+  background-color: #<COLOR8> !important;
+}
+.search__autocomplete > .acp-wrap > .acp--highlight {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR7> !important;
+}
+.search__autocomplete > .acp-wrap strong {
+  color: #<COLOR7> !important;
+}
+.site-wrapper > #header_wrapper {
+  background-color: #<COLOR8> !important;
+}
+.site-wrapper > #header_wrapper > #header {
+  background-color: #<COLOR8> !important;
+}
+.search--header {
+  background-color: #<COLOR0> !important;
+}
+.zci {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR12> !important;
+}
+.tile--info {
+  background-color: #<COLOR8> !important;
+}
+.tile--info__expand {
+  background-color: #<COLOR10> !important;
+}
+.tile--c {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR7> !important;
+}
+.module__text {
+  color: #<COLOR12> !important;
+}
+.about-info-box__heading {
+  color: #<COLOR14> !important;
+}
+.result.highlight {
+  background-color: #<COLOR0> !important;
+}
+.result__snippet {
+  color: #<COLOR12> !important;
+}
+.result__snippet b {
+  color: #<COLOR14> !important;
+}
+.btn--top {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR12> !important;
+}
+.btn--top:hover {
+  background-color: #<COLOR10> !important;
+}
+.result--sep--hr:before {
+  background-color: #<COLOR10> !important;
+}
+* {
+  border-color: #<COLOR0> !important;
+}
+.news .alert .pull-info {
+  background-color: #<COLOR0> !important;
+}
+.link-gray-dark,
+.text-gray-dark {
+  color: #<COLOR12> !important;
+}
+.bg-white {
+  background-color: #<COLOR8> !important;
+}
+.border {
+  border-color: #<COLOR11> !important;
+}
+.breadcrumb .repo-root.js-repo-root a {
+  color: #<COLOR4> !important;
+}
+.breadcrumb strong.final-path {
+  color: #<COLOR12> !important;
+}
+button.ajax-pagination-btn {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+button.ajax-pagination-btn:hover {
+  background-color: #<COLOR10> !important;
+}
+.comment-reactions .btn-link {
+  color: #<COLOR12> !important;
+}
+.comment-reactions .user-has-reacted {
+  background-color: #<COLOR0> !important;
+}
+.text-gray-dark {
+  color: #<COLOR12> !important;
+}
+.contrib-number {
+  color: #<COLOR14> !important;
+}
+.counter {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.diffstat-bar {
+  color: #<COLOR12> !important;
+}
+.file-header {
+  background-color: #<COLOR0> !important;
+}
+.file-history-tease .participation {
+  background-color: #<COLOR8> !important;
+  color: #<COLOR12> !important;
+}
+.file-history-tease .participation .quickstat strong {
+  color: #<COLOR12> !important;
+}
+.file-history-tease .participation a {
+  color: #<COLOR10> !important;
+}
+.file-history-tease .author a {
+  color: #<COLOR12> !important;
+}
+.file-history-tease-header {
+  background-color: #<COLOR0> !important;
+}
+.file-info-divider {
+  background-color: #<COLOR10> !important;
+}
+.file-wrap {
+  color: #<COLOR12> !important;
+}
+.file-wrap * {
+  background-color: transparent !important;
+}
+.filter-bar {
+  background-color: #<COLOR0> !important;
+}
+a.filter-item,
+.filter-item {
+  color: #<COLOR12> !important;
+}
+a.filter-item.selected,
+.filter-item.selected {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+a.filter-item:hover,
+.filter-item:hover {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR14> !important;
+}
+.flash {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.gh-header-number {
+  color: #<COLOR10> !important;
+}
+.ellipsis-expander,
+.hidden-text-expander a {
+  background-color: #<COLOR0> !important;
+}
+.issue-meta {
+  color: #<COLOR10> !important;
+}
+.issues-listing a {
+  color: #<COLOR12> !important;
+}
+.muted-link {
+  color: #<COLOR12> !important;
+}
+.new-user-avatar-cta {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR10> !important;
+  color: #<COLOR14> !important;
+}
+.overall-summary {
+  border-color: #<COLOR10> !important;
+}
+.pinned-repo-item.border {
+  border-color: #<COLOR10> !important;
+}
+.progress-bar {
+  background-color: #<COLOR10> !important;
+}
+.simple-box {
+  background-color: #<COLOR0> !important;
+}
+.social-count {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR10> !important;
+  color: #<COLOR14> !important;
+}
+.scope-badge {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR14> !important;
+}
+.stats-switcher-wrapper {
+  background-color: #<COLOR8> !important;
+}
+.stats-switcher-wrapper .numbers-summary li a {
+  color: #<COLOR12> !important;
+}
+.table-list-header-toggle .btn-link {
+  color: #<COLOR10> !important;
+}
+.table-list-header-toggle .btn-link.selected {
+  color: #<COLOR12> !important;
+}
+.text-emphasized {
+  color: #<COLOR14> !important;
+}
+.text-diff-added {
+  color: #<COLOR2> !important;
+}
+.text-diff-deleted {
+  color: #<COLOR1> !important;
+}
+.avatar,
+.timeline-comment-avatar {
+  filter: opacity(75%);
+}
+.blob-code {
+  background-color: #<COLOR8> !important;
+  color: #<COLOR12> !important;
+}
+.blob-code-addition {
+  background-color: rgba(232,255,77,0.1) !important;
+}
+.blob-code-addition .x {
+  background-color: #<COLOR11> !important;
+  color: #<COLOR14> !important;
+}
+.blob-code-deletion {
+  background-color: rgba(220,50,47,0.2) !important;
+}
+.blob-code-deletion .x {
+  background-color: #<COLOR1> !important;
+  color: #<COLOR14> !important;
+}
+.blob-code-hunk {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR10> !important;
+}
+.blob-code-inner {
+  color: #<COLOR12> !important;
+}
+.blob-num {
+  background-color: #<COLOR8> !important;
+  color: #<COLOR10> !important;
+}
+.file {
+  color: #<COLOR12> !important;
+}
+.form-control {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR10> !important;
+}
+.pl-c {
+  color: #<COLOR10> !important;
+}
+.pl-c1 {
+  color: #<COLOR4> !important;
+}
+.pl-e {
+  color: #<COLOR3> !important;
+}
+.pl-en {
+  color: #<COLOR4> !important;
+}
+.pl-k {
+  color: #<COLOR2> !important;
+  font-weight: bold !important;
+}
+.pl-pds {
+  color: #<COLOR6> !important;
+}
+.pl-s {
+  color: #<COLOR6> !important;
+}
+.pl-smi {
+  color: #<COLOR12> !important;
+}
+.pl-v {
+  color: #<COLOR2> !important;
+  font-weight: bold !important;
+}
+.pl-mi1 {
+  color: #<COLOR2> !important;
+  background-color: transparent !important;
+}
+.pl-md {
+  color: #<COLOR1> !important;
+  background-color: transparent !important;
+}
+.border-bottom,
+.border-top {
+  border-color: #<COLOR0> !important;
+}
+.boxed-group * {
+  border-color: #<COLOR10> !important;
+}
+.boxed-group article {
+  background-color: #<COLOR8> !important;
+  color: #<COLOR12> !important;
+}
+.boxed-group > h3 {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.more-repos {
+  background-color: #<COLOR0> !important;
+  box-shadow: inset 0 1px 0 #<COLOR10> !important;
+}
+.boxed-group-inner {
+  background-color: #<COLOR8> !important;
+}
+.branch-action-body {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR10> !important;
+}
+.branch-action-body div {
+  border-color: #<COLOR10> !important;
+}
+.branch-action-state-clean .branch-action-icon {
+  background-color: #<COLOR2> !important;
+}
+.branch-action-state-dirty .branch-action-icon,
+.branch-action-state-unstable .branch-action-icon,
+.branch-action-state-unknown .branch-action-icon {
+  background-color: #<COLOR3> !important;
+  color: #fff !important;
+}
+.text-shadow-light,
+.branch-group-name,
+.branch-summary {
+  color: #<COLOR12> !important;
+  text-shadow: none !important;
+}
+.branch-a-b-count .meter {
+  background-color: #<COLOR3> !important;
+}
+.more-branches,
+.branch-group-heading,
+.branch-infobar,
+.branch-name {
+  border-color: #<COLOR10> !important;
+  background-color: #<COLOR0> !important;
+}
+.State,
+.State:visited {
+  color: #fff !important;
+}
+.State--red {
+  background-color: #<COLOR1> !important;
+  color: #<COLOR8> !important;
+}
+.State--green {
+  background-color: #<COLOR2> !important;
+  color: #<COLOR8> !important;
+}
+.select-menu-filters {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.js-select-menu-tab {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.select-menu-tabs a.selected,
+.select-menu-tab-nav.selected {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR8> !important;
+}
+.signed-commit-header {
+  background-color: #<COLOR8> !important;
+}
+.build-status-item {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.build-status-item .build-status-details {
+  color: #<COLOR4> !important;
+}
+.capped-card h3 {
+  background-color: #<COLOR0> !important;
+}
+.capped-card h3 a {
+  color: #<COLOR14> !important;
+}
+.capped-card-content {
+  background-color: #<COLOR8> !important;
+}
+.capped-list th {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.capped-list tr:nth-child(2n) {
+  background-color: #<COLOR0> !important;
+}
+.commit,
+.commit-meta,
+.commit-icon .octicon,
+.commit-group-title .octicon-git-commit {
+  background-color: #<COLOR8> !important;
+}
+.commit *,
+.commit-meta *,
+.commit-icon .octicon *,
+.commit-group-title .octicon-git-commit * {
+  border-color: #<COLOR10> !important;
+}
+.commit-author {
+  color: #<COLOR12> !important;
+}
+.commit-author-section {
+  color: #<COLOR12> !important;
+}
+.commit-meta {
+  color: #<COLOR10> !important;
+}
+.commit-meta .sha-block {
+  color: #<COLOR10> !important;
+}
+.commit-meta .sha-block .sha {
+  color: #<COLOR12> !important;
+}
+.commit-ref,
+code.commit-sha {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.commit-ref .user,
+code.commit-sha .user {
+  color: #<COLOR6> !important;
+}
+.commit-branches *,
+.commit-tease,
+.commit-title {
+  background-color: rgba(190,255,255,0.2) !important;
+  border: none !important;
+}
+.commit-branches * *,
+.commit-tease *,
+.commit-title * {
+  color: #<COLOR14> !important;
+}
+.commit-tease-contributors {
+  background-color: #<COLOR0> !important;
+}
+div.commit-branches,
+div.commit.full-commit p.commit-title,
+qul.branches-list {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+div.commit-branches *,
+div.commit.full-commit p.commit-title *,
+qul.branches-list * {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.commit-meta {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR12> !important;
+}
+.commits-listing:before {
+  background-color: #<COLOR0> !important;
+}
+.full-commit {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR10> !important;
+}
+.full-commit * {
+  text-shadow: none !important;
+}
+.commit-desc pre {
+  background-color: transparent !important;
+  color: #<COLOR12> !important;
+}
+.commit.table-list-item {
+  border-color: #<COLOR0> !important;
+}
+.commit-meta.commit-author-section {
+  background-color: transparent !important;
+  color: #<COLOR12> !important;
+}
+.table-list-cell .commit-title {
+  background-color: transparent !important;
+  color: #<COLOR12> !important;
+}
+.completeness-indicator-success {
+  background-color: #<COLOR2> !important;
+}
+.completeness-indicator-problem {
+  background-color: #<COLOR3> !important;
+  color: #fff !important;
+}
+.copyable-terminal {
+  background-color: #<COLOR0> !important;
+}
+.blankslate {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.comment-form-head.tabnav {
+  background-color: #<COLOR8> !important;
+}
+.conversation-list-heading .inner {
+  background-color: #<COLOR8> !important;
+}
+.discussion-item-closed .discussion-item-icon {
+  background-color: #<COLOR1> !important;
+  color: #<COLOR14> !important;
+}
+.discussion-item-icon {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR14> !important;
+}
+.discussion-item-icon.octicon {
+  color: #<COLOR14> !important;
+}
+.discussion-item-entity,
+.discussion-item .renamed-was,
+.discussion-item .renamed-is {
+  color: #<COLOR14> !important;
+}
+.discussion-timeline:before {
+  background-color: #<COLOR11> !important;
+}
+.discussion-timeline-actions {
+  background-color: #<COLOR8> !important;
+}
+.drag-and-drop {
+  background-color: #<COLOR0> !important;
+}
+.new-discussion-timeline .closed-banner {
+  background-color: #<COLOR11> !important;
+  border-color: #<COLOR8> !important;
+}
+.timeline-comment {
+  background-color: #<COLOR8> !important;
+  border-color: #<COLOR10> !important;
+}
+.timeline-comment-header {
+  background-color: #<COLOR0> !important;
+}
+.timeline-comment-wrapper {
+  border-color: #<COLOR8> !important;
+}
+.donut-chart > .pending {
+  fill: #<COLOR3> !important;
+}
+.dropdown-divider {
+  background-color: #<COLOR11> !important;
+}
+.dropdown-item {
+  color: #<COLOR12> !important;
+}
+.dropdown-item:hover {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR14> !important;
+}
+.dropdown-menu {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+  border-color: #<COLOR11> !important;
+}
+.files * {
+  color: #<COLOR12> !important;
+}
+.files tbody tr {
+  border-color: #<COLOR0> !important;
+}
+.files tbody tr:nth-child(even) {
+  background-color: #<COLOR0> !important;
+}
+.files tbody tr:nth-child(odd) {
+  background-color: #<COLOR8> !important;
+}
+.files tbody tr:hover * {
+  background-color: #<COLOR0> !important;
+}
+.btn {
+  background-image: linear-gradient(to bottom, #<COLOR10>, #<COLOR0>) !important;
+  border-color: #<COLOR10> !important;
+  color: #<COLOR14> !important;
+}
+.btn:hover {
+  background-color: #<COLOR0> !important;
+}
+.btn-primary,
+.issues-listing .btn-primary {
+  background-color: #<COLOR2> !important;
+  background-image: linear-gradient(#<COLOR2>, #<COLOR3>) !important;
+  color: #000 !important;
+  filter: opacity(62.5%);
+}
+.entry-title a {
+  color: #<COLOR4> !important;
+}
+.Header {
+  background-color: #<COLOR0> !important;
+  border-bottom-color: #<COLOR10> !important;
+}
+.Header a {
+  color: #<COLOR14> !important;
+}
+.lang {
+  color: #<COLOR14> !important;
+}
+.reponav-item,
+.pagehead-tabs-item {
+  background-color: #<COLOR0> !important;
+  border-color: transparent !important;
+  color: #<COLOR12> !important;
+}
+.reponav-item:visited,
+.pagehead-tabs-item:visited {
+  color: #<COLOR12> !important;
+}
+.reponav-item.selected,
+.pagehead-tabs-item.selected {
+  background-color: #<COLOR8> !important;
+  border-color: #<COLOR1> #<COLOR0> transparent !important;
+}
+.site-footer-links * {
+  color: #<COLOR12> !important;
+}
+.Box-row--focus-gray.navigation-focus {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.js-directory-link {
+  color: #<COLOR4> !important;
+}
+.js-site-search-form input,
+.js-chromeless-input-container {
+  background-color: #<COLOR8> !important;
+  border-color: #<COLOR10> !important;
+}
+a.label {
+  color: #000 !important;
+  filter: opacity(75%);
+}
+.notifications-list a {
+  color: #<COLOR12> !important;
+}
+.notifications-list li {
+  background-color: #<COLOR8> !important;
+}
+.octicon-repo {
+  color: #<COLOR14> !important;
+}
+.type-icon-state-closed {
+  color: rgba(255,54,43,0.65) !important;
+}
+.type-icon-state-merged {
+  color: #<COLOR13> !important;
+}
+.type-icon-state-open {
+  color: rgba(205,212,0,0.65) !important;
+}
+.octicon-alert {
+  color: #fff !important;
+}
+.octicon-x {
+  color: #<COLOR1> !important;
+}
+.octicon-check {
+  color: #<COLOR2> !important;
+}
+.octicon-primitive-dot {
+  color: #<COLOR3> !important;
+}
+.octicon-clippy {
+  color: #<COLOR14> !important;
+}
+.octicon-diff {
+  color: #fff !important;
+}
+.octicon-markdown {
+  color: #<COLOR10> !important;
+}
+.orghead {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR11> !important;
+  border-bottom: 0px !important;
+  color: #<COLOR14> !important;
+}
+.org-name {
+  color: #<COLOR14> !important;
+}
+.pagehead.orghead {
+  background-color: #<COLOR0> !important;
+}
+.outline-box-highlighted {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.pagination .current {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR14> !important;
+}
+.pagination .disabled {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR10> !important;
+}
+.pagination .disabled:hover {
+  background-color: #<COLOR0> !important;
+}
+.pagination .gap {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR10> !important;
+}
+.pagination a {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR8> !important;
+  color: #<COLOR12> !important;
+}
+.pagination a:hover {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR8> !important;
+}
+.empty-cell,
+.diffbar {
+  background-color: #<COLOR8> !important;
+}
+.merge-status-item {
+  background-color: #<COLOR0> !important;
+}
+.merge-message {
+  background-color: #<COLOR0> !important;
+}
+.pr-toolbar {
+  background-color: #<COLOR8> !important;
+}
+.review-thread-reply {
+  background-color: #<COLOR0> !important;
+}
+.review-thread-reply .inline-comment-form {
+  background-color: #<COLOR8> !important;
+}
+.merged.octicon,
+.octicon-git-merge {
+  color: #<COLOR13> !important;
+}
+.uploaded-files {
+  background-color: #<COLOR8> !important;
+}
+.upload-progress {
+  background-color: #<COLOR0> !important;
+  box-shadow: 1px 0px 0px #<COLOR0> inset;
+}
+#readme .plain {
+  background-color: #<COLOR8> !important;
+}
+.markdown-body,
+.markdown-body table * {
+  background-color: #<COLOR8> !important;
+  border-color: #<COLOR11> !important;
+  color: #<COLOR12> !important;
+}
+.markdown-body a,
+.markdown-body table * a {
+  color: #<COLOR4> !important;
+}
+.markdown-body code,
+.markdown-body table * code,
+.markdown-body pre,
+.markdown-body table * pre {
+  background-color: #<COLOR0> !important;
+}
+.markdown-body hr,
+.markdown-body table * hr {
+  background-color: #<COLOR10> !important;
+}
+.markdown-body img,
+.markdown-body table * img {
+  background-color: #<COLOR8> !important;
+}
+.task-list-item.hovered {
+  background-color: #<COLOR0> !important;
+}
+.range-editor {
+  background-color: #<COLOR0> !important;
+}
+.compare-pr-placeholder {
+  background-color: #<COLOR0> !important;
+}
+ul.comparison-list > li.title {
+  background-color: #<COLOR0> !important;
+}
+ul.comparison-list {
+  background-color: #<COLOR0> !important;
+}
+.repository-description {
+  color: #<COLOR12> !important;
+}
+.repository-meta .edit-repository-meta label {
+  color: #<COLOR12> !important;
+}
+.pagehead.repohead {
+  background-color: #<COLOR0> !important;
+}
+.repository-content .RecentBranches {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR11> !important;
+}
+.repohead-details-container a {
+  color: #<COLOR12> !important;
+}
+.select-menu-modal {
+  border-color: #<COLOR12> !important;
+}
+.select-menu-modal * {
+  color: #<COLOR12> !important;
+}
+.select-menu-header,
+.select-menu-header * {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+  text-shadow: none !important;
+}
+.select-menu-item {
+  background-color: #<COLOR8> !important;
+}
+.select-menu-item.navigation-focus,
+.select-menu-item.navigation-focus.selected,
+.select-menu-item.navigation-focus.select-menu-action,
+.select-menu-item-text.navigation-focus {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR14> !important;
+}
+.repository-sidebar {
+  background-color: #<COLOR8> !important;
+}
+.thread-subscription-status {
+  background-color: #<COLOR8> !important;
+}
+.sunken-menu {
+  background-image: linear-gradient(to right, #<COLOR0> 0%, #<COLOR8> 8px) !important;
+  box-shadow: 1px 0px 0px #<COLOR0> inset;
+}
+.sunken-menu:before {
+  background-image: linear-gradient(#<COLOR8>, transparent) !important;
+}
+.sunken-menu:after {
+  background-image: linear-gradient(transparent, #<COLOR8>) !important;
+}
+.sunken-menu-item {
+  border-color: #<COLOR8> !important;
+}
+.sunken-menu-item.selected {
+  background-color: #<COLOR8> !important;
+  border-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.sunken-menu-item.selected:after {
+  background-color: #<COLOR9> !important;
+}
+.sunken-menu-separator:before {
+  background-image: linear-gradient(to right, #<COLOR0> 70%, #<COLOR8> 100%) !important;
+}
+.state {
+  color: #<COLOR14> !important;
+}
+.state-closed {
+  background-color: #<COLOR1> !important;
+}
+.state-open {
+  background-color: #<COLOR2> !important;
+}
+.subnav-item {
+  color: #<COLOR12> !important;
+}
+.subnav-item:hover {
+  background-color: #<COLOR0> !important;
+}
+.subnav-item:visited {
+  color: #<COLOR12> !important;
+}
+.subnav-item.selected {
+  background-color: #<COLOR0> !important;
+}
+.subnav-links a:hover {
+  background-color: #<COLOR0> !important;
+}
+.subnav-search input {
+  border-color: #<COLOR10> !important;
+}
+.right .tabnav-extra {
+  color: #<COLOR10> !important;
+}
+a.tabnav-tab,
+.tabnav-tab {
+  border-color: transparent !important;
+  color: #<COLOR10> !important;
+}
+a.tabnav-tab.selected,
+.tabnav-tab.selected {
+  background-color: #<COLOR8> !important;
+  background-image: linear-gradient(#<COLOR0>, #<COLOR8>) !important;
+  border-color: #<COLOR11> !important;
+  color: #<COLOR14> !important;
+}
+.table-list tr,
+.table-list li {
+  background-color: #<COLOR8> !important;
+}
+.table-list tr:hover,
+.table-list li:hover {
+  background-color: #<COLOR0> !important;
+}
+.table-list-header {
+  background-color: #<COLOR0> !important;
+}
+.text-pending {
+  color: #<COLOR3> !important;
+}
+.text-pending .octicon-primitive-dot {
+  color: #<COLOR3> !important;
+}
+.text-red {
+  color: #<COLOR1> !important;
+}
+.timeline-commits .commit-meta {
+  background-color: #<COLOR8> !important;
+}
+.timeline-commits .commit-meta .commit-id {
+  color: #<COLOR10> !important;
+}
+.topic-tag.topic-tag-link {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR12> !important;
+}
+.underline-nav-item {
+  color: #<COLOR12> !important;
+}
+.underline-nav-item.selected {
+  border-bottom-color: #<COLOR1> !important;
+  color: #<COLOR12> !important;
+}
+.user-profile-nav {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR11> !important;
+}
+.user-profile-sticky-bar:after {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR11> !important;
+}
+.graphs .area {
+  fill: #<COLOR2>;
+}
+.summary-stats li .num {
+  color: #<COLOR14> !important;
+}
+.viz {
+  background-color: #<COLOR0> !important;
+}
+.facebox-popup {
+  color: #<COLOR12> !important;
+  background-color: #<COLOR8> !important;
+}
+.facebox-popup .octicon {
+  color: #fff !important;
+}
+.facebox-popup .owner-select-target {
+  color: #<COLOR12> !important;
+  background-color: #<COLOR0> !important;
+}
+.facebox-popup .owner-select-target:hover {
+  background-color: #<COLOR10> !important;
+}
+.suggester {
+  background-color: #<COLOR0> !important;
+}
+.suggester li.navigation-focus {
+  background-color: #<COLOR10> !important;
+}
+.menu {
+  background-color: #<COLOR0> !important;
+}
+.menu-item.selected {
+  background-color: #<COLOR0> !important;
+}
+.menu-item:hover {
+  background-color: #<COLOR10> !important;
+}
+.Box {
+  background-color: #<COLOR8> !important;
+}
+.Box-header {
+  background-color: #<COLOR0> !important;
+}
+svg > * text {
+  color: #<COLOR12> !important;
+  fill: #<COLOR12> !important;
+}
+.insertions {
+  color: #<COLOR2> !important;
+}
+.deletions {
+  color: #<COLOR1> !important;
+}
+.sfbgg {
+  background-color: #<COLOR0> !important;
+}
+.sbib_a {
+  background: linear-gradient(to bottom, #<COLOR0>, #<COLOR8>) !important;
+}
+input#lst-ib,
+#sb_ifc0.sbib_b,
+#gs_taif0 {
+  background: transparent !important;
+}
+#lst-ib,
+.sbsb_a {
+  background-color: #<COLOR8> !important;
+}
+.kpbb {
+  background-image: linear-gradient(to bottom, #<COLOR12>, #<COLOR4>) !important;
+}
+#hdtbSum {
+  background-color: #<COLOR8> !important;
+}
+#hdtbMenus.hdtb-td-o {
+  background-color: #<COLOR8> !important;
+}
+#hdtb-tls.hdtb-tl {
+  background-image: linear-gradient(to bottom, #<COLOR8>, #<COLOR0>) !important;
+}
+#hdtb-tls.hdtb-tl.hdtb-tl-sel {
+  background-image: linear-gradient(to bottom, #<COLOR0>, #<COLOR8>) !important;
+}
+#abar_button_opt.ab_button {
+  background: linear-gradient(to bottom, #<COLOR8>, #<COLOR0>) !important;
+}
+#appbar {
+  background-color: #<COLOR8> !important;
+}
+cite {
+  color: #<COLOR2> !important;
+}
+.ab_dropdown {
+  background-color: #<COLOR8> !important;
+}
+div.crp {
+  background-color: #<COLOR8> !important;
+}
+#fbar {
+  background-color: #<COLOR0> !important;
+}
+tr.Even {
+  background-color: #<COLOR0> !important;
+}
+.BigQuote {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR9> !important;
+}
+.Cat1HL {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR14> !important;
+}
+.Cat2HL {
+  background-color: #<COLOR0> !important;
+}
+.Cat3HL {
+  background-color: #<COLOR0> !important;
+}
+.FeatureByline {
+  background-color: #<COLOR0> !important;
+  border: none !important;
+}
+.Headline {
+  background-color: #<COLOR0> !important;
+}
+.QuotedText {
+  color: #<COLOR13> !important;
+}
+DIV.GAByline {
+  background-color: #<COLOR0> !important;
+  border: none !important;
+}
+table.OddEven tr:nth-child(even) {
+  background-color: #<COLOR0> !important;
+}
+table.OddEven tr:nth-child(odd) {
+  background-color: #<COLOR8> !important;
+}
+DIV.CommentBox {
+  border-color: #<COLOR0> !important;
+}
+DIV.CommentBox P.CommentTitle {
+  background-color: #<COLOR0> !important;
+}
+#menu,
+.topnav-container {
+  background-color: #<COLOR0> !important;
+}
+.navmenu ul {
+  background-color: #<COLOR0> !important;
+}
+body * {
+  border-color: #<COLOR0> !important;
+}
+#content {
+  background-color: #<COLOR8> !important;
+  color: #<COLOR12> !important;
+}
+#mw-head,
+#mw-panel {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+#mw-head div.portal,
+#mw-panel div.portal {
+  background-image: none !important;
+}
+#mw-head {
+  background-color: #<COLOR0> !important;
+  background-image: linear-gradient(to bottom, #<COLOR8>, #<COLOR0>) !important;
+}
+#mw-panel,
+#p-logo {
+  background-image: linear-gradient(to right, #<COLOR8>, #<COLOR0>) !important;
+}
+div.vectorTabs {
+  background-image: linear-gradient(to bottom, #<COLOR8>, #<COLOR0>) !important;
+}
+div.vectorTabs ul {
+  background-image: linear-gradient(to bottom, #<COLOR8>, #<COLOR0>) !important;
+}
+div.vectorTabs ul li {
+  background-color: #<COLOR0> !important;
+  background-image: none !important;
+  padding: 0px 1px 0px 1px !important;
+}
+div.vectorTabs span {
+  background-color: #<COLOR0> !important;
+  background-image: linear-gradient(to bottom, #<COLOR8>, #<COLOR0>) !important;
+}
+div.vectorTabs li.selected,
+div.vectorTabs li.selected span {
+  background-color: transparent !important;
+  background-image: linear-gradient(to bottom, #<COLOR0>, #<COLOR8>) !important;
+}
+.mw-wiki-logo {
+  filter: opacity(50%);
+}
+div#simpleSearch #searchInput {
+  background-color: #<COLOR8> !important;
+  padding: 0.05em 0px 0.2em 0.2em !important;
+}
+.ambox,
+.infobox,
+#toc,
+#toctitle,
+.toclevel-1 {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.catlinks {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.navbox {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.navbox .th,
+.navbox .navbox-title {
+  background-color: #<COLOR0> !important;
+}
+.navbox-abovebelow,
+th.navbox-group,
+.navbox-subgroup,
+.navbox-title {
+  background-color: #<COLOR0> !important;
+}
+.navbox-even {
+  background-color: #<COLOR8> !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  border-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+code {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+div.thumbinner {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR0> !important;
+}
+img {
+  filter: opacity(75%);
+}
+img.thumbimage {
+  border-color: #<COLOR0> !important;
+}
+.mw-body .external {
+  opacity: 0.5 !important;
+}
+table.wikitable {
+  background-color: #<COLOR8> !important;
+  border-color: #<COLOR0> !important;
+  color: #<COLOR12> !important;
+}
+table.wikitable > * > tr > th {
+  background-color: #<COLOR0> !important;
+}
+table {
+  background-color: #<COLOR8> !important;
+}
+#hnmain > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table,
+#hnmain > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table {
+  background-color: #<COLOR9> !important;
+}
+#hnmain > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) a,
+#hnmain > tbody:nth-child(1) > tr:nth-child(1) a {
+  color: #000 !important;
+}
+#hnmain > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2),
+#hnmain > tbody:nth-child(1) > tr:nth-child(2) {
+  background-color: #<COLOR8> !important;
+}
+#hnmain > tbody:nth-child(1) > tr:nth-child(2) {
+  background-color: #<COLOR8> !important;
+}
+.title a {
+  color: #<COLOR12> !important;
+}
+.title a:visited {
+  color: #<COLOR10> !important;
+}
+a.storylink {
+  color: #<COLOR14> !important;
+  font-weight: bold;
+}
+.sitestr {
+  color: #<COLOR4> !important;
+}
+#hnmain > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) {
+  background-color: #<COLOR8> !important;
+}
+#hnmain .comhead {
+  color: #<COLOR14> !important;
+}
+#hnmain .c00 {
+  color: #<COLOR12> !important;
+}
+#hnmain a.hnuser {
+  color: #<COLOR3> !important;
+}
+#hnmain span.age a {
+  color: #<COLOR10> !important;
+}
+.cdd {
+  color: rgba(255,54,43,0.65) !important;
+}
+.comment i {
+  color: #<COLOR10> !important;
+}
+#hnmain > tbody:nth-child(1) > tr:nth-child(4) {
+  background-color: #<COLOR8> !important;
+}
+#hnmain > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(1) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) {
+  background-color: #<COLOR9> !important;
+}
+div#page div#header {
+  background-color: #<COLOR8> !important;
+}
+div#page div#header a {
+  color: #<COLOR13> !important;
+}
+.post {
+  background-color: #<COLOR8> !important;
+}
+.post * {
+  overflow: auto !important;
+}
+.post h2 {
+  background-color: #<COLOR0> !important;
+}
+.post h2 a {
+  color: #<COLOR14> !important;
+}
+.post div.entry {
+  background-color: #<COLOR8> !important;
+  color: #<COLOR12> !important;
+}
+.post div.entry blockquote {
+  background-color: #<COLOR0> !important;
+}
+.post div.entry kbd {
+  background-color: #<COLOR0> !important;
+  border-color: #<COLOR10> !important;
+  box-shadow: none !important;
+  color: #<COLOR14> !important;
+  text-shadow: 0px 1px 0px #000 !important;
+}
+.post pre.mode-line {
+  overflow: visible !important;
+}
+#sr-header-area {
+  background-color: #<COLOR0> !important;
+}
+#sr-header-area .srdrop .selected {
+  color: #<COLOR12> !important;
+}
+#sr-header-area #sr-more-link {
+  background-color: #<COLOR0> !important;
+}
+.link.promotedlink.promoted {
+  background-color: #<COLOR0> !important;
+}
+.link .usertext .md {
+  background-color: #<COLOR0> !important;
+}
+.linkinfo {
+  background-color: #<COLOR0> !important;
+}
+.linklisting .odd {
+  background-color: #<COLOR0> !important;
+}
+.thing .title {
+  color: #<COLOR12> !important;
+}
+div.md {
+  color: #<COLOR12> !important;
+}
+body.comment {
+  background-color: #<COLOR8> !important;
+}
+.commentarea > .usertext {
+  background-color: #<COLOR8> !important;
+}
+.commentarea .menuarea {
+  background-color: #<COLOR8> !important;
+}
+.comments-page .panestack-title {
+  background-color: #<COLOR8> !important;
+}
+.listing-chooser {
+  background-color: #<COLOR8> !important;
+}
+.listing-chooser .intro {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR14> !important;
+}
+.listing-chooser .grippy {
+  background-color: #<COLOR8> !important;
+}
+.listing-chooser .grippy:after {
+  border-right: none !important;
+}
+.listing-chooser li {
+  background-color: #<COLOR0> !important;
+}
+.listing-chooser li.selected {
+  background-color: #<COLOR10> !important;
+  box-shadow: none;
+}
+.listing-chooser li a {
+  color: #<COLOR12> !important;
+}
+.listing-chooser li a .description {
+  color: #<COLOR14> !important;
+}
+.titlebox {
+  background-color: #<COLOR0> !important;
+}
+.titlebox form.toggle {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR12> !important;
+}
+.side .usertext-body .md {
+  background-color: #<COLOR0> !important;
+}
+.side {
+  background-color: #<COLOR0> !important;
+}
+.sidebox .spacer {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.tabmenu li a {
+  background-color: #<COLOR0> !important;
+}
+#header-bottom-right {
+  background-color: #<COLOR0> !important;
+}
+.morelink .nub {
+  background-color: #<COLOR0> !important;
+}
+* {
+  border-color: #<COLOR11> !important;
+}
+a {
+  color: #<COLOR4> !important;
+}
+a:visited {
+  color: #<COLOR13> !important;
+}
+body {
+  background-color: #<COLOR8> !important;
+  color: #<COLOR12> !important;
+}
+html {
+  background-color: #<COLOR8> !important;
+}
+input,
+textarea {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR12> !important;
+}
+tr:hover,
+blockquote,
+pre {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR12> !important;
+}
+#toolMenu li {
+  background-color: #<COLOR8> !important;
+}
+.navPanel,
+.navIntraTool {
+  background-color: #<COLOR8> !important;
+}
+.instruction,
+.sakaiCopyrightInfo {
+  color: #<COLOR12> !important;
+}
+.listHier th {
+  background-color: #<COLOR0> !important;
+}
+ul.makeMenu {
+  background-color: #<COLOR0> !important;
+  border: 1px solid #<COLOR0> !important;
+}
+tr.external {
+  background-color: #<COLOR0> !important;
+}
+hr {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR0> !important;
+}
+.bounty-indicator,
+.bounty-indicator-tab {
+  background-color: #<COLOR13> !important;
+}
+.bottom-notice {
+  background-color: #<COLOR0> !important;
+}
+.comments-link {
+  color: #<COLOR2> !important;
+}
+.page-numbers {
+  background-color: #<COLOR2> !important;
+  color: #<COLOR7> !important;
+}
+.page-numbers.current {
+  background-color: #<COLOR9> !important;
+  color: #<COLOR8> !important;
+}
+.post-menu a {
+  color: #<COLOR13> !important;
+}
+.question-status {
+  background-color: #<COLOR0> !important;
+}
+pre code {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+pre code .atn {
+  color: #<COLOR4> !important;
+}
+pre code .atv {
+  color: #<COLOR6> !important;
+}
+pre code .com {
+  color: #<COLOR10> !important;
+}
+pre code .kwd {
+  color: #<COLOR2> !important;
+}
+pre code .lit {
+  color: #<COLOR5> !important;
+}
+pre code .pln,
+pre code .pun {
+  color: #<COLOR12> !important;
+}
+pre code .str {
+  color: #<COLOR6> !important;
+}
+pre code .tag {
+  color: #<COLOR2> !important;
+}
+pre code .typ {
+  color: #<COLOR3> !important;
+}
+#footer {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR12> !important;
+}
+#footer #footer-sites th {
+  color: #<COLOR14> !important;
+}
+.top-footer-links a {
+  color: #<COLOR2> !important;
+}
+.so-header {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.so-header a {
+  color: #<COLOR2> !important;
+}
+.so-header .navigation .-list .-item :hover {
+  background-color: #<COLOR2> !important;
+  color: #<COLOR15> !important;
+}
+.topbar-dialog {
+  background-color: #<COLOR8> !important;
+  box-shadow: #<COLOR10> 5px 5px 5px;
+}
+.topbar-dialog .current-site-container {
+  background-color: #<COLOR8> !important;
+}
+.topbar-dialog .header {
+  background-color: #<COLOR0> !important;
+}
+.topbar-dialog .header a {
+  color: #<COLOR14> !important;
+}
+.topbar-dialog .site-link {
+  color: #<COLOR14> !important;
+}
+#header {
+  background-color: #<COLOR0> !important;
+}
+#question-header .question-hyperlink {
+  color: #<COLOR14> !important;
+}
+#hlogo a {
+  filter: opacity(75%);
+}
+.new-post-activity {
+  background-color: #<COLOR0> !important;
+}
+.tagged-interesting {
+  background-color: #<COLOR0> !important;
+}
+div.answered-accepted {
+  background-color: #<COLOR2> !important;
+  color: #<COLOR7> !important;
+}
+div.answered-accepted .mini-counts {
+  background-color: #<COLOR2> !important;
+  color: #<COLOR7> !important;
+}
+.answered .mini-counts span {
+  color: #<COLOR2> !important;
+}
+.unanswered .mini-counts span {
+  color: #<COLOR12> !important;
+}
+#hot-network-questions a {
+  color: #<COLOR6> !important;
+}
+#hot-network-questions h4 a.js-gps-track {
+  color: #<COLOR14> !important;
+}
+#sidebar .community-bulletin .bulletin-item-content a {
+  color: #<COLOR14> !important;
+}
+#sidebar .module.community-bulletin {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+#sidebar .question-hyperlink {
+  color: #<COLOR6> !important;
+}
+.newuser {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.label-key {
+  color: #<COLOR12> !important;
+}
+.label-key b {
+  color: #<COLOR14> !important;
+}
+#h-chat-link {
+  color: #<COLOR14> !important;
+}
+.ad502-room {
+  background-color: #<COLOR0> !important;
+  box-shadow: #<COLOR10> 0px 1px 3px;
+  color: #<COLOR14> !important;
+}
+#tabs a {
+  background-color: transparent !important;
+  background-image: linear-gradient(to bottom, #<COLOR8>, #<COLOR0>);
+  color: #<COLOR14> !important;
+}
+#tabs a.youarehere {
+  background-image: linear-gradient(to bottom, #<COLOR9>, #<COLOR8>);
+  color: #<COLOR15> !important;
+}
+.post-tag {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR8> !important;
+}
+.post-tag::before {
+  background-color: #<COLOR8> !important;
+}
+a.comment-user.owner {
+  background-color: #<COLOR2> !important;
+  color: #<COLOR7> !important;
+}
+.post-signature {
+  background-color: #<COLOR0> !important;
+  color: #<COLOR14> !important;
+}
+.post-signature a {
+  color: #<COLOR6> !important;
+}
+.post-signature.owner .user-info .user-details a {
+  color: #<COLOR2> !important;
+}
+.post-signature span.relativetime {
+  color: #<COLOR14> !important;
+}
+.vote {
+  background-color: #<COLOR0> !important;
+}
+.vote .star-off {
+  filter: opacity(75%);
+}
+.vote .star-on {
+  filter: opacity(50%) !important;
+}
+.vote .vote-down-off,
+.vote .vote-up-off {
+  filter: opacity(50%);
+}
+.answer-votes {
+  background-color: #<COLOR10> !important;
+  color: #<COLOR8> !important;
+}

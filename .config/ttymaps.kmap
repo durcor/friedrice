@@ -1,0 +1,5 @@
+# ~/.config/ttymaps.kmap
+# vi:ft=sh
+
+keycode 1 = Caps_Lock
+keycode 58 = Escape

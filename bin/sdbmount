@@ -1,0 +1,4 @@
+#!/bin/sh
+sudo mkdir /mnt/sdb
+sudo mount /dev/sdb /mnt/sdb
+sudo chown -R $USER /mnt/sdb

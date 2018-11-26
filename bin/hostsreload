@@ -1,0 +1,6 @@
+#!/bin/sh
+
+sudo cp /etc/hosts.mine /etc/hosts
+sudo chown $USER /etc/hosts
+curl http://sbc.io/hosts/hosts >> /etc/hosts
+sudo systemctl restart NetworkManager
