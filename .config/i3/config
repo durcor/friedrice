@@ -86,10 +86,15 @@ mode MANAGER {
 	bindsym Shift+k move up 60 px
 	bindsym Shift+l move right 60 px
 
-	bindsym Control+h move left 10 px
-	bindsym Control+j move down 10 px
-	bindsym Control+k move up 10 px
-	bindsym Control+l move right 10 px
+	bindsym Mod1+h move left 10 px
+	bindsym Mod1+j move down 10 px
+	bindsym Mod1+k move up 10 px
+	bindsym Mod1+l move right 10 px
+
+	bindsym Control+h move left 2 px
+	bindsym Control+j move down 2 px
+	bindsym Control+k move up 2 px
+	bindsym Control+l move right 2 px
 
 	bindsym backslash split h;exec notify-send -u low "HORIZONTAL TILING"
 	bindsym minus split v;exec notify-send -u low "VERTICAL TILING"
@@ -160,10 +165,15 @@ mode "RESIZE" {
 	bindsym k resize grow height 40 px or 5 ppt
 	bindsym l resize grow width 40 px or 5 ppt
 
-	bindsym Control+h resize shrink width 20 px or 2 ppt
-	bindsym Control+j resize shrink height 20 px or 2 ppt
-	bindsym Control+k resize grow height 20 px or 2 ppt
-	bindsym Control+l resize grow width 20 px or 2 ppt
+	bindsym Mod1+h resize shrink width 20 px or 2 ppt
+	bindsym Mod1+j resize shrink height 20 px or 2 ppt
+	bindsym Mod1+k resize grow height 20 px or 2 ppt
+	bindsym Mod1+l resize grow width 20 px or 2 ppt
+
+	bindsym Control+h resize shrink width 10 px or 1 ppt
+	bindsym Control+j resize shrink height 10 px or 1 ppt
+	bindsym Control+k resize grow height 10 px or 1 ppt
+	bindsym Control+l resize grow width 10 px or 1 ppt
 
 	bindsym Shift+h resize shrink width 80 px or 10 ppt
 	bindsym Shift+j resize shrink height 80 px or 10 ppt
