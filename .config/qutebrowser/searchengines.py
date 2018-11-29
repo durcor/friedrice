@@ -43,6 +43,7 @@ c.url.searchengines = {
         'am': 'https://www.amazon.com/s?url=search-alias%3Daps&field-keywords={}',
         'st': 'https://store.steampowered.com/search/?snr=1_4_4__12&term={}',
         'enes': 'http://www.wordreference.com/redirect/translation.aspx?w={}&dict=enes',
+        'esen': 'http://www.wordreference.com/redirect/translation.aspx?w={}&dict=esen',
         'd': 'http://www.dictionary.com/?override_query={}#',
         'dx': 'http://dir.xiph.org/search?search={}',
         'r': 'https://www.reddit.com/r/{}',
