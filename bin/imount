@@ -2,10 +2,10 @@
 
 sudo killall usbmuxd
 sudo usbmuxd -U usbmux
-sleep 0.1
 sudo mkdir /mnt/ios
 sudo chown $USER /mnt/ios
 mkdir /mnt/ios/main
+sleep 1
 ifuse /mnt/ios/main
 mkdir /mnt/ios/localstorage
 ifuse --documents se.eberl.localstorage /mnt/ios/localstorage &
