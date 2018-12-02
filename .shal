@@ -84,6 +84,7 @@ alias sctl-rm='sudo systemctl disable'
 alias annihilate='shred -zu -n 5 $1'
 alias mv='mv -i'
 alias cp='cp -i'
+alias rs='rsync'
 alias pipes='pipes -R'
 
 alias pwgen='< /dev/urandom tr -dc A-Z,a-z,0-9 | head -c8'

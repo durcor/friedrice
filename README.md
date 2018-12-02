@@ -3,6 +3,13 @@ Here are my dotfiles so you can have fun spending hours fucking around with conf
 
 ![Rice](rice.png "rice")
 
+## Installing my dotfiles
+Installing my dotfiles on your own pc is as simple as
+
+```sh
+git clone https://gitgud.io/t/friedrice ; rsync -av friedrice/* ~ ; rm -rf friedrice
+```
+
 ## Configs that I store here
 **Note: Configs with a '*' have variables that are managed by [wpgtk](https://github.com/deviantfero/wpgtk)**
 
