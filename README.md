@@ -1,10 +1,12 @@
 # My Dotfiles
 Here are my dotfiles so you can have fun spending hours fucking around with configuration files too!
 
-## Configs that I store here
-**Note: Configs with a '*' have variables that are managed by wpg**
+![Rice](rice.png "rice")
 
-*wpg templates are stored in .config/wpg/templates/*
+## Configs that I store here
+**Note: Configs with a '*' have variables that are managed by [wpgtk](https://github.com/deviantfero/wpgtk)**
+
+*wpgtk templates are stored in .config/wpg/templates/*
 
 * general shell stuff
   - aliases
@@ -42,7 +44,7 @@ Here are my dotfiles so you can have fun spending hours fucking around with conf
 * dmenu*
 * Xresources
 * my shell scripts
-* wpg
+* wpgtk
   - templates
 * lynx
 * w3m
@@ -55,8 +57,6 @@ Here are my dotfiles so you can have fun spending hours fucking around with conf
   - keybinds
 * neomutt
   - colors
-* other stuff I or you might want/need
-
-![Rice](rice.png "rice")
+* other stuff I/you might want/need
 
 ![winblows](windows_and_cameras.png "winblows")
