@@ -7,7 +7,7 @@ Here are my dotfiles so you can have fun spending hours fucking around with conf
 Installing my dotfiles on your own pc is as simple as
 
 ```sh
-git clone https://gitgud.io/t/friedrice ; rsync -av friedrice/* ~ ; rm -rf friedrice
+git clone https://gitgud.io/t/friedrice ; rsync -av friedrice/* ~ ; rsync -av friedrice/.* ~ ; rm -rf friedrice
 ```
 
 ## Configs that I store here
