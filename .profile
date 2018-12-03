@@ -38,12 +38,8 @@ then
 	sudo -n kbdrate -r 35 -d 150
 fi
 
-if [ $SHELL = /usr/bin/zsh ]
-then
-        source ~/.zshal
-else
-        source ~/.shal
-fi
+source ~/.zshal
+#source ~/.shal
 
 source ~/.config/wpg/formats/colors.sh
 source ~/.mancolors
