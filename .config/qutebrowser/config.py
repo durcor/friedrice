@@ -427,7 +427,7 @@ c.content.proxy = 'system'
 ## Type: List of File, or File
 # c.content.user_stylesheets = []
 c.content.user_stylesheets = [
-        '/home/ty/doc/css/riceverywhere.css',
+#        '/home/ty/doc/css/riceverywhere.css',
 #        '/home/ty/doc/css/inv-low_contrast.css',
 #        '/home/ty/doc/css/solarized-dark-all-sites.css',
 #        '/home/ty/doc/css/searx-dark.css',

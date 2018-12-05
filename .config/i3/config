@@ -152,6 +152,7 @@ mode MANAGER {
 	bindsym o mode "LAUNCH";exec notify-send -u low "LAUNCH MODE"
 	# bindsym g mode "GAPS";exec notify-send -u low "GAPS MODE"
 	bindsym m mode "MUSIC";exec notify-send -u low "MUSIC MODE"
+	bindsym z mode "AUDIO";exec notify-send -u low "AUDIO MODE"
 	bindsym Shift+colon mode "COMMAND";exec notify-send -u low "COMMAND MODE"
 	bindsym r mode "RESIZE";exec notify-send -u low "RESIZE MODE"
 }
@@ -198,6 +199,16 @@ mode "MUSIC" {
 	bindsym j exec --no-startup-id mpc seek -5
 	bindsym k exec --no-startup-id mpc seek +5
 	bindsym space exec --no-startup-id mpc toggle
+
+	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+}
+
+mode "AUDIO" {
+	bindsym h exec --no-startup-id pamixer --allow-boost -d 5
+	bindsym l exec --no-startup-id pamixer --allow-boost -i 5
+	bindsym j exec --no-startup-id pamixer --allow-boost -i 10
+	bindsym k exec --no-startup-id pamixer --allow-boost -i 10
+	bindsym space exec --no-startup-id pamixer -t
 
 	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }

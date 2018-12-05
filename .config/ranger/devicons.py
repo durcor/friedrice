@@ -200,6 +200,7 @@ dir_node_exact_matches = {
     'sch':' ',
     'School':' ',
     '.antigen':' ',
+    '.zsh':' ',
     'st':' ',
     '.ssh':' ',
     '.cargo':'',
