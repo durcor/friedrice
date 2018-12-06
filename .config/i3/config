@@ -206,7 +206,7 @@ mode "MUSIC" {
 mode "AUDIO" {
 	bindsym h exec --no-startup-id pamixer --allow-boost -d 5
 	bindsym l exec --no-startup-id pamixer --allow-boost -i 5
-	bindsym j exec --no-startup-id pamixer --allow-boost -i 10
+	bindsym j exec --no-startup-id pamixer --allow-boost -d 10
 	bindsym k exec --no-startup-id pamixer --allow-boost -i 10
 	bindsym space exec --no-startup-id pamixer -t
 
