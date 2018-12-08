@@ -47,4 +47,4 @@ ifuse --documents com.ipanfilov.RSS-Mobile /mnt/ios/rssmobile &
 #ifuse --documents com.apple.iMovie /mnt/ios/imovie &
 #mkdir /mnt/ios/pacemaker
 #ifuse --documents com.pacemakermusic.pacemaker.001 /mnt/ios/pacemaker &
-notify-send "iOS device mounted at /mnt/ios/"
+notify-send -i /usr/share/icons/Papirus-Dark/symbolic/devices/phone-apple-iphone-symbolic.svg "iOS device mounted at /mnt/ios/" || notify-send -i /usr/share/icons/Adwaita/scalable/devices/phone-apple-iphone-symbolic.svg "iOS device mounted at /mnt/ios/"

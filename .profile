@@ -30,7 +30,6 @@ export READER=zathura
 export QT_QPA_PLATFORMTHEME=qt5ct
 #export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export LYNX_CFG=~/.lynxrc
-export DISPLAY=":0.0"
 
 if [ $TERM = linux ]
 then
@@ -48,4 +47,5 @@ source ~/.spooky
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   startx
+  export DISPLAY=":0.0"
 fi

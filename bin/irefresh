@@ -2,4 +2,4 @@
 
 sudo killall usbmuxd
 sudo usbmuxd -U usbmux
-notify-send "The usbmux daemon has been refreshed. You should now be able to mount your iOS device"
+notify-send -i /usr/share/icons/Papirus-Dark/symbolic/devices/phone-apple-iphone-symbolic.svg "The usbmux daemon has been refreshed. You should now be able to mount your iOS device"

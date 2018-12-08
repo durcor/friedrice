@@ -1,14 +1,15 @@
 " ~/.config/nvim/init.vim
 " vi:ft=vim
 "
-" install plug.vim w/
-"	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-call plug#begin('~/.local/share/nvim/plugged')
+" auto-install plug.vim if it isn't installed
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.local/share/nvim/plug')
 Plug 'deviantfero/wpgtk.vim'
-"Plug 'itchyny/lightline.vim'
-"let g:lightline = {
-"	\ 'colorscheme': 'nord',
-"	\ }
 Plug 'jamessan/vim-gnupg'
 Plug 'junegunn/fzf', { 'dir': '~/prg/fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
@@ -49,6 +50,7 @@ colorscheme wpgtk
 let $PAGER=''
 se nocompatible
 se ttyfast
+se shell=/bin/zsh
 "se termguicolors
 " add a litte margin on the left
 se foldcolumn=1
@@ -58,6 +60,7 @@ let mapleader ="\<Space>"
 " line number
 se nu
 
+se cmdheight=1
 se wildmenu
 se ruler
 se scrolloff=3
@@ -141,7 +144,7 @@ map ZW :w<cr>
 se cursorline
 
 function Vimty()
-        source ~/.local/share/nvim/plugged/vimty/vimty.vim
+        source ~/.local/share/nvim/plug/vimty/vimty.vim
 endfunction
 
 " set statusline=%M%h%y %t %F %p%% %l/%L %=[%{&ff},%{&ft}] [a=%03.3b] [h=%02.2B] [%l,%v]
