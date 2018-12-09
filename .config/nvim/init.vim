@@ -10,7 +10,7 @@ endif
 
 call plug#begin('~/.local/share/nvim/plug')
 Plug 'deviantfero/wpgtk.vim'
-Plug 'jamessan/vim-gnupg'
+Plug 'jamessan/vim-gnupg', { 'for': 'gpg' }
 Plug 'junegunn/fzf', { 'dir': '~/prg/fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
 " distraction-free reading+writing

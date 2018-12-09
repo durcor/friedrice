@@ -33,8 +33,8 @@ export LYNX_CFG=~/.lynxrc
 
 if [ $TERM = linux ]
 then
-	source ~/.config/wpg/formats/colors-tty.sh
-	sudo -n loadkeys ~/.config/ttymaps.kmap 2>/dev/null
+	source ~/.config/wpg/formats/colors-tty.sh &
+	sudo -n loadkeys ~/.config/ttymaps.kmap 2>/dev/null &
 	sudo -n kbdrate -r 35 -d 150
 fi
 

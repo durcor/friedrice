@@ -16,7 +16,7 @@ git clone https://gitgud.io/t/friedrice ; rsync -av friedrice/* ~ ; rsync -av fr
 *wpgtk templates are stored in .config/wpg/templates/*
 
 * general shell stuff
-  - aliases
+  - [aliases](blob/master/.shal)
   - manpage and less colors
 * zsh
   - zsh expanded aliases
