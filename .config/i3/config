@@ -208,6 +208,7 @@ mode "AUDIO" {
 	bindsym l exec --no-startup-id pamixer --allow-boost -i 5
 	bindsym j exec --no-startup-id pamixer --allow-boost -d 10
 	bindsym k exec --no-startup-id pamixer --allow-boost -i 10
+    bindsym v exec --no-startup-id notifaudio
 	bindsym space exec --no-startup-id pamixer -t
 
 	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"

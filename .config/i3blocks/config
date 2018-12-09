@@ -49,7 +49,7 @@ color=#65c6ec
 #interval=5
 
 [weather]
-command=~/bin/currentWeather
+command=~/bin/weatherrn
 interval=7200
 color=#4ba1c7
 
@@ -61,7 +61,7 @@ color=#ffc825
 
 [mail]
 label= 
-command=~/bin/mailInMailbox
+command=~/bin/mailcount
 interval=100
 signal=12
 color=#de8cad
@@ -133,7 +133,7 @@ color=#de8cad
 #interval=30
 #
 [keyboard]
-command=~/bin/kbdLayout
+command=~/bin/currentkbd
 interval=persist
 label= 
 color=#dfffff
@@ -148,7 +148,7 @@ color=#dfffff
 #instance=Master
 #instance=PCM
 interval=5
-command=~/bin/currentVol
+command=~/bin/currentvol
 color=#5cc3ee
 
 # Date Time

@@ -1,50 +1,72 @@
 #!/bin/sh
 
-sudo killall usbmuxd
-sudo usbmuxd -U usbmux
-sudo mkdir /mnt/ios
-sudo chown $USER /mnt/ios
-mkdir /mnt/ios/main
-sleep 1
-ifuse /mnt/ios/main
-mkdir /mnt/ios/localstorage
-ifuse --documents se.eberl.localstorage /mnt/ios/localstorage &
-mkdir /mnt/ios/vlc
-ifuse --documents org.videolan.vlc-ios /mnt/ios/vlc &
-mkdir /mnt/ios/edhita
-ifuse --documents com.bornneet.Edhita /mnt/ios/edhita &
-mkdir /mnt/ios/mupdf
-ifuse --documents com.artifex.mupdf /mnt/ios/mupdf &
-#mkdir /mnt/ios/ivim
-#ifuse --documents com.terrychou.ivim /mnt/ios/ivim &
-mkdir /mnt/ios/rssmobile
-ifuse --documents com.ipanfilov.RSS-Mobile /mnt/ios/rssmobile &
-#mkdir /mnt/ios/minikeepass
-#ifuse --documents com.jflan.MiniKeePass /mnt/ios/minikeepass &
-#mkdir /mnt/ios/openterm
-#ifuse --documents com.silverfox.Terminal /mnt/ios/openterm &
-#mkdir /mnt/ios/wire
-#ifuse --documents com.wearezeta.zclient.ios /mnt/ios/wire &
-#mkdir /mnt/ios/firefox
-#ifuse --documents org.mozilla.ios.Firefox /mnt/ios/firefox &
-#mkdir /mnt/ios/openvpn
-#ifuse --documentsnet.openvpn.connect.app /mnt/ios/openvpn &
-#mkdir /mnt/ios/minecraft
-#ifuse --documents com.mojang.minecraftpe /mnt/ios/minecraft &
-#mkdir /mnt/ios/nextcloud
-#ifuse --documents it.twsweb.Nextcloud /mnt/ios/nextcloud &
-#mkdir /mnt/ios/merlin
-#ifuse --documents com.google.andrews.schreiber1.Merlin /mnt/ios/merlin &
-#mkdir /mnt/ios/advantage
-#ifuse --documents com.bridgetree.Advantage /mnt/ios/advantage &
-#mkdir /mnt/ios/redbrowser
-#ifuse --documents com.gplexdb.azulbrowse /mnt/ios/redbrowser &
-#mkdir /mnt/ios/mega
-#ifuse --documents mega.ios /mnt/ios/mega &
-#mkdir /mnt/ios/pass
-#ifuse --documents me.mssun.passforios /mnt/ios/pass &
-#mkdir /mnt/ios/imovie
-#ifuse --documents com.apple.iMovie /mnt/ios/imovie &
-#mkdir /mnt/ios/pacemaker
-#ifuse --documents com.pacemakermusic.pacemaker.001 /mnt/ios/pacemaker &
-notify-send -i /usr/share/icons/Papirus-Dark/symbolic/devices/phone-apple-iphone-symbolic.svg "iOS device mounted at /mnt/ios/" || notify-send -i /usr/share/icons/Adwaita/scalable/devices/phone-apple-iphone-symbolic.svg "iOS device mounted at /mnt/ios/"
+for (( i=0; i<1; i--))
+do
+        if [ ! -d "/mnt/ios/main/DCIM" ]
+        then
+                if [ -d "/mnt/ios" ]
+                then
+                        sudo umount /mnt/ios/*
+                        sudo rmdir /mnt/ios/*
+                        sudo rmdir /mnt/ios
+                fi
+                ps cax | grep usbmuxd
+                if [ $? -eq 0 ]
+                then
+                        sudo killall usbmuxd
+                        sudo usbmuxd -U usbmux
+                        sleep 0.5
+                else
+                        sudo usbmuxd -U usbmux
+                        sleep 0.5
+                fi
+                sudo mkdir /mnt/ios
+                sudo chown $USER /mnt/ios
+
+                mkdir /mnt/ios/main
+                ifuse /mnt/ios/main
+                mkdir /mnt/ios/localstorage
+                ifuse --documents se.eberl.localstorage /mnt/ios/localstorage &
+                mkdir /mnt/ios/vlc
+                ifuse --documents org.videolan.vlc-ios /mnt/ios/vlc &
+                mkdir /mnt/ios/edhita
+                ifuse --documents com.bornneet.Edhita /mnt/ios/edhita &
+                mkdir /mnt/ios/mupdf
+                ifuse --documents com.artifex.mupdf /mnt/ios/mupdf &
+                #mkdir /mnt/ios/ivim
+                #ifuse --documents com.terrychou.ivim /mnt/ios/ivim &
+                mkdir /mnt/ios/rssmobile
+                ifuse --documents com.ipanfilov.RSS-Mobile /mnt/ios/rssmobile &
+                #mkdir /mnt/ios/minikeepass
+                #ifuse --documents com.jflan.MiniKeePass /mnt/ios/minikeepass &
+                #mkdir /mnt/ios/openterm
+                #ifuse --documents com.silverfox.Terminal /mnt/ios/openterm &
+                #mkdir /mnt/ios/wire
+                #ifuse --documents com.wearezeta.zclient.ios /mnt/ios/wire &
+                #mkdir /mnt/ios/firefox
+                #ifuse --documents org.mozilla.ios.Firefox /mnt/ios/firefox &
+                #mkdir /mnt/ios/openvpn
+                #ifuse --documentsnet.openvpn.connect.app /mnt/ios/openvpn &
+                #mkdir /mnt/ios/minecraft
+                #ifuse --documents com.mojang.minecraftpe /mnt/ios/minecraft &
+                #mkdir /mnt/ios/nextcloud
+                #ifuse --documents it.twsweb.Nextcloud /mnt/ios/nextcloud &
+                #mkdir /mnt/ios/merlin
+                #ifuse --documents com.google.andrews.schreiber1.Merlin /mnt/ios/merlin &
+                #mkdir /mnt/ios/advantage
+                #ifuse --documents com.bridgetree.Advantage /mnt/ios/advantage &
+                #mkdir /mnt/ios/redbrowser
+                #ifuse --documents com.gplexdb.azulbrowse /mnt/ios/redbrowser &
+                #mkdir /mnt/ios/mega
+                #ifuse --documents mega.ios /mnt/ios/mega &
+                #mkdir /mnt/ios/pass
+                #ifuse --documents me.mssun.passforios /mnt/ios/pass &
+                #mkdir /mnt/ios/imovie
+                #ifuse --documents com.apple.iMovie /mnt/ios/imovie &
+                #mkdir /mnt/ios/pacemaker
+                #ifuse --documents com.pacemakermusic.pacemaker.001 /mnt/ios/pacemaker &
+        else
+                notify-send -i /usr/share/icons/Papirus-Dark/symbolic/devices/phone-apple-iphone-symbolic.svg "iOS device mounted at /mnt/ios/" || notify-send -i /usr/share/icons/Adwaita/scalable/devices/phone-apple-iphone-symbolic.svg "iOS device mounted at /mnt/ios/"
+                exit
+        fi
+done

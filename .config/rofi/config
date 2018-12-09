@@ -6,10 +6,10 @@ rofi.width: 50
 rofi.columns: 5
 rofi.lines:	30
 rofi.font: Inconsolata Nerd Font 10
-rofi.color-normal: #16191c, #dfffff, #16191c, #b1708a, #dfffff
+rofi.color-normal: #16191c, #dfffff, #16191c, #499bbe, #dfffff
 rofi.color-urgent: #16191c, #d6b48d, #22231D, #d6b48d, #dfffff
 rofi.color-active: #16191c, #5cc3ee, #16191c, #5cc3ee, #16191c
-rofi.color-window: #16191c, #b1708a, #794d5f
+rofi.color-window: #16191c, #499bbe, #326b82
 #rofi.bw: 5
 #rofi.location: 0
 #rofi.padding: 5

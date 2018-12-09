@@ -1,7 +1,12 @@
 #!/bin/sh
 
-sudo umount /mnt/ios/*
-rmdir /mnt/ios/* &
-sudo killall usbmuxd
-sudo rmdir /mnt/ios &
-notify-send -i /usr/share/icons/Papirus-Dark/symbolic/devices/phone-apple-iphone-symbolic.svg "iOS device unmounted"
+if [ -d "/mnt/ios" ]
+then
+        sudo umount /mnt/ios/*
+        rmdir /mnt/ios/* &
+        sudo killall usbmuxd
+        sudo rmdir /mnt/ios &
+        notify-send -i /usr/share/icons/Papirus-Dark/symbolic/devices/phone-apple-iphone-symbolic.svg "iOS device unmounted"
+else
+        notify-send -i /usr/share/icons/Papirus-Dark/symbolic/devices/phone-apple-iphone-symbolic.svg "Nothing to unmount"
+fi

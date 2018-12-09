@@ -119,7 +119,11 @@ macro a set browser "youtube-dl %u" ; open-in-browser ; set browser "qutebrowser
 # save music url to file
 macro m set browser "nbmusdl" ; open-in-browser ; set browser "qutebrowser %u"
 
-# macro g quit ; :goto ; set browser "qutebrowser %u"
+# goto
+macro / quit ; cmdline
+
+# refresh current feed if it glitches
+macro u quit ; open
 
 # open url in w3m
 macro w set browser "setsid nohup st -e w3m %u &" ; open-in-browser-and-mark-read ; set browser "qutebrowser %u"

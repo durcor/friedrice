@@ -1,0 +1,3 @@
+#!/bin/sh
+
+notify-send -u low "Volume is at $(pamixer --get-volume)%"
