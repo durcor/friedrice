@@ -1,7 +1,7 @@
 # vi:ft=python
 set selection-clipboard clipboard
-set window-title-home-tilde true
-set statusbar-home-tilde true
+set window-title-home-tilde false
+set statusbar-home-tilde false
 set show-hidden true
 set adjust-open width
 # set font "Inconsolata Nerd Font" normal 9
