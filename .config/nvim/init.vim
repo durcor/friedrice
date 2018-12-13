@@ -142,7 +142,7 @@ map ZW :w<cr>
 " autocmd BufWritePre * %s/\s\+$//e
 
 se cursorline
-hi CursorLine cterm=bold
+hi CursorLine ctermbg=8
 
 function Vimty()
         source ~/.local/share/nvim/plug/vimty/vimty.vim
