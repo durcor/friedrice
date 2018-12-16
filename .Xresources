@@ -2,64 +2,64 @@
 ! vi:ft=xdefaults
 
 ! X colors.
-*foreground:        #dfffff
-*background:        #16191c
-*.foreground:       #dfffff
-*.background:       #16191c
-emacs*foreground:   #dfffff
-emacs*background:   #16191c
-URxvt*foreground:   #dfffff
-XTerm*foreground:   #dfffff
-UXTerm*foreground:  #dfffff
-URxvt*background:   [100]#16191c
-XTerm*background:   #16191c
-UXTerm*background:  #16191c
-URxvt*cursorColor:  #dfffff
-XTerm*cursorColor:  #dfffff
-UXTerm*cursorColor: #dfffff
-URxvt*borderColor:  [100]#16191c
+*foreground:        #fffff7
+*background:        #0D0E12
+*.foreground:       #fffff7
+*.background:       #0D0E12
+emacs*foreground:   #fffff7
+emacs*background:   #0D0E12
+URxvt*foreground:   #fffff7
+XTerm*foreground:   #fffff7
+UXTerm*foreground:  #fffff7
+URxvt*background:   [100]#0D0E12
+XTerm*background:   #0D0E12
+UXTerm*background:  #0D0E12
+URxvt*cursorColor:  #fffff7
+XTerm*cursorColor:  #fffff7
+UXTerm*cursorColor: #fffff7
+URxvt*borderColor:  [100]#0D0E12
 
 ! Colors 0-15.
-*.color0: #16191c
-*color0:  #16191c
-*.color1: #5B93A9
-*color1:  #5B93A9
-*.color2: #45788F
-*color2:  #45788F
-*.color3: #F1992B
-*color3:  #F1992B
-*.color4: #3C6D85
-*color4:  #3C6D85
-*.color5: #9D7A88
-*color5:  #9D7A88
-*.color6: #5491AB
-*color6:  #5491AB
-*.color7: #abced9
-*color7:  #abced9
-*.color8: #272c32
-*color8:  #272c32
-*.color9: #65c6ec
-*color9:  #65c6ec
-*.color10: #4ba1c7
-*color10:  #4ba1c7
-*.color11: #ffc825
-*color11:  #ffc825
-*.color12: #4192b9
-*color12:  #4192b9
-*.color13: #de8cad
-*color13:  #de8cad
-*.color14: #5cc3ee
-*color14:  #5cc3ee
-*.color15: #dfffff
-*color15:  #dfffff
+*.color0: #0D0E12
+*color0:  #0D0E12
+*.color1: #8A776D
+*color1:  #8A776D
+*.color2: #6F6966
+*color2:  #6F6966
+*.color3: #C6B8A8
+*color3:  #C6B8A8
+*.color4: #636582
+*color4:  #636582
+*.color5: #A69F94
+*color5:  #A69F94
+*.color6: #8F867B
+*color6:  #8F867B
+*.color7: #dfdbd2
+*color7:  #dfdbd2
+*.color8: #1d1f29
+*color8:  #1d1f29
+*.color9: #c3957d
+*color9:  #c3957d
+*.color10: #9e8376
+*color10:  #9e8376
+*.color11: #fff0c2
+*color11:  #fff0c2
+*.color12: #7176b7
+*color12:  #7176b7
+*.color13: #ecd3ac
+*color13:  #ecd3ac
+*.color14: #cbaf8e
+*color14:  #cbaf8e
+*.color15: #fffff7
+*color15:  #fffff7
 
 ! Black color that will not be affected by bold highlighting.
-*.color66: #16191c
-*color66:  #16191c
+*.color66: #0D0E12
+*color66:  #0D0E12
 
 ! Xclock colors.
-XClock*foreground: #dfffff
-XClock*background: #16191c
+XClock*foreground: #fffff7
+XClock*background: #0D0E12
 ! XClock*majorColor:  rgba:ff/f8/ff/ff
 ! XClock*minorColor:  rgba:ff/f8/ff/ff
 ! XClock*hourColor:   rgba:ff/f8/ff/ff

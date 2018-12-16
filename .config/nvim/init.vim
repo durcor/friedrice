@@ -34,6 +34,9 @@ Plug 'neomake/neomake'
 " completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
+Plug 'rhysd/vim-grammarous'
+Plug 'dpelle/vim-LanguageTool'
+let g:languagetool_jar='$HOME/.local/share/nvim/plug/vim-grammarous/misc/LanguageTool-4.1/languagetool-commandline.jar'
 "Plug 'DanManN/vim-razer'
 "Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
 call plug#end()
@@ -76,7 +79,7 @@ se showcmd
 se mouse=a
 se expandtab
 se ts=4
-se sw=8
+se sw=4
 se smarttab
 se ffs=unix,dos,mac
 se relativenumber
@@ -97,7 +100,7 @@ se incsearch
 "allow nvim to utilize global clipboard
 se clipboard+=unnamedplus
 
-autocmd SwapExists * let v:swapchoice = "o"
+"autocmd SwapExists * let v:swapchoice = "o"
 
 " set calcurse note files to be markdown
 autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
@@ -128,6 +131,8 @@ map <leader>w :w<cr>
 map <leader>W :wq<cr>
 map <leader>q :q<cr>
 map <leader>Q :q!<cr>
+map <leader>c :source ~/.config/nvim/init.vim<cr>
+map <leader>f :'<,'>w !wc -w<cr>
 
 " Document compiling
 map <leader>ch :!tmux splitw -vd -p 20 pandoc % -o %.html<cr><cr>
@@ -136,6 +141,8 @@ map <leader>cp :!tmux splitw -vd -p 20 pandoc % -o %.pdf<cr><cr>
 map <leader>cm :!tmux splitw -vd -p 20 make<cr><cr>
 
 map <leader>l :Goyo<cr>:Limelight!!<cr>
+map <leader>g :GrammarousCheck<cr>
+
 map ZW :w<cr>
 
 " remove white space at end of lines
@@ -143,10 +150,12 @@ map ZW :w<cr>
 
 se cursorline
 hi CursorLine ctermbg=8
+se cursorcolumn
+hi CursorColumn ctermbg=8
 
-function Vimty()
-        source ~/.local/share/nvim/plug/vimty/vimty.vim
-endfunction
+" function Vimty()
+"         source ~/.local/share/nvim/plug/vimty/vimty.vim
+" endfunction
 
 " set statusline=%M%h%y %t %F %p%% %l/%L %=[%{&ff},%{&ft}] [a=%03.3b] [h=%02.2B] [%l,%v]
 " set title titlelen=150 titlestring=%( %M%)%( (%{expand("%:p:h")})%)%( %a%) - %{v:servername}

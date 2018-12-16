@@ -35,7 +35,7 @@ command=mpc current -f '%artist% - %title%'
 interval=5
 signal=2
 min_width=50
-color=#65c6ec
+color=#c3957d
 #align=left
 
 #Generic media player support
@@ -51,20 +51,20 @@ color=#65c6ec
 [weather]
 command=~/bin/weatherrn
 interval=7200
-color=#4ba1c7
+color=#9e8376
 
 [rss]
 label= 
 command=newsboat -x print-unread
 interval=600
-color=#ffc825
+color=#fff0c2
 
 [mail]
 label= 
 command=~/bin/mailcount
 interval=100
 signal=12
-color=#de8cad
+color=#ecd3ac
 
 # CPU usage
 #
@@ -136,7 +136,7 @@ color=#de8cad
 command=~/bin/currentkbd
 interval=persist
 label= 
-color=#dfffff
+color=#fffff7
 
 # Volume indicator
 #
@@ -149,7 +149,7 @@ color=#dfffff
 #instance=PCM
 interval=5
 command=~/bin/currentvol
-color=#5cc3ee
+color=#cbaf8e
 
 # Date Time
 #
@@ -157,7 +157,7 @@ color=#5cc3ee
 command=date '+%H%M/%S %m/%d/%Y'
 interval=1
 label= 
-color=#dfffff
+color=#fffff7
 
 # OpenVPN support
 #
