@@ -53,6 +53,8 @@ colorscheme wpgtk
 let $PAGER=''
 se nocompatible
 se ttyfast
+" improve macro performance
+se lazyredraw
 se shell=/bin/zsh
 "se termguicolors
 " add a litte margin on the left
@@ -66,13 +68,17 @@ se nu
 se cmdheight=1
 se wildmenu
 se ruler
-se scrolloff=3
+" scrolloff
+se so=200
 
 " auto indent
 se ai
 
 " set smart indent
 se si
+
+" regex magic
+se magic
 
 se noshowmode
 se showcmd
@@ -150,8 +156,8 @@ map ZW :w<cr>
 
 se cursorline
 hi CursorLine ctermbg=8
-se cursorcolumn
-hi CursorColumn ctermbg=8
+" se cursorcolumn
+" hi CursorColumn ctermbg=8
 
 " function Vimty()
 "         source ~/.local/share/nvim/plug/vimty/vimty.vim

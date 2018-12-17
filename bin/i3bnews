@@ -1,0 +1,15 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+    1) setsid $TERMINAL -e newsboat ;;
+        2) setsid newsboat -x reload ;;
+        3) ;;
+esac
+
+if ls ~/.local/share/newsboat/cache.db.lock >/dev/null
+then
+    cat ~/.local/share/newsboat/unread
+else
+    newsboat -x print-unread | awk '{ print $1}' > ~/.local/share/newsboat/unread
+    cat ~/.local/share/newsboat/unread
+fi

@@ -198,6 +198,7 @@ mode "MUSIC" {
 	bindsym l exec --no-startup-id mpc next
 	bindsym j exec --no-startup-id mpc seek -5
 	bindsym k exec --no-startup-id mpc seek +5
+    bindsym v exec --no-startup-id notify-send " " "Currently playing <i>$(mpc current -f '%title%')</i> by $(mpc current -f '%artist%')\n<b></b>"
 	bindsym space exec --no-startup-id mpc toggle
 
 	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"

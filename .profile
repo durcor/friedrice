@@ -38,9 +38,6 @@ then
 	sudo -n kbdrate -r 35 -d 150
 fi
 
-source ~/.zshal
-#source ~/.shal
-
 source ~/.config/wpg/formats/colors.sh
 source ~/.mancolors
 source ~/.spooky

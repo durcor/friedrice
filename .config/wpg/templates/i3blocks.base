@@ -49,19 +49,30 @@ color=#<COLOR9>
 #interval=5
 
 [weather]
-command=~/bin/weatherrn
+command=i3bweather
 interval=7200
 color=#<COLOR10>
 
+[cpu]
+label= 
+command=i3bcpu
+interval=30
+color=#<COLOR14>
+
+[disk]
+command=i3bdiskusage /home 
+interval=30
+color=#<COLOR13>
+
 [rss]
 label= 
-command=newsboat -x print-unread
+command=i3bnews
 interval=600
 color=#<COLOR11>
 
 [mail]
 label= 
-command=~/bin/mailcount
+command=i3bmail
 interval=100
 signal=12
 color=#<COLOR13>
@@ -133,7 +144,7 @@ color=#<COLOR13>
 #interval=30
 #
 [keyboard]
-command=~/bin/currentkbd
+command=i3bkb
 interval=persist
 label= 
 color=#<COLOR15>
@@ -148,7 +159,7 @@ color=#<COLOR15>
 #instance=Master
 #instance=PCM
 interval=5
-command=~/bin/currentvol
+command=i3bvol
 color=#<COLOR14>
 
 # Date Time
