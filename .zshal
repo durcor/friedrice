@@ -105,4 +105,7 @@ ealias calcurse='calcurse -D /mnt/thic/conf/.calcurse'
 ealias bak='cp "$1" ~/doc/bak/$1_$(date)'
 ealias garbclean='shred -zu -n 5 ~/.garb/*'
 
+ealias up0x0='curl -F'file=@$1' https://0x0.st'
+ealias short0c0='curl -F'shorten=$1' https://0x0.st'
+
 scihubdl() { curl -O $(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o http.*pdf) ;}

@@ -1,2 +1,2 @@
 #!/bin/sh
-< /dev/urandom tr -dc A-Z,a-z,0-9 | head -c20
+< /dev/urandom tr -dc A-Z,a-z,0-9 | head -c15
