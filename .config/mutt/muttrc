@@ -71,7 +71,7 @@ macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "ma
 #sync email
 macro index O "<shell-escape>tmux splitw -vd -p20 $HOME/.config/mutt/etc/mailsync.sh<enter>" "run offlineimap to sync all mail"
 macro index o "<shell-escape>tmux splitw -vd -p20 $HOME/.config/mutt/etc/mailsync.sh -qf INBOX<enter>" "run offlineimap to sync inbox"
-macro index I "<shell-escape>tmux splitw -v -p20 offlineimap -a $(\ls --color=auto ~/.mail | fzf)<enter>" "only sync mail for a certain mailbox
+macro index I "<shell-escape>tmux splitw -v -p20 offlineimap -a $(ls ~/.mail | fzf)<enter>" "only sync mail for a certain mailbox
 
 #copy/move dialogs
 macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"

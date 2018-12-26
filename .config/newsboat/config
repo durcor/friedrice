@@ -10,7 +10,7 @@ show-keymap-hint no
 
 external-url-viewer "urlscan -dc"
 
-datetime-format "%m/%d %H%M"
+datetime-format "%m/%d/%y %H%M"
 
 bookmark-cmd nbphonebkmkhtml
 bookmark-interactive no
@@ -81,7 +81,7 @@ color listnormal	color4	color0
 color listnormal_unread	color15	color0
 
 color listfocus 	color0	color3
-color listfocus_unread 	color7	color3
+color listfocus_unread 	color8	color3
 
 color info		color9	color8
 color article 		color15	color8

@@ -59,6 +59,22 @@ command=i3bcpu
 interval=30
 color=#<COLOR14>
 
+# Memory usage
+#
+# The type defaults to "mem" if the instance is not specified.
+[memory]
+label= 
+command=i3bmem
+interval=30
+color=#<COLOR13>
+
+#[memory]
+#label=swp
+#instance=swap
+#separator=false
+#interval=30
+
+
 [disk]
 command=i3bdiskusage /home 
 interval=30
@@ -90,20 +106,6 @@ color=#<COLOR13>
 #[load_average]
 #interval=10
 
-# Memory usage
-#
-# The type defaults to "mem" if the instance is not specified.
-#[memory]
-#label=mem
-#separator=false
-#interval=30
-
-#[memory]
-#label=swp
-#instance=swap
-#separator=false
-#interval=30
-
 # Disk usage
 #
 # The directory defaults to $HOME if the instance is not specified.
@@ -125,9 +127,9 @@ color=#<COLOR13>
 #separator=true
 #label=
 
-#[wifi]
-#instance=wlp3s0
-#interval=10
+[wifi]
+instance=enp3s0
+interval=10
 #separator=true
 
 #[bandwidth]

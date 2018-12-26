@@ -12,12 +12,15 @@
 ## Type: Dict
 # c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
 c.url.searchengines = {
-        'DEFAULT': 'https://searx.me/?q={}',
-        'sx1': 'https://searx.org/?q={}',
-        'sx2': 'https://searx.ch/?q={}',
+        'sxd': 'https://search.disroot.org/?q={}',
+        'sxm': 'https://searx.me/?q={}',
+        'ud': 'https://www.urbandictionary.com/define.php?term={}',
+        'DEFAULT': 'https://searx.org/?q={}',
+        'sxc': 'https://searx.ch/?q={}',
         'ddg': 'https://duckduckgo.com/?q={}',
         'ddgi': 'https://duckduckgo.com/?q={}&t=h_&iax=images&ia=images',
         'gh': 'https://github.com/search?q={}',
+        'ghu': 'https://github.com/search?q={}&type=Users',
         'sp': "https://www.startpage.com/do/search/?q={}",
         'at': "https://alternativeto.net/browse/search?q={}",
         'ext': "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=48.0&x=id%3D{}%26installsource%3Dondemand%26uc",

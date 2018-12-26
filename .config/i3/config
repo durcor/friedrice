@@ -150,7 +150,7 @@ mode MANAGER {
     bindsym I mode "WINDOW";exec notify-send -u low "WINDOW MODE"
 
 	bindsym o mode "LAUNCH";exec notify-send -u low "LAUNCH MODE"
-	# bindsym g mode "GAPS";exec notify-send -u low "GAPS MODE"
+	bindsym g mode "GAPS";exec notify-send -u low "GAPS MODE"
 	bindsym m mode "MUSIC";exec notify-send -u low "MUSIC MODE"
 	bindsym z mode "AUDIO";exec notify-send -u low "AUDIO MODE"
 	bindsym Shift+colon mode "COMMAND";exec notify-send -u low "COMMAND MODE"
@@ -184,14 +184,14 @@ mode "RESIZE" {
 	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }
 
-# mode "GAPS" {
-# 	bindsym h gaps inner current minus 5
-# 	bindsym l gaps inner current plus 5
-# 	bindsym j gaps outer current minus 5
-# 	bindsym k gaps outer current plus 5
-#
-# 	bindsym Escape mode "MANAGER"
-# }
+mode "GAPS" {
+	bindsym h gaps inner current minus 5
+	bindsym l gaps inner current plus 5
+	bindsym j gaps outer current minus 5
+	bindsym k gaps outer current plus 5
+
+	bindsym Escape mode "MANAGER"
+}
 
 mode "MUSIC" {
 	bindsym h exec --no-startup-id mpc prev
@@ -233,8 +233,8 @@ mode "COMMAND" {
 	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }
 
-# gaps inner 10
-# gaps outer 0
+gaps inner 10
+gaps outer 0
 
 # window border width
 for_window [class="^.*"] border pixel 2

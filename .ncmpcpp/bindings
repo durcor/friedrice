@@ -354,10 +354,10 @@ def_key "backspace"
 def_key "backspace"
   replay_song
 
-def_key "f"
+def_key "o"
   seek_forward
 
-def_key "b"
+def_key "O"
   seek_backward
 
 def_key "shift-j"
@@ -511,8 +511,8 @@ def_key "A"
 def_key "S"
   save_playlist
 
-def_key "o"
-  jump_to_playing_song
+# def_key "o"
+#   jump_to_playing_song
 
 def_key "G"
   jump_to_browser

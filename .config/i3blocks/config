@@ -35,7 +35,7 @@ command=mpc current -f '%artist% - %title%'
 interval=5
 signal=2
 min_width=50
-color=#ff722a
+color=#ff654f
 #align=left
 
 #Generic media player support
@@ -51,31 +51,47 @@ color=#ff722a
 [weather]
 command=i3bweather
 interval=7200
-color=#d96d2d
+color=#d7c77d
 
 [cpu]
 label= 
 command=i3bcpu
 interval=30
-color=#d1431c
+color=#7cb9cb
+
+# Memory usage
+#
+# The type defaults to "mem" if the instance is not specified.
+[memory]
+label= 
+command=i3bmem
+interval=30
+color=#ffd4b0
+
+#[memory]
+#label=swp
+#instance=swap
+#separator=false
+#interval=30
+
 
 [disk]
 command=i3bdiskusage /home 
 interval=30
-color=#ff7c49
+color=#ffd4b0
 
 [rss]
 label= 
 command=i3bnews
 interval=600
-color=#ffd953
+color=#ffbf6f
 
 [mail]
 label= 
 command=i3bmail
 interval=100
 signal=12
-color=#ff7c49
+color=#ffd4b0
 
 # CPU usage
 #
@@ -89,20 +105,6 @@ color=#ff7c49
 
 #[load_average]
 #interval=10
-
-# Memory usage
-#
-# The type defaults to "mem" if the instance is not specified.
-#[memory]
-#label=mem
-#separator=false
-#interval=30
-
-#[memory]
-#label=swp
-#instance=swap
-#separator=false
-#interval=30
 
 # Disk usage
 #
@@ -125,9 +127,9 @@ color=#ff7c49
 #separator=true
 #label=
 
-#[wifi]
-#instance=wlp3s0
-#interval=10
+[wifi]
+instance=enp3s0
+interval=10
 #separator=true
 
 #[bandwidth]
@@ -147,7 +149,7 @@ color=#ff7c49
 command=i3bkb
 interval=persist
 label= 
-color=#ffe2f7
+color=#fffffa
 
 # Volume indicator
 #
@@ -160,7 +162,7 @@ color=#ffe2f7
 #instance=PCM
 interval=5
 command=i3bvol
-color=#d1431c
+color=#7cb9cb
 
 # Date Time
 #
@@ -168,7 +170,7 @@ color=#d1431c
 command=date '+%H%M/%S %m/%d/%Y'
 interval=1
 label= 
-color=#ffe2f7
+color=#fffffa
 
 # OpenVPN support
 #

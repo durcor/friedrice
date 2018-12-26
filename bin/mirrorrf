@@ -1,0 +1,59 @@
+#!/bin/sh
+
+cat >/tmp/archmirrors << EOF
+Server = https://chestm007.ddns.net/archlinux/\$repo/os/\$arch
+Server = https://na.mirrors.coltondrg.com/archlinux/\$repo/os/\$arch
+Server = http://ip62.inf.utfsm.cl/\$repo/os/\$arch
+Server = http://mirror.bit.edu.cn/archlinux/\$repo/os/\$arch
+Server = http://mirrors.aliyun.com/archlinux/\$repo/os/\$arch
+Server = https://mirrors.163.com/archlinux/\$repo/os/\$arch
+Server = http://mirrors.yun-idc.com/archlinux/\$repo/os/\$arch
+Server = http://mirror.hust.edu.cn/archlinux/\$repo/os/\$arch
+Server = http://mirrors.geekpie.org/archlinux/\$repo/os/\$arch
+Server = http://ftp.sjtu.edu.cn/archlinux/\$repo/os/\$arch
+Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux/\$repo/os/\$arch
+Server = http://mirrors.4.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch
+Server = http://mirrors.6.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch
+Server = http://mirror.lzu.edu.cn/archlinux/\$repo/os/\$arch
+Server = https://mirrors.nju.edu.cn/archlinux/\$repo/os/\$arch
+Server = https://mirrors.zzu.edu.cn/archlinux/\$repo/os/\$arch
+Server = http://delta.archlinux.fr/\$repo/os/\$arch
+Server = https://eu.mirrors.coltondrg.com/archlinux/\$repo/os/\$arch
+Server = https://mirror.oldsql.cc/archlinux/\$repo/os/\$arch
+Server = http://kambing.ui.ac.id/archlinux/\$repo/os/\$arch
+Server = http://mirror.yazd.ac.ir/arch/\$repo/os/\$arch
+Server = http://repo.sadjad.ac.ir/arch/\$repo/os/\$arch
+Server = http://mi.mirror.garr.it/mirrors/archlinux/\$repo/os/\$arch
+Server = http://ftp.nara.wide.ad.jp/pub/Linux/archlinux/\$repo/os/\$arch
+Server = http://ftp.kddilabs.jp/Linux/packages/archlinux/\$repo/os/\$arch
+Server = http://srv2.ftp.ne.jp/Linux/packages/archlinux/\$repo/os/\$arch
+Server = http://mirror.archlinuxjp.org/\$repo/os/\$arch
+Server = http://mirror.oscc.org.my/archlinux/\$repo/os/\$arch
+Server = http://mirror.transip.net/archlinux/\$repo/os/\$arch
+Server = http://mirror.ece.auckland.ac.nz/archlinux/\$repo/os/\$arch
+Server = ftp://ftp.icm.edu.pl/pub/Linux/dist/archlinux/\$repo/os/\$arch
+Server = http://ftp.icm.edu.pl/pub/Linux/dist/archlinux/\$repo/os/\$arch
+Server = https://ftp.icm.edu.pl/pub/Linux/dist/archlinux/\$repo/os/\$arch
+Server = rsync://ftp.icm.edu.pl/pub/Linux/dist/archlinux/\$repo/os/\$arch
+Server = http://mirrors.krasinfo.ru/archlinux/\$repo/os/\$arch
+Server = http://ftp.leg.uct.ac.za/pub/linux/arch/\$repo/os/\$arch
+Server = ftp://ftp.leg.uct.ac.za/pub/linux/arch/\$repo/os/\$arch
+Server = http://mirror.ufs.ac.za/archlinux/\$repo/os/\$arch
+Server = ftp://mirror.ufs.ac.za/os/linux/distros/archlinux/\$repo/os/\$arch
+Server = http://archlinux.mirror.ac.za/\$repo/os/\$arch
+Server = ftp://archlinux.mirror.ac.za/\$repo/os/\$arch
+Server = http://foss.dhyrule.se/linux/archlinux/\$repo/os/\$arch
+Server = ftp://foss.dhyrule.se/linux/archlinux/\$repo/os/\$arch
+Server = http://mirror1.ku.ac.th/archlinux/\$repo/os/\$arch
+Server = http://mirror.veriteknik.net.tr/archlinux/\$repo/os/\$arch
+Server = http://ftp.linux.org.tr/archlinux/\$repo/os/\$arch
+Server = http://mirror.clarkson.edu/archlinux/\$repo/os/\$arch
+Server = http://mirror.pointysoftware.net/archlinux/\$repo/os/\$arch
+Server = http://mirror.ziemer.bz/archlinux\$repo/os/\$arch
+Server = https://lug.mines.edu/mirrors/archlinux/\$repo/os/\$arch
+Server = http://mirror.cs.umn.edu/arch/\$repo/os/\$arch
+EOF
+
+curl https://www.archlinux.org/mirrorlist/all/ >> /tmp/archmirrors
+sed -i '/^#.* /s/^#//' /tmp/archmirrors
+rankmirrors /tmp/archmirrors > /etc/pacman.d/mirrorlist
