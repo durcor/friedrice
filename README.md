@@ -1,10 +1,10 @@
 # My Dotfiles
-Here are my dotfiles so you can have fun spending hours fucking around with configuration files too!
+Here are my dotfiles so you can have fun spending hours messing around with configuration files too!
 
 ![Rice](rice.png "rice")
 
 ## Installing my dotfiles
-Installing my dotfiles on your own pc is as simple as
+Installing my dotfiles on your own UNIX pc is as simple as
 
 ```sh
 git clone https://gitgud.io/t/friedrice ; rsync -av friedrice/* ~ ; rsync -av friedrice/.* ~ ; rm -rf friedrice

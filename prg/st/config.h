@@ -68,7 +68,7 @@ static unsigned int cursorthickness = 2;
 static int bellvolume = 0;
 
 /* default TERM value */
-char *termname = "tmux-256color";
+char *termname = "xterm-256color";
 
 /*
  * spaces per tab
@@ -90,29 +90,29 @@ unsigned int tabspaces = 8;
 const char *colorname[] = {
 
   /* 8 normal colors */
-  [0] = "#0E0F08", /* black   */
-  [1] = "#C9594B", /* red     */
-  [2] = "#99916E", /* green   */
-  [3] = "#E49766", /* yellow  */
-  [4] = "#A5A698", /* blue    */
-  [5] = "#DBAC9A", /* magenta */
-  [6] = "#6C8890", /* cyan    */
-  [7] = "#dadcd5", /* white   */
+  [0] = "#15140d", /* black   */
+  [1] = "#EA5C2E", /* red     */
+  [2] = "#9D5F5B", /* green   */
+  [3] = "#D69E58", /* yellow  */
+  [4] = "#CD4D4A", /* blue    */
+  [5] = "#C0659E", /* magenta */
+  [6] = "#6A85C2", /* cyan    */
+  [7] = "#e1cbd3", /* white   */
 
   /* 8 bright colors */
-  [8]  = "#262915",  /* black   */
-  [9]  = "#ff654f",  /* red     */
-  [10] = "#d7c77d", /* green   */
-  [11] = "#ffbf6f", /* yellow  */
-  [12] = "#e8ecb1", /* blue    */
-  [13] = "#ffd4b0", /* magenta */
-  [14] = "#7cb9cb", /* cyan    */
-  [15] = "#fffffa", /* white   */
+  [8]  = "#2e2b1c",  /* black   */
+  [9]  = "#ff6e29",  /* red     */
+  [10] = "#dc6d66", /* green   */
+  [11] = "#ffcf5e", /* yellow  */
+  [12] = "#ff524e", /* blue    */
+  [13] = "#ff70d2", /* magenta */
+  [14] = "#76a5ff", /* cyan    */
+  [15] = "#fff1fb", /* white   */
 
   /* special colors */
-  [256] = "#0E0F08", /* background */
-  [257] = "#fffffa", /* foreground */
-  [258] = "#fffffa",     /* cursor */
+  [256] = "#15140d", /* background */
+  [257] = "#fff1fb", /* foreground */
+  [258] = "#fff1fb",     /* cursor */
 };
 
 /* Default colors (colorname index)

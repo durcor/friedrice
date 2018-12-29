@@ -35,7 +35,7 @@ command=mpc current -f '%artist% - %title%'
 interval=5
 signal=2
 min_width=50
-color=#ff654f
+color=#ff6e29
 #align=left
 
 #Generic media player support
@@ -51,13 +51,13 @@ color=#ff654f
 [weather]
 command=i3bweather
 interval=7200
-color=#d7c77d
+color=#dc6d66
 
 [cpu]
 label= 
 command=i3bcpu
 interval=30
-color=#7cb9cb
+color=#76a5ff
 
 # Memory usage
 #
@@ -66,7 +66,7 @@ color=#7cb9cb
 label= 
 command=i3bmem
 interval=30
-color=#ffd4b0
+color=#ff70d2
 
 #[memory]
 #label=swp
@@ -78,20 +78,20 @@ color=#ffd4b0
 [disk]
 command=i3bdiskusage /home 
 interval=30
-color=#ffd4b0
+color=#ff70d2
 
 [rss]
 label= 
 command=i3bnews
 interval=600
-color=#ffbf6f
+color=#ffcf5e
 
 [mail]
 label= 
 command=i3bmail
 interval=100
 signal=12
-color=#ffd4b0
+color=#ff70d2
 
 # CPU usage
 #
@@ -149,7 +149,7 @@ interval=10
 command=i3bkb
 interval=persist
 label= 
-color=#fffffa
+color=#fff1fb
 
 # Volume indicator
 #
@@ -162,7 +162,7 @@ color=#fffffa
 #instance=PCM
 interval=5
 command=i3bvol
-color=#7cb9cb
+color=#76a5ff
 
 # Date Time
 #
@@ -170,7 +170,7 @@ color=#7cb9cb
 command=date '+%H%M/%S %m/%d/%Y'
 interval=1
 label= 
-color=#fffffa
+color=#fff1fb
 
 # OpenVPN support
 #
