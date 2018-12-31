@@ -2,7 +2,7 @@ University of Illinois/NCSA Open Source License
 
 Copyright (c) 2018 cokestronaut. All rights reserved. 
 
-Developed by: coke's things 
+Developed by: coke's friedrice 
               cokestronaut 
               https://cokestronaut.neocities.org
 
@@ -21,7 +21,7 @@ subject to the following conditions:
   notice, this list of conditions and the following disclaimers in the 
   documentation and/or other materials provided with the distribution.
 
-* Neither the names of cokestronaut, coke's things, nor the names of its 
+* Neither the names of cokestronaut, coke's friedrice, nor the names of its 
   contributors may be used to endorse or promote products derived from
   this Software without specific prior written permission.
 
