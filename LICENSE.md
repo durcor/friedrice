@@ -1,10 +1,16 @@
-University of Illinois/NCSA Open Source License 
+University of Illinois/NCSA
+Open Source License 
 
-Copyright (c) 2018 cokestronaut. All rights reserved. 
+Copyright (c) 2018 cokestronaut.
+All rights reserved. 
 
-Developed by: coke's friedrice 
-              cokestronaut 
-              https://cokestronaut.neocities.org
+Developed by: 
+
+    cokestronaut 
+
+    coke's friedrice 
+
+    <https://cokestronaut.neocities.org>
 
 Permission is hereby granted, free of charge, to any person 
 obtaining a copy of this software and associated documentation files 
@@ -14,16 +20,16 @@ publish, distribute, sublicense, and/or sell copies of the Software,
 and to permit persons to whom the Software is furnished to do so, 
 subject to the following conditions:
 
-* Redistributions of source code must retain the above copyright notice, 
-  this list of conditions and the following disclaimers.
-
-* Redistributions in binary form must reproduce the above copyright 
-  notice, this list of conditions and the following disclaimers in the 
-  documentation and/or other materials provided with the distribution.
-
-* Neither the names of cokestronaut, coke's friedrice, nor the names of its 
-  contributors may be used to endorse or promote products derived from
-  this Software without specific prior written permission.
+    * Redistributions of source code must retain the above copyright notice, 
+      this list of conditions and the following disclaimers.
+    
+    * Redistributions in binary form must reproduce the above copyright 
+      notice, this list of conditions and the following disclaimers in the 
+      documentation and/or other materials provided with the distribution.
+    
+    * Neither the names of cokestronaut, coke's friedrice, nor the names of its 
+      contributors may be used to endorse or promote products derived from
+      this Software without specific prior written permission.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
 OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
