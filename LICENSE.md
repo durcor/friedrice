@@ -6,11 +6,11 @@ All rights reserved.
 
 Developed by: 
 
-    cokestronaut 
+cokestronaut 
 
-    coke's friedrice 
+coke's friedrice 
 
-    <https://cokestronaut.neocities.org>
+<https://cokestronaut.neocities.org>
 
 Permission is hereby granted, free of charge, to any person 
 obtaining a copy of this software and associated documentation files 
