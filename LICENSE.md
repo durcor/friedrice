@@ -4,13 +4,7 @@ Open Source License
 Copyright (c) 2018 cokestronaut.
 All rights reserved. 
 
-Developed by: 
-
-cokestronaut 
-
-coke's friedrice 
-
-<https://cokestronaut.neocities.org>
+Developed by: cokestronaut coke's friedrice <https://cokestronaut.neocities.org>
 
 Permission is hereby granted, free of charge, to any person 
 obtaining a copy of this software and associated documentation files 
