@@ -77,7 +77,7 @@ ealias cfnck='$EDITOR ~/.ncmpcpp/bindings'
 ealias cfmu='$EDITOR ~/.config/mutt/muttrc'
 ealias cfsp='$EDITOR ~/doc/sp/sptxt.md'
 ealias cfpw='$EDITOR /mnt/ios/localstorage/imp/p.gpg'
-ealias cfbkmk='$EDITOR /mnt/ios/edhita/bkmk.html'
+ealias cfbkmk='$EDITOR /mnt/ios/edhita/bkmk.md'
 
 ealias wpgrf='wpg -s $(wpg -c)'
 ealias rng='ranger --choosedir=$HOME/.rangerdir;LASTDIR=$(cat $HOME/.rangerdir);cd "$LASTDIR"'

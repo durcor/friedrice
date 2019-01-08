@@ -12,7 +12,7 @@ external-url-viewer "urlscan -dc"
 
 datetime-format "%m/%d/%y %H%M"
 
-bookmark-cmd nbphonebkmkhtml
+bookmark-cmd nbphonebkmkmd
 bookmark-interactive no
 bookmark-autopilot yes
 

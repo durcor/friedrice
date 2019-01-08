@@ -110,8 +110,8 @@ se clipboard+=unnamedplus
 " set calcurse note files to be markdown
 autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 
-" spell checking for LaTeX, markdown, and git commits
-autocmd FileType tex,markdown,gitcommit setlocal spell spelllang=en_us,es
+" spell checking for LaTeX, markdown, plaintext, and git commits
+autocmd FileType tex,markdown,gitcommit,text setlocal spell spelllang=en_us,es
 
 " Goyo's width will be the line limit in mutt.
 autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80

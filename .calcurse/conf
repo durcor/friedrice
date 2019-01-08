@@ -1,6 +1,3 @@
-# ~/.calcurse/conf
-# vi:ft=python
-
 appearance.calendarview=monthly
 appearance.compactpanels=yes
 appearance.defaultpanel=calendar

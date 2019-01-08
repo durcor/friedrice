@@ -55,5 +55,5 @@ Server = http://mirror.cs.umn.edu/arch/\$repo/os/\$arch
 EOF
 
 curl https://www.archlinux.org/mirrorlist/all/ >> /tmp/archmirrors
-sed -i '/^#.* /s/^#//' /tmp/archmirrors
-rankmirrors /tmp/archmirrors > /etc/pacman.d/mirrorlist
+sed -i '/^#.* /s/^#//' /tmp/archmirrors > /tmp/cleanarchmirrors
+rankmirrors /tmp/cleanarchmirrors > /etc/pacman.d/mirrorlist
