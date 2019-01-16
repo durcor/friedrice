@@ -22,6 +22,7 @@ ealias fm="$FILEMAN"
 ealias tm="$TASKMAN"
 
 ealias rn='tty-clock -csb -C 7'
+ealias whatsup='uptime -p | cowsay -f tux'
 ealias ytdl='youtube-dl'
 ealias zath='zathura'
 ealias mpdbkmk='echo "- $(mpc current)" >> ~/doc/goodmus.md'
