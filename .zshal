@@ -2,8 +2,10 @@
 # ~/.zshal
 
 ealias e='echo'
+ealias s='sudo'
 ealias c='cat'
 ealias hl='highlight'
+ealias pw='pass'
 # end() {sed $1 '$!d'}
 
 ealias ls='ls --color=auto'
@@ -103,6 +105,7 @@ ealias rs='rsync'
 ealias pipes='pipes -R'
 
 ealias calcurse='calcurse -D /mnt/thic/conf/.calcurse'
+ealias kal='vdirsyncer sync;ikhal;vdirsyncer sync'
 
 ealias bak='cp "$1" ~/doc/bak/$1_$(date)'
 ealias garbclean='shred -zu -n 5 ~/.garb/*'

@@ -52,6 +52,7 @@ Server = http://mirror.pointysoftware.net/archlinux/\$repo/os/\$arch
 Server = http://mirror.ziemer.bz/archlinux\$repo/os/\$arch
 Server = https://lug.mines.edu/mirrors/archlinux/\$repo/os/\$arch
 Server = http://mirror.cs.umn.edu/arch/\$repo/os/\$arch
+Server = http://mirrors.mit.edu/archlinux/\$repo/os/\$arch
 EOF
 
 curl https://www.archlinux.org/mirrorlist/all/ >> /tmp/archmirrors

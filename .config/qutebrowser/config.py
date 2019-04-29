@@ -22,6 +22,7 @@ c.aliases = {
         'rss': 'spawn --userscript openfeeds',
         'dmenu': 'spawn --userscript dmenu_qutebrowser',
         'newtorid': 'spawn --userscript tor_identity',
+        'pass': 'spawn --userscript qute-pass',
         'jstoggle': 'config-cycle -p -t -u *://*.{url:host}/* content.javascript.enabled ;; reload',
         'plugon': 'set content.plugins true',
         'plugoff': 'set content.plguins false',

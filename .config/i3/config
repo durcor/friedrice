@@ -59,7 +59,7 @@ mode MANAGER {
 	# mouse + binding moves floating windows
 	# floating_modifier Mod4
 
-	bindsym --release q exec --no-startup-id slock
+	bindsym --release q exec --no-startup-id slock xset dpms force off
 	bindsym --release Shift+q exec --no-startup-id sudo slock systemctl suspend
 	bindsym --release XF86Sleep exec --no-startup-id sudo slock systemctl suspend
 	bindsym --release v exec --no-startup-id "maim -u -n 2 -s ~/scr/$(date +%Y-%m-%d_%H%M-%S).png"
@@ -69,6 +69,7 @@ mode MANAGER {
 	bindsym Shift+f exec --no-startup-id st -e ranger
 	bindsym Shift+b exec --no-startup-id clipmenu
 	bindsym p exec --no-startup-id mpv $(xclip -se c -o)
+	bindsym Shift+p exec --no-startup-id "export PASSWORD_STORE_DIR=~/pw ; passmenu"
 
 	bindsym Menu [instance="pop"] scratchpad show; [instance="pop"] move position center
 
@@ -227,7 +228,7 @@ mode "LAUNCH" {
 }
 
 mode "COMMAND" {
-	bindsym --release q exec --no-startup-id slock
+	bindsym --release q exec --no-startup-id slock xset dpms force off
 	bindsym --release Shift+q exec --no-startup-id sudo slock systemctl suspend
 
 	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"

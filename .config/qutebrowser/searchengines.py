@@ -57,5 +57,6 @@ c.url.searchengines = {
         'r': 'https://www.reddit.com/r/{}',
         'ph':'https://www.pornhub.com/video/search?search={}',
         'xv': 'https://www.xvideos.com/?k={}',
-        'nv': 'https://www.nudevista.com/?q={}&s=t'
+        'nv': 'https://www.nudevista.com/?q={}&s=t',
+        'sc': 'https://soundcloud.com/search?q={}'
         }
