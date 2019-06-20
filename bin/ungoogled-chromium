@@ -1,2 +1,2 @@
 #!/bin/sh
-$HOME/prg/ungoogled-chromium.AppImage --no-sandbox
+$HOME/prg/ungoogled-chromium.AppImage --no-sandbox --appimage-extract

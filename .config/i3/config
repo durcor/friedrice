@@ -62,7 +62,6 @@ mode MANAGER {
 	bindsym --release q exec --no-startup-id slock xset dpms force off
 	bindsym --release Shift+q exec --no-startup-id sudo slock systemctl suspend
 	bindsym --release XF86Sleep exec --no-startup-id sudo slock systemctl suspend
-	bindsym --release v exec --no-startup-id "maim -u -n 2 -s ~/scr/$(date +%Y-%m-%d_%H%M-%S).png"
 	bindsym u exec --no-startup-id "xclip -t -se p | xclip -i -s c"
 	bindsym slash exec --no-startup-id dmenual -i -p run
 	bindsym Shift+slash exec --no-startup-id rofi -show run
@@ -156,6 +155,7 @@ mode MANAGER {
 	bindsym z mode "AUDIO";exec notify-send -u low "AUDIO MODE"
 	bindsym Shift+colon mode "COMMAND";exec notify-send -u low "COMMAND MODE"
 	bindsym r mode "RESIZE";exec notify-send -u low "RESIZE MODE"
+	bindsym v mode "VISUAL";exec notify-send -u low "VISUAL MODE"
 }
 
 bindsym Shift+a mode "MANAGER";exec notify-send -u low "MANAGER MODE"
@@ -230,6 +230,14 @@ mode "LAUNCH" {
 mode "COMMAND" {
 	bindsym --release q exec --no-startup-id slock xset dpms force off
 	bindsym --release Shift+q exec --no-startup-id sudo slock systemctl suspend
+
+	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+}
+
+mode "VISUAL" {
+	bindsym --release v exec --no-startup-id "maim -u -s ~/scr/$(date +%Y-%m-%d_%H%M-%S).png"
+	bindsym --release c exec --no-startup-id "maim -u -s ~/scr/$(date +%Y-%m-%d_%H%M-%S).png  | xclip -se c -i"
+	bindsym --release u exec --no-startup-id "maim -u -s ~/scr/$(date +%Y-%m-%d_%H%M-%S).png  | up0x0"
 
 	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }

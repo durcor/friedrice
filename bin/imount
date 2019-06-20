@@ -35,8 +35,8 @@ do
                 ifuse --documents com.artifex.mupdf /mnt/ios/mupdf &
                 #mkdir /mnt/ios/ivim
                 #ifuse --documents com.terrychou.ivim /mnt/ios/ivim &
-                mkdir /mnt/ios/rssmobile
-                ifuse --documents com.ipanfilov.RSS-Mobile /mnt/ios/rssmobile &
+                #mkdir /mnt/ios/rssmobile
+                #ifuse --documents com.ipanfilov.RSS-Mobile /mnt/ios/rssmobile &
                 #mkdir /mnt/ios/minikeepass
                 #ifuse --documents com.jflan.MiniKeePass /mnt/ios/minikeepass &
                 #mkdir /mnt/ios/openterm
@@ -59,8 +59,8 @@ do
                 #ifuse --documents com.gplexdb.azulbrowse /mnt/ios/redbrowser &
                 #mkdir /mnt/ios/mega
                 #ifuse --documents mega.ios /mnt/ios/mega &
-                #mkdir /mnt/ios/pass
-                #ifuse --documents me.mssun.passforios /mnt/ios/pass &
+                mkdir /mnt/ios/pass
+                ifuse --documents me.mssun.passforios /mnt/ios/pass &
                 #mkdir /mnt/ios/imovie
                 #ifuse --documents com.apple.iMovie /mnt/ios/imovie &
                 #mkdir /mnt/ios/pacemaker

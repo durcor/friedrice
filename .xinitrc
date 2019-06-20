@@ -8,8 +8,6 @@ redshift &
 xset r rate 150 35 &
 dunst &
 clipmenud &
-musnify-mpd &
 # nm-applet &
-# mpdscribble &
 barriers -c ~/.barrier.conf &
 i3

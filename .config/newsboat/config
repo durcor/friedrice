@@ -1,7 +1,7 @@
 # ~/.config/newsboat/config
 # vi:ft=python
 
-auto-reload yes
+auto-reload no
 reload-time 5
 reload-threads 2
 suppress-first-reload yes
@@ -9,6 +9,11 @@ suppress-first-reload yes
 show-keymap-hint no
 
 external-url-viewer "urlscan -dc"
+
+urls-source "local"
+ocnews-url "https://cloud.disroot.org/"
+ocnews-login "durcor"
+ocnews-passwordeval "pass disroot.org/durcor"
 
 datetime-format "%m/%d/%y %H%M"
 

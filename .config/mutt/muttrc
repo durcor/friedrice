@@ -4,10 +4,8 @@ bind index,pager i noop
 bind pager,index d noop
 bind index \Cf noop
 source muttcols
-set alias_file= muttal
 set sort_alias= alias
 set reverse_alias=yes
-source muttal
 source personal.muttrc
 set sleep_time = 0
 set sort = 'reverse-date'
@@ -87,6 +85,9 @@ set sidebar_width = 20
 set sidebar_short_path = yes
 set sidebar_next_new_wrap = yes
 set mail_check_stats
+set query_command= "echo %s | xargs khard email --parsable --search-in-source-files --"
+bind editor <Tab> complete-query
+bind editor ^T complete
 set sidebar_format = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
 bind index,pager \Ck sidebar-prev
 bind index,pager \Cj sidebar-next

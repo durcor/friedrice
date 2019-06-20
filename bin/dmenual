@@ -1,7 +1,7 @@
 #!/bin/bash
 cache=~/.cache/dmenu_run
 freq=~/.dmenuhis
-aliases=~/.shal.norm
+aliases=~/.shal
 source $aliases
 
 case "$1" in

@@ -202,7 +202,7 @@ c.content.cache.size = 52428800
 ##   - no-3rdparty: Accept cookies from the same origin only.
 ##   - no-unknown-3rdparty: Accept cookies from the same origin only, unless a cookie is already set for the domain. On QtWebEngine, this is the same as no-3rdparty.
 ##   - never: Don't accept cookies at all.
-# c.content.cookies.accept = 'no-3rdparty'
+c.content.cookies.accept = 'no-3rdparty'
 
 ## Store cookies. Note this option needs a restart with QtWebEngine on Qt
 ## < 5.9.
@@ -428,7 +428,7 @@ c.content.proxy = 'system'
 ## Type: List of File, or File
 # c.content.user_stylesheets = []
 c.content.user_stylesheets = [
-        '/home/ty/doc/css/riceverywhere.css',
+#        '/home/ty/doc/css/riceverywhere.css',
 #        '/home/ty/doc/css/inv-low_contrast.css',
 #        '/home/ty/doc/css/solarized-dark-all-sites.css',
 #        '/home/ty/doc/css/searx-dark.css',
@@ -539,7 +539,7 @@ c.editor.command = ['st', '-e', 'nvim', '{}']
 ## Valid values:
 ##   - javascript: Better but slower
 ##   - python: Slightly worse but faster
-c.hints.find_implementation = 'javascript'
+# c.hints.find_implementation = 'javascript'
 
 ## Hide unmatched hints in rapid mode.
 ## Type: Bool
@@ -976,7 +976,7 @@ c.tabs.show = 'always'
 ## `{protocol}`: Protocol (http/https/...) of the current web page. *
 ## `{audio}`: Indicator for audio/mute status.
 ## Type: FormatString
-c.tabs.title.format = '{audio} {title}'
+c.tabs.title.format = '{audio} {current_title}'
 
 ## Format to use for the tab title for pinned tabs. The same placeholders
 ## like for `tabs.title.format` are defined.

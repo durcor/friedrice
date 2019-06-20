@@ -26,10 +26,11 @@ ealias tm="$TASKMAN"
 ealias rn='tty-clock -csb -C 7'
 ealias whatsup='uptime -p | cowsay -f tux'
 ealias ytdl='youtube-dl'
-ealias zath='zathura'
-ealias mpdbkmk='echo "- $(mpc current)" >> ~/doc/goodmus.md'
 ealias ytdl-mus='youtube-dl -icw -f bestaudio --embed-thumbnail --add-metadata --write-thumbnail'
 ealias ytdl-ytmus='youtube-dl -icw -f bestaudio --embed-thumbnail --add-metadata --write-thumbnail --audio-format mp3 --audio-quality 0'
+ealias ytdl-aud='youtube-dl -icwx -f bestaudio --embed-thumbnail --add-metadata --write-thumbnail --audio-format mp3 --audio-quality 0'
+ealias zath='zathura'
+ealias mpdbkmk='echo "- $(mpc current)" >> ~/doc/goodmus.md'
 ealias pandochtml='pandoc $1 -o $1.html'
 ealias rbsh='source ~/.bashrc'
 ealias rzsh='source ~/.zshrc'
@@ -104,13 +105,11 @@ ealias cp='cp -i'
 ealias rs='rsync'
 ealias pipes='pipes -R'
 
-ealias calcurse='calcurse -D /mnt/thic/conf/.calcurse'
 ealias kal='vdirsyncer sync;ikhal;vdirsyncer sync'
 
 ealias bak='cp "$1" ~/doc/bak/$1_$(date)'
 ealias garbclean='shred -zu -n 5 ~/.garb/*'
 
-ealias up0x0='curl -F'file=@$1' https://0x0.st'
 ealias short0c0='curl -F'shorten=$1' https://0x0.st'
 
 scihubdl() { curl -O $(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o http.*pdf) ;}
