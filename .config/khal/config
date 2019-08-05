@@ -1,0 +1,73 @@
+# vi:ft=python
+[calendars]
+
+    [[event]]
+        path = ~/cal/event/
+        color = 12
+
+    [[asn]]
+        path = ~/cal/asn/
+        color = 10
+
+    [[done]]
+        path = ~/cal/done/
+        color = 1
+
+    [[birthdays]]
+        path = ~/addbk/contacts/
+        type = birthdays
+        color = 11
+
+    [[f1]]
+        path = ~/cal/f1/
+        color = 13
+
+    [[indycar]]
+        path = ~/cal/indycar/
+        color = 13
+
+    [[nascar]]
+        path = ~/cal/nascar/
+        color = 13
+
+    [[robo]]
+        path = ~/cal/robo/
+        color = 9
+
+    [[holiday]]
+        path = ~/cal/holiday
+        color = 11
+
+    [[work]]
+        path = ~/cal/work
+        color = 7
+
+[locale]
+    timeformat = %H:%M
+    dateformat = %m/%d/%Y
+    longdateformat = %m/%d/%Y
+    datetimeformat = %m/%d/%Y %H:%M
+    longdatetimeformat = %m/%d/%Y %H:%M
+
+[default]
+    show_all_days = True
+    timedelta = 7d
+
+[keybindings]
+    delete = x
+    down = j
+    duplicate = y
+    export = ctrl e
+    external_edit = E
+    left = h
+    log = L
+    mark = V
+    new = o
+    other = G
+    quit = q
+    right = l
+    save = ctrl s
+    search = /
+    today = g
+    up = k
+    view = v
