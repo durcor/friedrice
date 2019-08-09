@@ -4,9 +4,7 @@
 ~/.config/wpg/wp_init.sh &
 ~/.fehbg &
 setxkbmap -layout us,es -option caps:escape && setxkbmap -option grp:alt_shift_toggle &
-redshift &
 xset r rate 150 35 &
-dunst &
 clipmenud &
 # nm-applet &
 barriers -c ~/.barrier.conf &

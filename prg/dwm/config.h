@@ -10,12 +10,12 @@ static const unsigned int snap      = 0;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Inconsolata Nerd Font:size=10" };
-static const char nf[]       = "#fdffff";
-static const char nb[]       = "#9A6846";
-static const char nr[]       = "#9A6846";
-static const char sf[]       = "#fdffff";
-static const char sb[]       = "#9A6846";
-static const char sr[]       = "#9A6846";
+static const char nf[]       = "#ffffec";
+static const char nb[]       = "#8C764F";
+static const char nr[]       = "#8C764F";
+static const char sf[]       = "#ffffec";
+static const char sb[]       = "#8C764F";
+static const char sr[]       = "#8C764F";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { nf, nb, nr },

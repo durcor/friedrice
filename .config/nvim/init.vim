@@ -38,6 +38,7 @@ Plug 'dpelle/vim-LanguageTool'
 let g:languagetool_jar='$HOME/.local/share/nvim/plug/vim-grammarous/misc/LanguageTool-4.1/languagetool-commandline.jar'
 "Plug 'DanManN/vim-razer'
 "Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
+Plug 'vimwiki/vimwiki'
 call plug#end()
 
 " run neomake on file save

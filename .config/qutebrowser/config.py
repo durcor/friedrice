@@ -26,7 +26,6 @@ c.aliases = {
         'jstoggle': 'config-cycle -p -t -u *://*.{url:host}/* content.javascript.enabled ;; reload',
         'plugon': 'set content.plugins true',
         'plugoff': 'set content.plguins false',
-        'confso': 'config-source',
         }
 
 config.source('appearance.py')
@@ -268,7 +267,6 @@ c.content.cookies.accept = 'no-3rdparty'
 ## read from JavaScript is always the global value.
 ## Type: String
 # c.content.headers.user_agent = 'Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0'
-
 c.content.headers.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'
 ## Enable host blocking.
 ## Type: Bool
@@ -1003,7 +1001,7 @@ c.tabs.title.format = '{audio} {current_title}'
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 ## for a blank page.
 ## Type: FuzzyUrl
-c.url.default_page = '/home/ty/doc/sp/sp.html'
+c.url.default_page = '/home/ty/doc/sp/index.html'
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.
