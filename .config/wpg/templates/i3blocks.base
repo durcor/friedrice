@@ -89,7 +89,6 @@ color=#<COLOR11>
 [mail]
 label= 
 command=i3bmail
-interval=100
 signal=12
 color=#<COLOR13>
 
@@ -127,9 +126,9 @@ color=#<COLOR13>
 #separator=true
 #label=
 
-[wifi]
-instance=enp3s0
-interval=10
+#[wifi]
+#instance=enp3s0
+#interval=10
 #separator=true
 
 #[bandwidth]
@@ -160,7 +159,7 @@ color=#<COLOR15>
 #label=♪
 #instance=Master
 #instance=PCM
-interval=5
+signal=13
 command=i3bvol
 color=#<COLOR14>
 

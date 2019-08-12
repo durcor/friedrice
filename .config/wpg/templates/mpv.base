@@ -32,6 +32,13 @@
 # fullscreen
 fs=no
 
+screenshot-directory=~/scr/
+screenshot-format=jpg
+screenshot-template='%tY-%tm-%td_%tH%tM-%tS'
+screnshot-jpeg-quality=100
+
+image-display-duration=inf
+
 # where window starts
 geometry=95%:90%
 autofit-larger=40%x40%
@@ -39,6 +46,7 @@ autofit-larger=40%x40%
 term-osd-bar
 
 osd-level=1
+osd-bar-h=2
 osd-font='<def-font>'
 osd-font-size=30
 osd-color='#<COLOR15>'
@@ -50,6 +58,14 @@ on-all-workspaces
 ontop=yes
 keep-open=yes
 save-position-on-quit=
+
+# low quality
+# vo=xv
+# vd-lavc-fast
+# vd-lavc-skiploopfilter=5
+# vd-lavc-skipframe=5
+# vd-lavc-framedrop=5
+# vd-lavc-threads=4
 
 # Do not wait with showing the video window until it has loaded. (This will
 # resize the window once video is loaded. Also always shows a window with
@@ -78,6 +94,10 @@ cache=2048
 # The option takes the device string (the stuff between the '...').
 audio-device=pulse
 
+hls-bitrate=max
+
+audio-file-auto=fuzzy
+
 # Do not filter audio to keep pitch when changing playback speed.
 #audio-pitch-correction=no
 
@@ -90,10 +110,22 @@ audio-device=pulse
 # Pretend to be a web browser. Might fix playback with some streaming sites,
 # but also will break with shoutcast streams.
 user-agent="Mozilla/5.0"
+
 # cache settings
-#
-# Use 150MB input cache by default. The cache is enabled for network streams only.
-cache-default=153600
+cache-default=4000000
+cache-backbuffer=250000
+demuxer-max-bytes=114748364
+# Use 150MB input cache for everything, even local files.
+#cache=153600
+cache=yes
+# Disable the behavior that the player will pause if the cache goes below a
+# certain fill size.
+cache-pause=no
+# Read ahead about 5 seconds of audio and video packets.
+#demuxer-readahead-secs=5.0
+# Raise readahead from demuxer-readahead-secs to this value if a cache is active.
+#cache-secs=50.0
+
 ytdl-format=bestvideo[height<=?720]+bestaudio/best
 ytdl-raw-options=embed-thumbnail=
 ytdl-raw-options=write-thumbnail=
@@ -105,15 +137,7 @@ ytdl-raw-options=sub-format=en,write-srt=
 ytdl-raw-options=ignore-errors=
 ytdl-raw-options=continue=
 ytdl-raw-options=include-ads=
-# Use 150MB input cache for everything, even local files.
-#cache=153600
-# Disable the behavior that the player will pause if the cache goes below a
-# certain fill size.
-cache-pause=no
-# Read ahead about 5 seconds of audio and video packets.
-#demuxer-readahead-secs=5.0
-# Raise readahead from demuxer-readahead-secs to this value if a cache is active.
-#cache-secs=50.0
+
 slang=en,es
 alang=en,es
 # Change subtitle encoding. For Arabic subtitles use 'cp1256'.
@@ -122,6 +146,7 @@ alang=en,es
 #sub-codepage=cp1256
 sub-color='#<COLOR15>'
 sub-auto=fuzzy
+embeddedfonts=yes
 
 # You can also include other configuration files.
 #include=/path/to/the/file/you/want/to/include
@@ -132,7 +157,23 @@ sub-auto=fuzzy
 # The following profile can be enabled on the command line with: --profile=eye-cancer
 
 [eye-cancer]
+profile-desc="as the name suggests"
 sharpen=5
 
+[img]
+profile-desc="strips all features not needed when using mpv as an image viewer"
+term-osd=no
+no-term-osd-bar
+osd-level=0
+no-osc
+no-osd-bar
+
 [nowin]
+profile-desc="mpv with no window output"
+vid=no
 force-window=no
+save-position-on-quit=no
+
+[wal]
+profile-desc="make the current video the background for your desktop"
+wid=0

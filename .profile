@@ -8,29 +8,10 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-export PATH="$PATH:$HOME/bin"
-
 if which ruby >/dev/null && which gem >/dev/null
 then
     PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
-
-export EDITOR=nvim
-export VISUAL=nvim
-export TERMINAL=st
-export BROWSER=copytoclip
-export GUIBROWSER=qutebrowser
-#export BROWSER=qutebrowser
-#export BROWSER=~/bin/linkhandler
-export PAGER=less
-export FILEMAN=ranger
-export TASKMAN=gotop
-export READER=zathura
-#[ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$XDG_CURRENT_DESKTOP" = "GNOME" ] || export QT_QPA_PLATFORMTHEME="qt5ct"
-export QT_QPA_PLATFORMTHEME=qt5ct
-#export QT_AUTO_SCREEN_SCALE_FACTOR=0
-export LYNX_CFG=~/.lynxrc
-export PASSWORD_STORE_DIR=~/pw
 
 if [ $TERM = linux ]
 then
@@ -41,6 +22,7 @@ fi
 
 source ~/.config/wpg/formats/colors.sh
 source ~/.mancolors
+source ~/.config/environment
 source ~/.spooky
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then

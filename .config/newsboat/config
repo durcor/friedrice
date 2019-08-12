@@ -1,10 +1,10 @@
 # ~/.config/newsboat/config
 # vi:ft=python
 
-auto-reload no
-reload-time 5
+auto-reload yes
+reload-time 60
 reload-threads 2
-suppress-first-reload yes
+suppress-first-reload no
 
 show-keymap-hint no
 
@@ -17,7 +17,7 @@ ocnews-passwordeval "pass disroot.org/durcor"
 
 datetime-format "%m/%d/%y %H%M"
 
-bookmark-cmd nbphonebkmkmd
+bookmark-cmd nbbuku
 bookmark-interactive no
 bookmark-autopilot yes
 
@@ -116,22 +116,28 @@ browser "qutebrowser %u"
 macro SPACE open-in-browser
 
 # open url in mpv
-macro v set browser "setsid nohup mpv %u >> /dev/null & disown" ; open-in-browser-and-mark-read ; set browser "qutebrowser %u"
+macro v set browser "tmux splitw -v -p 25 mpv %u" ; open-in-browser-and-mark-read ; set browser "qutebrowser %u"
+
+# open url in mpv in new tmux pane and no X output
+macro V set browser "tmux splitw -v -p 25 mpv --profile=nowin %u" ; open-in-browser-and-mark-read ; set browser "qutebrowser %u"
+
+# download url w/ youtube-dl
+macro d set browser "youtube-dl %u" ; open-in-browser ; set browser "qutebrowser %u"
 
 # download url audio w/ youtube-dl
-macro a set browser "youtube-dl %u" ; open-in-browser ; set browser "qutebrowser %u"
+macro a set browser "youtube-dl -icwx -f bestaudio --embed-thumbnail --add-metadata --write-thumbnail --audio-format mp3 --audio-quality 0 %u" ; open-in-browser ; set browser "qutebrowser %u"
 
 # save music url to file
 macro m set browser "nbmusdl" ; open-in-browser ; set browser "qutebrowser %u"
 
-# goto
+# return to master screen and enter command line to enter commands such as 'goto'
 macro / quit ; cmdline
 
 # refresh current feed if it glitches
 macro u quit ; open
 
-# open url in w3m
-macro w set browser "setsid nohup st -e w3m %u &" ; open-in-browser-and-mark-read ; set browser "qutebrowser %u"
+# open url in w3m in a new tmux window
+macro w set browser "tmux splitw -h -p 50 w3m %u" ; open-in-browser-and-mark-read ; set browser "qutebrowser %u"
 
 # save selected url to clipboard
 macro y set browser "echo %u | xclip -i -se c" ; open-in-browser ; set browser "qutebrowser %u"

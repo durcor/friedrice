@@ -15,7 +15,8 @@ promptinit
 #     USER_PROMPT_COLOR=9
 # fi
 
-PROMPT='%F{10}%n%f@%F{4}%m%f %F{3}%~%f %# '
+PROMPT='%F{10}%n%f@%F{12}%m%f in %F{11}%~%f
+%F{13}-%F{14}-%F{9}%# '
 RPROMPT=''
 export KEYTIMEOUT=1
 

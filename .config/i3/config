@@ -206,12 +206,12 @@ mode "MUSIC" {
 }
 
 mode "AUDIO" {
-	bindsym h exec --no-startup-id pamixer --allow-boost -d 5
-	bindsym l exec --no-startup-id pamixer --allow-boost -i 5
-	bindsym j exec --no-startup-id pamixer --allow-boost -d 10
-	bindsym k exec --no-startup-id pamixer --allow-boost -i 10
+	bindsym h exec --no-startup-id pamixer --allow-boost -d 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks'
+	bindsym l exec --no-startup-id pamixer --allow-boost -i 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
+	bindsym j exec --no-startup-id pamixer --allow-boost -d 10 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
+	bindsym k exec --no-startup-id pamixer --allow-boost -i 10 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
     bindsym v exec --no-startup-id notifaudio
-	bindsym space exec --no-startup-id pamixer -t
+	bindsym space exec --no-startup-id pamixer -t ; exec --no-startup-id pkill -RTMIN+13 i3blocks
 
 	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }

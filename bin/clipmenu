@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 : "${CM_LAUNCHER=dmenu}"
 : "${CM_DIR="${XDG_RUNTIME_DIR-"${TMPDIR-/tmp}"}"}"

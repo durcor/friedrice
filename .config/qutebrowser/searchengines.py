@@ -42,7 +42,7 @@ c.url.searchengines = {
         'gw': "https://wiki.gentoo.org/?search={}",
         'igw':  'https://wiki.installgentoo.com/?search={}',
         'surname': 'https://forebears.io/surnames?q={}',
-        'name': 'https://behindthename.com/name/{}',
+        'name': 'https://www.behindthename.com/names/search.php?terms={}',
         'bit': 'https://bitchute.com/search/?q={}&sort=date_created+desc',
         'lut': 'https://lutris.net/games/?q={}',
         'arch': 'https://www.archlinux.org/packages/?q={}',
@@ -61,5 +61,14 @@ c.url.searchengines = {
         'sc': 'https://soundcloud.com/search?q={}',
         'li': 'https://www.linkedin.com/search/results/all/?keywords={}',
         'ni': 'https://www.niche.com/search/?q={}',
-        'gm': 'https://www.google.com/maps/place/{}'
+        'gm': 'https://www.google.com/maps?q={}',
+        'gen': 'https://genius.com/search?q={}',
+        'g': 'https://www.google.com/search?q={}',
+        'mal': 'https://myanimelist.net/search/all?q={}',
+        'ksc': 'https://kisscartoon.is/Search/?s={}',
+        'gogo': 'https://www6.gogoanime.io//search.html?keyword={}',
+        'pop': 'https://popcorntime.is/?c=movie&m=filter&keyword={}',
+        'lfm': 'https://www.last.fm/search?q={}',
+        'bc': 'https://bandcamp.com/search?q={}',
+        'tr': 'https://translate.google.com/#view=home&op=translate&sl=auto&tl=en&text={}'
         }
