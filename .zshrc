@@ -114,12 +114,16 @@ bindkey -M emacs '^ '   magic-space
 bindkey -M isearch " "  magic-space     # normal space during searches
 
 # plugins
-# Install antigen w/
-# 	mkdir -p ~/.zsh ; curl -L git.io/antigen-nightly > ~/.zsh/antigen.zsh
-source ~/.zsh/antigen.zsh
-antigen bundle zdharma/fast-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-# antigen bundle b4b4r07/zsh-vimode-visual
-antigen apply
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=5
+if ls ~/.zsh/antigen.zsh >/dev/null
+then
+    source ~/.zsh/antigen.zsh
+    antigen bundle zdharma/fast-syntax-highlighting
+    antigen bundle zsh-users/zsh-autosuggestions
+    antigen bundle zsh-users/zsh-completions
+    # antigen bundle b4b4r07/zsh-vimode-visual
+    antigen apply
+    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=5
+else
+    mkdir -p ~/.zsh
+    curl -L git.io/antigen-nightly > ~/.zsh/antigen.zsh
+fi
