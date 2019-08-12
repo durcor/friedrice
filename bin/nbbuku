@@ -1,0 +1,3 @@
+#!/bin/sh
+
+buku -a $1 --tag + view

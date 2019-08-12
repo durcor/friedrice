@@ -1,0 +1,47 @@
+#!/bin/bash
+if [ -z "$1" ]
+  then
+    echo "I need a file! Usage: upload.sh [File path] [true/false, to show deletion URL (default: false)] [integer, minutes after file will be deleted (min: 2, default: 0)] [true/false, to save file-extension (default: false)] [true/false, to save file extension and filename (default: false)]"
+    echo "For example: upload.sh files/file.log false 60 true"
+    exit 1
+fi
+
+SHOW_DELETION_URL="false"
+if [[ $2 = "true" ]]; then
+  SHOW_DELETION_URL="true"
+fi
+
+DELETE_FILE_AFTER_N_MINUTES=0
+regx='^[0-9]+$'
+if [[ $3 =~ $regx ]] ; then
+   DELETE_FILE_AFTER_N_MINUTES=$3
+fi
+
+META_FILE_EXTENSION=""
+if [[ $4 = "true" ]]; then
+  META_FILE_EXTENSION="${1##*.}"
+fi
+
+META_FILENAME=""
+if [[ $5 = "true" ]]; then
+  META_FILENAME=$(basename $1)
+fi
+
+FILE_IN_BASE64="$(base64 -w 0 $1)"
+FILE_MIME="$(file --mime-type $1 -b)"
+BASE64_STRING="data:$FILE_MIME;base64,$FILE_IN_BASE64"
+echo $BASE64_STRING > $1.b64
+ENC_PASSWORD=`tr -dc A-Za-z0-9 < /dev/urandom | head -c 32 | xargs`
+openssl enc -aes-256-cbc -e -base64 -in $1.b64 -out $1.enc -pass pass:$ENC_PASSWORD 2> /dev/null
+tr -d '\n' < $1.enc > $1.enc.trimmed # OpenSSL -A flag would make the data one line, but the -A flag is "BUGGY". See: https://wiki.openssl.org/index.php/Command_Line_Utilities. Let's do it on our own then.
+ENCRYPTED_FILE=`cat $1.enc.trimmed`
+JSON=$(curl -s -F encrypting=true -F "encrypted_base64=<$1.enc.trimmed" -F "minutes=$DELETE_FILE_AFTER_N_MINUTES" -F "metadata_ext=$META_FILE_EXTENSION" -F "metadata_name=$META_FILENAME" https://upload.vaa.red/upload/file)
+FILE_ID=`echo $JSON | jq -r '.fileId'`
+DELETION_ID=`echo $JSON | jq -r '.deletionId'`
+
+echo "https://upload.vaa.red/$FILE_ID#$ENC_PASSWORD"
+if [[ $2 = "true" ]]; then
+  echo "https://upload.vaa.red/delete/$DELETION_ID"
+fi
+
+rm $1.enc $1.enc.trimmed $1.b64 # remove temp files

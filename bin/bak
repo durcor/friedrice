@@ -1,0 +1,2 @@
+#!/bin/sh
+cp "$1" ~/doc/bak/$1_$(date)

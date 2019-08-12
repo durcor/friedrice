@@ -1,0 +1,3 @@
+#!/bin/sh
+
+shred -zu -n 5 $1

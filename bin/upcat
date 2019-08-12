@@ -1,0 +1,362 @@
+#!/bin/bash
+#
+# Catbox v1.1
+# A implelemtation of CatBox.moe API in Bash
+# Author: MineBartekSA
+# Gist: https://gist.github.com/MineBartekSA/1d42d6973ddafb82793fd49b4fb06591
+#
+
+curl --version >> /dev/null
+if [ $? -ne 0 ]
+then
+  echo -e "\e[91mcURL not found!\e[0m"
+  echo "Please check if you have installed cURL on your system"
+  exit 1
+fi
+
+usage()
+{
+  if [ -z $1 ] || [ $1 == "version" ]
+  then
+    echo -e "\e[1mCatBox\e[0m v1.1"
+    if ! [ -z $1 ]; then exit; fi
+    echo "A CatBox.moe API implementation in Bash" 
+    echo ""
+  elif [ $1 != "\r" ]
+  then
+    echo -e $1
+  fi
+  echo -e "Usage: catbox <command> [arguments]\n"
+  echo "Commands:"
+  echo "   user [userhash]            - Gets or sets current userhash. If you pass 'off' then it will make you anonymous"
+  echo "   file <filename(s)>         - Uploads files to catbox.moe"
+  echo "   url <url(s)>               - Uploads files from URLs to catbox.moe"
+  echo "   delete <filenames(s)>      - Deletes files from catbox.moe. Requires userhash"
+  echo "   album                      - Album Managment"
+  echo "   usage, --usage, -h, --help - Prints this message"
+  echo "   version, -v, --version     - Prints version"
+}
+
+getHash()
+{
+  while read p
+  do
+    if [ ${p:0:1} != "#" ]
+    then
+      echo $p
+    fi
+  done < "$HOME/.catbox"
+}
+
+checkUH()
+{
+  if ! [ -f "$HOME/.catbox" ]
+  then
+    echo -e "\e[91mNo userhash set! $1\e[0m"
+    echo "Use 'catbox user <hash>' first then try again!"
+    exit 1
+  fi
+}
+
+HOST="https://catbox.moe/user/api.php"
+
+if [ $# -eq 0 ]
+then usage
+elif [ $1 == "usage" ] || [ $1 == "--usage" ] || [ $1 == "-h" ] || [ $1 == "--help" ]
+then usage
+elif [ $1 == "version" ] || [ $1 == "-v" ] || [ $1 == "--version" ]
+then
+  usage "version"
+elif [ $1 == "user" ]
+then
+  # User Command
+  
+  if [ -z $2 ]
+  then
+    if [ -f "$HOME/.catbox" ]
+    then
+      echo "Your current userhash is: $(getHash)"
+    else
+      echo "No userhash is currently set, so you are anonymous"
+    fi
+  else
+    if [ $2 != "off" ]
+    then
+      echo -e "#CatBox.moe userhash file\n$2" > "$HOME/.catbox"
+      echo "Userhash $2 set in $HOME/.catbox"
+    else
+      rm "$HOME/.catbox"
+      echo "You are now Anonymous!"
+    fi
+  fi
+elif [ $1 == "file" ]
+then
+  # File Commmand
+
+  if [ $# -eq 1 ]
+  then
+    echo "Usage: catbox file <filename> [<filename>...] - Uploads files to CatBox.moe"
+    exit 1
+  fi
+
+  if [ -f "$HOME/.catbox" ]
+  then
+    echo "Uploading with userhash..."
+    one=0
+    for file in "$@"
+    do
+      if [ $one -ne 1 ]; then one=1; continue; fi
+      if [ -f $file ]
+      then
+        echo -en "\e[1m$(basename -- $file)\e[0m: "
+        curl -F "reqtype=fileupload" -F "userhash=$(getHash)" -F "fileToUpload=@$file" $HOST
+        echo -en "\n"
+      else
+        echo -e "\e[91mFile $file dose not exists!\e[0m"
+      fi
+    done
+    echo "Finished uploading!"
+  else
+    echo "Uploading anonymously..."
+    one=0
+    for file in "$@"
+    do
+      if [ $one -ne 1 ]; then one=1; continue; fi
+      if [ -f $file ]
+      then
+        echo -en "\e[1m$(basename -- $file)\e[0m: "
+        curl -F "reqtype=fileupload" -F "fileToUpload=@$file" $HOST
+        echo -en "\n"
+      else
+        echo -e "\e[91mFile $file dose not exists!\e[0m"
+      fi
+    done
+    echo "Finished uploading!"
+  fi
+elif [ $1 == "url" ]
+then
+  # Url Command
+
+  if [ $# -eq 1 ]
+  then
+    echo "Usage: catbox url <url> [<url>...] - Uploads files from urls to CatBox.moe"
+    exit 1
+  fi
+
+  if [ -f "$HOME/.catbox" ]
+  then
+    echo "Uploading with userhash..."
+    one=0
+    for url in "$@"
+    do
+      if [ $one -ne 1 ]; then one=1; continue; fi
+      echo -en "\e[1m$url\e[0m: "
+      curl -F "reqtype=urlupload" -F "userhash=$(getHash)" -F "url=$url" $HOST
+      echo -en "\n"
+    done
+    echo "Finished uploading!"
+  else
+    echo "Uploading anonymously..."
+    one=0
+    for url in "$@"
+    do
+      if [ $one -ne 1 ]; then one=1; continue; fi
+      echo -en "\e[1m$url\e[0m: "
+      curl -F "reqtype=urlupload" -F "url=$url" $HOST
+      echo -en "\n"
+    done
+    echo "Finished uploading!"
+  fi
+elif [ $1 == "delete" ]
+then
+  # Delete Command
+
+  if [ $# -eq 1 ]
+  then
+    echo "Usage: catbox delete <filename> [<filename>...] - Deletes files from your CatBox.moe account"
+    exit 1
+  fi
+
+  checkUH "Can't delete files!"
+
+  echo "Deleting..."
+  one=0
+  files=""
+  for file in "$@"
+  do
+    if [ $one -ne 1 ]; then one=1; continue; fi 
+    echo -en "\e[1m$file\e[0m: "
+    curl -F "reqtype=deletefiles" -F "userhash=$(getHash)" -F "files=$file" $HOST
+    echo -en "\n"
+  done 
+  echo "Finished deleting files!"
+elif [ $1 == "album" ]
+then
+  #Album Managment
+
+  if [ $# -eq 1 ]
+  then
+    echo -e "Usage: catbox album <command> [arguments]\n"
+    echo "Every command here needs userhash so be sure you haveset it up!"
+    echo -e "\e[1;93mRemeber that every title or discription must written in \"\" if you want to write more than one word!\e[0m\n"
+    echo "Commands:"
+    echo "   create <title> <description> <file(s)>       - Create album"
+    echo "   edit <short> <title> <description> [file(s)] - Edit album"
+    echo "   add <short> <file(s)>                        - Add files to album"
+    echo "   remove <short> <file(s)>                     - Remove files from album"
+    echo "   delete <short>                               - Delete album"
+    exit 1
+  fi
+
+  if [ $2 == "create" ]
+  then
+    if [ $# -lt 5 ]
+    then
+      echo "Usage: catbox album create <title> <description> <filename> [<filename> ...] - Careates an album with given title, discription and files"
+      echo -e "\e[1;93mRemeber that every title or discription must written in \"\" if you want to write more than one word!\e[0m"
+      exit 1
+    fi
+    checkUH "Can't create album!"
+
+    echo "Creating Album..."
+    echo "Title: $3"
+    echo "Description: $4"
+    echo -en "Files: "
+
+    one=0
+    files=""
+    for file in "$@"
+    do
+      if [ $one -ne 4 ]; then one=$[$one+1]; continue; fi
+      if [ "$files" == "" ]
+      then
+        files=$file
+      else
+        files=$files" "$file
+      fi
+      echo -en $file
+    done
+    echo -en "\n"
+
+    album=$(curl -F "reqtype=createalbum" -F "userhash=$(getHash)" -F "title=$3" -F "desc=$4" -F "files=$files" -# $HOST)
+
+    echo "Album short: ${album/"https://catbox.moe/c/"/""}"
+    echo "Album url: $album"
+    echo "Album creation successfull!"
+
+  elif [ $2 == "edit" ]
+  then
+    if [ $# -lt 5 ]
+    then
+      echo "Usage: catbox album edit <short> <title> <description> [<filename> ...] - Edites album"
+      echo -e "\e[1;93mRemeber that every title or discription must written in \"\" if you want to write more than one word!"
+      echo -e "You don't have to give filenames but if you don't give any will render the album empty!\e[0m"
+      exit 1
+    fi
+    checkUH "Can't edit album!"
+
+    echo "Editing Album..."
+    echo "Album Short: $3"
+    echo "Title: $4"
+    echo "Description: $5"
+    echo -en "Files: "
+
+    one=0
+    files=""
+    for file in "$@"
+    do
+      if [ $one -ne 5 ]; then one=$[$one+1]; continue; fi
+      if [ "$files" == "" ]
+      then
+        files=$file
+      else
+        files=$files" "$file
+      fi
+      echo -en $file
+    done
+    echo -en "\n"
+
+    curl -F "reqtype=editalbum" -F "userhash=$(getHash)" -F "short=$3" -F "title=$4" -F "desc=$5" -F "files=$files" -# $HOST
+
+    echo -e "\nAlbum edition successfull!"
+
+  elif [ $2 == "add" ]
+  then
+    if [ $# -lt 4 ]
+    then
+      echo "Usage: catbox album add <short> <filename> [<filename> ...] - Adds files to the specific album"
+      exit 1
+    fi
+    checkUH "Can't add files to album!"
+
+    echo -en "Files: "
+
+    one=0
+    files=""
+    for file in "$@"
+    do
+      if [ $one -ne 3 ]; then one=$[$one+1]; continue; fi
+      if [ "$files" == "" ]
+      then
+        files=$file
+      else
+        files=$files" "$file
+      fi
+      echo -en $file
+    done
+    echo -en "\n"
+
+    curl -F "reqtype=addtoalbum" -F "userhash=$(getHash)" -F "short=$3" -F "files=$files" $HOST
+    echo -e "\nAddition complete!"
+
+  elif [ $2 == "remove" ]
+  then
+    if [ $# -lt 4 ]
+    then
+      echo "Usage: catbox album remove <short> <filename> [<filename> ...] - Removes files from the specific album"
+      exit 1
+    fi
+    checkUH "Can't remove files from album!"    
+
+    echo -en "Files: "
+
+    one=0
+    files=""
+    for file in "$@"
+    do
+      if [ $one -ne 3 ]; then one=$[$one+1]; continue; fi
+      if [ "$files" == "" ]
+      then
+        files=$file
+      else
+        files=$files" "$file
+      fi
+      echo -en $file
+    done
+    echo -en "\n"
+
+    curl -F "reqtype=removefromalbum" -F "userhash=$(getHash)" -F "short=$3" -F "files=$files" $HOST
+    echo -e "\nRemoval complete!"
+
+  elif [ $2 == "delete" ]
+  then
+    if [ $# -lt 3 ]
+    then
+      echo "Usage: catbox album delete <short> [<short> ...] - Deletes album"
+      exit 1
+    fi
+    checkUH "Can't delete album!"
+
+    one=0
+    for short in $@
+    do
+      if [ $one -ne 2 ]; then one=$[$one+1]; continue; fi
+      echo -en "\e[1m$short\e[0m: "
+      curl -F "reqtype=deletealbum" -F "userhash=$(getHash)" -F "short=$short" $HOST >> /dev/null
+      echo -en "Done!\n"
+    done
+    echo "Album deletion completed!"
+  fi
+else
+  usage
+fi

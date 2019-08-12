@@ -1,0 +1,9 @@
+#!/bin/sh
+
+url="$1"
+title="$2"
+description="$3"
+feed_title="$4"
+
+echo "* [$title]($url)" >> /mnt/ios/edhita/bkmk.md
+echo "<p><a href=$url>$title</a></p>" >> /mnt/ios/edhita/bkmk.html
