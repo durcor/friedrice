@@ -1,0 +1,5 @@
+nitrogen --restore &
+tint2 &
+compton &
+redshift &
+caffeine-indicator &
