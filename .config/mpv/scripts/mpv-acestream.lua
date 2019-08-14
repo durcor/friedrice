@@ -1,0 +1,1 @@
+mpv-acestream/scripts/mpv-acestream.lua

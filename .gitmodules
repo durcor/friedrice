@@ -16,3 +16,6 @@
 [submodule ".config/mpv/scripts/mpv_thumbnail_script"]
 	path = .config/mpv/scripts/mpv_thumbnail_script
 	url = https://github.com/TheAMM/mpv_thumbnail_script
+[submodule ".config/mpv/scripts/mpv-acestream"]
+	path = .config/mpv/scripts/mpv-acestream
+	url = https://github.com/Digitalone1/mpv-acestream
