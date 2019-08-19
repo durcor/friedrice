@@ -8,16 +8,16 @@
 
 static int topbar = 0;                      /* -b  option; if 0, dmenu appears at bottom     */
 /* -fn option overrides fonts[0]; default X11 font or font set */
-static const char *fonts[] = {
-	"<def-font>:size=11"
-};
+static const char *fonts[] = {{
+	"{def-font}:size=11"
+}};
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
-static const char *colors[SchemeLast][2] = {
+static const char *colors[SchemeLast][2] = {{
 	/*     fg         bg       */
-	[SchemeNorm] = { "#<COLOR13>", "#<COLOR0>" },
-	[SchemeSel] = { "#<COLOR2>", "#<COLOR3>" },
-	[SchemeOut] = { "#<COLOR10>", "#<COLOR0>" },
-};
+	[SchemeNorm] = {{ "{color13}", "{color0}" }},
+	[SchemeSel] = {{ "{color2}", "{color3}" }},
+	[SchemeOut] = {{ "{color10}", "{color0}" }},
+}};
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 0;
 

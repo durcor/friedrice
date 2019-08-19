@@ -35,7 +35,7 @@ command=mpc current -f '%artist% - %title%'
 interval=5
 signal=2
 min_width=50
-color=#c49d58
+color=#e1673f
 #align=left
 
 #Generic media player support
@@ -51,13 +51,13 @@ color=#c49d58
 [weather]
 command=i3bweather
 interval=7200
-color=#a1b86b
+color=#806577
 
 [cpu]
 label= 
 command=i3bcpu
 interval=30
-color=#fff0a8
+color=#78b5f4
 
 # Memory usage
 #
@@ -66,7 +66,7 @@ color=#fff0a8
 label= 
 command=i3bmem
 interval=30
-color=#f7cfae
+color=#cf8466
 
 #[memory]
 #label=swp
@@ -78,19 +78,19 @@ color=#f7cfae
 [disk]
 command=i3bdiskusage /home 
 interval=30
-color=#f7cfae
+color=#cf8466
 
 [rss]
 label= 
 command=i3bnews
 interval=600
-color=#ffdf76
+color=#f6af81
 
 [mail]
 label= 
 command=i3bmail
 signal=12
-color=#f7cfae
+color=#cf8466
 
 # CPU usage
 #
@@ -135,20 +135,11 @@ color=#f7cfae
 #instance=eth0
 #interval=5
 
-# Battery indicator
-#
-# The battery instance defaults to 0.
-#[battery]
-#label=BAT
-#label=⚡ 
-#instance=1
-#interval=30
-#
 [keyboard]
 command=i3bkb
 interval=persist
 label= 
-color=#ffffec
+color=#fdfdff
 
 # Volume indicator
 #
@@ -161,30 +152,23 @@ color=#ffffec
 #instance=PCM
 signal=13
 command=i3bvol
-color=#fff0a8
+color=#78b5f4
 
-# Date Time
-#
+[internet]
+command=i3binternet
+color=#cf8466
+interval=10
+
+[battery]
+command=i3bbat BAT0
+color=#78b5f4
+interval=5
+
 [time]
 command=date '+%H%M/%S %m/%d/%Y'
 interval=1
 label= 
-color=#ffffec
-
-# OpenVPN support
-#
-# Support multiple VPN, with colors.
-[openvpn]
-interval=20
-
-# Temperature
-#
-# Support multiple chips, though lm-sensors.
-# The script may be called with -w and -c switches to specify thresholds,
-# see the script for details.
-#[temperature]
-#label=TEMP
-#interval=10
+color=#fdfdff
 
 # Key indicators
 #

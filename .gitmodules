@@ -19,3 +19,18 @@
 [submodule ".config/mpv/scripts/mpv-acestream"]
 	path = .config/mpv/scripts/mpv-acestream
 	url = https://github.com/Digitalone1/mpv-acestream
+[submodule "prg/slock"]
+	path = prg/slock
+	url = https://git.suckless.org/slock
+[submodule "prg/fzf"]
+	path = prg/fzf
+	url = https://github.com/junegunn/fzf
+[submodule "prg/dmenu"]
+	path = prg/dmenu
+	url = https://git.suckless.org/dmenu
+[submodule "prg/wal-discord"]
+	path = prg/wal-discord
+	url = https://github.com/guglicap/wal-discord
+[submodule "prg/jpglitch"]
+	path = prg/jpglitch
+	url = https://github.com/Kareeeeem/jpglitch
