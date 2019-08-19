@@ -1,3 +1,0 @@
-#!/bin/sh
-
-mv -i $1 ~/.garb/

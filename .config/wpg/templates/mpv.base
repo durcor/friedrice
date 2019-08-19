@@ -47,17 +47,19 @@ term-osd-bar
 
 osd-level=1
 osd-bar-h=2
-osd-font='<def-font>'
+osd-font='{def-font}'
 osd-font-size=30
-osd-color='#<COLOR15>'
-osd-border-color='#<COLOR15>'
+osd-color='{color15}'
+osd-border-color='{color15}'
 osd-border-size=1
-osd-back-color='#<COLOR0>'
+osd-back-color='{color0}'
 
 on-all-workspaces
 ontop=yes
 keep-open=yes
 save-position-on-quit=
+
+vo=gpu
 
 # low quality
 # vo=xv
@@ -144,7 +146,7 @@ alang=en,es
 # If the file seems to be valid UTF-8, prefer UTF-8.
 # (You can add '+' in front of the codepage to force it.)
 #sub-codepage=cp1256
-sub-color='#<COLOR15>'
+sub-color='{color15}'
 sub-auto=fuzzy
 embeddedfonts=yes
 

@@ -28,9 +28,6 @@
 [submodule "prg/dmenu"]
 	path = prg/dmenu
 	url = https://git.suckless.org/dmenu
-[submodule "prg/capitaine-cursors"]
-	path = prg/capitaine-cursors
-	url = https://github.com/keeferrourke/capitaine-cursors
 [submodule "prg/wal-discord"]
 	path = prg/wal-discord
 	url = https://github.com/guglicap/wal-discord

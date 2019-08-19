@@ -21,7 +21,7 @@
 
 ## Background color of the completion widget for even rows.
 ## Type: QssColor
-c.colors.completion.even.bg = '#<COLOR6>'
+c.colors.completion.even.bg = '{color6}'
 
 ## Text color of the completion widget. May be a single color to use for
 ## all columns or a list of three colors, one for each column.
@@ -34,23 +34,23 @@ c.colors.completion.even.bg = '#<COLOR6>'
 
 ## Background color of the completion widget for odd rows.
 ## Type: QssColor
-c.colors.completion.odd.bg = '#<COLOR5>'
-c.colors.completion.fg = "#<COLOR15>"
-c.colors.completion.category.fg = "#<COLOR15>"
-c.colors.completion.category.bg = "#<COLOR0>"
+c.colors.completion.odd.bg = '{color5}'
+c.colors.completion.fg = "{color15}"
+c.colors.completion.category.fg = "{color15}"
+c.colors.completion.category.bg = "{color0}"
 ## Foreground color of the selected completion item.
 ## Type: QtColor
-c.colors.completion.item.selected.fg = "#<COLOR15>"
-c.colors.completion.item.selected.bg = "#<COLOR0>"
+c.colors.completion.item.selected.fg = "{color15}"
+c.colors.completion.item.selected.bg = "{color0}"
 ## Top border color of the completion widget category headers.
 ## Type: QssColor
-c.colors.completion.item.selected.border.top = "#<COLOR0>"
+c.colors.completion.item.selected.border.top = "{color0}"
 ## Bottom border color of the selected completion item.
 ## Type: QssColor
-c.colors.completion.item.selected.border.bottom = "#<COLOR0>"
+c.colors.completion.item.selected.border.bottom = "{color0}"
 ## Foreground color of the matched text in the completion.
 ## Type: QssColor
-c.colors.completion.match.fg = "#<COLOR15>"
+c.colors.completion.match.fg = "{color15}"
 ## Color of the scrollbar in the completion view.
 ## Type: QssColor
 # c.colors.completion.scrollbar.bg = '#333333'
@@ -58,63 +58,63 @@ c.colors.completion.match.fg = "#<COLOR15>"
 ## Color of the scrollbar handle in the completion view.
 ## Type: QssColor
 # c.colors.completion.scrollbar.fg = 'white'
-c.colors.completion.scrollbar.fg = "#<COLOR0>"
-c.colors.completion.scrollbar.bg = "#<COLOR0>"
-c.colors.statusbar.normal.fg = "#<COLOR15>"
-c.colors.statusbar.normal.bg = "#<COLOR0>"
-c.colors.statusbar.insert.fg = "#<COLOR15>"
-c.colors.statusbar.insert.bg = "#<COLOR0>"
-c.colors.statusbar.command.bg = "#<COLOR0>"
-c.colors.statusbar.command.fg = "#<COLOR15>"
-c.colors.statusbar.caret.bg = "#<COLOR0>"
-c.colors.statusbar.caret.selection.fg = "#<COLOR15>"
-c.colors.statusbar.progress.bg = "#<COLOR7>"
-c.colors.statusbar.passthrough.bg = "#<COLOR0>"
+c.colors.completion.scrollbar.fg = "{color0}"
+c.colors.completion.scrollbar.bg = "{color0}"
+c.colors.statusbar.normal.fg = "{color15}"
+c.colors.statusbar.normal.bg = "{color0}"
+c.colors.statusbar.insert.fg = "{color15}"
+c.colors.statusbar.insert.bg = "{color0}"
+c.colors.statusbar.command.bg = "{color0}"
+c.colors.statusbar.command.fg = "{color15}"
+c.colors.statusbar.caret.bg = "{color0}"
+c.colors.statusbar.caret.selection.fg = "{color15}"
+c.colors.statusbar.progress.bg = "{color7}"
+c.colors.statusbar.passthrough.bg = "{color0}"
 c.colors.statusbar.url.fg = c.colors.statusbar.normal.fg
-c.colors.statusbar.url.success.http.fg = "#<COLOR15>"
-c.colors.statusbar.url.success.https.fg = "#<COLOR10>"
-c.colors.statusbar.url.error.fg = "#<COLOR9>"
-c.colors.statusbar.url.warn.fg = "#<COLOR11>"
-c.colors.statusbar.url.hover.fg = "#<COLOR15>"
-c.colors.tabs.bar.bg = "#<COLOR1>"
-c.colors.tabs.even.fg = "#<COLOR15>"
-c.colors.tabs.even.bg = "#<COLOR8>"
-c.colors.tabs.odd.fg = "#<COLOR15>"
-c.colors.tabs.odd.bg = "#<COLOR0>"
-c.colors.tabs.selected.even.fg = "#<COLOR15>"
-c.colors.tabs.selected.even.bg = "#<COLOR2>"
-c.colors.tabs.selected.odd.fg = "#<COLOR15>"
-c.colors.tabs.selected.odd.bg = "#<COLOR5>"
-c.colors.tabs.indicator.start = "#<COLOR0>"
-c.colors.tabs.indicator.stop = "#<COLOR0>"
-c.colors.tabs.indicator.error = "#<COLOR0>"
-c.colors.hints.bg = "#<COLOR15>"
-c.colors.hints.fg = "#<COLOR0>"
-c.colors.hints.match.fg = "#<COLOR15>"
-c.colors.downloads.start.fg = "#<COLOR15>"
-c.colors.downloads.start.bg = "#<COLOR1>"
-c.colors.downloads.stop.fg = "#<COLOR15>"
-c.colors.downloads.stop.bg = "#<COLOR2>"
-c.colors.keyhint.fg = "#<COLOR15>"
-c.colors.keyhint.suffix.fg = "#<COLOR15>"
+c.colors.statusbar.url.success.http.fg = "{color15}"
+c.colors.statusbar.url.success.https.fg = "{color10}"
+c.colors.statusbar.url.error.fg = "{color9}"
+c.colors.statusbar.url.warn.fg = "{color11}"
+c.colors.statusbar.url.hover.fg = "{color15}"
+c.colors.tabs.bar.bg = "{color1}"
+c.colors.tabs.even.fg = "{color15}"
+c.colors.tabs.even.bg = "{color8}"
+c.colors.tabs.odd.fg = "{color15}"
+c.colors.tabs.odd.bg = "{color0}"
+c.colors.tabs.selected.even.fg = "{color15}"
+c.colors.tabs.selected.even.bg = "{color2}"
+c.colors.tabs.selected.odd.fg = "{color15}"
+c.colors.tabs.selected.odd.bg = "{color5}"
+c.colors.tabs.indicator.start = "{color0}"
+c.colors.tabs.indicator.stop = "{color0}"
+c.colors.tabs.indicator.error = "{color0}"
+c.colors.hints.bg = "{color15}"
+c.colors.hints.fg = "{color0}"
+c.colors.hints.match.fg = "{color15}"
+c.colors.downloads.start.fg = "{color15}"
+c.colors.downloads.start.bg = "{color1}"
+c.colors.downloads.stop.fg = "{color15}"
+c.colors.downloads.stop.bg = "{color2}"
+c.colors.keyhint.fg = "{color15}"
+c.colors.keyhint.suffix.fg = "{color15}"
 c.colors.keyhint.bg = "rgba(0, 0, 0, 80%)"
-c.colors.messages.error.bg = "#<COLOR0>"
-c.colors.messages.error.border = "#<COLOR0>"
-c.colors.messages.warning.bg = "#<COLOR0>"
+c.colors.messages.error.bg = "{color0}"
+c.colors.messages.error.border = "{color0}"
+c.colors.messages.warning.bg = "{color0}"
 c.colors.messages.warning.border = c.colors.messages.warning.bg
-c.colors.messages.info.bg = "#<COLOR0>"
-c.colors.prompts.fg = "#<COLOR15>"
-c.colors.prompts.bg = "#<COLOR0>"
-c.colors.prompts.selected.bg = "#<COLOR0>"
+c.colors.messages.info.bg = "{color0}"
+c.colors.prompts.fg = "{color15}"
+c.colors.prompts.bg = "{color0}"
+c.colors.prompts.selected.bg = "{color0}"
 
 # fonts
 #c.fonts.monospace = "Noto Sans Mono", "DejaVu Sans Mono", "Liberation Mono", monospace
-c.fonts.tabs = "9pt <def-font>"
-c.fonts.statusbar = "9pt <def-font>"
+c.fonts.tabs = "9pt {def-font}"
+c.fonts.statusbar = "9pt {def-font}"
 c.fonts.downloads = c.fonts.statusbar
 c.fonts.prompts = c.fonts.statusbar
-c.fonts.hints = "13px <def-font>"
-c.fonts.messages.info = "9pt <def-font>"
+c.fonts.hints = "13px {def-font}"
+c.fonts.messages.info = "9pt {def-font}"
 c.fonts.keyhint = c.fonts.messages.info
 c.fonts.messages.warning = c.fonts.messages.info
 c.fonts.messages.error = c.fonts.messages.info
