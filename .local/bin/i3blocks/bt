@@ -1,0 +1,26 @@
+#!/bin/sh
+
+if [ $(bluetoothctl info | grep Icon | awk '{print $2}') = audio-card ]
+then
+    dev=
+elif [ $(bluetoothctl info | grep Icon | awk '{print $2}') = input-gaming ]
+then
+    dev=
+else
+    dev=X
+fi
+
+echo " $dev $(bluetoothctl info | grep Name | awk '{$1="";sub(" ","")}1')"
+
+case $BLOCK_BUTTON in
+    # left click
+	1) bt-select;;
+    # middle click
+	2) sudo systemctl restart bluetooth;;
+    # right click
+    3) notify-send "$(bluetoothctl info)";;
+    # scroll up
+	4) ;;
+    # scroll down
+	5) ;;
+esac

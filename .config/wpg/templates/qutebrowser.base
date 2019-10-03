@@ -109,12 +109,12 @@ c.colors.prompts.selected.bg = "{color0}"
 
 # fonts
 #c.fonts.monospace = "Noto Sans Mono", "DejaVu Sans Mono", "Liberation Mono", monospace
-c.fonts.tabs = "9pt {def-font}"
-c.fonts.statusbar = "9pt {def-font}"
+c.fonts.statusbar = "7pt {def-font}"
+c.fonts.hints = "13px {def-font}"
+c.fonts.tabs = c.fonts.statusbar
 c.fonts.downloads = c.fonts.statusbar
 c.fonts.prompts = c.fonts.statusbar
-c.fonts.hints = "13px {def-font}"
-c.fonts.messages.info = "9pt {def-font}"
+c.fonts.messages.info = c.fonts.statusbar
 c.fonts.keyhint = c.fonts.messages.info
 c.fonts.messages.warning = c.fonts.messages.info
 c.fonts.messages.error = c.fonts.messages.info

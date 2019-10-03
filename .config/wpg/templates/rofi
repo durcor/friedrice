@@ -5,11 +5,11 @@ rofi.modi: window,run,ssh
 rofi.width: 50
 rofi.columns: 5
 rofi.lines:	30
-rofi.font: Inconsolata Nerd Font 10
-rofi.color-normal: #0F100F, #fdfdff, #0F100F, #6090c3, #fdfdff
-rofi.color-urgent: #0F100F, #d6b48d, #22231D, #d6b48d, #fdfdff
-rofi.color-active: #0F100F, #78b5f4, #0F100F, #78b5f4, #0F100F
-rofi.color-window: #0F100F, #6090c3, #426386
+rofi.font: Fantasque Sans Mono Nerd Font 10
+rofi.color-normal: #040B2F, #ffeeea, #040B2F, #55639d, #ffeeea
+rofi.color-urgent: #040B2F, #d6b48d, #22231D, #d6b48d, #ffeeea
+rofi.color-active: #040B2F, #74bee7, #040B2F, #74bee7, #040B2F
+rofi.color-window: #040B2F, #55639d, #3a446c
 #rofi.bw: 5
 #rofi.location: 0
 #rofi.padding: 5

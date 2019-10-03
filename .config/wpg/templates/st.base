@@ -10,7 +10,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "{def-font}:pixelsize=12:antialias=true:autohint=true";
+static char *font = "{def-font}:pixelsize=11:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -88,7 +88,7 @@ char *termname = "xterm-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 1.0;
+float alpha = 0.9;
 
 const char *colorname[] = {{
 

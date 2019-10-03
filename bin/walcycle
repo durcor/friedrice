@@ -1,7 +1,7 @@
 #!/bin/bash
 while true; do
 	wpg -m
-	configrefresh
+	cfgrf
 	notify-send 'walrand complete'
 	sleep 4
 done

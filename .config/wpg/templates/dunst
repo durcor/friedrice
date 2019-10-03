@@ -2,7 +2,7 @@
 # vi:ft=cfg
 
 [global]
-    font = Inconsolata Nerd Font 9
+    font = Fantasque Sans Mono Nerd Font 8
 
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -67,7 +67,7 @@
     # the top and down respectevly.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "400x5-6+24"
+    geometry = "600x0-6+24"
 
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
@@ -76,7 +76,7 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing windowmanager is
     # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 0
+    transparency = 10
 
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
@@ -150,7 +150,7 @@
 
 [frame]
     width = 3
-    color = "#78b5f4"
+    color = "#74bee7"
 
 [shortcuts]
 
@@ -176,18 +176,18 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#946B5B"
-    foreground = "#272927"
+    background = "#DC6C87"
+    foreground = "#07155d"
     timeout = 1
 
 [urgency_normal]
-    background = "#272927"
-    foreground = "#fdfdff"
+    background = "#07155d"
+    foreground = "#ffeeea"
     timeout = 0
 
 [urgency_critical]
-    background = "#5A5759"
-    foreground = "#cf8466"
+    background = "#5E678C"
+    foreground = "#ff77a4"
     timeout = 0
 
 

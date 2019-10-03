@@ -1,0 +1,45 @@
+#!/usr/bin/env sh
+# Give a battery name (e.g. BAT0) as an argument.
+
+case $BLOCK_BUTTON in
+    1);;
+    2);;
+    3) notify-send "🔋 Battery module" "🔋: discharging
+🛑: not charging
+♻: stagnant charge
+🔌: charging
+⚡: charged
+❗: battery very low!
+- Text color reflects charge left" ;;
+esac
+
+#   full battery
+#   almost full battery
+#   half full battery
+#   low battery
+#   no battery/dead
+
+capacity=$(echo scale=4\;$(cat /sys/class/power_supply/$1/charge_now)/$(cat /sys/class/power_supply/$1/charge_full)\*100 | bc | sed 's/0\{1,\}$//') || exit
+kernelcapacity=$(cat /sys/class/power_supply/$1/capacity)
+status=$(cat /sys/class/power_supply/$1/status)
+ 
+if [ "$kernelcapacity" -ge 75 ]; then
+	color="#00ff00"
+    icon=" "
+elif [ "$kernelcapacity" -ge 50 ]; then
+	color="#ffffff"
+    icon=" "
+elif [ "$kernelcapacity" -ge 25 ]; then
+	color="#ffff00"
+    icon=" "
+else
+	color="#ff0000"
+    icon=" "
+	warn="❗"
+fi
+
+[ -z $warn ] && warn=" "
+
+[ "$status" = "Charging" ] && color="#ffffff"
+
+printf "<span color='%s'>%s%s%s</span>\n" "$color" "$(echo "$status" | sed -e "s/,//;s/Discharging/$icon/;s/Not Charging/🛑/;s/Charging/🔌/;s/Unknown/♻️/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g")" "$warn" "$(echo "$capacity" | sed -e 's/$/%/')"

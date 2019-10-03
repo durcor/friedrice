@@ -12,12 +12,13 @@
 ## Type: Dict
 # c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
 c.url.searchengines = {
+        'DEFAULT': 'https://duckduckgo.com/?q={}',
         'sxd': 'https://search.disroot.org/?q={}',
         'sxm': 'https://searx.me/?q={}',
         'ud': 'https://www.urbandictionary.com/define.php?term={}',
         'sxo': 'https://searx.org/?q={}',
         'sxc': 'https://searx.ch/?q={}',
-        'DEFAULT': 'https://duckduckgo.com/?q={}',
+        'ddg': 'https://duckduckgo.com/?q={}',
         'ddgi': 'https://duckduckgo.com/?q={}&t=h_&iax=images&ia=images',
         'gh': 'https://github.com/search?q={}',
         'ghu': 'https://github.com/search?q={}&type=Users',
@@ -61,7 +62,7 @@ c.url.searchengines = {
         'sc': 'https://soundcloud.com/search?q={}',
         'li': 'https://www.linkedin.com/search/results/all/?keywords={}',
         'ni': 'https://www.niche.com/search/?q={}',
-        'gm': 'https://www.google.com/maps?q={}',
+        'gm': 'https://maps.google.com/?q={}',
         'gen': 'https://genius.com/search?q={}',
         'g': 'https://www.google.com/search?q={}',
         'mal': 'https://myanimelist.net/search/all?q={}',
@@ -70,5 +71,7 @@ c.url.searchengines = {
         'pop': 'https://popcorntime.is/?c=movie&m=filter&keyword={}',
         'lfm': 'https://www.last.fm/search?q={}',
         'bc': 'https://bandcamp.com/search?q={}',
-        'tr': 'https://translate.google.com/#view=home&op=translate&sl=auto&tl=en&text={}'
+        'tr': 'https://translate.google.com/#view=home&op=translate&sl=auto&tl=en&text={}',
+        'ne': 'https://www.newegg.com/p/pl?d={}',
+        'wa': 'https://www.wolframalpha.com/input/?i={}'
         }

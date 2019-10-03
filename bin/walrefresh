@@ -1,4 +1,0 @@
-#!/bin/bash
-wpg -s $(wpg -c)
-configrefresh
-notify-send 'walrfrsh complete'

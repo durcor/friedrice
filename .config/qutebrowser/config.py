@@ -721,7 +721,7 @@ c.scrolling.bar = 'never'
 ## Enable smooth scrolling for web pages. Note smooth scrolling does not
 ## work with the `:scroll-px` command.
 ## Type: Bool
-c.scrolling.smooth = False
+c.scrolling.smooth = True
 
 ## When to find text on a page case-insensitively.
 ## Type: String
@@ -1022,7 +1022,7 @@ c.url.open_base_url = True
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
 # c.url.start_pages = ['https://start.duckduckgo.com']
-c.url.start_pages = '/home/ty/doc/sp/sp.html'
+c.url.start_pages = '/home/ty/doc/sp/index.html'
 
 ## URL parameters to strip with `:yank url`.
 ## Type: List of String

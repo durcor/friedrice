@@ -20,7 +20,7 @@ set_from_resource $c15 color15
 set_from_resource $font def-font
 
 # font for window titles+status bar
-font pango: $font 10
+font pango: $font 9
 
 mode "WINDOW" {
 	# bindsym Mod4 mode "MANAGER";exec notify-send -u low "MANAGER MODE"
@@ -31,9 +31,14 @@ mode "WINDOW" {
 	bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost -i 5
 	bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --allow-boost -d 5
 	bindsym XF86AudioMute exec --no-startup-id pamixer -t
+	bindsym XF86AudioStop exec --no-startup-id mpc stop
 	bindsym XF86AudioPrev exec --no-startup-id mpc prev
 	bindsym XF86AudioNext exec --no-startup-id mpc next
 	bindsym XF86AudioPlay exec --no-startup-id mpc toggle
+	bindsym XF86Search exec --no-startup-id dmenual
+	bindsym XF86Calculator exec --no-startup-id st -e bc -ql
+	bindsym XF86HomePage exec --no-startup-id dmenual
+	bindsym XF86Tools exec --no-startup-id dmenual
 	bindsym --release Print exec --no-startup-id "maim -u -n 2 -s | xclip -se c -i"
 }
 
@@ -60,17 +65,17 @@ mode MANAGER {
 	# floating_modifier Mod4
 
 	bindsym --release q exec --no-startup-id slock xset dpms force off
-	bindsym --release Shift+q exec --no-startup-id sudo slock systemctl suspend
-	bindsym --release XF86Sleep exec --no-startup-id sudo slock systemctl suspend
+	bindsym --release Shift+q exec --no-startup-id sudo systemctl hibernate
+	bindsym --release XF86Sleep exec --no-startup-id sudo systemctl hibernate
 	bindsym u exec --no-startup-id "xclip -t -se p | xclip -i -s c"
 	bindsym slash exec --no-startup-id dmenual -i -p run
 	bindsym Shift+slash exec --no-startup-id rofi -show run
 	bindsym Shift+f exec --no-startup-id st -e ranger
 	bindsym Shift+b exec --no-startup-id clipmenu
 	bindsym p exec --no-startup-id mpv $(xclip -se c -o)
-	bindsym Shift+p exec --no-startup-id "export PASSWORD_STORE_DIR=~/pw ; passmenu"
+	bindsym Shift+p exec --no-startup-id "passmenu"
 
-	bindsym Menu [instance="pop"] scratchpad show; [instance="pop"] move position center
+	bindsym  [instance="pop"] scratchpad show; [instance="pop"] move position center
 
 	bindsym x kill
 
@@ -156,6 +161,7 @@ mode MANAGER {
 	bindsym Shift+colon mode "COMMAND";exec notify-send -u low "COMMAND MODE"
 	bindsym r mode "RESIZE";exec notify-send -u low "RESIZE MODE"
 	bindsym v mode "VISUAL";exec notify-send -u low "VISUAL MODE"
+	bindsym c mode "BRIGHTNESS";exec notify-send -u low "BRIGHTNESS MODE"
 }
 
 bindsym Shift+a mode "MANAGER";exec notify-send -u low "MANAGER MODE"
@@ -199,17 +205,18 @@ mode "MUSIC" {
 	bindsym l exec --no-startup-id mpc next
 	bindsym j exec --no-startup-id mpc seek -5
 	bindsym k exec --no-startup-id mpc seek +5
-    bindsym v exec --no-startup-id notify-send " " "Currently playing <i>$(mpc current -f '%title%')</i> by $(mpc current -f '%artist%')\n<b></b>"
+    bindsym v exec --no-startup-id notify-send "$(mpc status)"
+    bindsym z exec --no-startup-id mpc random ; notify-send " " ""
 	bindsym space exec --no-startup-id mpc toggle
 
 	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }
 
 mode "AUDIO" {
-	bindsym h exec --no-startup-id pamixer --allow-boost -d 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks'
-	bindsym l exec --no-startup-id pamixer --allow-boost -i 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-	bindsym j exec --no-startup-id pamixer --allow-boost -d 10 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-	bindsym k exec --no-startup-id pamixer --allow-boost -i 10 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
+	bindsym h exec --no-startup-id pamixer --allow-boost -d 1 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
+	bindsym l exec --no-startup-id pamixer --allow-boost -i 1 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
+	bindsym j exec --no-startup-id pamixer --allow-boost -d 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
+	bindsym k exec --no-startup-id pamixer --allow-boost -i 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
     bindsym v exec --no-startup-id notifaudio
 	bindsym space exec --no-startup-id pamixer -t ; exec --no-startup-id pkill -RTMIN+13 i3blocks
 
@@ -238,6 +245,15 @@ mode "VISUAL" {
 	bindsym --release v exec --no-startup-id "maim -u -s ~/scr/$(date +%Y-%m-%d_%H%M-%S).png"
 	bindsym --release c exec --no-startup-id "maim -u -s ~/scr/$(date +%Y-%m-%d_%H%M-%S).png  | xclip -se c -i"
 	bindsym --release u exec --no-startup-id "maim -u -s ~/scr/$(date +%Y-%m-%d_%H%M-%S).png  | up0x0"
+
+	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+}
+
+mode "BRIGHTNESS" {
+    bindsym h exec backlightctl down 1
+    bindsym l exec backlightctl up 1
+    bindsym j exec backlightctl down 10
+    bindsym k exec backlightctl up 10
 
 	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }

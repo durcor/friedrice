@@ -1,6 +1,8 @@
 # ~/.zshrc
 # vi:ft=zsh
 #
+source /etc/profile
+#
 # Set up the prompt
 autoload -Uz promptinit
 promptinit

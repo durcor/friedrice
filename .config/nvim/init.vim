@@ -48,7 +48,7 @@ call deoplete#custom#option({
                         \ })
 
 " wpgtk colorscheme
-colorscheme wpgtk
+color wpgtk
 
 let $PAGER=''
 se nocompatible
@@ -155,7 +155,7 @@ map ZW :w<cr>
 " autocmd BufWritePre * %s/\s\+$//e
 
 se cursorline
-hi CursorLine ctermbg=8
+hi CursorLine term=bold ctermbg=8
 " se cursorcolumn
 " hi CursorColumn ctermbg=8
 

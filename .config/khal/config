@@ -42,6 +42,14 @@
         path = ~/cal/work
         color = 7
 
+    [[sch]]
+        path = ~/cal/sch
+        color = 14
+
+    [[canvas]]
+        path = ~/cal/canvas
+        color = 12
+
 [locale]
     timeformat = %H:%M
     dateformat = %m/%d/%Y

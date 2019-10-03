@@ -1,0 +1,13 @@
+#!/bin/sh
+
+rm -rf ~/.garb/*
+rm -rf ~/.garb/.*
+
+secure-rm(){
+shred -zu -n 5 ~/.garb/*
+shred -zu -n 5 ~/.garb/.*
+}
+
+case $1 in
+    secure) secure-rm ;;
+esac

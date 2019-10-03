@@ -1,0 +1,16 @@
+#!/bin/sh
+
+echo "$(date '+%H%M/%S %m/%d/%Y') $(cat /tmp/calsync) |"
+
+case $BLOCK_BUTTON in
+    # left click
+	1) tmux selectw -t & ;;
+    # middle click
+	2) systemctl --user restart vdirsyncer ;;
+    # scroll up
+	4) notify-send "Upcoming Events" "$(khal list --format '{calendar} {start-time} {title}' today tomorrow)" ;;
+    # scroll down
+	5) notify-send "Upcoming Events" "$(khal list --format '{calendar} {start-time} {title}' today tomorrow)" ;;
+    # right click
+	3) notify-send "Upcoming Events" "$(khal list --format '{calendar} {start-time} {title}' today tomorrow)" ;;
+esac

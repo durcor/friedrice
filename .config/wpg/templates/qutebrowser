@@ -21,7 +21,7 @@
 
 ## Background color of the completion widget for even rows.
 ## Type: QssColor
-c.colors.completion.even.bg = '#6B8CAE'
+c.colors.completion.even.bg = '#678FA5'
 
 ## Text color of the completion widget. May be a single color to use for
 ## all columns or a list of three colors, one for each column.
@@ -34,23 +34,23 @@ c.colors.completion.even.bg = '#6B8CAE'
 
 ## Background color of the completion widget for odd rows.
 ## Type: QssColor
-c.colors.completion.odd.bg = '#946B5B'
-c.colors.completion.fg = "#fdfdff"
-c.colors.completion.category.fg = "#fdfdff"
-c.colors.completion.category.bg = "#0F100F"
+c.colors.completion.odd.bg = '#DC6C87'
+c.colors.completion.fg = "#ffeeea"
+c.colors.completion.category.fg = "#ffeeea"
+c.colors.completion.category.bg = "#040B2F"
 ## Foreground color of the selected completion item.
 ## Type: QtColor
-c.colors.completion.item.selected.fg = "#fdfdff"
-c.colors.completion.item.selected.bg = "#0F100F"
+c.colors.completion.item.selected.fg = "#ffeeea"
+c.colors.completion.item.selected.bg = "#040B2F"
 ## Top border color of the completion widget category headers.
 ## Type: QssColor
-c.colors.completion.item.selected.border.top = "#0F100F"
+c.colors.completion.item.selected.border.top = "#040B2F"
 ## Bottom border color of the selected completion item.
 ## Type: QssColor
-c.colors.completion.item.selected.border.bottom = "#0F100F"
+c.colors.completion.item.selected.border.bottom = "#040B2F"
 ## Foreground color of the matched text in the completion.
 ## Type: QssColor
-c.colors.completion.match.fg = "#fdfdff"
+c.colors.completion.match.fg = "#ffeeea"
 ## Color of the scrollbar in the completion view.
 ## Type: QssColor
 # c.colors.completion.scrollbar.bg = '#333333'
@@ -58,63 +58,63 @@ c.colors.completion.match.fg = "#fdfdff"
 ## Color of the scrollbar handle in the completion view.
 ## Type: QssColor
 # c.colors.completion.scrollbar.fg = 'white'
-c.colors.completion.scrollbar.fg = "#0F100F"
-c.colors.completion.scrollbar.bg = "#0F100F"
-c.colors.statusbar.normal.fg = "#fdfdff"
-c.colors.statusbar.normal.bg = "#0F100F"
-c.colors.statusbar.insert.fg = "#fdfdff"
-c.colors.statusbar.insert.bg = "#0F100F"
-c.colors.statusbar.command.bg = "#0F100F"
-c.colors.statusbar.command.fg = "#fdfdff"
-c.colors.statusbar.caret.bg = "#0F100F"
-c.colors.statusbar.caret.selection.fg = "#fdfdff"
-c.colors.statusbar.progress.bg = "#d0d0d3"
-c.colors.statusbar.passthrough.bg = "#0F100F"
+c.colors.completion.scrollbar.fg = "#040B2F"
+c.colors.completion.scrollbar.bg = "#040B2F"
+c.colors.statusbar.normal.fg = "#ffeeea"
+c.colors.statusbar.normal.bg = "#040B2F"
+c.colors.statusbar.insert.fg = "#ffeeea"
+c.colors.statusbar.insert.bg = "#040B2F"
+c.colors.statusbar.command.bg = "#040B2F"
+c.colors.statusbar.command.fg = "#ffeeea"
+c.colors.statusbar.caret.bg = "#040B2F"
+c.colors.statusbar.caret.selection.fg = "#ffeeea"
+c.colors.statusbar.progress.bg = "#e5c6c3"
+c.colors.statusbar.passthrough.bg = "#040B2F"
 c.colors.statusbar.url.fg = c.colors.statusbar.normal.fg
-c.colors.statusbar.url.success.http.fg = "#fdfdff"
-c.colors.statusbar.url.success.https.fg = "#806577"
-c.colors.statusbar.url.error.fg = "#e1673f"
-c.colors.statusbar.url.warn.fg = "#f6af81"
-c.colors.statusbar.url.hover.fg = "#fdfdff"
-c.colors.tabs.bar.bg = "#A2553C"
-c.colors.tabs.even.fg = "#fdfdff"
-c.colors.tabs.even.bg = "#272927"
-c.colors.tabs.odd.fg = "#fdfdff"
-c.colors.tabs.odd.bg = "#0F100F"
-c.colors.tabs.selected.even.fg = "#fdfdff"
-c.colors.tabs.selected.even.bg = "#5A5759"
-c.colors.tabs.selected.odd.fg = "#fdfdff"
-c.colors.tabs.selected.odd.bg = "#946B5B"
-c.colors.tabs.indicator.start = "#0F100F"
-c.colors.tabs.indicator.stop = "#0F100F"
-c.colors.tabs.indicator.error = "#0F100F"
-c.colors.hints.bg = "#fdfdff"
-c.colors.hints.fg = "#0F100F"
-c.colors.hints.match.fg = "#fdfdff"
-c.colors.downloads.start.fg = "#fdfdff"
-c.colors.downloads.start.bg = "#A2553C"
-c.colors.downloads.stop.fg = "#fdfdff"
-c.colors.downloads.stop.bg = "#5A5759"
-c.colors.keyhint.fg = "#fdfdff"
-c.colors.keyhint.suffix.fg = "#fdfdff"
+c.colors.statusbar.url.success.http.fg = "#ffeeea"
+c.colors.statusbar.url.success.https.fg = "#6b7cc5"
+c.colors.statusbar.url.error.fg = "#dc7db7"
+c.colors.statusbar.url.warn.fg = "#e7b4df"
+c.colors.statusbar.url.hover.fg = "#ffeeea"
+c.colors.tabs.bar.bg = "#9C6E8A"
+c.colors.tabs.even.fg = "#ffeeea"
+c.colors.tabs.even.bg = "#07155d"
+c.colors.tabs.odd.fg = "#ffeeea"
+c.colors.tabs.odd.bg = "#040B2F"
+c.colors.tabs.selected.even.fg = "#ffeeea"
+c.colors.tabs.selected.even.bg = "#5E678C"
+c.colors.tabs.selected.odd.fg = "#ffeeea"
+c.colors.tabs.selected.odd.bg = "#DC6C87"
+c.colors.tabs.indicator.start = "#040B2F"
+c.colors.tabs.indicator.stop = "#040B2F"
+c.colors.tabs.indicator.error = "#040B2F"
+c.colors.hints.bg = "#ffeeea"
+c.colors.hints.fg = "#040B2F"
+c.colors.hints.match.fg = "#ffeeea"
+c.colors.downloads.start.fg = "#ffeeea"
+c.colors.downloads.start.bg = "#9C6E8A"
+c.colors.downloads.stop.fg = "#ffeeea"
+c.colors.downloads.stop.bg = "#5E678C"
+c.colors.keyhint.fg = "#ffeeea"
+c.colors.keyhint.suffix.fg = "#ffeeea"
 c.colors.keyhint.bg = "rgba(0, 0, 0, 80%)"
-c.colors.messages.error.bg = "#0F100F"
-c.colors.messages.error.border = "#0F100F"
-c.colors.messages.warning.bg = "#0F100F"
+c.colors.messages.error.bg = "#040B2F"
+c.colors.messages.error.border = "#040B2F"
+c.colors.messages.warning.bg = "#040B2F"
 c.colors.messages.warning.border = c.colors.messages.warning.bg
-c.colors.messages.info.bg = "#0F100F"
-c.colors.prompts.fg = "#fdfdff"
-c.colors.prompts.bg = "#0F100F"
-c.colors.prompts.selected.bg = "#0F100F"
+c.colors.messages.info.bg = "#040B2F"
+c.colors.prompts.fg = "#ffeeea"
+c.colors.prompts.bg = "#040B2F"
+c.colors.prompts.selected.bg = "#040B2F"
 
 # fonts
 #c.fonts.monospace = "Noto Sans Mono", "DejaVu Sans Mono", "Liberation Mono", monospace
-c.fonts.tabs = "9pt Inconsolata Nerd Font"
-c.fonts.statusbar = "9pt Inconsolata Nerd Font"
+c.fonts.statusbar = "7pt Fantasque Sans Mono Nerd Font"
+c.fonts.hints = "13px Fantasque Sans Mono Nerd Font"
+c.fonts.tabs = c.fonts.statusbar
 c.fonts.downloads = c.fonts.statusbar
 c.fonts.prompts = c.fonts.statusbar
-c.fonts.hints = "13px Inconsolata Nerd Font"
-c.fonts.messages.info = "9pt Inconsolata Nerd Font"
+c.fonts.messages.info = c.fonts.statusbar
 c.fonts.keyhint = c.fonts.messages.info
 c.fonts.messages.warning = c.fonts.messages.info
 c.fonts.messages.error = c.fonts.messages.info

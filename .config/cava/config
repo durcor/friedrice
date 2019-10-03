@@ -74,7 +74,7 @@ channels = mono
 # raw_target = /dev/stdout
 
 # Raw data format. Can be 'binary' or 'ascii'.
-# data_format = binary
+data_format = ascii
 
 # Binary bit format, can be '8bit' (0-255) or '16bit' (0-65530).
 # bit_format = 16bit

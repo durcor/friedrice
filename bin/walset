@@ -1,4 +1,4 @@
 #!/bin/sh
 wpg -s $1
-configrefresh
+cfgrf
 notify-send 'walset complete'

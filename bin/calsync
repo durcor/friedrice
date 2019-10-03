@@ -1,0 +1,10 @@
+#!/bin/sh
+
+ping -q -c 1 1.1.1.1 || exit
+
+echo 🔃 > /tmp/calsync
+vdirsyncer discover
+vdirsyncer sync
+khal >/dev/null
+khard >/dev/null
+rm /tmp/calsync

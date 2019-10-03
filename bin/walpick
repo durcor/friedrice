@@ -1,0 +1,3 @@
+#!/bin/sh
+
+walset $(wpg -l | fzf)

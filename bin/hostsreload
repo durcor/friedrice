@@ -2,9 +2,8 @@
 
 if ! ls /etc/hosts.mine
 then
-    sudo cp /etc/hosts /etc/hosts.mine
+    cp /etc/hosts /etc/hosts.mine
 else
-    sudo cp /etc/hosts.mine /etc/hosts
+    cp /etc/hosts.mine /etc/hosts
 fi
-sudo chown $USER /etc/hosts
 curl https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts >> /etc/hosts

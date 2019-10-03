@@ -1,4 +1,4 @@
 #!/bin/bash
 wpg -m
-configrefresh
+cfgrf
 notify-send 'walrand complete'

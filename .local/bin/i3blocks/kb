@@ -18,6 +18,13 @@
 
 # In case user is restarting block after making layout changes
 # e.g. via setxkbmap, reload kbdd
+
+case $BLOCK_BUTTON in
+	1) ;;
+    2) ;;
+	3) ;;
+esac
+
 killall kbdd 2>/dev/null
 kbdd >/dev/null || exit 1
 

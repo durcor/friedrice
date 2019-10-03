@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set(){
+    wpg -s $1
+    cfgrf
+}
+
+pick(){
+    walset $(wpg -l | fzf)
+}
+
+shuf(){
+    wpg -z $(wpg -c)
+    cfgrf
+}
+
+rand(){
+    wpg -m
+    cfgrf
+}
+
+case $1 in
+    set) set ;;
+    pick) pick ;;
+    shuf) shuf ;;
+    rand) rand ;;
+esac

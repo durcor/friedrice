@@ -47,12 +47,12 @@ term-osd-bar
 
 osd-level=1
 osd-bar-h=2
-osd-font='Inconsolata Nerd Font'
+osd-font='Fantasque Sans Mono Nerd Font'
 osd-font-size=30
-osd-color='#fdfdff'
-osd-border-color='#fdfdff'
+osd-color='#ffeeea'
+osd-border-color='#ffeeea'
 osd-border-size=1
-osd-back-color='#0F100F'
+osd-back-color='#040B2F'
 
 on-all-workspaces
 ontop=yes
@@ -77,7 +77,7 @@ osc=no
 cache=2048
 # Specify high quality video rendering preset (for --vo=gpu only)
 # Can cause performance problems with some drivers and GPUs.
-#profile=gpu-hq
+profile=gpu-hq
 # Force video to lock on the display's refresh rate, and change video and audio
 # speed to some degree to ensure synchronous playback - can cause problems
 # with some drivers and desktop environments.
@@ -128,7 +128,7 @@ cache-pause=no
 # Raise readahead from demuxer-readahead-secs to this value if a cache is active.
 #cache-secs=50.0
 
-ytdl-format=bestvideo[height<=?720]+bestaudio/best
+ytdl-format=bestvideo[height<=?1080]+bestaudio/best
 ytdl-raw-options=embed-thumbnail=
 ytdl-raw-options=write-thumbnail=
 ytdl-raw-options=add-metadata=
@@ -138,7 +138,7 @@ ytdl-raw-options=embed-subs=
 ytdl-raw-options=sub-format=en,write-srt=
 ytdl-raw-options=ignore-errors=
 ytdl-raw-options=continue=
-ytdl-raw-options=include-ads=
+#ytdl-raw-options=include-ads=
 
 slang=en,es
 alang=en,es
@@ -146,7 +146,7 @@ alang=en,es
 # If the file seems to be valid UTF-8, prefer UTF-8.
 # (You can add '+' in front of the codepage to force it.)
 #sub-codepage=cp1256
-sub-color='#fdfdff'
+sub-color='#ffeeea'
 sub-auto=fuzzy
 embeddedfonts=yes
 
@@ -179,3 +179,4 @@ save-position-on-quit=no
 [wal]
 profile-desc="make the current video the background for your desktop"
 wid=0
+loop

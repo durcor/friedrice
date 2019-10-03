@@ -10,7 +10,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Inconsolata Nerd Font:pixelsize=12:antialias=true:autohint=true";
+static char *font = "Fantasque Sans Mono Nerd Font:pixelsize=11:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -88,34 +88,34 @@ char *termname = "xterm-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 1.0;
+float alpha = 0.9;
 
 const char *colorname[] = {
 
   /* 8 normal colors */
-  [0] = "#0F100F", /* black   */
-  [1] = "#A2553C", /* red     */
-  [2] = "#5A5759", /* green   */
-  [3] = "#AF8A72", /* yellow  */
-  [4] = "#5A7091", /* blue    */
-  [5] = "#946B5B", /* magenta */
-  [6] = "#6B8CAE", /* cyan    */
-  [7] = "#d0d0d3", /* white   */
+  [0] = "#040B2F", /* black   */
+  [1] = "#9C6E8A", /* red     */
+  [2] = "#5E678C", /* green   */
+  [3] = "#A29BA1", /* yellow  */
+  [4] = "#2A548C", /* blue    */
+  [5] = "#DC6C87", /* magenta */
+  [6] = "#678FA5", /* cyan    */
+  [7] = "#e5c6c3", /* white   */
 
   /* 8 bright colors */
-  [8]  = "#272927",  /* black   */
-  [9]  = "#e1673f",  /* red     */
-  [10] = "#806577", /* green   */
-  [11] = "#f6af81", /* yellow  */
-  [12] = "#658ecb", /* blue    */
-  [13] = "#cf8466", /* magenta */
-  [14] = "#78b5f4", /* cyan    */
-  [15] = "#fdfdff", /* white   */
+  [8]  = "#07155d",  /* black   */
+  [9]  = "#dc7db7",  /* red     */
+  [10] = "#6b7cc5", /* green   */
+  [11] = "#e7b4df", /* yellow  */
+  [12] = "#2a6bc1", /* blue    */
+  [13] = "#ff77a4", /* magenta */
+  [14] = "#74bee7", /* cyan    */
+  [15] = "#ffeeea", /* white   */
 
   /* special colors */
-  [256] = "#0F100F", /* background */
-  [257] = "#fdfdff", /* foreground */
-  [258] = "#fdfdff",     /* cursor */
+  [256] = "#040B2F", /* background */
+  [257] = "#ffeeea", /* foreground */
+  [258] = "#ffeeea",     /* cursor */
 };
 
 /* Default colors (colorname index)

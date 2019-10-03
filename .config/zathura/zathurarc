@@ -4,4 +4,4 @@ set window-title-home-tilde false
 set statusbar-home-tilde false
 set show-hidden true
 set adjust-open width
-# set font "Inconsolata Nerd Font" normal 9
+# set font 'Fantasque Sans Mono Nerd Font' normal 9

@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+# Set as a systemd timer to check for new RSS entries for newsboat.
+# If newsboat is open in tmux, sends it an "R" key to refresh.
+
+ping -q -c 1 1.1.1.1 || exit
+
+if pgrep -x newsboat >/dev/null
+then
+    tmux send-keys -t0:.1 vlR
+    echo 🔃 > /tmp/nbupdate
+    pkill -RTMIN+6 i3blocks
+    sleep $(echo $(wc -l < ~/.config/newsboat/urls)\*0.3 | bc)
+    rm -rf /tmp/nbupdate
+    pkill -RTMIN+6 i3blocks
+else
+    echo 🔃 > /tmp/nbupdate
+    pkill -RTMIN+6 i3blocks
+    /usr/bin/newsboat -x reload
+    rm -f /tmp/nbupdate
+    pkill -RTMIN+6 i3blocks
+fi

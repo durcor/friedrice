@@ -1,5 +1,0 @@
-#!/bin/sh
-case $BLOCK_BUTTON in
-    1) $TERMINAL -e neomutt ;;
-esac
-echo $(find ~/.local/share/mail/ -wholename */INBOX/new/* | wc -l | sed -e "s/^0$//g") $(cat /tmp/imapsyncicon_*)

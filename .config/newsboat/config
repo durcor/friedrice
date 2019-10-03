@@ -1,7 +1,7 @@
 # ~/.config/newsboat/config
 # vi:ft=python
 
-auto-reload yes
+auto-reload no
 reload-time 60
 reload-threads 2
 suppress-first-reload no

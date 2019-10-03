@@ -1,0 +1,5 @@
+#!/bin/sh
+
+conscript(){ bluetoothctl connect $(bluetoothctl devices | awk '{print $2}' | rofi -dmenu -p btman) ;}
+
+notify-send "$(conscript)"

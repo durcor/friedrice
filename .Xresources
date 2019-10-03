@@ -2,64 +2,64 @@
 ! vi:ft=xdefaults
 
 ! X colors.
-*foreground:        #fdfdff
-*background:        #0F100F
-*.foreground:       #fdfdff
-*.background:       #0F100F
-emacs*foreground:   #fdfdff
-emacs*background:   #0F100F
-URxvt*foreground:   #fdfdff
-XTerm*foreground:   #fdfdff
-UXTerm*foreground:  #fdfdff
-URxvt*background:   [100]#0F100F
-XTerm*background:   #0F100F
-UXTerm*background:  #0F100F
-URxvt*cursorColor:  #fdfdff
-XTerm*cursorColor:  #fdfdff
-UXTerm*cursorColor: #fdfdff
-URxvt*borderColor:  [100]#0F100F
+*foreground:        #ffeeea
+*background:        #040B2F
+*.foreground:       #ffeeea
+*.background:       #040B2F
+emacs*foreground:   #ffeeea
+emacs*background:   #040B2F
+URxvt*foreground:   #ffeeea
+XTerm*foreground:   #ffeeea
+UXTerm*foreground:  #ffeeea
+URxvt*background:   [100]#040B2F
+XTerm*background:   #040B2F
+UXTerm*background:  #040B2F
+URxvt*cursorColor:  #ffeeea
+XTerm*cursorColor:  #ffeeea
+UXTerm*cursorColor: #ffeeea
+URxvt*borderColor:  [100]#040B2F
 
 ! Colors 0-15.
-*.color0: #0F100F
-*color0:  #0F100F
-*.color1: #A2553C
-*color1:  #A2553C
-*.color2: #5A5759
-*color2:  #5A5759
-*.color3: #AF8A72
-*color3:  #AF8A72
-*.color4: #5A7091
-*color4:  #5A7091
-*.color5: #946B5B
-*color5:  #946B5B
-*.color6: #6B8CAE
-*color6:  #6B8CAE
-*.color7: #d0d0d3
-*color7:  #d0d0d3
-*.color8: #272927
-*color8:  #272927
-*.color9: #e1673f
-*color9:  #e1673f
-*.color10: #806577
-*color10:  #806577
-*.color11: #f6af81
-*color11:  #f6af81
-*.color12: #658ecb
-*color12:  #658ecb
-*.color13: #cf8466
-*color13:  #cf8466
-*.color14: #78b5f4
-*color14:  #78b5f4
-*.color15: #fdfdff
-*color15:  #fdfdff
+*.color0: #040B2F
+*color0:  #040B2F
+*.color1: #9C6E8A
+*color1:  #9C6E8A
+*.color2: #5E678C
+*color2:  #5E678C
+*.color3: #A29BA1
+*color3:  #A29BA1
+*.color4: #2A548C
+*color4:  #2A548C
+*.color5: #DC6C87
+*color5:  #DC6C87
+*.color6: #678FA5
+*color6:  #678FA5
+*.color7: #e5c6c3
+*color7:  #e5c6c3
+*.color8: #07155d
+*color8:  #07155d
+*.color9: #dc7db7
+*color9:  #dc7db7
+*.color10: #6b7cc5
+*color10:  #6b7cc5
+*.color11: #e7b4df
+*color11:  #e7b4df
+*.color12: #2a6bc1
+*color12:  #2a6bc1
+*.color13: #ff77a4
+*color13:  #ff77a4
+*.color14: #74bee7
+*color14:  #74bee7
+*.color15: #ffeeea
+*color15:  #ffeeea
 
 ! Black color that will not be affected by bold highlighting.
-*.color66: #0F100F
-*color66:  #0F100F
+*.color66: #040B2F
+*color66:  #040B2F
 
 ! Xclock colors.
-XClock*foreground: #fdfdff
-XClock*background: #0F100F
+XClock*foreground: #ffeeea
+XClock*background: #040B2F
 ! XClock*majorColor:  rgba:ff/f8/ff/ff
 ! XClock*minorColor:  rgba:ff/f8/ff/ff
 ! XClock*hourColor:   rgba:ff/f8/ff/ff
@@ -69,5 +69,5 @@ XClock*background: #0F100F
 ! Set depth to make transparency work.
 URxvt*depth: 32
 
-*.def-font: Inconsolata Nerd Font
-*def-font: Inconsolata Nerd Font
+*.def-font: Fantasque Sans Mono Nerd Font
+*def-font: Fantasque Sans Mono Nerd Font
