@@ -24,7 +24,7 @@ $else
 	set vi-ins-mode-string \1\e[6 q\2
 	set vi-cmd-mode-string \1\e[2 q\2
 $endif
- set show-all-if-ambiguous on
+set show-all-if-ambiguous on
 
 # Color files by types
 set colored-stats On

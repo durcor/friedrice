@@ -35,7 +35,7 @@ fs=no
 screenshot-directory=~/scr/
 screenshot-format=jpg
 screenshot-template='%tY-%tm-%td_%tH%tM-%tS'
-screnshot-jpeg-quality=100
+# screnshot-jpeg-quality=100
 
 image-display-duration=inf
 
@@ -74,7 +74,7 @@ vo=gpu
 # audio.)
 force-window=immediate
 osc=no
-cache=2048
+cache=yes
 # Specify high quality video rendering preset (for --vo=gpu only)
 # Can cause performance problems with some drivers and GPUs.
 profile=gpu-hq
@@ -114,8 +114,8 @@ audio-file-auto=fuzzy
 user-agent="Mozilla/5.0"
 
 # cache settings
-cache-default=4000000
-cache-backbuffer=250000
+# cache-default=4000000
+# cache-backbuffer=250000
 demuxer-max-bytes=114748364
 # Use 150MB input cache for everything, even local files.
 #cache=153600

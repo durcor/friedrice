@@ -140,7 +140,7 @@ ealias sctls='systemctl --user status'
 ealias sctlup='systemctl --user start'
 ealias sctldown='systemctl --user stop'
 ealias sctlen='systemctl --user enable --now'
-ealias sctldis='systemctl --user disable'
+ealias sctldis='systemctl --user disable --now'
 ealias sctlr='systemctl --user restart'
 
 ealias ssctl='sudo systemctl'

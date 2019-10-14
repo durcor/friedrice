@@ -1,27 +1,43 @@
 #!/bin/sh
 
-set(){
+setwal(){
     wpg -s $1
     cfgrf
 }
 
-pick(){
-    walset $(wpg -l | fzf)
+pickwal(){
+    setwal $(wpg -l | fzf)
 }
 
-shuf(){
+shufwal(){
     wpg -z $(wpg -c)
     cfgrf
 }
 
-rand(){
+randwal(){
     wpg -m
     cfgrf
 }
 
+colbright(){
+    echo
+}
+
+colsat(){
+    echo
+}
+
+cyclewal(){
+    while true; do
+    	wpg -m
+    	cfg rf
+    	sleep 10
+    done
+}
+
 case $1 in
-    set) set ;;
-    pick) pick ;;
-    shuf) shuf ;;
-    rand) rand ;;
+    set|se) setwal ;;
+    pick|p) pickwal ;;
+    shuf|sh) shufwal ;;
+    rand|r) randwal ;;
 esac

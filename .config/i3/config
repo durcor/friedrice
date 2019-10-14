@@ -23,10 +23,7 @@ set_from_resource $font def-font
 font pango: $font 9
 
 mode "WINDOW" {
-	# bindsym Mod4 mode "MANAGER";exec notify-send -u low "MANAGER MODE"
-	# bindsym Mod4+a mode "MANAGER";exec notify-send -u low "MANAGER MODE"
-	# bindsym Mod4+Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
-	bindsym Shift+Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+	bindsym Super_L mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 
 	bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost -i 5
 	bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --allow-boost -d 5
@@ -164,8 +161,7 @@ mode MANAGER {
 	bindsym c mode "BRIGHTNESS";exec notify-send -u low "BRIGHTNESS MODE"
 }
 
-bindsym Shift+a mode "MANAGER";exec notify-send -u low "MANAGER MODE"
-bindsym Shift+Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+bindsym Super_L mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 
 mode "RESIZE" {
 	bindsym h resize shrink width 40 px or 5 ppt

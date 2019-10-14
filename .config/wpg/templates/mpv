@@ -35,7 +35,7 @@ fs=no
 screenshot-directory=~/scr/
 screenshot-format=jpg
 screenshot-template='%tY-%tm-%td_%tH%tM-%tS'
-screnshot-jpeg-quality=100
+# screnshot-jpeg-quality=100
 
 image-display-duration=inf
 
@@ -49,10 +49,10 @@ osd-level=1
 osd-bar-h=2
 osd-font='Fantasque Sans Mono Nerd Font'
 osd-font-size=30
-osd-color='#ffeeea'
-osd-border-color='#ffeeea'
+osd-color='#e7f4fd'
+osd-border-color='#e7f4fd'
 osd-border-size=1
-osd-back-color='#040B2F'
+osd-back-color='#110d04'
 
 on-all-workspaces
 ontop=yes
@@ -74,7 +74,7 @@ vo=gpu
 # audio.)
 force-window=immediate
 osc=no
-cache=2048
+cache=yes
 # Specify high quality video rendering preset (for --vo=gpu only)
 # Can cause performance problems with some drivers and GPUs.
 profile=gpu-hq
@@ -114,8 +114,8 @@ audio-file-auto=fuzzy
 user-agent="Mozilla/5.0"
 
 # cache settings
-cache-default=4000000
-cache-backbuffer=250000
+# cache-default=4000000
+# cache-backbuffer=250000
 demuxer-max-bytes=114748364
 # Use 150MB input cache for everything, even local files.
 #cache=153600
@@ -146,7 +146,7 @@ alang=en,es
 # If the file seems to be valid UTF-8, prefer UTF-8.
 # (You can add '+' in front of the codepage to force it.)
 #sub-codepage=cp1256
-sub-color='#ffeeea'
+sub-color='#e7f4fd'
 sub-auto=fuzzy
 embeddedfonts=yes
 
