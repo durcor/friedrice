@@ -1,12 +1,13 @@
 #!/bin/sh
 
-ping -q -c 1 1.1.1.1 >/dev/null || exit
-ls /mnt/cloud/note || exit
+ping -c 1 1.1.1.1 || exit
+
+ls /mnt/cloud/note || mount /mnt/cloud
 
 rm $HOME/doc/bak/bkmk/buku.html
-buku -e $HOME/doc/bak/bkmk/buku.html
+buku --tacit -e $HOME/doc/bak/bkmk/buku.html
 rsync -au $HOME/doc/bak/bkmk/buku.html /mnt/cloud/note/buku.html &
 
 rm $HOME/doc/bak/bkmk/bukuview.html
-buku -t view -e $HOME/doc/bak/bkmk/bukuview.html
+buku --tacit -t view -e $HOME/doc/bak/bkmk/bukuview.html
 rsync -au $HOME/doc/bak/bkmk/bukuview.html /mnt/cloud/note/bukuview.html

@@ -1,2 +1,0 @@
-#!/bin/sh
-curl -F file=@$@ "https://lewd.se/api.php?d=upload-tool"

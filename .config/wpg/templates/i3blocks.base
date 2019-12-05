@@ -136,14 +136,14 @@ interval=10
 # interval=30
 # color={color11}
 
-# [bat]
-# command=~/.local/bin/i3blocks/bat BAT0
-# # color={color14}
-# interval=5
-
-[batplus]
+[bat]
+command=~/.local/bin/i3blocks/bat
+# color={color14}
 interval=5
-instance=BAT0
+
+# [batplus]
+# interval=5
+# instance=BAT0
 
 [time]
 interval=1

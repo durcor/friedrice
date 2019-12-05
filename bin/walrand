@@ -1,4 +1,0 @@
-#!/bin/bash
-wpg -m
-cfgrf
-notify-send 'walrand complete'

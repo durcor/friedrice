@@ -1,8 +1,10 @@
 #!/bin/sh
 
+walfile=$2
+
 setwal(){
-    wpg -s $1
-    cfgrf
+    wpg -s $walfile
+    cfg rf
 }
 
 pickwal(){
@@ -11,28 +13,42 @@ pickwal(){
 
 shufwal(){
     wpg -z $(wpg -c)
-    cfgrf
+    cfg rf
 }
 
 randwal(){
     wpg -m
-    cfgrf
+    cfg rf
 }
 
 colbright(){
-    echo
+    case $2 in
+        +) wpg --brt $(wpg -c) 0.5 ; wpg -s $(wpg -c) ;;
+        -) wpg --brt $(wpg -c) -0.5 ; wpg -s $(wpg -c) ;;
+    esac
 }
 
 colsat(){
-    echo
+    case $2 in
+        +) wpg --sat $(wpg -c) 0.2 ; wpg -s $(wpg -c) ;;
+        -) wpg --sat $(wpg -c) -0.2 ; wpg -s $(wpg -c) ;;
+    esac
 }
 
 cyclewal(){
-    while true; do
+    while true
+    do
     	wpg -m
     	cfg rf
     	sleep 10
     done
+}
+
+addwal(){
+    wpg -a $walfile
+    setwal $walfile
+    wpg -A $(wpg -c)
+    cfg rf
 }
 
 case $1 in
@@ -40,4 +56,6 @@ case $1 in
     pick|p) pickwal ;;
     shuf|sh) shufwal ;;
     rand|r) randwal ;;
+    add|a) addwal ;;
+    cycle|c) cyclewal ;;
 esac

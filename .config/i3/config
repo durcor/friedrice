@@ -23,226 +23,239 @@ set_from_resource $font def-font
 font pango: $font 9
 
 mode "WINDOW" {
-	bindsym Super_L mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+    bindsym Super_L mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 
-	bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost -i 5
-	bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --allow-boost -d 5
-	bindsym XF86AudioMute exec --no-startup-id pamixer -t
-	bindsym XF86AudioStop exec --no-startup-id mpc stop
-	bindsym XF86AudioPrev exec --no-startup-id mpc prev
-	bindsym XF86AudioNext exec --no-startup-id mpc next
-	bindsym XF86AudioPlay exec --no-startup-id mpc toggle
-	bindsym XF86Search exec --no-startup-id dmenual
-	bindsym XF86Calculator exec --no-startup-id st -e bc -ql
-	bindsym XF86HomePage exec --no-startup-id dmenual
-	bindsym XF86Tools exec --no-startup-id dmenual
-	bindsym --release Print exec --no-startup-id "maim -u -n 2 -s | xclip -se c -i"
+    bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost -i 5
+    bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --allow-boost -d 5
+    bindsym XF86AudioMute exec --no-startup-id pamixer -t
+    bindsym XF86AudioStop exec --no-startup-id mpc stop
+    bindsym XF86AudioPrev exec --no-startup-id mpc prev
+    bindsym XF86AudioNext exec --no-startup-id mpc next
+    bindsym XF86AudioPlay exec --no-startup-id mpc toggle
+    bindsym XF86Search exec --no-startup-id dmenual
+    bindsym XF86Calculator exec --no-startup-id st -e bc -ql
+    bindsym XF86HomePage exec --no-startup-id dmenual
+    bindsym XF86Tools exec --no-startup-id dmenual
+    bindsym --release Print exec --no-startup-id "maim -u -n 2 -s | xclip -se c -i"
 }
 
 #mode [--pango_markup foreground=blue] MANAGER {
 #mode --pango_markup "<span color='blue'>MANAGER</span>" {
 mode MANAGER {
-	bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost -i 5
-	bindsym F3 exec --no-startup-id pamixer --allow-boost -i 5
-	bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --allow-boost -d 5
-	bindsym F1 exec --no-startup-id pamixer --allow-boost -d 5
-	bindsym XF86AudioMute exec --no-startup-id pamixer -t
-	bindsym F1 exec --no-startup-id pamixer -t
-	bindsym XF86AudioPrev exec --no-startup-id mpc prev
-	bindsym F5 exec --no-startup-id mpc prev
-	bindsym XF86AudioNext exec --no-startup-id mpc next
-	bindsym F7 exec --no-startup-id mpc next
-	bindsym XF86AudioPlay exec --no-startup-id mpc toggle
-	bindsym F6 exec --no-startup-id mpc toggle
-	bindsym --release Print exec --no-startup-id "maim -u -n 2 -s | xclip -se c -i"
-
-	bindsym Return exec --no-startup-id st
-
-	# mouse + binding moves floating windows
-	# floating_modifier Mod4
-
-	bindsym --release q exec --no-startup-id slock xset dpms force off
-	bindsym --release Shift+q exec --no-startup-id sudo systemctl hibernate
-	bindsym --release XF86Sleep exec --no-startup-id sudo systemctl hibernate
-	bindsym u exec --no-startup-id "xclip -t -se p | xclip -i -s c"
-	bindsym slash exec --no-startup-id dmenual -i -p run
-	bindsym Shift+slash exec --no-startup-id rofi -show run
-	bindsym Shift+f exec --no-startup-id st -e ranger
-	bindsym Shift+b exec --no-startup-id clipmenu
-	bindsym p exec --no-startup-id mpv $(xclip -se c -o)
-	bindsym Shift+p exec --no-startup-id "passmenu"
-
-	bindsym  [instance="pop"] scratchpad show; [instance="pop"] move position center
-
-	bindsym x kill
-
-	bindsym equal sticky toggle
-
-	bindsym h focus left
-	bindsym j focus down
-	bindsym k focus up
-	bindsym l focus right
-
-	bindsym Shift+h move left 60 px
-	bindsym Shift+j move down 60 px
-	bindsym Shift+k move up 60 px
-	bindsym Shift+l move right 60 px
-
-	bindsym Mod1+h move left 10 px
-	bindsym Mod1+j move down 10 px
-	bindsym Mod1+k move up 10 px
-	bindsym Mod1+l move right 10 px
-
-	bindsym Control+h move left 2 px
-	bindsym Control+j move down 2 px
-	bindsym Control+k move up 2 px
-	bindsym Control+l move right 2 px
-
-	bindsym backslash split h;exec notify-send -u low "HORIZONTAL TILING"
-	bindsym minus split v;exec notify-send -u low "VERTICAL TILING"
-
-	bindsym b workspace prev
-	bindsym w workspace next
-
-	bindsym Shift+equal fullscreen toggle
-
-	# change container layout (stacked, tabbed, toggle split)
-	bindsym s layout stacking
-	bindsym w layout tabbed
-	bindsym e layout toggle split
-
-	# toggle tiling / floating
-	bindsym Shift+space floating toggle
-
-	# change focus between tiling / floating windows
-	bindsym space focus mode_toggle
-
-	# bindsym a focus parent
-	# bindsym p focus child
-
-	bindsym 1 workspace $ws1
-	bindsym 2 workspace $ws2
-	bindsym 3 workspace $ws3
-	bindsym 4 workspace $ws4
-	bindsym 5 workspace $ws5
-	bindsym 6 workspace $ws6
-	bindsym 7 workspace $ws7
-	bindsym 8 workspace $ws8
-	bindsym 9 workspace $ws9
-	bindsym 0 workspace $ws10
-
-	bindsym Shift+1 move container to workspace $ws1
-	bindsym Shift+2 move container to workspace $ws2
-	bindsym Shift+3 move container to workspace $ws3
-	bindsym Shift+4 move container to workspace $ws4
-	bindsym Shift+5 move container to workspace $ws5
-	bindsym Shift+6 move container to workspace $ws6
-	bindsym Shift+7 move container to workspace $ws7
-	bindsym Shift+8 move container to workspace $ws8
-	bindsym Shift+9 move container to workspace $ws9
-	bindsym Shift+0 move container to workspace $ws10
-
-	bindsym Shift+c reload;exec --no-startup-id sleep 0.4; mode MANAGER
-	bindsym Shift+r restart;exec --no-startup-id sleep 4; mode MANAGER
-	bindsym Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'exit i3?' -b 'yes' 'i3-msg exit'"
-
+    bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost -i 5
+    bindsym F3 exec --no-startup-id pamixer --allow-boost -i 5
+    bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --allow-boost -d 5
+    bindsym F1 exec --no-startup-id pamixer --allow-boost -d 5
+    bindsym XF86AudioMute exec --no-startup-id pamixer -t
+    bindsym F1 exec --no-startup-id pamixer -t
+    bindsym XF86AudioPrev exec --no-startup-id mpc prev
+    bindsym F5 exec --no-startup-id mpc prev
+    bindsym XF86AudioNext exec --no-startup-id mpc next
+    bindsym F7 exec --no-startup-id mpc next
+    bindsym XF86AudioPlay exec --no-startup-id mpc toggle
+    bindsym F6 exec --no-startup-id mpc toggle
+    bindsym --release Print exec --no-startup-id "maim -u -n 2 -s | xclip -se c -i"
+    
+    bindsym Return exec --no-startup-id st
+    
+    # mouse + binding moves floating windows
+    # floating_modifier Mod4
+    
+    bindsym --release q exec --no-startup-id slock xset dpms force off
+    bindsym --release Shift+q exec --no-startup-id sudo systemctl hibernate
+    bindsym --release XF86Sleep exec --no-startup-id sudo systemctl hibernate
+    bindsym u exec --no-startup-id "xclip -t -se p | xclip -i -s c"
+    bindsym slash exec --no-startup-id dmenual -i -p run
+    bindsym Shift+slash exec --no-startup-id rofi -show run
+    bindsym Shift+f exec --no-startup-id st -e ranger
+    bindsym Shift+b exec --no-startup-id clipmenu
+    bindsym p exec --no-startup-id mpv $(xclip -se c -o)
+    bindsym Shift+p exec --no-startup-id "passmenu"
+    
+    bindsym  [instance="pop"] scratchpad show; [instance="pop"] move position center
+    
+    bindsym x kill
+    
+    bindsym equal sticky toggle
+    
+    bindsym h focus left
+    bindsym j focus down
+    bindsym k focus up
+    bindsym l focus right
+    
+    bindsym Shift+h move left 60 px
+    bindsym Shift+j move down 60 px
+    bindsym Shift+k move up 60 px
+    bindsym Shift+l move right 60 px
+    
+    bindsym Mod1+h move left 10 px
+    bindsym Mod1+j move down 10 px
+    bindsym Mod1+k move up 10 px
+    bindsym Mod1+l move right 10 px
+    
+    bindsym Control+h move left 2 px
+    bindsym Control+j move down 2 px
+    bindsym Control+k move up 2 px
+    bindsym Control+l move right 2 px
+    
+    bindsym backslash split h;exec notify-send -u low "HORIZONTAL TILING"
+    bindsym minus split v;exec notify-send -u low "VERTICAL TILING"
+    
+    bindsym b workspace prev
+    bindsym w workspace next
+    
+    bindsym Shift+equal fullscreen toggle
+    
+    # change container layout (stacked, tabbed, toggle split)
+    bindsym s layout stacking
+    bindsym w layout tabbed
+    bindsym e layout toggle split
+    
+    # toggle tiling / floating
+    bindsym Shift+space floating toggle
+    
+    # change focus between tiling / floating windows
+    bindsym space focus mode_toggle
+    
+    # bindsym a focus parent
+    # bindsym p focus child
+    
+    bindsym 1 workspace $ws1
+    bindsym 2 workspace $ws2
+    bindsym 3 workspace $ws3
+    bindsym 4 workspace $ws4
+    bindsym 5 workspace $ws5
+    bindsym 6 workspace $ws6
+    bindsym 7 workspace $ws7
+    bindsym 8 workspace $ws8
+    bindsym 9 workspace $ws9
+    bindsym 0 workspace $ws10
+    
+    bindsym Shift+1 move container to workspace $ws1
+    bindsym Shift+2 move container to workspace $ws2
+    bindsym Shift+3 move container to workspace $ws3
+    bindsym Shift+4 move container to workspace $ws4
+    bindsym Shift+5 move container to workspace $ws5
+    bindsym Shift+6 move container to workspace $ws6
+    bindsym Shift+7 move container to workspace $ws7
+    bindsym Shift+8 move container to workspace $ws8
+    bindsym Shift+9 move container to workspace $ws9
+    bindsym Shift+0 move container to workspace $ws10
+    
+    bindsym Shift+c reload;exec --no-startup-id sleep 0.4; mode MANAGER
+    bindsym Shift+r restart;exec --no-startup-id sleep 4; mode MANAGER
+    bindsym Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'exit i3?' -b 'yes' 'i3-msg exit'"
+    
     bindsym i mode "WINDOW";exec notify-send -u low "WINDOW MODE"
     bindsym a mode "WINDOW";exec notify-send -u low "WINDOW MODE"
     bindsym A mode "WINDOW";exec notify-send -u low "WINDOW MODE"
     bindsym I mode "WINDOW";exec notify-send -u low "WINDOW MODE"
-
-	bindsym o mode "LAUNCH";exec notify-send -u low "LAUNCH MODE"
-	bindsym g mode "GAPS";exec notify-send -u low "GAPS MODE"
-	bindsym m mode "MUSIC";exec notify-send -u low "MUSIC MODE"
-	bindsym z mode "AUDIO";exec notify-send -u low "AUDIO MODE"
-	bindsym Shift+colon mode "COMMAND";exec notify-send -u low "COMMAND MODE"
-	bindsym r mode "RESIZE";exec notify-send -u low "RESIZE MODE"
-	bindsym v mode "VISUAL";exec notify-send -u low "VISUAL MODE"
-	bindsym c mode "BRIGHTNESS";exec notify-send -u low "BRIGHTNESS MODE"
+    
+    bindsym o mode "LAUNCH";exec notify-send -u low "LAUNCH MODE"
+    bindsym g mode "GAPS";exec notify-send -u low "GAPS MODE"
+    bindsym m mode "MUSIC";exec notify-send -u low "MUSIC MODE"
+    bindsym z mode "AUDIO";exec notify-send -u low "AUDIO MODE"
+    bindsym Shift+colon mode "COMMAND";exec notify-send -u low "COMMAND MODE"
+    bindsym r mode "RESIZE";exec notify-send -u low "RESIZE MODE"
+    bindsym v mode "VISUAL";exec notify-send -u low "VISUAL MODE"
+    bindsym c mode "BRIGHTNESS";exec notify-send -u low "BRIGHTNESS MODE"
 }
 
 bindsym Super_L mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 
 mode "RESIZE" {
-	bindsym h resize shrink width 40 px or 5 ppt
-	bindsym j resize shrink height 40 px or 5 ppt
-	bindsym k resize grow height 40 px or 5 ppt
-	bindsym l resize grow width 40 px or 5 ppt
-
-	bindsym Mod1+h resize shrink width 20 px or 2 ppt
-	bindsym Mod1+j resize shrink height 20 px or 2 ppt
-	bindsym Mod1+k resize grow height 20 px or 2 ppt
-	bindsym Mod1+l resize grow width 20 px or 2 ppt
-
-	bindsym Control+h resize shrink width 10 px or 1 ppt
-	bindsym Control+j resize shrink height 10 px or 1 ppt
-	bindsym Control+k resize grow height 10 px or 1 ppt
-	bindsym Control+l resize grow width 10 px or 1 ppt
-
-	bindsym Shift+h resize shrink width 80 px or 10 ppt
-	bindsym Shift+j resize shrink height 80 px or 10 ppt
-	bindsym Shift+k resize grow height 80 px or 10 ppt
-	bindsym Shift+l resize grow width 80 px or 10 ppt
-
-	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+    bindsym h resize shrink width 40 px or 5 ppt
+    bindsym j resize shrink height 40 px or 5 ppt
+    bindsym k resize grow height 40 px or 5 ppt
+    bindsym l resize grow width 40 px or 5 ppt
+    
+    bindsym Mod1+h resize shrink width 20 px or 2 ppt
+    bindsym Mod1+j resize shrink height 20 px or 2 ppt
+    bindsym Mod1+k resize grow height 20 px or 2 ppt
+    bindsym Mod1+l resize grow width 20 px or 2 ppt
+    
+    bindsym Control+h resize shrink width 10 px or 1 ppt
+    bindsym Control+j resize shrink height 10 px or 1 ppt
+    bindsym Control+k resize grow height 10 px or 1 ppt
+    bindsym Control+l resize grow width 10 px or 1 ppt
+    
+    bindsym Shift+h resize shrink width 80 px or 10 ppt
+    bindsym Shift+j resize shrink height 80 px or 10 ppt
+    bindsym Shift+k resize grow height 80 px or 10 ppt
+    bindsym Shift+l resize grow width 80 px or 10 ppt
+    
+    bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }
 
 mode "GAPS" {
-	bindsym h gaps inner current minus 5
-	bindsym l gaps inner current plus 5
-	bindsym j gaps outer current minus 5
-	bindsym k gaps outer current plus 5
-
-	bindsym Escape mode "MANAGER"
+    bindsym h gaps inner current minus 5
+    bindsym l gaps inner current plus 5
+    bindsym j gaps outer current minus 5
+    bindsym k gaps outer current plus 5
+    
+    bindsym Escape mode "MANAGER"
 }
 
 mode "MUSIC" {
-	bindsym h exec --no-startup-id mpc prev
-	bindsym l exec --no-startup-id mpc next
-	bindsym j exec --no-startup-id mpc seek -5
-	bindsym k exec --no-startup-id mpc seek +5
+    bindsym h exec --no-startup-id playerctl previous
+    bindsym l exec --no-startup-id playerctl next
+    bindsym j exec --no-startup-id playerctl position 5-
+    bindsym k exec --no-startup-id playerctl position 5-
+    bindsym v exec --no-startup-id notify-send "$(playerctl status)"
+    bindsym z exec --no-startup-id playerctl shuffle on ; notify-send "$(playerctl shuffle)"
+    bindsym space exec --no-startup-id playerctl play-pause
+    bindsym m mode "MPD";exec notify-send -u low "MPD"
+    
+    bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+}
+
+mode "MPD" {
+    bindsym h exec --no-startup-id mpc prev
+    bindsym l exec --no-startup-id mpc next
+    bindsym j exec --no-startup-id mpc seek -5
+    bindsym k exec --no-startup-id mpc seek +5
     bindsym v exec --no-startup-id notify-send "$(mpc status)"
     bindsym z exec --no-startup-id mpc random ; notify-send " " ""
-	bindsym space exec --no-startup-id mpc toggle
-
-	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+    bindsym space exec --no-startup-id mpc toggle
+    
+    bindsym Escape mode "MUSIC";exec notify-send -u low "MUSIC MODE"
 }
 
 mode "AUDIO" {
-	bindsym h exec --no-startup-id pamixer --allow-boost -d 1 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-	bindsym l exec --no-startup-id pamixer --allow-boost -i 1 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-	bindsym j exec --no-startup-id pamixer --allow-boost -d 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-	bindsym k exec --no-startup-id pamixer --allow-boost -i 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
+    bindsym h exec --no-startup-id pamixer --allow-boost -d 1 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
+    bindsym l exec --no-startup-id pamixer --allow-boost -i 1 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
+    bindsym j exec --no-startup-id pamixer --allow-boost -d 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
+    bindsym k exec --no-startup-id pamixer --allow-boost -i 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
     bindsym v exec --no-startup-id notifaudio
-	bindsym space exec --no-startup-id pamixer -t ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-
-	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+    bindsym space exec --no-startup-id pamixer -t ; exec --no-startup-id pkill -RTMIN+13 i3blocks
+    
+    bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }
 
 mode "LAUNCH" {
-	bindsym n exec --no-startup-id st -e newsboat
-	bindsym w exec --no-startup-id qutebrowser
-	bindsym m exec --no-startup-id st -e neomutt
-	bindsym c exec --no-startup-id st -e ncmpcpp -s visualizer
-	bindsym v exec --no-startup-id st -e gotop
-	bindsym a exec --no-startup-id st -e pulsemixer
-
-	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+    bindsym n exec --no-startup-id st -e newsboat
+    bindsym w exec --no-startup-id qutebrowser
+    bindsym m exec --no-startup-id st -e neomutt
+    bindsym c exec --no-startup-id st -e ncmpcpp -s visualizer
+    bindsym v exec --no-startup-id st -e gotop
+    bindsym a exec --no-startup-id st -e pulsemixer
+    
+    bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }
 
 mode "COMMAND" {
-	bindsym --release q exec --no-startup-id slock xset dpms force off
-	bindsym --release Shift+q exec --no-startup-id sudo slock systemctl suspend
-
-	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+    bindsym --release q exec --no-startup-id slock xset dpms force off
+    bindsym --release Shift+q exec --no-startup-id sudo slock systemctl suspend
+    
+    bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }
 
 mode "VISUAL" {
-	bindsym --release v exec --no-startup-id "maim -u -s ~/scr/$(date +%Y-%m-%d_%H%M-%S).png"
-	bindsym --release c exec --no-startup-id "maim -u -s ~/scr/$(date +%Y-%m-%d_%H%M-%S).png  | xclip -se c -i"
-	bindsym --release u exec --no-startup-id "maim -u -s ~/scr/$(date +%Y-%m-%d_%H%M-%S).png  | up0x0"
-
-	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+    bindsym --release s exec --no-startup-id scrman
+    bindsym --release c exec --no-startup-id scrman cp
+    bindsym --release u exec --no-startup-id scrman up
+    
+    bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }
 
 mode "BRIGHTNESS" {
@@ -250,8 +263,8 @@ mode "BRIGHTNESS" {
     bindsym l exec backlightctl up 1
     bindsym j exec backlightctl down 10
     bindsym k exec backlightctl up 10
-
-	bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
+    
+    bindsym Escape mode "MANAGER";exec notify-send -u low "MANAGER MODE"
 }
 
 gaps inner 10
@@ -301,21 +314,21 @@ client.background       $c0
 
 bar {
     status_command i3blocks
-	position top
-	separator_symbol /
+    position top
+    separator_symbol /
     strip_workspace_numbers no
-
-	colors {
-			background $c0
-			statusline $c7
-			separator  $c1
-			# class				border 	bg		txt
-			focused_workspace 	$c0 	$c15 	$c0
-			# active_workspace
-			inactive_workspace	$c0		$c7 	$c0
-			urgent_workspace	$c0		$c1		$c0
-            binding_mode        $c0     $c10    $c0
-		}
+    
+    colors {
+        background $c0
+        statusline $c7
+        separator  $c1
+        # class				border 	bg		txt
+        focused_workspace 	$c0 	$c15 	$c0
+        # active_workspace
+        inactive_workspace	$c0		$c7 	$c0
+        urgent_workspace	$c0		$c1		$c0
+        binding_mode        $c0     $c10    $c0
+    	}
 }
 
 for_window [instance="pop"] floating enable
@@ -323,3 +336,9 @@ for_window [instance="pop"] resize set 900 600
 for_window [instance="pop"] move scratchpad
 for_window [instance="pop"] border pixel 10
 exec --no-startup-id st -n pop -e tmux attach -t pop
+exec st -e tmux a
+exec nm-applet
+exec mullvad-vpn
+exec qutebrowser
+exec discord
+exec workspace 1/

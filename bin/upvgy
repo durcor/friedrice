@@ -1,3 +1,0 @@
-#!/bin/sh
-
-curl -i -F file=@$1 https://vgy.me/upload

@@ -9,6 +9,7 @@ endif
 
 call plug#begin('~/.local/share/nvim/plug')
 Plug 'deviantfero/wpgtk.vim'
+Plug 'dylanaraps/wal.vim'
 Plug 'jamessan/vim-gnupg'
 Plug 'junegunn/fzf', { 'dir': '~/prg/fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
@@ -37,9 +38,21 @@ Plug 'rhysd/vim-grammarous'
 Plug 'dpelle/vim-LanguageTool'
 let g:languagetool_jar='$HOME/.local/share/nvim/plug/vim-grammarous/misc/LanguageTool-4.1/languagetool-commandline.jar'
 "Plug 'DanManN/vim-razer'
-"Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
 Plug 'vimwiki/vimwiki'
+Plug 'jceb/vim-orgmode'
+Plug 'KabbAmine/vCoolor.vim'
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'vbe0201/vimdiscord'
 call plug#end()
+
+let g:Hexokinase_highlighters = [
+"\   'virtual',
+"\   'sign_column',
+"\   'background',
+\   'backgroundfull',
+"\   'foreground',
+"\   'foregroundfull'
+\ ]
 
 " run neomake on file save
 call neomake#configure#automake('w')
@@ -47,8 +60,12 @@ call deoplete#custom#option({
                         \ 'auto_complete_delay': 0,
                         \ })
 
-" wpgtk colorscheme
 color wpgtk
+
+"se termguicolors
+
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 let $PAGER=''
 se nocompatible

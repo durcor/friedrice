@@ -1,4 +1,0 @@
-#!/bin/sh
-wpg -z $(wpg -c)
-cfgrf
-notify-send 'walshuf complete'

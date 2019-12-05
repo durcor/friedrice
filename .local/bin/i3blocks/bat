@@ -19,27 +19,64 @@ esac
 #   low battery
 #   no battery/dead
 
-capacity=$(echo scale=4\;$(cat /sys/class/power_supply/$1/charge_now)/$(cat /sys/class/power_supply/$1/charge_full)\*100 | bc | sed 's/0\{1,\}$//') || exit
-kernelcapacity=$(cat /sys/class/power_supply/$1/capacity)
-status=$(cat /sys/class/power_supply/$1/status)
- 
-if [ "$kernelcapacity" -ge 75 ]; then
-	color="#00ff00"
+# capacity=$(echo scale=4\;$(cat /sys/class/power_supply/BAT0/charge_now)/$(cat /sys/class/power_supply/BAT0/charge_full)\*100 | bc | sed 's/0\{1,\}$//') || exit
+capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+kernelcapacity=$(cat /sys/class/power_supply/BAT0/charge_now)
+kernelalarm=$(cat /sys/class/power_supply/BAT0/alarm)
+status=$(cat /sys/class/power_supply/BAT0/status)
+
+source ~/.cache/wal/colors.sh
+
+color=$color7
+
+if [ "$capacity" -ge 90 ]
+then
+	color=$color7
     icon=" "
-elif [ "$kernelcapacity" -ge 50 ]; then
+elif [ "$capacity" -ge 60 ]
+then
 	color="#ffffff"
     icon=" "
-elif [ "$kernelcapacity" -ge 25 ]; then
+elif [ "$capacity" -ge 40 ]
+then
 	color="#ffff00"
     icon=" "
-else
+elif [ "$capacity" -ge 10 ]
+then
 	color="#ff0000"
     icon=" "
-	warn="❗"
+else
+    color="#ff0000"
+    icon=" "
 fi
 
-[ -z $warn ] && warn=" "
+if [ "$kernelcapacity" -ge "$kernelalarm" ]
+then
+    alarm=""
+else
+	alarm="❗"
+fi
 
-[ "$status" = "Charging" ] && color="#ffffff"
 
-printf "<span color='%s'>%s%s%s</span>\n" "$color" "$(echo "$status" | sed -e "s/,//;s/Discharging/$icon/;s/Not Charging/🛑/;s/Charging/🔌/;s/Unknown/♻️/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g")" "$warn" "$(echo "$capacity" | sed -e 's/$/%/')"
+case $status in
+    Full)
+        statusicon=\=
+        ;;
+    Charging)
+        statusicon=\+
+        statuscolor="#00ff00"
+        ;;
+    Discharging)
+        statusicon=\-
+        statuscolor="#ff0000"
+        ;;
+    Unknown)
+        statusicon=\*
+        ;;
+    'Not Charging')
+        statusicon=\!
+        ;;
+esac
+ 
+# printf "<span color='%s'>%s</span><span color='%s'>%s</span>\n" "$color" "$alarm$capacity%" "$statuscolor" "$statusicon $icon"
+printf "<span color='%s'>%s</span>\n" "$color" "$alarm$capacity%$statusicon $icon"

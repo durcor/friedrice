@@ -1,5 +1,0 @@
-#!/bin/sh
-wpg -a $1
-walset $1
-wpg -A $(wpg -c)
-cfgrf

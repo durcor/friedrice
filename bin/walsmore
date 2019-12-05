@@ -1,2 +1,0 @@
-#!/bin/sh
-wpg --sat $(wpg -c) 0.2 && wpg -s $(wpg -c)

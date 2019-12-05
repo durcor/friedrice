@@ -16,7 +16,7 @@ case $BLOCK_BUTTON in
     # left click
 	1) bt-select;;
     # middle click
-	2) sudo systemctl restart bluetooth;;
+	2) sudo systemctl restart bluetooth ; notify-send "Restarting Bluetooth service";;
     # right click
     3) notify-send "$(bluetoothctl info)";;
     # scroll up

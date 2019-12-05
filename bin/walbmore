@@ -1,2 +1,0 @@
-#!/bin/sh
-wpg --brt $(wpg -c) 0.5 && wpg -s $(wpg -c)

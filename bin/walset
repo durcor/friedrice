@@ -1,4 +1,0 @@
-#!/bin/sh
-wpg -s $1
-cfgrf
-notify-send 'walset complete'

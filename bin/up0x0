@@ -1,2 +1,0 @@
-#!/bin/zsh
-curl -Ffile=@$1 https://0x0.st

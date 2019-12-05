@@ -426,12 +426,12 @@ c.content.proxy = 'system'
 ## Type: List of File, or File
 # c.content.user_stylesheets = []
 c.content.user_stylesheets = [
-        '/home/ty/.config/wpg/templates/riceverywhere',
-#        '/home/ty/doc/css/inv-low_contrast.css',
-#        '/home/ty/doc/css/solarized-dark-all-sites.css',
-#        '/home/ty/doc/css/searx-dark.css',
-#        '/home/ty/doc/css/hooktube.css',
-#        '/home/ty/doc/css/gruvbox-all-sites.css',
+        # '/home/ty/.config/wpg/templates/riceverywhere',
+        # '/home/ty/doc/css/inv-low_contrast.css',
+        # '/home/ty/doc/css/solarized-dark-all-sites.css',
+        # '/home/ty/doc/css/searx-dark.css',
+        # '/home/ty/doc/css/hooktube.css',
+        # '/home/ty/doc/css/gruvbox-all-sites.css',
         ]
 
 ## Enable WebGL.
