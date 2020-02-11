@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Prints every possible bash color combination
+
+for bg in {40..47} {100..107}; do
+	for fg in {30..37} {90..97}; do
+		if [ $(($bg - 10)) = ${fg} ]; then
+			echo -n '     '
+		fi
+		echo -ne "\e[${bg}m\e[${fg}mTest\e[49m\e[39m "
+	done
+	echo
+
+done

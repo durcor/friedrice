@@ -1,0 +1,22 @@
+#!/bin/sh
+
+screenshot_dir=$HOME/scr
+
+screenshot_file=$screenshot_dir/$(date +%Y-%m-%d_%H%M-%S).png
+
+maim -u -s "$screenshot_file"
+# scrot -s "$screenshot_file"
+
+uploadscr(){
+    fup 0x0 "$screenshot_file"
+}
+
+copyscr(){
+    xclip -se c -t "$(file -b --mime-type "$screenshot_file")" -i "$screenshot_file"
+}
+
+case $1 in
+    up)uploadscr;;
+    cp)copyscr;;
+    *);;
+esac
