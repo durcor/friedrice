@@ -2,7 +2,7 @@
 # vi:ft=cfg
 
 [global]
-    font = {def-font} 8
+    font = {def-font} 9
 
     # Allow a small subset of html markup:
     #   <b>bold</b>

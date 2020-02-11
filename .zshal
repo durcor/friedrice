@@ -22,7 +22,7 @@ ealias py='python'
 # end() {sed $1 '$!d'}
 
 ealias du='du -h'
-ealias df='df -hT'
+ealias df='df -hT -x tmpfs -x squashfs -x devtmpfs'
 ealias dd='dd conv=noerror,sync status=progress bs=64K'
 
 ealias ls='ls --color=auto'

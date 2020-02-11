@@ -34,44 +34,44 @@ label=
 interval=5
 signal=2
 # min_width=50
-color=#dac277
+color=#4e7adf
 #align=left
 
 # [weather]
 # interval=7200
-# color=#83c6d0
+# color=#3d6acd
 
 [accuweather]
 command=~/.local/bin/i3blocks/accuweather 07030
 interval=1800
-color=#83c6d0
+color=#3d6acd
 
 [cpu]
 label= 
 interval=30
-color=#8ad3dc
+color=#548fff
 
 [mem]
 label= 
 interval=30
-color=#bfecb2
+color=#88afdb
 
 [dsk]
 command=~/.local/bin/i3blocks/dsk /home 
 interval=30
-color=#bfecb2
+color=#88afdb
 
 [news]
 label= 
 interval=100000000000
 signal=6
-color=#ffe77f
+color=#ace086
 
 [mail]
 label= 
 interval=100000000000
 signal=12
-color=#bfecb2
+color=#88afdb
 
 # CPU usage
 #
@@ -115,12 +115,12 @@ color=#bfecb2
 [kb]
 interval=persist
 label= 
-color=#f5ffff
+color=#d3ecff
 
 [vol]
 signal=13
 interval=10
-color=#8ad3dc
+color=#548fff
 
 [bt]
 color=#0000ff
@@ -128,18 +128,18 @@ interval=10
 label=
 
 [net]
-color=#bfecb2
+color=#88afdb
 interval=10
 
 # [vpn]
 # label= 
 # interval=30
-# color=#ffe77f
+# color=#ace086
 
-[bat]
-command=~/.local/bin/i3blocks/bat
-# color=#8ad3dc
-interval=5
+# [bat]
+# command=~/.local/bin/i3blocks/bat
+# # color=#548fff
+# interval=5
 
 # [batplus]
 # interval=5
@@ -148,7 +148,7 @@ interval=5
 [time]
 interval=1
 label= 
-color=#f5ffff
+color=#d3ecff
 
 # Key indicators
 #

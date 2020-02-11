@@ -49,10 +49,10 @@ osd-level=1
 osd-bar-h=2
 osd-font='Fantasque Sans Mono Nerd Font'
 osd-font-size=30
-osd-color='#f5ffff'
-osd-border-color='#f5ffff'
+osd-color='#d3ecff'
+osd-border-color='#d3ecff'
 osd-border-size=1
-osd-back-color='#0f0e0f'
+osd-back-color='#0a0a0b'
 
 on-all-workspaces
 ontop=yes
@@ -60,6 +60,10 @@ keep-open=yes
 save-position-on-quit=
 
 vo=gpu
+gpu-api=vulkan
+vulkan-queue-count=8
+vulkan-async-transfer=yes
+vulkan-swap-mode=immediate
 # vo=vaapi
 
 # Do not wait with showing the video window until it has loaded. (This will
@@ -140,9 +144,11 @@ alang=en,es
 # If the file seems to be valid UTF-8, prefer UTF-8.
 # (You can add '+' in front of the codepage to force it.)
 #sub-codepage=cp1256
-sub-color='#f5ffff'
+sub-color='#d3ecff'
 sub-auto=fuzzy
 embeddedfonts=yes
+
+script=/usr/share/mpv/scripts/mpris.so
 
 # You can also include other configuration files.
 #include=/path/to/the/file/you/want/to/include
@@ -179,7 +185,7 @@ loop
 [low]
 vo=xv
 vd-lavc-fast
-vd-lavc-skiploopfilter=5
-vd-lavc-skipframe=5
-vd-lavc-framedrop=5
+# vd-lavc-skiploopfilter=5
+# vd-lavc-skipframe=5
+# vd-lavc-framedrop=5
 vd-lavc-threads=4

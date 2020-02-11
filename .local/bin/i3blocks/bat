@@ -4,13 +4,7 @@
 case $BLOCK_BUTTON in
     1);;
     2);;
-    3) notify-send "🔋 Battery module" "🔋: discharging
-🛑: not charging
-♻: stagnant charge
-🔌: charging
-⚡: charged
-❗: battery very low!
-- Text color reflects charge left" ;;
+    3);;
 esac
 
 #   full battery

@@ -2,7 +2,7 @@
 # vi:ft=cfg
 
 [global]
-    font = Fantasque Sans Mono Nerd Font 8
+    font = Fantasque Sans Mono Nerd Font 9
 
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -150,7 +150,7 @@
 
 [frame]
     width = 3
-    color = "#8ad3dc"
+    color = "#548fff"
 
 [shortcuts]
 
@@ -176,18 +176,18 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#9CA699"
-    foreground = "#282628"
+    background = "#77889B"
+    foreground = "#212125"
     timeout = 1
 
 [urgency_normal]
-    background = "#282628"
-    foreground = "#f5ffff"
+    background = "#212125"
+    foreground = "#d3ecff"
     timeout = 0
 
 [urgency_critical]
-    background = "#728F93"
-    foreground = "#bfecb2"
+    background = "#3A5694"
+    foreground = "#88afdb"
     timeout = 0
 
 

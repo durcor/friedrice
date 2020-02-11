@@ -1,12 +1,16 @@
 #!/bin/sh
 
-rm -rf ~/.garb/*
+normal_rm(){
+    rm -rf ~/.garb/*
+    rm -rf ~/.garb/.*
+}
 
-securerm(){
+secure_rm(){
     shred -zu -n 5 ~/.garb/*
+    shred -zu -n 5 ~/.garb/.*
 }
 
 case $1 in
-    secure) securerm ;;
-    *) ;;
+    secure) secure_rm ;;
+    *) normal_rm ;;
 esac

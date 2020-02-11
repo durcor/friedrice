@@ -28,10 +28,11 @@ mode "WINDOW" {
     bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost -i 5
     bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --allow-boost -d 5
     bindsym XF86AudioMute exec --no-startup-id pamixer -t
-    bindsym XF86AudioStop exec --no-startup-id mpc stop
-    bindsym XF86AudioPrev exec --no-startup-id mpc prev
-    bindsym XF86AudioNext exec --no-startup-id mpc next
-    bindsym XF86AudioPlay exec --no-startup-id mpc toggle
+    bindsym XF86AudioStop exec --no-startup-id playerctl stop
+    bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+    bindsym XF86AudioNext exec --no-startup-id playerctl next
+    bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+    bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
     bindsym XF86Search exec --no-startup-id dmenual
     bindsym XF86Calculator exec --no-startup-id st -e bc -ql
     bindsym XF86HomePage exec --no-startup-id dmenual
@@ -61,9 +62,10 @@ mode MANAGER {
     # mouse + binding moves floating windows
     # floating_modifier Mod4
     
-    bindsym --release q exec --no-startup-id slock xset dpms force off
-    bindsym --release Shift+q exec --no-startup-id sudo systemctl hibernate
-    bindsym --release XF86Sleep exec --no-startup-id sudo systemctl hibernate
+    bindsym --release q exec --no-startup-id slock -m "$(cowsay -f tux "Locked at $(date '%H:%M')")" xset dpms force off
+    # bindsym --release q exec --no-startup-id slock -m "$(cowsay -f tux "$(uptime)")"
+    bindsym --release Shift+q exec --no-startup-id sudo slock -m "$(cowsay -f tux "Locked at $(date '%H:%M')")" systemctl suspend
+    bindsym --release XF86Sleep exec --no-startup-id sudo slock -m "$(cowsay -f tux "Locked at $(date '%H:%M')")" systemctl suspend
     bindsym u exec --no-startup-id "xclip -t -se p | xclip -i -s c"
     bindsym slash exec --no-startup-id dmenual -i -p run
     bindsym Shift+slash exec --no-startup-id rofi -show run
@@ -202,7 +204,7 @@ mode "MUSIC" {
     bindsym j exec --no-startup-id playerctl position 5-
     bindsym k exec --no-startup-id playerctl position 5-
     bindsym v exec --no-startup-id notify-send "$(playerctl status)"
-    bindsym z exec --no-startup-id playerctl shuffle on ; notify-send "$(playerctl shuffle)"
+    bindsym z exec --no-startup-id playerctl shuffle
     bindsym space exec --no-startup-id playerctl play-pause
     bindsym m mode "MPD";exec notify-send -u low "MPD"
     
@@ -279,29 +281,32 @@ no_focus [class="discord"]
 # focus_on_window_activation urgent
 
 #gen
-set $ws1 1/
+set $ws1 "1/"
 #mus
-set $ws4 4/
+set $ws4 "4/"
 #rss
-set $ws3 3/
+set $ws3 "3/"
 #term
-set $ws10 10/
+set $ws10 "10/"
 #img
-set $ws7 7/
+set $ws7 "7/"
 #game
-set $ws6 6/
+set $ws6 "6/"
 #mail
-set $ws5 5/
+set $ws5 "5/"
 #file
-set $ws8 8/
+set $ws8 "8/"
 #dl
-set $ws9 9/
+set $ws9 "9/"
 #chat
-set $ws2 2/
+set $ws2 "2/"
 
-assign [class="^Lutris$"] $ws6
-#assign [class="^Discord$"] $ws2
-assign [class="^qutebrowser$"] $ws1
+assign [class="Lutris"] $ws6
+assign [class="discord"] $ws1
+assign [class="qutebrowser"] $ws1
+for_window [class="Spotify"] move to workspace $ws4
+for_window [instance="origin.exe"] floating enable
+assign [class="Steam"] $ws6
 
 # class                 border	backgr. text	indicator	child_border
 client.focused          $c7		$c7		$c7		$c7			$c7
@@ -341,4 +346,7 @@ exec nm-applet
 exec mullvad-vpn
 exec qutebrowser
 exec discord
-exec workspace 1/
+# exec rgbman
+# exec razerwal
+exec workspace $ws1
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh

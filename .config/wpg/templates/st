@@ -11,7 +11,7 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *font = "Fantasque Sans Mono Nerd Font:pixelsize=11:antialias=true:autohint=true";
-static int borderpx = 0;
+static int borderpx = 5;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -93,29 +93,29 @@ float alpha = 0.9;
 const char *colorname[] = {
 
   /* 8 normal colors */
-  [0] = "#0f0e0f", /* black   */
-  [1] = "#9B8F69", /* red     */
-  [2] = "#728F93", /* green   */
-  [3] = "#C1AB71", /* yellow  */
-  [4] = "#617C83", /* blue    */
-  [5] = "#9CA699", /* magenta */
-  [6] = "#78989C", /* cyan    */
-  [7] = "#bfcdcc", /* white   */
+  [0] = "#0a0a0b", /* black   */
+  [1] = "#4863A0", /* red     */
+  [2] = "#3A5694", /* green   */
+  [3] = "#879F75", /* yellow  */
+  [4] = "#364999", /* blue    */
+  [5] = "#77889B", /* magenta */
+  [6] = "#4F74CE", /* cyan    */
+  [7] = "#a8bced", /* white   */
 
   /* 8 bright colors */
-  [8]  = "#282628",  /* black   */
-  [9]  = "#dac277",  /* red     */
-  [10] = "#83c6d0", /* green   */
-  [11] = "#ffe77f", /* yellow  */
-  [12] = "#6fa9b9", /* blue    */
-  [13] = "#bfecb2", /* magenta */
-  [14] = "#8ad3dc", /* cyan    */
-  [15] = "#f5ffff", /* white   */
+  [8]  = "#212125",  /* black   */
+  [9]  = "#4e7adf",  /* red     */
+  [10] = "#3d6acd", /* green   */
+  [11] = "#ace086", /* yellow  */
+  [12] = "#3856d4", /* blue    */
+  [13] = "#88afdb", /* magenta */
+  [14] = "#548fff", /* cyan    */
+  [15] = "#d3ecff", /* white   */
 
   /* special colors */
-  [256] = "#0f0e0f", /* background */
-  [257] = "#f5ffff", /* foreground */
-  [258] = "#f5ffff",     /* cursor */
+  [256] = "#0a0a0b", /* background */
+  [257] = "#d3ecff", /* foreground */
+  [258] = "#d3ecff",     /* cursor */
 };
 
 /* Default colors (colorname index)
@@ -225,7 +225,7 @@ static uint ignoremod = Mod2Mask|XK_SWITCH_MOD;
  * Note that if you want to use ShiftMask with selmasks, set this to an other
  * modifier, set to 0 to not use it.
  */
-static uint forceselmod = ShiftMask;
+static uint forcemousemod = ShiftMask;
 
 /*
  * This is the huge key array which defines all compatibility to the Linux

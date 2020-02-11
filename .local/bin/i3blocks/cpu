@@ -7,4 +7,4 @@ case $BLOCK_BUTTON in
 - % is of single core." ;;
 esac
 
-sensors | awk '/^temp1/ {print $2}'
+sensors | awk '/^Tdie/ {print $2}'

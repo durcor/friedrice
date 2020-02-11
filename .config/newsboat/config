@@ -88,7 +88,7 @@ color listnormal_unread	color15	color0
 color listfocus 	color0	color3
 color listfocus_unread 	color8	color3
 
-color info		color9	color8
+color info		color9	color0
 color article 		color15	color8
 color background 	color9	color8
 

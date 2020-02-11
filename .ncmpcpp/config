@@ -15,7 +15,7 @@
 #mpd_port = 6600
 #mpd_connection_timeout = 5
 ## Needed for tag editor and file operations to work.
-mpd_music_dir = ~/mus
+mpd_music_dir = ~/data/mus
 mpd_crossfade_time = 8
 ##### music visualizer #####
 ## Note: In order to make music visualizer work you'll need to use mpd fifo
@@ -33,10 +33,10 @@ visualizer_output_name = "my_fifo"
 visualizer_sync_interval = "15"
 visualizer_in_stereo = "yes"
 visualizer_type = "spectrum"
-visualizer_look = ▮▮
+# visualizer_look = ▮▮
 #visualizer_look = ●
 #visualizer_look = ▮
-#visualizer_look = "+|"
+visualizer_look = "+|"
 ## Note: Below parameter is needed for ncmpcpp to determine which output
 ## provides data for visualizer and thus allow syncing between visualization and
 ## sound as currently there are some problems with it.

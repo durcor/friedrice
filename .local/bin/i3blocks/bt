@@ -1,5 +1,33 @@
 #!/bin/sh
 
+toggle_bluetooth(){
+    if [ $(sudo systemctl is-active bluetooth) = inactive ]
+    then
+        sudo systemctl restart bluetooth ; notify-send "Starting Bluetooth service"
+    else
+        sudo systemctl stop bluetooth ; notify-send "Stopping Bluetooth service"
+    fi
+}
+
+case $BLOCK_BUTTON in
+    # left click
+	1) bt-select;;
+    # middle click
+	2) toggle_bluetooth;;
+    # right click
+    3) bluetoothctl info;;
+    # scroll up
+	4) ;;
+    # scroll down
+	5) ;;
+esac
+
+if [ $(sudo systemctl is-active bluetooth) = inactive ]
+then
+    echo " x"
+    exit
+fi
+
 if [ $(bluetoothctl info | grep Icon | awk '{print $2}') = audio-card ]
 then
     dev=
@@ -11,16 +39,3 @@ else
 fi
 
 echo " $dev $(bluetoothctl info | grep Name | awk '{$1="";sub(" ","")}1')"
-
-case $BLOCK_BUTTON in
-    # left click
-	1) bt-select;;
-    # middle click
-	2) sudo systemctl restart bluetooth ; notify-send "Restarting Bluetooth service";;
-    # right click
-    3) notify-send "$(bluetoothctl info)";;
-    # scroll up
-	4) ;;
-    # scroll down
-	5) ;;
-esac

@@ -5,7 +5,7 @@
 
 /* user and group to drop privileges to */
 static const char *user  = "ty";
-static const char *group = "ty";
+static const char *group = "users";
 
 static const char *colorname[NUMCOLS] = {{
 	[INIT] =   "{color0}",     /* after initialization */
@@ -15,3 +15,12 @@ static const char *colorname[NUMCOLS] = {{
 
 /* treat a cleared input like a wrong password (color) */
 static const int failonclear = 1;
+
+/* default message */
+static const char * message = "Hi";
+
+/* text color */
+static const char * text_color = "{color15}";
+
+/* text size (must be a valid size) */
+static const char * font_name = "6x13";
