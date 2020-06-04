@@ -1,23 +1,50 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-	1) tmux selectw -taud & ;;
-	2) pamixer --toggle-mute ;;
-	4) pamixer -i 5 ;;
-	5) pamixer -d 5 ;;
-	3) notify-send "📢 Volume module:" " - Shows volume 🔊, 🔇 if muted. \n - Middle click to mute. \n - Scroll to change."
+    # Left Click
+	1) 
+    togglepavu(){
+        if pgrep pavucontrol; then
+            killall -9 pavucontrol
+        else
+            setsid pavucontrol
+        fi
+    }
+
+    togglepavu 
+    ;;
+    # Middle Click
+	2) 
+    pamixer --toggle-mute 
+    ;;
+    # Right Click
+	3) 
+    killall -9 pavucontrol 
+    ;;
+    # Scroll Up
+	4) 
+    pamixer -i 5 
+    ;;
+    # Scroll Down
+	5) 
+    pamixer -d 5 
+    ;;
+    # Backward Button
+    8) ;;
+    # Forward Button
+    9) ;;
 esac
 
-[ "$(pamixer --get-mute)" = "true" ] && printf "🔇\\n" && exit
+vol=$(pamixer --get-volume)
 
-vol=$(pamixer --get-volume | awk '{print $1}')
-
-if [ "$vol" -gt "70" ]; then
-	icon="🔊"
-elif [ "$vol" -lt "30" ]; then
+if [ "$vol" -lt "30" ];then
 	icon="🔈"
-else
+elif [ "$vol" -lt "70" ];then
 	icon="🔉"
+elif [ "$(pamixer --get-mute)" = "true" ];then
+    printf "🔇\\n" && exit
+else
+	icon="🔊"
 fi
 
 printf "%s %s%%\\n" "$icon" "$vol"

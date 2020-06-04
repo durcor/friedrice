@@ -1,5 +1,5 @@
 # ~/.ncmpcpp/config
-# vi:ft=python
+# vi:ft=dosini
 
 ##### directories ######
 ## Directory for storing ncmpcpp related files.  Changing it is useful if you
@@ -196,8 +196,8 @@ autocenter_mode = no
 #centered_cursor = no
 ## Note: You can specify third character which will be used to build 'empty'
 ## part of progressbar.
-#progressbar_look = ▮▮_
-progressbar_look = "─╼ "
+progressbar_look = ▮▮_
+# progressbar_look = "─╼ "
 #progressbar_look = "\u2500\u2591\u2500"
 #progressbar_look = "━⊙"
 #progressbar_look = "─⊙╶"

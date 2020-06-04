@@ -15,7 +15,7 @@ if [[ -z "$1" || -n "$2" ]]; then
 	print_usage
 	exit 1
 else
-	OUT=$(torify curl -sf -F files[]="@${FILE}" "${DEST}")
+	OUT=$(curl -sf -F files[]="@${FILE}" "${DEST}")
 
 	if [[ $(echo "$OUT" | jshon -e success) =~ true ]]; then
 		echo $(echo "$OUT" | jshon -e files -a -e url -u)

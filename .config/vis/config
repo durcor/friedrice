@@ -1,20 +1,21 @@
 # ~/.config/vis/config
-# vi:ft=python
+# vi:ft=dosini
 
 ##Refresh rate of the visualizers. A really high refresh rate may cause screen tearing. Default is 20.
-#visualizer.fps=20
+visualizer.fps=144
 
-##Sets the audio sources to use. Currently available ones are "mpd" and "alsa"Sets the audio sources to use.
+##Sets the audio sources to use.
 ##Currently available ones are "mpd", "pulse" and "alsa". Defaults to "mpd".
-audio.sources=pulse
+audio.sources=mpd
+; audio.sources=pulse
 
 ##vis tries to find the correct pulseaudio sink, however this will not work on all systems.
 ##If pulse audio is not working with vis try switching the audio source. A list can be found by running the
 ##command pacmd list-sinks  | grep -e 'name:'  -e 'index'
-# audio.pulse.source=1
+audio.pulse.source=2
 
 ##Defaults to "/tmp/mpd.fifo"
-#mpd.fifo.path=/tmp/mpd.fifo
+mpd.fifo.path=/tmp/mpd.fifo
 
 ##If set to false the visualizers will use mono mode instead of stereo. Some visualizers will
 ##behave differently when mono is enabled. For example, spectrum show two sets of bars.
@@ -39,7 +40,6 @@ audio.sources=pulse
 
 ##Configures what character the spectrum visualizer will use. Specifying a space (e.g " ") means the
 ##background will be colored instead of the character. Defaults to " ".
-visualizer.spectrum.character=ﱢ
 
 ##Spectrum bar width. Defaults to 2.
 visualizer.spectrum.bar.width=1
@@ -53,42 +53,43 @@ visualizer.spectrum.smoothing.mode=sgs
 
 ##This configures the falloff effect on the spectrum visualizer. Available falloff options are fill,top,none.
 ##Defaults to "fill"
-#visualizer.spectrum.falloff.mode=fill
+visualizer.spectrum.falloff.mode=fill
 
 ##Configures how fast the falloff character falls. This is an exponential falloff so values usually look
 ##best 0.9+ and small changes in this value can have a large effect. Defaults to 0.95
-#visualizer.spectrum.falloff.weight=0.95
+visualizer.spectrum.falloff.weight=0.95
 
 ##Margins in percent of total screen for spectrum visualizer. All margins default to 0
-#visualizer.spectrum.top.margin=0.30
-#visualizer.spectrum.bottom.margin=0.10
-#visualizer.spectrum.right.margin=0.10
-#visualizer.spectrum.left.margin=0.10
+visualizer.spectrum.top.margin=0
+visualizer.spectrum.bottom.margin=0
+visualizer.spectrum.right.margin=0
+visualizer.spectrum.left.margin=0
 
 ##Reverses the direction of the spectrum so that high freqs are first and low freqs last. Defaults to false.
-#visualizer.spectrum.reversed=false
+visualizer.spectrum.reversed=false
 
 ##This configures the sgs smoothing effect on the spectrum visualizer. More points spreads out the smoothing
 ##effect and increasing passes runs the smoother multiple times on reach run. Defaults are points=3 and passes=1
-visualizer.sgs.smoothing.points=1
+visualizer.sgs.smoothing.points=3
 visualizer.sgs.smoothing.passes=1
-
 
 ##Configures what character the ellipse visualizer will use. Specifying a space (e.g " ") means the
 ##background will be colored instead of the character. Defaults to "█".
-#visualizer.ellipse.character=#
+visualizer.ellipse.character==#
+visualizer.lorenz.character==#
+visualizer.spectrum.character=#
+# visualizer.lorenz.character=█
+# visualizer.spectrum.character=ﱢ
+; visualizer.spectrum.character=▮
 
 ##The radius of each color ring in the ellipse visualizer. Defaults to 2.
-#visualizer.ellipse.radius=2
-
+visualizer.ellipse.radius=2
 
 ##Configures what character the lorenz visualizer will use. Specifying a space (e.g " ") means the
 ##background will be colored instead of the character. Defaults to "█".
-#visualizer.lorenz.character=#
-
 
 ##Turns off overriding the user's terminal colors. This is true by default.
-colors.override.terminal=false
+colors.override.terminal=true
 
 ##Specifies the color scheme. The color scheme must be in ~/.config/vis/colors/ directory. The default scheme is "colors".
-colors.scheme=normal
+colors.scheme=basic

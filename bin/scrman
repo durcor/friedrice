@@ -13,6 +13,7 @@ uploadscr(){
 
 copyscr(){
     xclip -se c -t "$(file -b --mime-type "$screenshot_file")" -i "$screenshot_file"
+    # wl-copy -t "$(file -b --mime-type "$screenshot_file")" < "$screenshot_file"
 }
 
 case $1 in

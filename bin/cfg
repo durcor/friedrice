@@ -1,85 +1,130 @@
 #!/bin/sh
 
-if [ ! $(ls ~/.config/cfg/al) ]
-then
+. $HOME/.cache/wal/colors.sh
+
+if [ ! -f ~/.config/cfg/al ]; then
     mkdir ~/.config/cfg
     touch ~/.config/cfg/al
 fi
 
 refreshcfg() {
-    wpg -s $(wpg -c)
-    if lsusb | grep -i razer
-    then
-        razerwal
+    wpg -s "$(wpg -c)"
+
+    if command -v openrgb >/dev/null; then
+        openrgb \
+        -d 0 `# Left RAM Stick` \
+            -c ${color14:1} -m Static \
+        -d 1 `# Right RAM Stick` \
+            -c ${color9:1} -m Static \
+        -d 2 `# X570 Taichi` \
+            `#-c ${color9:1} -m Neon \ ` \
+            -m Random \
+        -d 3 `# AMD Wraith Prism Cooler` \
+            -c ${color1:1} -m Swirl `# Logo` \
+            -c ${color14:1} `# Fan` \
+            -c ${color11:1} `# Ring` \
+        -d 4 `# NZXT Hue` \
+            -c ${color14:1} `# Starts at top left LED strip` \
+            -c ${color9:1} \
+            -c ${color14:1} \
+            -c ${color9:1} \
+            -c ${color9:1} \
+            -c ${color12:1} \
+            -c ${color9:1} \
+            -c ${color10:1} \
+            -c ${color9:1} \
+            -c ${color9:1} \
+            -c ${color9:1} \
+            -c ${color14:1} \
+            -c ${color11:1} \
+            -c ${color14:1} \
+            -c ${color9:1} \
+            -c ${color9:1} \
+            -c ${color14:1} \
+            -c ${color14:1} \
+            -c ${color11:1} \
+            -c ${color9:1} \
+            -c ${color11:1} \
+            -c ${color9:1} `# Ends at bottom of 2nd fan`
     fi
-    if pgrep qutebrowser
-    then
+
+    if lsusb | grep AMD; then
+        wraith-master -m swirl -c "$color13" ring
+        wraith-master -m swirl -c "$color13" logo
+        wraith-master --mirage on fan
+        wraith-master -c "$color14" fan
+    fi
+
+    if lsusb | grep Microdia; then
+        rgb_keyboard -c 000000
+    fi
+
+    if lsusb | grep Razer; then
+        razerricer
+    fi
+
+    if pgrep qutebrowser; then
         qutebrowser :config-source &
     fi
+
     i3 restart &
-    cd $HOME/prg/st
+    cd ~/prg/st || exit
     sudo make clean install
-    cd $HOME/prg/dmenu
+    cd ~/prg/dmenu || exit
     sudo make clean install
-    cd $HOME/prg/slock
+    cd ~/prg/slock || exit
     sudo make clean install
     wal_steam -g
-    ~/prg/wal-discord/wal-discord -t
-    # -o ~/.config/discord/EnhancedDiscord/plugins/style.css
+    ~/prg/pywal-discord/pywal-discord abou
+    pywalfox update
     oomox-cli ~/.cache/wal/colors-oomox
-    oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
-    if pgrep spotify
-    then
-        killall -9 spotify
-        setsid spotify
-        sleep 0.2
+    # oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
+
+    if pgrep spotify; then
+        spicetify apply
+        sleep 1
         playerctl -p spotify play
+    else
+        spicetify apply
+        sleep 1
+        killall -9 spotify
     fi
-    if pgrep chromium
-    then
-        killall -9 chromium
-        setsid chromium
-    fi
+
     systemctl --user restart dunst.service
 }
 
 
 addcfg() {
     cfgalias=$3
-    newcfg=$(readlink -f $2)
+    newcfg=$(readlink -f "$2")
     echo "$cfgalias $newcfg" >> ~/.config/cfg/al
 }
 
 editcfg() {
-    cfgfileloc=$(cat ~/.config/cfg/al | grep -w $2 | awk '{print $2}')
-    cfgfilepostrun=$(cat ~/.config/cfg/al | grep -w $2 | awk '{$1="" ; $2="" ; print}')
-
-    if [ $2 == ""]
-    then
-        cfgfileloc=$(cat ~/.config/cfg/al | fzf | awk '{print $2}')
+    if [ "$2" = "" ];then
+        cfgfileloc=$(awk '{print $1 " " $2}' ~/.config/cfg/al | fzf)
     else
-        if [ "$(ls -l $cfgfileloc | awk '{print $3}')" = "ty" ]
-        then
-            $EDITOR $cfgfileloc
-        else
-            sudoedit $cfgfileloc
-        fi
-
-        if $cfgfilepostrun
-        then
-            $cfgfilepostrun
-        fi
+        cfgfileloc=$(awk '{print $2}' ~/.config/cfg/al)
     fi
 
+    cfgfilepostrun="$(grep "$cfgfileloc" ~/.config/cfg/al | awk '{$1="" ; $2="" ; print}' ~/.config/cfg/al)"
+
+    if [ "$(stat -c %U "$cfgfileloc")" = "ty" ];then
+        $EDITOR "$cfgfileloc"
+    else
+        sudoedit "$cfgfileloc"
+    fi
+
+    $cfgfilepostrun
 }
 
 listcfg() {
-    cat ~/.config/cfg/al | awk '{print $1}'
+    awk '{print $1}' ~/config/cfg/al
 }
 
 case $1 in
     r|rf|re|refresh)refreshcfg;;
-    a|add)addcfg;;
-    e|ed|edit)editcfg;;
+    a|add)addcfg "$@";;
+    e|ed|edit)editcfg "$@";;
     l|ls|list)listcfg;;
 esac

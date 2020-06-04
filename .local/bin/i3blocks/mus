@@ -1,26 +1,33 @@
 #!/bin/sh
 
-filter() {
-	sed "/^volume:/d" | tac | sed -e "s/\\&/&amp;/g;s/\\[paused\\].*/<span color=\"gray\" font_style=\"italic\">/g;s/\\[playing\\].*/<span>/g" | tr -d '\n' | sed -e "s/$/<\\/span>\n/g"
-	}
-
-# currentlyplaying(){
-#     if [playerctl = hi]
-#     then
-#         echo hi
-#     fi
+icon=
 
 case $BLOCK_BUTTON in
-	1) mpc status | filter && tmux selectw -t ;; # right click, pause/unpause
-    2) mpc toggle | filter ;;  # right click, pause/unpause
-    3) mpc status | filter && notify-send "🎵 Music module" "\- Shows mpd song playing.
-- Italic when paused.
-- Left click opens ncmpcpp.
-- Middle click pauses.
-- Scroll changes track.";;  # right click, pause/unpause
-    4) mpc prev   | filter ;;  # scroll up, previous
-    5) mpc next   | filter ;;  # scroll down, next
-    # *) mpc status | filter ;;
-    *) echo "$(playerctl metadata artist) - $(playerctl metadata title)";;
-    
-esac; exit
+    1)
+        tmux selectw -tncmpcpp
+        ;;
+    2)
+        playerctl play-pause
+        ;;
+    3)
+        playerctl status
+        ;;
+    4)
+        playerctl previous
+        ;;
+    5)
+        playerctl next
+        ;;
+esac
+
+# if [ "$(playerctl -p mpd status)" = "Playing" ]; then
+#     echo "$icon  $(playerctl -p mpd metadata artist) - $(playerctl -p mpd metadata title)"
+# elif [ "$(playerctl -p spotify status)" = "Playing" ]; then
+#     echo "$icon  $(playerctl -p spotify metadata artist) - $(playerctl -p spotify metadata title)"
+# elif [ "$(playerctl -p mpv status)" = "Playing" ]; then
+#     echo "$icon  $(playerctl -p mpv metadata artist) - $(playerctl -p mpv metadata title)"
+# elif [ "$(playerctl metadata artist)" = "https://soundcloud.com" ]; then
+#     echo "$icon  $(playerctl metadata title)"
+# else
+    echo "$icon  $(playerctl metadata artist) - $(playerctl metadata title)"
+# fi

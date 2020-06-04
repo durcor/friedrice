@@ -30,48 +30,56 @@ separator_block_width=25
 markup=pango
 
 [mus]
-label= 
 interval=5
 signal=2
 # min_width=50
-color=#4e7adf
+color=#76d8e2
 #align=left
 
 # [weather]
 # interval=7200
-# color=#3d6acd
+# color=#01c1c2
+
+[news]
+label=
+interval=100000000000
+signal=6
+color=#ffd5c4
+
+[distcompute]
+interval=15
+color=#76d8e2
+
+[mail]
+interval=100000000000
+signal=12
+color=#ffb5ff
+
 
 [accuweather]
-command=~/.local/bin/i3blocks/accuweather 07030
+command=~/.local/bin/i3blocks/accuweather 07840
 interval=1800
-color=#3d6acd
+color=#01c1c2
 
 [cpu]
-label= 
+label=
 interval=30
-color=#548fff
+color=#01d0d0
+
+[amdgpu]
+label=
+interval=30
+color=#76d8e2
 
 [mem]
-label= 
+label=
 interval=30
-color=#88afdb
+color=#ffb5ff
 
 [dsk]
 command=~/.local/bin/i3blocks/dsk /home 
 interval=30
-color=#88afdb
-
-[news]
-label= 
-interval=100000000000
-signal=6
-color=#ace086
-
-[mail]
-label= 
-interval=100000000000
-signal=12
-color=#88afdb
+color=#ffb5ff
 
 # CPU usage
 #
@@ -113,14 +121,14 @@ color=#88afdb
 #separator=true
 
 [kb]
-interval=persist
-label= 
-color=#d3ecff
+interval=100000000000
+label=
+color=#ebffff
 
 [vol]
 signal=13
 interval=10
-color=#548fff
+color=#01d0d0
 
 [bt]
 color=#0000ff
@@ -128,17 +136,17 @@ interval=10
 label=
 
 [net]
-color=#88afdb
+color=#ffb5ff
 interval=10
 
 # [vpn]
 # label= 
 # interval=30
-# color=#ace086
+# color=#ffd5c4
 
 # [bat]
 # command=~/.local/bin/i3blocks/bat
-# # color=#548fff
+# # color=#01d0d0
 # interval=5
 
 # [batplus]
@@ -147,8 +155,8 @@ interval=10
 
 [time]
 interval=1
-label= 
-color=#d3ecff
+label=
+color=#ebffff
 
 # Key indicators
 #

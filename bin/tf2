@@ -1,2 +1,0 @@
-#!/bin/sh
-xinit /usr/bin/steam -height 1080 -width 1920 steam://rungameid/440 -- :1 vt$XDG_VTNR

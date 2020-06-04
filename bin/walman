@@ -1,10 +1,13 @@
 #!/bin/sh
 
+# TODO: If the input file is a gif, call mpv to 
+#       make the gif into a looping gif wallpaper
+
 walfile=$2
 
 setwal(){
     wpg -s $walfile
-    cfg rf
+    # cfg rf
 }
 
 pickwal(){

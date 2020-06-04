@@ -43,6 +43,10 @@ Plug 'jceb/vim-orgmode'
 Plug 'KabbAmine/vCoolor.vim'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'vbe0201/vimdiscord'
+Plug 'wlangstroth/vim-racket', { 'for': 'rkt' }
+Plug 'luochen1990/rainbow',
+Plug 'tpope/vim-commentary'
+let g:rainbow_active = 1
 call plug#end()
 
 let g:Hexokinase_highlighters = [
@@ -62,7 +66,7 @@ call deoplete#custom#option({
 
 color wpgtk
 
-"se termguicolors
+" se termguicolors
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -73,7 +77,6 @@ se ttyfast
 " improve macro performance
 se lazyredraw
 se shell=/bin/zsh
-"se termguicolors
 " add a litte margin on the left
 se foldcolumn=1
 let base16colorspace=256
@@ -132,10 +135,10 @@ autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markd
 autocmd FileType tex,markdown,gitcommit,text setlocal spell spelllang=en_us,es
 
 " Goyo's width will be the line limit in mutt.
-autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
+" autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
 
 " Enable Goyo by default for mutt writting
-autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo
+" autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo
 
 map <leader>u :!tmux splitw -v -p 40 urlscan %<cr>
 map <leader><leader> :w<cr>

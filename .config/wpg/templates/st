@@ -11,7 +11,7 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *font = "Fantasque Sans Mono Nerd Font:pixelsize=11:antialias=true:autohint=true";
-static int borderpx = 5;
+static int borderpx = 10;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -23,6 +23,8 @@ static int borderpx = 5;
  */
 static char *shell = "/bin/sh";
 char *utmp = NULL;
+/* scroll program: to enable use a string like "scroll" */
+char *scroll = NULL;
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
 /* identification sequence returned in DA and DECID */
@@ -47,8 +49,8 @@ static unsigned int tripleclicktimeout = 600;
 int allowaltscreen = 1;
 
 /* frames per second st should at maximum draw to the screen */
-static unsigned int xfps = 120;
-static unsigned int actionfps = 30;
+static unsigned int xfps = 144;
+static unsigned int actionfps = 144;
 
 /*
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
@@ -60,6 +62,18 @@ static unsigned int blinktimeout = 800;
  * thickness of underline and bar cursors
  */
 static unsigned int cursorthickness = 2;
+
+/*
+ * 1: render most of the lines/blocks characters without using the font for
+ *    perfect alignment between cells (U2500 - U259F except dashes/diagonals).
+ *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
+ * 0: disable (render all U25XX glyphs normally from the font).
+ */
+const int boxdraw = 1;
+const int boxdraw_bold = 1;
+
+/* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
+const int boxdraw_braille = 1;
 
 /*
  * bell volume. It must be a value between -100 and 100. Use 0 for disabling
@@ -93,29 +107,29 @@ float alpha = 0.9;
 const char *colorname[] = {
 
   /* 8 normal colors */
-  [0] = "#0a0a0b", /* black   */
-  [1] = "#4863A0", /* red     */
-  [2] = "#3A5694", /* green   */
-  [3] = "#879F75", /* yellow  */
-  [4] = "#364999", /* blue    */
-  [5] = "#77889B", /* magenta */
-  [6] = "#4F74CE", /* cyan    */
-  [7] = "#a8bced", /* white   */
+  [0] = "#19060f", /* black   */
+  [1] = "#689CA1", /* red     */
+  [2] = "#009696", /* green   */
+  [3] = "#CCB0AA", /* yellow  */
+  [4] = "#2D8C90", /* blue    */
+  [5] = "#EEA3DC", /* magenta */
+  [6] = "#00A1A1", /* cyan    */
+  [7] = "#ccebed", /* white   */
 
   /* 8 bright colors */
-  [8]  = "#212125",  /* black   */
-  [9]  = "#4e7adf",  /* red     */
-  [10] = "#3d6acd", /* green   */
-  [11] = "#ace086", /* yellow  */
-  [12] = "#3856d4", /* blue    */
-  [13] = "#88afdb", /* magenta */
-  [14] = "#548fff", /* cyan    */
-  [15] = "#d3ecff", /* white   */
+  [8]  = "#420e27",  /* black   */
+  [9]  = "#76d8e2",  /* red     */
+  [10] = "#01c1c2", /* green   */
+  [11] = "#ffd5c4", /* yellow  */
+  [12] = "#2ec1c7", /* blue    */
+  [13] = "#ffb5ff", /* magenta */
+  [14] = "#01d0d0", /* cyan    */
+  [15] = "#ebffff", /* white   */
 
   /* special colors */
-  [256] = "#0a0a0b", /* background */
-  [257] = "#d3ecff", /* foreground */
-  [258] = "#d3ecff",     /* cursor */
+  [256] = "#19060f", /* background */
+  [257] = "#ebffff", /* foreground */
+  [258] = "#ebffff",     /* cursor */
 };
 
 /* Default colors (colorname index)

@@ -3,6 +3,8 @@
 normal_rm(){
     rm -rf ~/.garb/*
     rm -rf ~/.garb/.*
+    rm -rf ~/data/.garb/*
+    rm -rf ~/data/.garb/.*
 }
 
 secure_rm(){

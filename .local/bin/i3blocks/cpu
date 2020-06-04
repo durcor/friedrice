@@ -1,10 +1,35 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-	1) notify-send -i /dev/null "CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)" ;;
-	3) notify-send "CPU module" "- Shows CPU temperature.
-- Click to show intensive processes.
-- % is of single core." ;;
+    1)
+        notify-send \
+            -h string:x-canonical-private-synchronous:i3bcpu \
+            "Info for $(neofetch cpu)" "$(sensors | grep -B3 -A3 die)"
+                    ;;
+	3)
+        notify-send \
+            -h string:x-canonical-private-synchronous:i3bcpu \
+            -i /dev/null \
+            "CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)"
+                    ;;
 esac
 
-sensors | awk '/^Tdie/ {print $2}'
+usage=$(bc "$(ps aux | awk 'BEGIN {sum=0} {sum+=$3}; END {print sum}') / $(nproc)")
+
+cpu_icon=""
+
+if [ "$usage" -ge 90 ];then
+    icon=""
+elif [ "$usage" -ge 60 ];then
+    icon=""
+elif [ "$usage" -ge 40 ];then
+    icon=""
+elif [ "$usage" -ge 10 ];then
+    icon=""
+else
+    icon=""
+fi
+
+command=$(sensors | awk '/^Tdie/ {print $2}')
+
+echo "$cpu_icon  $icon  ${command}°C"

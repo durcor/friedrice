@@ -1,35 +1,17 @@
-# ~/.config/mpv/mpv.conf
-# vim:ft=python
-#
-# Warning:
-#
-# The commented example options usually do _not_ set the default values. Call
-# mpv with --list-options to see the default values for most options. There is
-# no builtin or example mpv.conf with all the defaults.
-#
-#
-# Configuration files are read system-wide from /usr/local/etc/mpv.conf
-# and per-user from ~/.config/mpv/mpv.conf, where per-user settings override
-# system-wide settings, all of which are overridden by the command line.
-#
-# Configuration file settings and the command line options use the same
-# underlying mechanisms. Most options can be put into the configuration file
-# by dropping the preceding '--'. See the man page for a complete list of
-# options.
-#
-# Lines starting with '#' are comments and are ignored.
-#
-# See the CONFIGURATION FILES section in the man page
-# for a detailed description of the syntax.
-#
-# Profiles should be placed at the bottom of the configuration file to ensure
-# that settings wanted as defaults are not restricted to specific profiles.
+## ~/.config/wpg/templates/mpv ->
+## ~/.config/mpv/mpv.conf
+##
+## vi:ft=dosini
+##
+## See the CONFIGURATION FILES section in the man page
+## for a detailed description of the syntax.
+##
 
-##################
-# video settings #
-##################
+########
+## Video
+########
 
-# fullscreen
+# Start in fullscreen
 fs=no
 
 screenshot-directory=~/scr/
@@ -39,112 +21,129 @@ screenshot-template='%tY-%tm-%td_%tH%tM-%tS'
 
 image-display-duration=inf
 
-# where window starts
+## Where the window starts on the screen
 geometry=95%:90%
 autofit-larger=40%x40%
 
-# term-osd-bar
+####################
+## On-Screen Display
+####################
 
+# term-osd-bar
 osd-level=1
 osd-bar-h=2
 osd-font='Fantasque Sans Mono Nerd Font'
 osd-font-size=30
-osd-color='#d3ecff'
-osd-border-color='#d3ecff'
+osd-color='#ebffff'
+osd-border-color='#ebffff'
 osd-border-size=1
-osd-back-color='#0a0a0b'
+osd-back-color='#19060f'
 
-on-all-workspaces
+on-all-workspaces=yes
 ontop=yes
 keep-open=yes
-save-position-on-quit=
+save-position-on-quit=yes
 
 vo=gpu
-gpu-api=vulkan
-vulkan-queue-count=8
-vulkan-async-transfer=yes
-vulkan-swap-mode=immediate
-# vo=vaapi
 
-# Do not wait with showing the video window until it has loaded. (This will
-# resize the window once video is loaded. Also always shows a window with
-# audio.)
-force-window=immediate
-osc=no
-cache=yes
-x11-bypass-compositor=yes
+gpu-api=vulkan
+# vulkan-queue-count=8
+vulkan-async-transfer=yes
+vulkan-async-compute=yes
+vulkan-swap-mode=immediate
+
 # Specify high quality video rendering preset (for --vo=gpu only)
 # Can cause performance problems with some drivers and GPUs.
 # profile=gpu-hq
-# Force video to lock on the display's refresh rate, and change video and audio
-# speed to some degree to ensure synchronous playback - can cause problems
-# with some drivers and desktop environments.
-#video-sync=display-resample
-# Enable hardware decoding if available. Often, this does not work with all
-# video outputs, but should work well with default settings on most systems.
-# If performance or energy usage is an issue, forcing the vdpau or vaapi VOs
-# may or may not help.
-# hwdec=yes
 
-##################
-# audio settings #
-##################
+## Do not wait with showing the video window until it has loaded. (This will
+## resize the window once video is loaded. Also always shows a window with
+## audio.)
+force-window=immediate
+
+osc=no
+cache=yes
+x11-bypass-compositor=yes
+
+## Force video to lock on the display's refresh rate, and change video and audio
+## speed to some degree to ensure synchronous playback - can cause problems
+## with some drivers and desktop environments.
+# video-sync=display-resample
+
+## Enable hardware decoding if available. Often, this does not work with all
+## video outputs, but should work well with default settings on most systems.
+## If performance or energy usage is an issue, forcing the vdpau or vaapi VOs
+## may or may not help.
+hwdec=vaapi
+
+########
+## Audio
+########
 
 # Specify default audio device. You can list devices with: --audio-device=help
 # The option takes the device string (the stuff between the '...').
 audio-device=pulse
 
 hls-bitrate=max
-
 audio-file-auto=fuzzy
 
-# Do not filter audio to keep pitch when changing playback speed.
-#audio-pitch-correction=no
+## Do not filter audio to keep pitch when changing playback speed.
+# audio-pitch-correction=no
 
-# Output 5.1 audio natively, and upmix/downmix audio with a different format.
-#audio-channels=5.1
-# Disable any automatic remix, _if_ the audio output accepts the audio format.
-# of the currently played file. See caveats mentioned in the manpage.
-# (The default is "auto-safe", see manpage.)
-#audio-channels=auto
+## Output 5.1 audio natively, and upmix/downmix audio with a different format.
+audio-channels=5.1
+
+## Disable any automatic remix, _if_ the audio output accepts the audio format.
+## of the currently played file. See caveats mentioned in the manpage.
+## (The default is "auto-safe", see manpage.)
+# audio-channels=auto
+
 # Pretend to be a web browser. Might fix playback with some streaming sites,
 # but also will break with shoutcast streams.
 user-agent="Mozilla/5.0"
 
-# cache settings
+########
+## Cache
+########
+cache=yes
 # cache-default=4000000
 # cache-backbuffer=250000
 demuxer-max-bytes=114748364
-# Use 150MB input cache for everything, even local files.
-#cache=153600
-cache=yes
-# Disable the behavior that the player will pause if the cache goes below a
-# certain fill size.
-cache-pause=no
-# Read ahead about 5 seconds of audio and video packets.
-#demuxer-readahead-secs=5.0
-# Raise readahead from demuxer-readahead-secs to this value if a cache is active.
-#cache-secs=50.0
 
-ytdl-format="bestvideo[height<=?1080]+bestaudio/best"
-ytdl-raw-options=embed-thumbnail=
-ytdl-raw-options=write-thumbnail=
-ytdl-raw-options=add-metadata=
-ytdl-raw-options=audio-quality=0
-ytdl-raw-options=write-auto-sub=
-ytdl-raw-options=embed-subs=
-ytdl-raw-options=sub-format=en,write-srt=
-ytdl-raw-options=ignore-errors=
-ytdl-raw-options=continue=
-#ytdl-raw-options=include-ads=
+## Use 150MB input cache for everything, even local files.
+# cache=153600
+
+## Disable the behavior that the player will pause if the cache goes below a
+## certain fill size.
+cache-pause=no
+
+## Read ahead about 5 seconds of audio and video packets.
+# demuxer-readahead-secs=5.0
+
+## Raise readahead from demuxer-readahead-secs to this value if a cache is active.
+# cache-secs=50.0
+
+ytdl-format="bestvideo[height<=?1440]+bestaudio/best"
+ytdl-raw-options-append=embed-thumbnail=
+ytdl-raw-options-append=write-thumbnail=
+ytdl-raw-options-append=add-metadata=
+ytdl-raw-options-append=audio-quality=0
+ytdl-raw-options-append=write-auto-sub=
+ytdl-raw-options-append=embed-subs=
+ytdl-raw-options-append=sub-format=en,write-srt=
+ytdl-raw-options-append=ignore-errors=
+ytdl-raw-options-append=continue=
+# ytdl-raw-options=include-ads=
 
 slang=en,es
 alang=en,es
-# Change subtitle encoding. For Arabic subtitles use 'cp1256'.
-# If the file seems to be valid UTF-8, prefer UTF-8.
-# (You can add '+' in front of the codepage to force it.)
-#sub-codepage=cp1256
-sub-color='#d3ecff'
+
+## Change subtitle encoding. For Arabic subtitles use 'cp1256'.
+## If the file seems to be valid UTF-8, prefer UTF-8.
+## (You can add '+' in front of the codepage to force it.)
+
+# sub-codepage=cp1256
+sub-color='#ebffff'
 sub-auto=fuzzy
 embeddedfonts=yes
 
@@ -153,14 +152,9 @@ script=/usr/share/mpv/scripts/mpris.so
 # You can also include other configuration files.
 #include=/path/to/the/file/you/want/to/include
 
-############
-# Profiles #
-############
-# The following profile can be enabled on the command line with: --profile=eye-cancer
-
-[eye-cancer]
-profile-desc="as the name suggests"
-sharpen=5
+###########
+## Profiles
+###########
 
 [img]
 profile-desc="strips all features not needed when using mpv as an image viewer"
@@ -170,8 +164,18 @@ osd-level=0
 no-osc
 no-osd-bar
 
+[tct-watch]
+profile-desc="watch videos in the terminal in true color - GPU-accelerated terminal recommended"
+vo=tct
+term-osd=no
+no-term-osd-bar
+osd-level=0
+no-osc
+no-osd-bar
+term-status-msg=""
+
 [nowin]
-profile-desc="mpv with no window output"
+profile-desc="mpv with no window output (For use when outputting notification sounds)"
 vid=no
 force-window=no
 save-position-on-quit=no
@@ -180,12 +184,3 @@ save-position-on-quit=no
 profile-desc="make the current video the background for your desktop"
 wid=0
 loop
-
-# low quality
-[low]
-vo=xv
-vd-lavc-fast
-# vd-lavc-skiploopfilter=5
-# vd-lavc-skipframe=5
-# vd-lavc-framedrop=5
-vd-lavc-threads=4

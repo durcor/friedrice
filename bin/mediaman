@@ -1,7 +1,8 @@
 #!/bin/sh
 
-curplayer=playerctl -l
-if playerctl -p $curplayer status == Stopped
-    # loop to next player
-playerctl play-pause
+for player in playerctl -l ; do
+    if playerctl -p $player status == "Stopped" ; then
+        playerctl -p $player play-pause
+    fi
+done
 

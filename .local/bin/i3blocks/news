@@ -1,22 +1,17 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-    1) tmux selectw -t  ;;
-    2) systemctl --user restart nbupdate ;;
-    3) notify-send "📰 News module" "\- Shows unread news items
-- Shows 🔃 if updating with \`newsup\`
-- Left click opens newsboat
-- Middle click syncs RSS feeds
-<b>Note:</b> Only one instance of newsboat (including updates) may be running at a time." ;;
+    1) 
+        tmux selectw -tnewsboat
+        ;;
+    2)
+        systemctl --user restart nbupdate 
+        ;;
+    3);;
 esac
 
-# if ls ~/.local/share/newsboat/cache.db.lock >/dev/null
-# then
-#     cat ~/.local/share/newsboat/unread
-# else
-#     newsboat -x print-unread | awk '{ print $1}' > ~/.local/share/newsboat/unread
-#     cat ~/.local/share/newsboat/unread
-# fi
+if [ ! -f ~/.local/share/newsboat/cache.db.lock ];then
+    newsboat -x print-unread | awk '{print $1}' > ~/.local/share/newsboat/unread
+fi
 
-echo "$(cat ~/.local/share/newsboat/unread) $(cat /tmp/nbupdate 2>/dev/null)"
-# || echo "$(newsboat -x print-unread | awk '{ print $1}' | sed s/^0$//g)$(cat ~/.config/newsboat/.update 2>/dev/null)"
+echo "  $(cat ~/.local/share/newsboat/unread) $(cat /tmp/nbupdate 2>/dev/null)"
