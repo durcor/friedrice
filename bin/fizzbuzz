@@ -1,0 +1,14 @@
+#!/bin/sh
+
+for num in $(seq 1 100);do
+    if [ $((num % 3)) = 0 ];then
+        if [ $((num % 5)) = 0 ];then
+            echo "Fizz Buzz"
+        fi
+        echo "Fizz"
+    elif [ $((num % 5)) = 0 ];then
+        echo "Buzz"
+    else
+        echo "$num"
+    fi
+done

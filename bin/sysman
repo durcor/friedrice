@@ -1,0 +1,15 @@
+#!/bin/sh
+
+
+listthreadclocks(){
+    threadindex=1
+
+    for clock in $(awk '/MHz/ {print $4}' /proc/cpuinfo); do
+        echo "Thread $threadindex: $clock"
+        let threadindex=${threadindex}+1
+    done
+}
+
+case $1 in
+    cpu)listthreadclocks;;
+esac

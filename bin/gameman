@@ -1,0 +1,89 @@
+#!/bin/sh
+
+# if $2;then
+#     WINEPREFIX=/home/$USER/data/gam/$2
+#     if ! ls "$WINEPREFIX";then
+#         mkdir -p "$WINEPREFIX"
+#         newprefix
+#     fi
+# fi
+
+prepare_gamemode(){
+    notify-send \
+        -h string:x-canonical-private-synchronous:gamemode \
+        -i ~/.local/share/icons/flattrcolor/devices/64/input-gaming.svg \
+        "GameMode started"
+    systemctl --user stop foldingathome
+    # sudo systemctl stop boinc-client
+    systemctl --user stop picom
+}
+
+stop_gamemode(){
+    notify-send \
+        -h string:x-canonical-private-synchronous:gamemode \
+        -i ~/.local/share/icons/flattrcolor/devices/64/input-gaming.svg \
+        "GameMode ended"
+    systemctl --user start foldingathome
+    # sudo systemctl start boinc-client
+    systemctl --user start picom
+}
+
+newprefix(){
+    winecfg
+    /usr/share/dxvk/setup_dxvk.sh install
+}
+
+updateprefixes(){
+    /usr/share/dxvk/setup_dxvk.sh install
+}
+
+playgame(){
+    gamemoderun wine "$3"
+    killwine
+}
+
+newgame(){
+    if [ "$2" = "origin" ]
+    then
+        installerurl="https://origin-a.akamaihd.net/Origin-Client-Download/origin/live/OriginThinSetup.exe"
+    elif [ "$2" = "steam" ]
+    then
+        installerurl="https://steamcdn-a.akamaihd.net/client/installer/SteamSetup.exe"
+    fi
+
+    curl $installerurl -O ~/dl/
+}
+
+killwine(){
+    for proc in $(ps aux | grep "[.]exe" | awk '{print $2}')
+    do
+        kill -9 "$proc"
+    done
+    killall -9 wineserver winedbg
+    echo "All wine-dependent services killed"
+}
+
+helpmsg(){
+    echo "$(tput bold)FOR ARCH-BASED DISTROS ONLY$(tput sgr0)
+    Add chaotic-aur repo and install these packages:
+        dxvk-mingw-git
+        wine-tkg-fsync-vkd3d-git
+        vkd3d-git
+        lib32-vkd3d-git
+        linux-tkg-pds
+        linux-tkg-pds-headers
+    $(tput bold)FOR AMD:$(tput sgr0)
+        mesa-git
+        lib32-mesa-git
+    $(tput bold)FOR NVIDIA:$(tput sgr0)
+        nvidia"
+}
+
+case $1 in
+    new|n|o)newprefix;;
+    play|p)playgame "$@";;
+    kill|k|x)killwine;;
+    prepare)prepare_gamemode;;
+    stop)stop_gamemode;;
+    *)helpmsg;;
+esac

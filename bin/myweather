@@ -1,0 +1,24 @@
+#!/bin/sh
+
+curl wttr.in > "$HOME"/.local/share/weather
+
+WEATHER_CONDITION=$(sed '3!d' "$HOME"/.local/share/weather | awk 'NF>1{print $NF}')
+
+WEATHER_TEMP=$(sed '4!d' "$HOME"/.local/share/weather | awk '{for (i=NF; i>1; i--) printf("%s ",$i);print $1;}' | awk '{print $2}')
+
+if [ "$(date +%H)" -gt 20 ] || [ "$(date +%H)" -lt 5 ];then
+    TIME_ICON=""
+else
+    TIME_ICON=""
+fi
+
+case $WEATHER_CONDITION in
+    "Clear") WEATHER_ICON="";;
+    "Overcast") WEATHER_ICON="" ;;
+    "Partly cloudy") WEATHER_ICON=;;
+    "Light rain") WEATHER_ICON=;;
+    "Light drizzle") WEATHER_ICON=;;
+    "Light Rain, Mist") WEATHER_ICON=;;
+esac
+
+echo "$TIME_ICON $WEATHER_ICON $WEATHER_TEMP"

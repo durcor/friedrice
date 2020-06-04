@@ -1,0 +1,50 @@
+#!/bin/sh
+
+TKG_DIR=$HOME/prg/tkg
+
+rm_old_pkg(){
+    rm ./*.pkg.tar.xz
+}
+
+pkgbuildman &&
+
+cd "$TKG_DIR"/vkd3d-git &&
+rm_old_pkg
+yes | makepkg -si &&
+
+cd "$TKG_DIR"/dxvk-tools &&
+./updxvk build &&
+./updxvk proton-tkg
+./updxvk lutris
+
+cd "$TKG_DIR"/wine-tkg-git/wine-tkg-git &&
+rm_old_pkg
+yes | makepkg -si &&
+
+cd "$TKG_DIR"/proton-tkg &&
+rm_old_pkg
+yes | makepkg -si &&
+
+cd "$TKG_DIR"/dxvk-tools &&
+
+./updxvk ~/.wine
+
+./updxvk ~/.local/share/wineprefixes/roblox-wine
+
+# Batch update all prefixes in ~/gam/wine
+./updxvk batch
+
+# Now batch update all prefixes in ~/data/gam/wine
+sed -e '/PREFIXES_ROOT=\"\"\$HOME\"\/gam\/wine\"/ s/^#*/#/' -i "$TKG_DIR"/dxvk-tools/updxvk.cfg
+sed -e '/PREFIXES_ROOT=\"\"\$HOME\"\/data\/gam\/wine\"/ s/^#*//' -i "$TKG_DIR"/dxvk-tools/updxvk.cfg
+
+./updxvk batch
+
+# Reset
+sed -e '/PREFIXES_ROOT=\"\"\$HOME\"\/gam\/wine\"/ s/^#*//' -i "$TKG_DIR"/dxvk-tools/updxvk.cfg
+sed -e '/PREFIXES_ROOT=\"\"\$HOME\"\/data\/gam\/wine\"/ s/^#*/#/' -i "$TKG_DIR"/dxvk-tools/updxvk.cfg
+
+# Needed so that ping in BF4 is visible to online servers.
+sudo setcap cap_net_raw+epi /usr/bin/wine64-preloader
+sudo setcap cap_net_raw+epi /usr/bin/wine-preloader
+sudo setcap cap_net_raw+epi /usr/bin/wineserver

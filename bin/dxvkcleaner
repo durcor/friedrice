@@ -1,0 +1,7 @@
+#!/bin/sh
+
+files=$(find . -name "*.dxvk-cache")
+
+for file in $files;do
+    rm "$file"
+done

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/bin/qutebrowser --qt-flag ignore-gpu-blaclist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4

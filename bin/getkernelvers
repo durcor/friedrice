@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# curl --no-progress-meter kernel.org | grep -A1 "latest_link"
+curl --no-progress-meter kernel.org

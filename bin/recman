@@ -1,0 +1,33 @@
+#!/bin/sh
+
+export VK_ICD_FILENAMES=/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd64.json:/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd32.json
+
+ffmpeg \
+    `# Video Settings` \
+    `# -f kmsgrab` \
+    -f x11grab \
+    `# -s "$(xdpyinfo | grep dimensions | awk '{print $2}')"` \
+    -s 2560x1440 \
+    -r 60 \
+    -i "$DISPLAY" \
+    `# Audio Settings` \
+    -f pulse -i default \
+    `# -filter_complex amix=inputs=2` \
+    `# -ar 44100` \
+    `# -af "volume=50"` \
+    `# -c:a libvorbis` \
+    `# Filters` \
+    `# -c:v hevc_vaapi -vf format='nv12|vaapi,hwupload' -vaapi_device /dev/dri/renderD128` \
+    `# -c:v hevc_vaapi` \
+    `# -c:v h264_amf` \
+    -c:v libx264 -preset medium -pix_fmt yuv420p \
+    `# -b:v 24000k` \
+    `# -g 120 -keyint_min 60` \
+    `# -vf scale=1920:1080:flags=lanczos` \
+    `# -b:v 1000k -bufsize 1000k -minrate 1000k -maxrate 1000k` \
+    `# -s 1920x1080` \
+    `# ~/data/vid/record/$(date '+%H%M:%S_%m-%d-%Y').mp4` \
+    `# ~/data/vid/record/test.mp4` \
+    -y ~/vid/test.mp4 \
+    `# ~/data/vid/record/test.flv` \
+    `# ~/data/vid/record/$(date '+%H%M:%S_%m-%d-%Y').flv \ ` \

@@ -1,0 +1,6 @@
+#!/bin/sh
+cd ~/.cache/yay/mesa-git
+yes | makepkg -si
+cd ~/.cache/yay/lib32-mesa-git
+yes | makepkg -si
+pkgclean

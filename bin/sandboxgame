@@ -1,0 +1,19 @@
+#!/bin/sh
+
+game_monitor_res=$(xrandr \
+    | grep '\*' \
+    | awk '{print $1}' \
+    | sort -r \
+    | xargs \
+    | awk '{print $1}')
+
+game_monitor_height=$(echo "$game_monitor_res" | awk -Fx '{print $2}')
+
+game_monitor_width=$(echo "$game_monitor_res" | awk -Fx '{print $1}')
+
+# TF2's ID is 440
+
+xinit /usr/bin/steam \
+    -height "$game_monitor_height" \
+    -width "$game_monitor_width" \
+    steam://rungameid/"$1" -- :1 vt"$XDG_VTNR"

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+source /home/ty/.cache/wal/colors.sh
+
+# sudo liquidctl set led1 color backwards-marquee-5 ffa300
+# sudo liquidctl set led2 color backwards-marquee-5 ffa300
+
+sudo liquidctl set led1 color starry-night $color13
+sudo liquidctl set led2 color starry-night $color13
+
+# sudo liquidctl set led1 color spectrum-wave
+# sudo liquidctl set led2 color spectrum-wave
+
+sudo cm-rgb-cli logo --mode=breathe --color=$color12 --speed=3 --brightness=5 fan --brightness=10 --color=$color14 --speed=4 ring --mode=swirl --color=$color9 --speed=1 --brightness=1
