@@ -8,15 +8,9 @@ static const char *user  = "ty";
 static const char *group = "users";
 
 static const char *colorname[NUMCOLS] = {
-<<<<<<< HEAD
 	[INIT] =   "#19060f",     /* after initialization */
 	[INPUT] =  "#420e27",   /* during input */
 	[FAILED] = "#CCB0AA",   /* wrong password */
-=======
-	[INIT] =   "#120d0c",     /* after initialization */
-	[INPUT] =  "#30221f",   /* during input */
-	[FAILED] = "#9F401F",   /* wrong password */
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 };
 
 /* treat a cleared input like a wrong password (color) */

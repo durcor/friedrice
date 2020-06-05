@@ -2,7 +2,6 @@
 ! vi:ft=xdefaults
 
 ! X colors.
-<<<<<<< HEAD
 *foreground:        #ebffff
 *background:        #19060f
 *.foreground:       #ebffff
@@ -61,66 +60,6 @@ URxvt*borderColor:  [100]#19060f
 ! Xclock colors.
 XClock*foreground: #ebffff
 XClock*background: #19060f
-=======
-*foreground:        #d6ffdc
-*background:        #120d0c
-*.foreground:       #d6ffdc
-*.background:       #120d0c
-emacs*foreground:   #d6ffdc
-emacs*background:   #120d0c
-URxvt*foreground:   #d6ffdc
-XTerm*foreground:   #d6ffdc
-UXTerm*foreground:  #d6ffdc
-URxvt*background:   [100]#120d0c
-XTerm*background:   #120d0c
-UXTerm*background:  #120d0c
-URxvt*cursorColor:  #d6ffdc
-XTerm*cursorColor:  #d6ffdc
-UXTerm*cursorColor: #d6ffdc
-URxvt*borderColor:  [100]#120d0c
-
-! Colors 0-15.
-*.color0: #120d0c
-*color0:  #120d0c
-*.color1: #C6581A
-*color1:  #C6581A
-*.color2: #2D8B5C
-*color2:  #2D8B5C
-*.color3: #9F401F
-*color3:  #9F401F
-*.color4: #2D4E4C
-*color4:  #2D4E4C
-*.color5: #303642
-*color5:  #303642
-*.color6: #2D6D5A
-*color6:  #2D6D5A
-*.color7: #a0bfa4
-*color7:  #a0bfa4
-*.color8: #30221f
-*color8:  #30221f
-*.color9: #ff6e13
-*color9:  #ff6e13
-*.color10: #2ec077
-*color10:  #2ec077
-*.color11: #db4d1b
-*color11:  #db4d1b
-*.color12: #326d69
-*color12:  #326d69
-*.color13: #37435d
-*color13:  #37435d
-*.color14: #309779
-*color14:  #309779
-*.color15: #d6ffdc
-*color15:  #d6ffdc
-
-! Black color that will not be affected by bold highlighting.
-*.color66: #120d0c
-*color66:  #120d0c
-
-! Xclock colors.
-XClock*foreground: #d6ffdc
-XClock*background: #120d0c
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 ! XClock*majorColor:  rgba:ff/f8/ff/ff
 ! XClock*minorColor:  rgba:ff/f8/ff/ff
 ! XClock*hourColor:   rgba:ff/f8/ff/ff

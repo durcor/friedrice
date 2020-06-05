@@ -150,13 +150,8 @@ max_icon_size = 64 # max icon size
 icon_path = .icons/flattrcolor/status/24:.icons/flattrcolor/devices/48:.icons/flattrcolor/apps/scalable:.icons/flattrcolor/actions/scalable
 
 [frame]
-<<<<<<< HEAD
 width = 3
 color = "#01d0d0"
-=======
-    width = 3
-    color = "#309779"
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 [shortcuts]
 # Shortcuts are specified as [modifier+][modifier+]...key
@@ -179,7 +174,6 @@ history = ctrl+grave
 context = ctrl+shift+period
 
 [urgency_low]
-<<<<<<< HEAD
 # IMPORTANT: colors have to be defined in quotation marks.
 # Otherwise the "#" and following would be interpreted as a comment.
 background = "#EEA3DC"
@@ -195,24 +189,6 @@ timeout = 0
 background = "#009696"
 foreground = "#ffb5ff"
 timeout = 0
-=======
-    # IMPORTANT: colors have to be defined in quotation marks.
-    # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#303642"
-    foreground = "#30221f"
-    timeout = 1
-
-[urgency_normal]
-    background = "#30221f"
-    foreground = "#d6ffdc"
-    timeout = 0
-
-[urgency_critical]
-    background = "#2D8B5C"
-    foreground = "#37435d"
-    timeout = 0
-
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
