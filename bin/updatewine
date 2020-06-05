@@ -2,15 +2,15 @@
 
 TKG_DIR=$HOME/prg/tkg
 
-rm_old_pkg(){
+rebuild_pkg(){
     rm ./*.pkg.tar.xz
+    yes | makepkg -si
 }
 
 pkgbuildman &&
 
 cd "$TKG_DIR"/vkd3d-git &&
-rm_old_pkg
-yes | makepkg -si &&
+rebuild_pkg &&
 
 cd "$TKG_DIR"/dxvk-tools &&
 ./updxvk build &&
@@ -18,12 +18,10 @@ cd "$TKG_DIR"/dxvk-tools &&
 ./updxvk lutris
 
 cd "$TKG_DIR"/wine-tkg-git/wine-tkg-git &&
-rm_old_pkg
-yes | makepkg -si &&
+rebuild_pkg &&
 
-cd "$TKG_DIR"/proton-tkg &&
-rm_old_pkg
-yes | makepkg -si &&
+cd "$TKG_DIR"/wine-tkg-git/proton-tkg &&
+rebuild_pkg &&
 
 cd "$TKG_DIR"/dxvk-tools &&
 

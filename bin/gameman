@@ -13,9 +13,9 @@ prepare_gamemode(){
         -h string:x-canonical-private-synchronous:gamemode \
         -i ~/.local/share/icons/flattrcolor/devices/64/input-gaming.svg \
         "GameMode started"
-    systemctl --user stop foldingathome
+    # systemctl --user stop foldingathome
     # sudo systemctl stop boinc-client
-    systemctl --user stop picom
+    # systemctl --user stop picom
 }
 
 stop_gamemode(){
@@ -23,9 +23,9 @@ stop_gamemode(){
         -h string:x-canonical-private-synchronous:gamemode \
         -i ~/.local/share/icons/flattrcolor/devices/64/input-gaming.svg \
         "GameMode ended"
-    systemctl --user start foldingathome
+    # systemctl --user start foldingathome
     # sudo systemctl start boinc-client
-    systemctl --user start picom
+    # systemctl --user start picom
 }
 
 newprefix(){

@@ -47,14 +47,19 @@ save-position-on-quit=yes
 vo=gpu
 
 gpu-api=vulkan
+# gpu-api=opengl
+
 # vulkan-queue-count=8
 vulkan-async-transfer=yes
 vulkan-async-compute=yes
-vulkan-swap-mode=immediate
+# vulkan-swap-mode=immediate
 
 # Specify high quality video rendering preset (for --vo=gpu only)
 # Can cause performance problems with some drivers and GPUs.
-# profile=gpu-hq
+profile=gpu-hq
+
+hdr-compute-peak=yes
+# fbo-format=rgba16hf
 
 ## Do not wait with showing the video window until it has loaded. (This will
 ## resize the window once video is loaded. Also always shows a window with
@@ -69,12 +74,27 @@ x11-bypass-compositor=yes
 ## speed to some degree to ensure synchronous playback - can cause problems
 ## with some drivers and desktop environments.
 # video-sync=display-resample
+# video-sync=
 
 ## Enable hardware decoding if available. Often, this does not work with all
 ## video outputs, but should work well with default settings on most systems.
 ## If performance or energy usage is an issue, forcing the vdpau or vaapi VOs
 ## may or may not help.
 hwdec=vaapi
+
+# Scaling
+# scale=ewa_lanczossharp
+# cscale=ewa_lanczossharp
+# dscale=ewa_lanczossharp
+# dither-depth=auto
+# correct-downscaling=yes
+# sigmoid-upscaling=yes
+
+# deband=yes
+# deband-iterations=5
+# deband-threshold=50
+# deband-range=16
+# deband-grain=48
 
 ########
 ## Audio
