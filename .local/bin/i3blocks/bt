@@ -1,23 +1,11 @@
 #!/bin/sh
 
-<<<<<<< HEAD
 bluetoothctl info > /tmp/btinfo
-=======
-toggle_bluetooth(){
-    if [ $(sudo systemctl is-active bluetooth) = inactive ]
-    then
-        sudo systemctl restart bluetooth ; notify-send "Starting Bluetooth service"
-    else
-        sudo systemctl stop bluetooth ; notify-send "Stopping Bluetooth service"
-    fi
-}
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 case $BLOCK_BUTTON in
     # left click
 	1) bt-select;;
     # middle click
-<<<<<<< HEAD
 	2) 
     if systemctl is-active bluetooth;then
         sudo systemctl stop bluetooth ; notify-send "Stopping Bluetooth service"
@@ -27,28 +15,17 @@ case $BLOCK_BUTTON in
     ;;
     # right click
     3) notify-send " " "$(cat /tmp/btinfo)";;
-=======
-	2) toggle_bluetooth;;
-    # right click
-    3) bluetoothctl info;;
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
     # scroll up
 	4) ;;
     # scroll down
 	5) ;;
 esac
 
-<<<<<<< HEAD
-if ! systemctl is-active bluetooth>/dev/null;then
-=======
-if [ $(sudo systemctl is-active bluetooth) = inactive ]
-then
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
+if ! systemctl is-active bluetooth>/dev/null; then
     echo " x"
     exit
 fi
 
-<<<<<<< HEAD
 case $(grep Icon /tmp/btinfo | awk '{print $2}') in
     "audio-card")
         dev=
@@ -60,21 +37,5 @@ case $(grep Icon /tmp/btinfo | awk '{print $2}') in
         dev=X
         ;;
 esac
-
-echo " $dev  $(grep Name /tmp/btinfo | awk '{$1="";sub(" ","")}1')"
-if [ $(bluetoothctl info | grep Icon | awk '{print $2}') = audio-card ]; then
-    dev=
-elif [ $(bluetoothctl info | grep Icon | awk '{print $2}') = input-gaming ]; then
-=======
-if [ $(bluetoothctl info | grep Icon | awk '{print $2}') = audio-card ]
-then
-    dev=
-elif [ $(bluetoothctl info | grep Icon | awk '{print $2}') = input-gaming ]
-then
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
-    dev=
-else
-    dev=X
-fi
 
 echo " $dev $(bluetoothctl info | grep Name | awk '{$1="";sub(" ","")}1')"
