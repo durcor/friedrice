@@ -282,7 +282,6 @@ no_focus [class="discord"]
 # focus_on_window_activation urgent
 
 #gen
-<<<<<<< HEAD
 set $ws1 "1"
 #mus
 set $ws4 "4"
@@ -302,39 +301,14 @@ set $ws8 "8"
 set $ws9 "9"
 #chat
 set $ws2 "2"
-=======
-set $ws1 "1/"
-#mus
-set $ws4 "4/"
-#rss
-set $ws3 "3/"
-#term
-set $ws10 "10/"
-#img
-set $ws7 "7/"
-#game
-set $ws6 "6/"
-#mail
-set $ws5 "5/"
-#file
-set $ws8 "8/"
-#dl
-set $ws9 "9/"
-#chat
-set $ws2 "2/"
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 assign [class="Lutris"] $ws6
 assign [class="discord"] $ws1
 assign [class="qutebrowser"] $ws1
 for_window [class="Spotify"] move to workspace $ws4
-<<<<<<< HEAD
 for_window [instance="origin.exe"] floating enable
 assign [class="Steam"] $ws6
 assign [instance="origin.exe"] $ws6
-=======
-assign [class="Steam"] $ws6
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 # class                 border	backgr. text	indicator	child_border
 client.focused          $c7		$c7		$c7		$c7			$c7
@@ -374,12 +348,9 @@ exec mullvad-vpn
 # exec qutebrowser
 exec firefox-nightly
 exec discord
-<<<<<<< HEAD
 exec cfg rf
 # exec xrandr --output HDMI-A-1 --auto --left-of DisplayPort-1
 # exec workspace $ws1
 # exec workspace $ws1
-=======
-exec workspace $ws1
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
+# exec workspace $ws1
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
