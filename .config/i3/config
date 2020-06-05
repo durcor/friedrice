@@ -350,7 +350,4 @@ exec firefox-nightly
 exec discord
 exec cfg rf
 # exec xrandr --output HDMI-A-1 --auto --left-of DisplayPort-1
-# exec workspace $ws1
-# exec workspace $ws1
-# exec workspace $ws1
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
