@@ -11,7 +11,11 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *font = "{def-font}:pixelsize=11:antialias=true:autohint=true";
+<<<<<<< HEAD
 static int borderpx = 10;
+=======
+static int borderpx = 5;
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 /*
  * What program is execed by st depends of these precedence rules:

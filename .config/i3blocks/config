@@ -33,11 +33,16 @@ markup=pango
 interval=5
 signal=2
 # min_width=50
+<<<<<<< HEAD
 color=#76d8e2
+=======
+color=#ff6e13
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 #align=left
 
 # [weather]
 # interval=7200
+<<<<<<< HEAD
 # color=#01c1c2
 
 [news]
@@ -55,11 +60,18 @@ interval=100000000000
 signal=12
 color=#ffb5ff
 
+=======
+# color=#2ec077
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 [accuweather]
 command=~/.local/bin/i3blocks/accuweather 07840
 interval=1800
+<<<<<<< HEAD
 color=#01c1c2
+=======
+color=#2ec077
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 [cpu]
 label=
@@ -69,17 +81,41 @@ color=#01d0d0
 [amdgpu]
 label=
 interval=30
+<<<<<<< HEAD
 color=#76d8e2
+=======
+color=#309779
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 [mem]
 label=
 interval=30
+<<<<<<< HEAD
 color=#ffb5ff
+=======
+color=#37435d
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 [dsk]
 command=~/.local/bin/i3blocks/dsk /home 
 interval=30
+<<<<<<< HEAD
 color=#ffb5ff
+=======
+color=#37435d
+
+[news]
+label= 
+interval=100000000000
+signal=6
+color=#db4d1b
+
+[mail]
+label= 
+interval=100000000000
+signal=12
+color=#37435d
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 # CPU usage
 #
@@ -121,14 +157,24 @@ color=#ffb5ff
 #separator=true
 
 [kb]
+<<<<<<< HEAD
 interval=100000000000
 label=
 color=#ebffff
+=======
+interval=persist
+label= 
+color=#d6ffdc
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 [vol]
 signal=13
 interval=10
+<<<<<<< HEAD
 color=#01d0d0
+=======
+color=#309779
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 [bt]
 color=#0000ff
@@ -136,18 +182,31 @@ interval=10
 label=
 
 [net]
+<<<<<<< HEAD
 color=#ffb5ff
+=======
+color=#37435d
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 interval=10
 
 # [vpn]
 # label= 
 # interval=30
+<<<<<<< HEAD
 # color=#ffd5c4
 
 # [bat]
 # command=~/.local/bin/i3blocks/bat
 # # color=#01d0d0
 # interval=5
+=======
+# color=#db4d1b
+
+[bat]
+command=~/.local/bin/i3blocks/bat
+# color=#309779
+interval=5
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 # [batplus]
 # interval=5
@@ -155,8 +214,13 @@ interval=10
 
 [time]
 interval=1
+<<<<<<< HEAD
 label=
 color=#ebffff
+=======
+label= 
+color=#d6ffdc
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 # Key indicators
 #

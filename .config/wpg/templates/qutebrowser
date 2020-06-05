@@ -21,7 +21,11 @@
 
 ## Background color of the completion widget for even rows.
 ## Type: QssColor
+<<<<<<< HEAD
 c.colors.completion.even.bg = '#00A1A1'
+=======
+c.colors.completion.even.bg = '#2D6D5A'
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 ## Text color of the completion widget. May be a single color to use for
 ## all columns or a list of three colors, one for each column.
@@ -34,6 +38,7 @@ c.colors.completion.even.bg = '#00A1A1'
 
 ## Background color of the completion widget for odd rows.
 ## Type: QssColor
+<<<<<<< HEAD
 c.colors.completion.odd.bg = '#EEA3DC'
 c.colors.completion.fg = "#ebffff"
 c.colors.completion.category.fg = "#ebffff"
@@ -51,6 +56,25 @@ c.colors.completion.item.selected.border.bottom = "#19060f"
 ## Foreground color of the matched text in the completion.
 ## Type: QssColor
 c.colors.completion.match.fg = "#ebffff"
+=======
+c.colors.completion.odd.bg = '#303642'
+c.colors.completion.fg = "#d6ffdc"
+c.colors.completion.category.fg = "#d6ffdc"
+c.colors.completion.category.bg = "#120d0c"
+## Foreground color of the selected completion item.
+## Type: QtColor
+c.colors.completion.item.selected.fg = "#d6ffdc"
+c.colors.completion.item.selected.bg = "#120d0c"
+## Top border color of the completion widget category headers.
+## Type: QssColor
+c.colors.completion.item.selected.border.top = "#120d0c"
+## Bottom border color of the selected completion item.
+## Type: QssColor
+c.colors.completion.item.selected.border.bottom = "#120d0c"
+## Foreground color of the matched text in the completion.
+## Type: QssColor
+c.colors.completion.match.fg = "#d6ffdc"
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 ## Color of the scrollbar in the completion view.
 ## Type: QssColor
 # c.colors.completion.scrollbar.bg = '#333333'
@@ -58,6 +82,7 @@ c.colors.completion.match.fg = "#ebffff"
 ## Color of the scrollbar handle in the completion view.
 ## Type: QssColor
 # c.colors.completion.scrollbar.fg = 'white'
+<<<<<<< HEAD
 c.colors.completion.scrollbar.fg = "#19060f"
 c.colors.completion.scrollbar.bg = "#19060f"
 c.colors.statusbar.normal.fg = "#ebffff"
@@ -106,6 +131,56 @@ c.colors.messages.info.bg = "#19060f"
 c.colors.prompts.fg = "#ebffff"
 c.colors.prompts.bg = "#19060f"
 c.colors.prompts.selected.bg = "#19060f"
+=======
+c.colors.completion.scrollbar.fg = "#120d0c"
+c.colors.completion.scrollbar.bg = "#120d0c"
+c.colors.statusbar.normal.fg = "#d6ffdc"
+c.colors.statusbar.normal.bg = "#120d0c"
+c.colors.statusbar.insert.fg = "#d6ffdc"
+c.colors.statusbar.insert.bg = "#120d0c"
+c.colors.statusbar.command.bg = "#120d0c"
+c.colors.statusbar.command.fg = "#d6ffdc"
+c.colors.statusbar.caret.bg = "#120d0c"
+c.colors.statusbar.caret.selection.fg = "#d6ffdc"
+c.colors.statusbar.progress.bg = "#a0bfa4"
+c.colors.statusbar.passthrough.bg = "#120d0c"
+c.colors.statusbar.url.fg = c.colors.statusbar.normal.fg
+c.colors.statusbar.url.success.http.fg = "#d6ffdc"
+c.colors.statusbar.url.success.https.fg = "#2ec077"
+c.colors.statusbar.url.error.fg = "#ff6e13"
+c.colors.statusbar.url.warn.fg = "#db4d1b"
+c.colors.statusbar.url.hover.fg = "#d6ffdc"
+c.colors.tabs.bar.bg = "#C6581A"
+c.colors.tabs.even.fg = "#d6ffdc"
+c.colors.tabs.even.bg = "#30221f"
+c.colors.tabs.odd.fg = "#d6ffdc"
+c.colors.tabs.odd.bg = "#120d0c"
+c.colors.tabs.selected.even.fg = "#d6ffdc"
+c.colors.tabs.selected.even.bg = "#2D8B5C"
+c.colors.tabs.selected.odd.fg = "#d6ffdc"
+c.colors.tabs.selected.odd.bg = "#303642"
+c.colors.tabs.indicator.start = "#120d0c"
+c.colors.tabs.indicator.stop = "#120d0c"
+c.colors.tabs.indicator.error = "#120d0c"
+c.colors.hints.bg = "#d6ffdc"
+c.colors.hints.fg = "#120d0c"
+c.colors.hints.match.fg = "#d6ffdc"
+c.colors.downloads.start.fg = "#d6ffdc"
+c.colors.downloads.start.bg = "#C6581A"
+c.colors.downloads.stop.fg = "#d6ffdc"
+c.colors.downloads.stop.bg = "#2D8B5C"
+c.colors.keyhint.fg = "#d6ffdc"
+c.colors.keyhint.suffix.fg = "#d6ffdc"
+c.colors.keyhint.bg = "rgba(0, 0, 0, 80%)"
+c.colors.messages.error.bg = "#120d0c"
+c.colors.messages.error.border = "#120d0c"
+c.colors.messages.warning.bg = "#120d0c"
+c.colors.messages.warning.border = c.colors.messages.warning.bg
+c.colors.messages.info.bg = "#120d0c"
+c.colors.prompts.fg = "#d6ffdc"
+c.colors.prompts.bg = "#120d0c"
+c.colors.prompts.selected.bg = "#120d0c"
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 # fonts
 #c.fonts.monospace = "Noto Sans Mono", "DejaVu Sans Mono", "Liberation Mono", monospace

@@ -14,6 +14,7 @@ case $BLOCK_BUTTON in
                     ;;
 esac
 
+<<<<<<< HEAD
 usage=$(bc "$(ps aux | awk 'BEGIN {sum=0} {sum+=$3}; END {print sum}') / $(nproc)")
 
 cpu_icon=""
@@ -33,3 +34,6 @@ fi
 command=$(sensors | awk '/^Tdie/ {print $2}')
 
 echo "$cpu_icon  $icon  ${command}°C"
+=======
+sensors | awk '/^Tdie/ {print $2}'
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d

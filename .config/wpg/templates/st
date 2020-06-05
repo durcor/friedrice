@@ -11,7 +11,11 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *font = "Fantasque Sans Mono Nerd Font:pixelsize=11:antialias=true:autohint=true";
+<<<<<<< HEAD
 static int borderpx = 10;
+=======
+static int borderpx = 5;
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -107,6 +111,7 @@ float alpha = 0.9;
 const char *colorname[] = {
 
   /* 8 normal colors */
+<<<<<<< HEAD
   [0] = "#19060f", /* black   */
   [1] = "#689CA1", /* red     */
   [2] = "#009696", /* green   */
@@ -130,6 +135,31 @@ const char *colorname[] = {
   [256] = "#19060f", /* background */
   [257] = "#ebffff", /* foreground */
   [258] = "#ebffff",     /* cursor */
+=======
+  [0] = "#120d0c", /* black   */
+  [1] = "#C6581A", /* red     */
+  [2] = "#2D8B5C", /* green   */
+  [3] = "#9F401F", /* yellow  */
+  [4] = "#2D4E4C", /* blue    */
+  [5] = "#303642", /* magenta */
+  [6] = "#2D6D5A", /* cyan    */
+  [7] = "#a0bfa4", /* white   */
+
+  /* 8 bright colors */
+  [8]  = "#30221f",  /* black   */
+  [9]  = "#ff6e13",  /* red     */
+  [10] = "#2ec077", /* green   */
+  [11] = "#db4d1b", /* yellow  */
+  [12] = "#326d69", /* blue    */
+  [13] = "#37435d", /* magenta */
+  [14] = "#309779", /* cyan    */
+  [15] = "#d6ffdc", /* white   */
+
+  /* special colors */
+  [256] = "#120d0c", /* background */
+  [257] = "#d6ffdc", /* foreground */
+  [258] = "#d6ffdc",     /* cursor */
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 };
 
 /* Default colors (colorname index)

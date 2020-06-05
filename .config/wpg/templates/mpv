@@ -34,10 +34,17 @@ osd-level=1
 osd-bar-h=2
 osd-font='Fantasque Sans Mono Nerd Font'
 osd-font-size=30
+<<<<<<< HEAD
 osd-color='#ebffff'
 osd-border-color='#ebffff'
 osd-border-size=1
 osd-back-color='#19060f'
+=======
+osd-color='#d6ffdc'
+osd-border-color='#d6ffdc'
+osd-border-size=1
+osd-back-color='#120d0c'
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 on-all-workspaces=yes
 ontop=yes
@@ -45,6 +52,14 @@ keep-open=yes
 save-position-on-quit=yes
 
 vo=gpu
+<<<<<<< HEAD
+=======
+gpu-api=vulkan
+vulkan-queue-count=8
+vulkan-async-transfer=yes
+vulkan-swap-mode=immediate
+# vo=vaapi
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 
 vulkan-queue-count=8
 vulkan-async-transfer=yes
@@ -161,6 +176,7 @@ ytdl-raw-options-append=continue=
 
 slang=en,es
 alang=en,es
+<<<<<<< HEAD
 
 ## Change subtitle encoding. For Arabic subtitles use 'cp1256'.
 ## If the file seems to be valid UTF-8, prefer UTF-8.
@@ -168,6 +184,13 @@ alang=en,es
 
 # sub-codepage=cp1256
 sub-color='#ebffff'
+=======
+# Change subtitle encoding. For Arabic subtitles use 'cp1256'.
+# If the file seems to be valid UTF-8, prefer UTF-8.
+# (You can add '+' in front of the codepage to force it.)
+#sub-codepage=cp1256
+sub-color='#d6ffdc'
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 sub-auto=fuzzy
 embeddedfonts=yes
 
@@ -208,3 +231,15 @@ save-position-on-quit=no
 profile-desc="make the current video the background for your desktop"
 wid=0
 loop
+<<<<<<< HEAD
+=======
+
+# low quality
+[low]
+vo=xv
+vd-lavc-fast
+# vd-lavc-skiploopfilter=5
+# vd-lavc-skipframe=5
+# vd-lavc-framedrop=5
+vd-lavc-threads=4
+>>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
