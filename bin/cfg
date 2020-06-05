@@ -1,6 +1,5 @@
 #!/bin/sh
 
-<<<<<<< HEAD
 . $HOME/.cache/wal/colors.sh
 
 if [ ! -f ~/.config/cfg/al ]; then
@@ -91,8 +90,6 @@ refreshcfg() {
         killall -9 spotify
     fi
 
-=======
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
 refreshcfg() {
     wpg -s $(wpg -c)
     if lsusb | grep -i razer
@@ -133,7 +130,6 @@ refreshcfg() {
 
 addcfg() {
     cfgalias=$3
-<<<<<<< HEAD
     newcfg=$(readlink -f "$2")
     echo "$cfgalias $newcfg" >> ~/.config/cfg/al
 }
@@ -165,9 +161,6 @@ case $1 in
     a|add)addcfg "$@";;
     e|ed|edit)editcfg "$@";;
     l|ls|list)listcfg;;
-=======
-=======
->>>>>>> 97fd6ea71f0bb069a568e17702300a685124a52d
     newcfg=$(readlink -f $2)
     echo "$cfgalias $newcfg" >> ~/.config/cfg/al
 }
