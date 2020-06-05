@@ -46,6 +46,10 @@ save-position-on-quit=yes
 
 vo=gpu
 
+vulkan-queue-count=8
+vulkan-async-transfer=yes
+vulkan-swap-mode=immediate
+
 gpu-api=vulkan
 # gpu-api=opengl
 

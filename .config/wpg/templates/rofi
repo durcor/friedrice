@@ -6,10 +6,10 @@ rofi.width: 50
 rofi.columns: 5
 rofi.lines:	30
 rofi.font: Fantasque Sans Mono Nerd Font 10
-rofi.color-normal: #19060f, #ebffff, #19060f, #01a6a6, #ebffff
+rofi.color-normal: #19060f, #ebffff, #19060f, #cb90cb, #ebffff
 rofi.color-urgent: #19060f, #d6b48d, #22231D, #d6b48d, #ebffff
 rofi.color-active: #19060f, #01d0d0, #19060f, #01d0d0, #19060f
-rofi.color-window: #19060f, #01a6a6, #017171
+rofi.color-window: #19060f, #cb90cb, #8c638c
 #rofi.bw: 5
 #rofi.location: 0
 #rofi.padding: 5

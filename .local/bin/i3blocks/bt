@@ -39,3 +39,12 @@ case $(grep Icon /tmp/btinfo | awk '{print $2}') in
 esac
 
 echo " $dev  $(grep Name /tmp/btinfo | awk '{$1="";sub(" ","")}1')"
+if [ $(bluetoothctl info | grep Icon | awk '{print $2}') = audio-card ]; then
+    dev=
+elif [ $(bluetoothctl info | grep Icon | awk '{print $2}') = input-gaming ]; then
+    dev=
+else
+    dev=X
+fi
+
+echo " $dev $(bluetoothctl info | grep Name | awk '{$1="";sub(" ","")}1')"

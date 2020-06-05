@@ -90,6 +90,40 @@ refreshcfg() {
         killall -9 spotify
     fi
 
+refreshcfg() {
+    wpg -s $(wpg -c)
+    if lsusb | grep -i razer
+    then
+        razerwal
+    fi
+    if pgrep qutebrowser
+    then
+        qutebrowser :config-source &
+    fi
+    i3 restart &
+    cd $HOME/prg/st
+    sudo make clean install
+    cd $HOME/prg/dmenu
+    sudo make clean install
+    cd $HOME/prg/slock
+    sudo make clean install
+    wal_steam -g
+    ~/prg/wal-discord/wal-discord -t
+    # -o ~/.config/discord/EnhancedDiscord/plugins/style.css
+    oomox-cli ~/.cache/wal/colors-oomox
+    oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
+    if pgrep spotify
+    then
+        killall -9 spotify
+        setsid spotify
+        sleep 0.2
+        playerctl -p spotify play
+    fi
+    if pgrep chromium
+    then
+        killall -9 chromium
+        setsid chromium
+    fi
     systemctl --user restart dunst.service
 }
 
@@ -127,4 +161,36 @@ case $1 in
     a|add)addcfg "$@";;
     e|ed|edit)editcfg "$@";;
     l|ls|list)listcfg;;
+=======
+    newcfg=$(readlink -f $2)
+    echo "$cfgalias $newcfg" >> ~/.config/cfg/al
+}
+
+cfgfileloc=$(cat ~/.config/cfg/al | grep -w $2 | awk '{print $2}')
+cfgfilepostrun=$(cat ~/.config/cfg/al | grep -w $2 | awk '{$1="" ; $2="" ; print}')
+
+editcfg() {
+    if [ $2 == ""]
+    then
+        cfgfileloc=$(cat ~/.config/cfg/al | fzf | awk '{print $2}')
+    else
+        if [ "$(ls -l $cfgfileloc | awk '{print $3}')" = "ty" ]
+        then
+            $EDITOR $cfgfileloc
+        else
+            sudoedit $cfgfileloc
+        fi
+
+        if $cfgfilepostrun
+        then
+            $cfgfilepostrun
+        fi
+    fi
+
+}
+
+case $1 in
+    r|rf|refresh)refreshcfg;;
+    a|add)addcfg;;
+    e|ed|edit)editcfg;;
 esac

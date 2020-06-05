@@ -6,3 +6,8 @@ for player in playerctl -l ; do
     fi
 done
 
+curplayer=playerctl -l
+
+if playerctl -p $curplayer status == Stopped
+    # loop to next player
+playerctl play-pause
