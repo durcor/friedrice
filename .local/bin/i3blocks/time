@@ -1,7 +1,5 @@
 #!/bin/sh
 
-echo "  $(date '+%H%M/%S %m/%d/%Y') $(cat /tmp/calsync) |"
-
 case $BLOCK_BUTTON in
     # left click
 	1) 
@@ -24,3 +22,5 @@ case $BLOCK_BUTTON in
     notify-send "Upcoming Events" "$(khal list --format '{calendar} {start-time} {title}' today tomorrow)" 
     ;;
 esac
+
+echo "  $(date '+%H%M/%S %m/%d/%Y') $(cat /tmp/calsync)"

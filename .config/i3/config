@@ -342,6 +342,7 @@ for_window [instance="pop"] floating enable
 for_window [instance="pop"] resize set 900 600
 for_window [instance="pop"] move scratchpad
 for_window [instance="pop"] border pixel 10
+
 exec alacritty 
 exec nm-applet
 exec mullvad-vpn

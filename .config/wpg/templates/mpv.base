@@ -146,7 +146,7 @@ cache-pause=no
 ## Raise readahead from demuxer-readahead-secs to this value if a cache is active.
 # cache-secs=50.0
 
-ytdl-format="bestvideo[height<=?1440]+bestaudio/best"
+# ytdl-format="bestvideo[height<=?1440]+bestaudio/best"
 ytdl-raw-options-append=embed-thumbnail=
 ytdl-raw-options-append=write-thumbnail=
 ytdl-raw-options-append=add-metadata=

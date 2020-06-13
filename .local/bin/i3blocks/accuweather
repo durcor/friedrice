@@ -11,11 +11,11 @@ echo
 exit 0;
 fi
 
-curl -s http://rss.accuweather.com/rss/liveweather_rss.asp\?metric\=$METRIC\&locCode\=$1 | \grep "Currently:" | sed 's/\(<title>\|<\/title>\)//g' | awk '{$1="";print}' > ~/.local/share/weather
+curl -s http://rss.accuweather.com/rss/liveweather_rss.asp\?metric\=$METRIC\&locCode\=$1 | \grep "Currently:" | sed 's/\(<title>\|<\/title>\)//g' | awk '{$1="";print}' > /tmp/weather
 
-current_weather=$(awk -F':' '{print $1}' ~/.local/share/weather | xargs)
+current_weather=$(awk -F':' '{print $1}' /tmp/weather | xargs)
 
-temperature=$(awk -F':' '{print $2}' ~/.local/share/weather | xargs)
+temperature=$(awk -F':' '{print $2}' /tmp/weather | xargs)
 
 case $current_weather in
     "Sunny")

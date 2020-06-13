@@ -135,9 +135,9 @@ color=#0000ff
 interval=10
 label=
 
-[net]
-color={color13}
-interval=10
+# [net]
+# color={color13}
+# interval=10
 
 # [vpn]
 # label= 

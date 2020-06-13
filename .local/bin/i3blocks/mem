@@ -7,6 +7,6 @@ case $BLOCK_BUTTON in
                     ;;
             esac
 
-command=$(free -h | awk '/^Mem:/ {print $3 "/" $2}')
+command=$(free -h | awk '/Mem/ {print $3 "/" $2}')
 
 echo "  $command"

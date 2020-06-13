@@ -151,7 +151,7 @@ icon_path = .icons/flattrcolor/status/24:.icons/flattrcolor/devices/48:.icons/fl
 
 [frame]
 width = 3
-color = "#01d0d0"
+color = "#76c897"
 
 [shortcuts]
 # Shortcuts are specified as [modifier+][modifier+]...key
@@ -176,18 +176,18 @@ context = ctrl+shift+period
 [urgency_low]
 # IMPORTANT: colors have to be defined in quotation marks.
 # Otherwise the "#" and following would be interpreted as a comment.
-background = "#EEA3DC"
-foreground = "#420e27"
+background = "#E83479"
+foreground = "#37262a"
 timeout = 1
 
 [urgency_normal]
-background = "#420e27"
-foreground = "#ebffff"
+background = "#37262a"
+foreground = "#c2fffb"
 timeout = 0
 
 [urgency_critical]
-background = "#009696"
-foreground = "#ffb5ff"
+background = "#0A837D"
+foreground = "#ff3198"
 timeout = 0
 
 # Every section that isn't one of the above is interpreted as a rules to

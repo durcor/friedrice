@@ -16,6 +16,7 @@ prepare_gamemode(){
     # systemctl --user stop foldingathome
     # sudo systemctl stop boinc-client
     # systemctl --user stop picom
+    systemctl --user stop discordlfm
 }
 
 stop_gamemode(){
@@ -26,6 +27,7 @@ stop_gamemode(){
     # systemctl --user start foldingathome
     # sudo systemctl start boinc-client
     # systemctl --user start picom
+    systemctl --user start discordlfm
 }
 
 newprefix(){

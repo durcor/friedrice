@@ -5,7 +5,7 @@ case $BLOCK_BUTTON in
     3) systemctl --user restart mailsync ;;
 esac
 
-if cat /tmp/imapsyncicon_"$USER" >/dev/null ; then
+if [ -f /tmp/imapsyncicon_"$USER" ]; then
     icon=
 else
     icon=

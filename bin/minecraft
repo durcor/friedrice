@@ -1,2 +1,2 @@
 #!/bin/sh
-~/gam/minecraft/MultiMC
+MANGOHUD_DLSYM=1 gamemoderun mangohud "$HOME"/gam/minecraft/MultiMC

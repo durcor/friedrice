@@ -10,47 +10,47 @@ fi
 refreshcfg() {
     wpg -s "$(wpg -c)"
 
-    if command -v openrgb >/dev/null; then
-        openrgb \
-        -d 0 `# Left RAM Stick` \
-            -c ${color14:1} -m Static \
-        -d 1 `# Right RAM Stick` \
-            -c ${color9:1} -m Static \
-        -d 2 `# X570 Taichi` \
-            `#-c ${color9:1} -m Neon \ ` \
-            -m Random \
-        -d 3 `# AMD Wraith Prism Cooler` \
-            -c ${color1:1} -m Swirl `# Logo` \
-            -c ${color14:1} `# Fan` \
-            -c ${color11:1} `# Ring` \
-        -d 4 `# NZXT Hue` \
-            -c ${color14:1} `# Starts at top left LED strip` \
-            -c ${color9:1} \
-            -c ${color14:1} \
-            -c ${color9:1} \
-            -c ${color9:1} \
-            -c ${color12:1} \
-            -c ${color9:1} \
-            -c ${color10:1} \
-            -c ${color9:1} \
-            -c ${color9:1} \
-            -c ${color9:1} \
-            -c ${color14:1} \
-            -c ${color11:1} \
-            -c ${color14:1} \
-            -c ${color9:1} \
-            -c ${color9:1} \
-            -c ${color14:1} \
-            -c ${color14:1} \
-            -c ${color11:1} \
-            -c ${color9:1} \
-            -c ${color11:1} \
-            -c ${color9:1} `# Ends at bottom of 2nd fan`
-    fi
+    # if command -v openrgb >/dev/null; then
+    #     sudo openrgb \
+    #     -d 0 `# Left RAM Stick` \
+    #         -c ${color14:1} -m Static \
+    #     -d 1 `# Right RAM Stick` \
+    #         -c ${color9:1} -m Static \
+    #     -d 2 `# X570 Taichi` \
+    #         `#-c ${color9:1} -m Neon \ ` \
+    #         -m Random \
+    #     -d 3 `# AMD Wraith Prism Cooler` \
+    #         -c ${color1:1} -m Swirl `# Logo` \
+    #         -c ${color14:1} `# Fan` \
+    #         -c ${color11:1} `# Ring` \
+    #     -d 4 `# NZXT Hue` \
+    #         -c ${color14:1} `# Starts at top left LED strip` \
+    #         -c ${color9:1} \
+    #         -c ${color14:1} \
+    #         -c ${color9:1} \
+    #         -c ${color9:1} \
+    #         -c ${color12:1} \
+    #         -c ${color9:1} \
+    #         -c ${color10:1} \
+    #         -c ${color9:1} \
+    #         -c ${color9:1} \
+    #         -c ${color9:1} \
+    #         -c ${color14:1} \
+    #         -c ${color11:1} \
+    #         -c ${color14:1} \
+    #         -c ${color9:1} \
+    #         -c ${color9:1} \
+    #         -c ${color14:1} \
+    #         -c ${color14:1} \
+    #         -c ${color11:1} \
+    #         -c ${color9:1} \
+    #         -c ${color11:1} \
+    #         -c ${color9:1} `# Ends at bottom of 2nd fan`
+    # fi
 
     if lsusb | grep AMD; then
         wraith-master -m swirl -c "$color13" ring
-        wraith-master -m swirl -c "$color13" logo
+        wraith-master -m static -c "$color13" logo
         wraith-master --mirage on fan
         wraith-master -c "$color14" fan
     fi

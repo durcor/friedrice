@@ -34,10 +34,10 @@ osd-level=1
 osd-bar-h=2
 osd-font='Fantasque Sans Mono Nerd Font'
 osd-font-size=30
-osd-color='#ebffff'
-osd-border-color='#ebffff'
+osd-color='#c2fffb'
+osd-border-color='#c2fffb'
 osd-border-size=1
-osd-back-color='#19060f'
+osd-back-color='#1a1214'
 
 on-all-workspaces=yes
 ontop=yes
@@ -146,7 +146,7 @@ cache-pause=no
 ## Raise readahead from demuxer-readahead-secs to this value if a cache is active.
 # cache-secs=50.0
 
-ytdl-format="bestvideo[height<=?1440]+bestaudio/best"
+# ytdl-format="bestvideo[height<=?1440]+bestaudio/best"
 ytdl-raw-options-append=embed-thumbnail=
 ytdl-raw-options-append=write-thumbnail=
 ytdl-raw-options-append=add-metadata=
@@ -166,7 +166,7 @@ alang=en,es
 ## (You can add '+' in front of the codepage to force it.)
 
 # sub-codepage=cp1256
-sub-color='#ebffff'
+sub-color='#c2fffb'
 sub-auto=fuzzy
 embeddedfonts=yes
 

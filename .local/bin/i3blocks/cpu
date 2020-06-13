@@ -9,27 +9,26 @@ case $BLOCK_BUTTON in
 	3)
         notify-send \
             -h string:x-canonical-private-synchronous:i3bcpu \
-            -i /dev/null \
             "CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)"
                     ;;
 esac
 
-usage=$(bc "$(ps aux | awk 'BEGIN {sum=0} {sum+=$3}; END {print sum}') / $(nproc)")
+usage=$(echo "$(ps aux | awk 'BEGIN {sum=0} {sum+=$3}; END {print sum}')/$(nproc)" | bc)
 
 cpu_icon=""
 
-if [ "$usage" -ge 90 ];then
-    icon=""
-elif [ "$usage" -ge 60 ];then
-    icon=""
-elif [ "$usage" -ge 40 ];then
-    icon=""
-elif [ "$usage" -ge 10 ];then
-    icon=""
-else
-    icon=""
-fi
+# if [ "$usage" -ge 90 ]; then
+#     icon=""
+# elif [ "$usage" -ge 60 ]; then
+#     icon=""
+# elif [ "$usage" -ge 40 ]; then
+#     icon=""
+# elif [ "$usage" -ge 10 ]; then
+#     icon=""
+# else
+#     icon=""
+# fi
 
-command=$(sensors | awk '/^Tdie/ {print $2}')
+command=$(sensors | awk '/die/ {print $2}')
 
-echo "$cpu_icon  $icon  ${command}°C"
+echo "$cpu_icon  ${usage}% ${command}°C"

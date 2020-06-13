@@ -24,9 +24,9 @@ ealias xcp='xclip -se c'
 ealias bc='bc -ql'
 ealias py='python'
 ealias gam='mangohud gamemoderun'
-ealias amdvlkpro='export VK_ICD_FILENAMES=/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd64.json:/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd32.json ;'
-ealias amdvlkfree='export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/amd_icd64.json:/usr/share/vulkan/icd.d/amd_icd32.json ;'
-ealias radv='export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:/usr/share/vulkan/icd.d/radeon_icd.i686.json ;'
+ealias amdvlkpro='VK_ICD_FILENAMES=/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd64.json:/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd32.json'
+ealias amdvlkfree='VK_ICD_FILENAMES=/opt/amdvlk/etc/vulkan/icd.d/amd_icd64.json:/opt/amdvlk/etc/vulkan/icd.d/amd_icd32.json'
+ealias radv='VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:/usr/share/vulkan/icd.d/radeon_icd.i686.json'
 ealias amdgpusensors='sensors | grep -A 10 amdgpu'
 # end() {sed $1 '$!d'}
 

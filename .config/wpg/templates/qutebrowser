@@ -21,7 +21,7 @@
 
 ## Background color of the completion widget for even rows.
 ## Type: QssColor
-c.colors.completion.even.bg = '#00A1A1'
+c.colors.completion.even.bg = '#678E77'
 
 ## Text color of the completion widget. May be a single color to use for
 ## all columns or a list of three colors, one for each column.
@@ -34,23 +34,23 @@ c.colors.completion.even.bg = '#00A1A1'
 
 ## Background color of the completion widget for odd rows.
 ## Type: QssColor
-c.colors.completion.odd.bg = '#EEA3DC'
-c.colors.completion.fg = "#ebffff"
-c.colors.completion.category.fg = "#ebffff"
-c.colors.completion.category.bg = "#19060f"
+c.colors.completion.odd.bg = '#E83479'
+c.colors.completion.fg = "#c2fffb"
+c.colors.completion.category.fg = "#c2fffb"
+c.colors.completion.category.bg = "#1a1214"
 ## Foreground color of the selected completion item.
 ## Type: QtColor
-c.colors.completion.item.selected.fg = "#ebffff"
-c.colors.completion.item.selected.bg = "#19060f"
+c.colors.completion.item.selected.fg = "#c2fffb"
+c.colors.completion.item.selected.bg = "#1a1214"
 ## Top border color of the completion widget category headers.
 ## Type: QssColor
-c.colors.completion.item.selected.border.top = "#19060f"
+c.colors.completion.item.selected.border.top = "#1a1214"
 ## Bottom border color of the selected completion item.
 ## Type: QssColor
-c.colors.completion.item.selected.border.bottom = "#19060f"
+c.colors.completion.item.selected.border.bottom = "#1a1214"
 ## Foreground color of the matched text in the completion.
 ## Type: QssColor
-c.colors.completion.match.fg = "#ebffff"
+c.colors.completion.match.fg = "#c2fffb"
 ## Color of the scrollbar in the completion view.
 ## Type: QssColor
 # c.colors.completion.scrollbar.bg = '#333333'
@@ -58,54 +58,54 @@ c.colors.completion.match.fg = "#ebffff"
 ## Color of the scrollbar handle in the completion view.
 ## Type: QssColor
 # c.colors.completion.scrollbar.fg = 'white'
-c.colors.completion.scrollbar.fg = "#19060f"
-c.colors.completion.scrollbar.bg = "#19060f"
-c.colors.statusbar.normal.fg = "#ebffff"
-c.colors.statusbar.normal.bg = "#19060f"
-c.colors.statusbar.insert.fg = "#ebffff"
-c.colors.statusbar.insert.bg = "#19060f"
-c.colors.statusbar.command.bg = "#19060f"
-c.colors.statusbar.command.fg = "#ebffff"
-c.colors.statusbar.caret.bg = "#19060f"
-c.colors.statusbar.caret.selection.fg = "#ebffff"
-c.colors.statusbar.progress.bg = "#ccebed"
-c.colors.statusbar.passthrough.bg = "#19060f"
+c.colors.completion.scrollbar.fg = "#1a1214"
+c.colors.completion.scrollbar.bg = "#1a1214"
+c.colors.statusbar.normal.fg = "#c2fffb"
+c.colors.statusbar.normal.bg = "#1a1214"
+c.colors.statusbar.insert.fg = "#c2fffb"
+c.colors.statusbar.insert.bg = "#1a1214"
+c.colors.statusbar.command.bg = "#1a1214"
+c.colors.statusbar.command.fg = "#c2fffb"
+c.colors.statusbar.caret.bg = "#1a1214"
+c.colors.statusbar.caret.selection.fg = "#c2fffb"
+c.colors.statusbar.progress.bg = "#8fc0b9"
+c.colors.statusbar.passthrough.bg = "#1a1214"
 c.colors.statusbar.url.fg = c.colors.statusbar.normal.fg
-c.colors.statusbar.url.success.http.fg = "#ebffff"
-c.colors.statusbar.url.success.https.fg = "#01c1c2"
-c.colors.statusbar.url.error.fg = "#76d8e2"
-c.colors.statusbar.url.warn.fg = "#ffd5c4"
-c.colors.statusbar.url.hover.fg = "#ebffff"
-c.colors.tabs.bar.bg = "#689CA1"
-c.colors.tabs.even.fg = "#ebffff"
-c.colors.tabs.even.bg = "#420e27"
-c.colors.tabs.odd.fg = "#ebffff"
-c.colors.tabs.odd.bg = "#19060f"
-c.colors.tabs.selected.even.fg = "#ebffff"
-c.colors.tabs.selected.even.bg = "#009696"
-c.colors.tabs.selected.odd.fg = "#ebffff"
-c.colors.tabs.selected.odd.bg = "#EEA3DC"
-c.colors.tabs.indicator.start = "#19060f"
-c.colors.tabs.indicator.stop = "#19060f"
-c.colors.tabs.indicator.error = "#19060f"
-c.colors.hints.bg = "#ebffff"
-c.colors.hints.fg = "#19060f"
-c.colors.hints.match.fg = "#ebffff"
-c.colors.downloads.start.fg = "#ebffff"
-c.colors.downloads.start.bg = "#689CA1"
-c.colors.downloads.stop.fg = "#ebffff"
-c.colors.downloads.stop.bg = "#009696"
-c.colors.keyhint.fg = "#ebffff"
-c.colors.keyhint.suffix.fg = "#ebffff"
+c.colors.statusbar.url.success.http.fg = "#c2fffb"
+c.colors.statusbar.url.success.https.fg = "#03b3aa"
+c.colors.statusbar.url.error.fg = "#ff1891"
+c.colors.statusbar.url.warn.fg = "#c6d887"
+c.colors.statusbar.url.hover.fg = "#c2fffb"
+c.colors.tabs.bar.bg = "#C61E70"
+c.colors.tabs.even.fg = "#c2fffb"
+c.colors.tabs.even.bg = "#37262a"
+c.colors.tabs.odd.fg = "#c2fffb"
+c.colors.tabs.odd.bg = "#1a1214"
+c.colors.tabs.selected.even.fg = "#c2fffb"
+c.colors.tabs.selected.even.bg = "#0A837D"
+c.colors.tabs.selected.odd.fg = "#c2fffb"
+c.colors.tabs.selected.odd.bg = "#E83479"
+c.colors.tabs.indicator.start = "#1a1214"
+c.colors.tabs.indicator.stop = "#1a1214"
+c.colors.tabs.indicator.error = "#1a1214"
+c.colors.hints.bg = "#c2fffb"
+c.colors.hints.fg = "#1a1214"
+c.colors.hints.match.fg = "#c2fffb"
+c.colors.downloads.start.fg = "#c2fffb"
+c.colors.downloads.start.bg = "#C61E70"
+c.colors.downloads.stop.fg = "#c2fffb"
+c.colors.downloads.stop.bg = "#0A837D"
+c.colors.keyhint.fg = "#c2fffb"
+c.colors.keyhint.suffix.fg = "#c2fffb"
 c.colors.keyhint.bg = "rgba(0, 0, 0, 80%)"
-c.colors.messages.error.bg = "#19060f"
-c.colors.messages.error.border = "#19060f"
-c.colors.messages.warning.bg = "#19060f"
+c.colors.messages.error.bg = "#1a1214"
+c.colors.messages.error.border = "#1a1214"
+c.colors.messages.warning.bg = "#1a1214"
 c.colors.messages.warning.border = c.colors.messages.warning.bg
-c.colors.messages.info.bg = "#19060f"
-c.colors.prompts.fg = "#ebffff"
-c.colors.prompts.bg = "#19060f"
-c.colors.prompts.selected.bg = "#19060f"
+c.colors.messages.info.bg = "#1a1214"
+c.colors.prompts.fg = "#c2fffb"
+c.colors.prompts.bg = "#1a1214"
+c.colors.prompts.selected.bg = "#1a1214"
 
 # fonts
 #c.fonts.monospace = "Noto Sans Mono", "DejaVu Sans Mono", "Liberation Mono", monospace

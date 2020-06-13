@@ -116,8 +116,7 @@ bindkey -M emacs '^ '   magic-space
 bindkey -M isearch " "  magic-space     # normal space during searches
 
 # plugins
-if ls ~/.zsh/antigen.zsh >/dev/null
-then
+if [ -f ~/.zsh/antigen.zsh ]; then
     source ~/.zsh/antigen.zsh
     antigen bundle zdharma/fast-syntax-highlighting
     antigen bundle zsh-users/zsh-autosuggestions
