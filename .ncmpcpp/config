@@ -33,21 +33,20 @@ visualizer_output_name = "my_fifo"
 visualizer_sync_interval = "15"
 visualizer_in_stereo = "yes"
 visualizer_type = "spectrum"
-# visualizer_look = ▮▮
+visualizer_look = ▮▮
 #visualizer_look = ●
 #visualizer_look = ▮
-visualizer_look = "+|"
+# visualizer_look = "+|"
 ## Note: Below parameter is needed for ncmpcpp to determine which output
 ## provides data for visualizer and thus allow syncing between visualization and
 ## sound as currently there are some problems with it.
-#visualizer_output_name = Visualizer feed
 ## If you set format to 44100:16:2, make it 'yes'.
 ## Note: To enable spectrum frequency visualization you need to compile ncmpcpp
 ## with fftw3 support.
 ## Available values: spectrum, wave, wave_filled, ellipse.
 visualizer_color = blue, cyan, green, yellow, magenta, red
 ## Alternative subset of 256 colors for terminals that support it.
-#visualizer_color = 41, 83, 119, 155, 185, 215, 209, 203, 197, 161
+# visualizer_color = 41, 83, 119, 155, 185, 215, 209, 203, 197, 161
 ##### system encoding #####
 ## ncmpcpp should detect your charset encoding but if it failed to do so, you
 ## can specify charset encoding you are using here.
@@ -193,16 +192,17 @@ incremental_seeking = yes
 seek_time = 5
 #volume_change_step = 2
 autocenter_mode = no
-#centered_cursor = no
+centered_cursor = yes
 ## Note: You can specify third character which will be used to build 'empty'
 ## part of progressbar.
-progressbar_look = ▮▮_
-# progressbar_look = "─╼ "
-#progressbar_look = "\u2500\u2591\u2500"
-#progressbar_look = "━⊙"
-#progressbar_look = "─⊙╶"
-#●
-#▮
+# progressbar_look = ▮▮_
+# progressbar_look = "─╼─"
+progressbar_look = "───"
+# progressbar_look = "─░─"
+# progressbar_look = "━⊙"
+# progressbar_look = "─⊙╶"
+# ●
+# ▮
 ## Available values: database, playlist.
 #default_place_to_search_in = database
 ## Available values: classic, alternative.
@@ -251,9 +251,9 @@ titles_visibility = no
 #ask_for_locked_screen_width_part = yes
 #jump_to_now_playing_song_at_start = yes
 #ask_before_clearing_playlists = yes
-#clock_display_seconds = no
-#display_volume_level = yes
-#display_bitrate = no
+clock_display_seconds = no
+display_volume_level = yes
+display_bitrate = yes
 #display_remaining_time = no
 ## Available values: none, basic, extended, perl.
 #regular_expressions = perl
@@ -265,13 +265,13 @@ titles_visibility = no
 ## support.
 #ignore_diacritics = no
 #block_search_constraints_change_if_items_found = yes
-#mouse_support = yes
+mouse_support = yes
 #mouse_list_scroll_whole_page = yes
 #empty_tag_marker = <empty>
 #tags_separator = " | "
 #tag_editor_extended_numeration = no
 #media_library_sort_by_mtime = no
-enable_window_title = no
+enable_window_title = yes
 ## Note: You can choose default search mode for search engine. Available modes
 ## are:
 ## - 1 - use mpd built-in searching (no regexes, pattern matching)
@@ -308,20 +308,20 @@ use_console_editor = yes
 ## Note: due to technical limitations of older ncurses version, if 256 colors
 ## are used there is a possibility that you'll be able to use only colors with
 ## transparent background.
-#colors_enabled = yes
-#empty_tag_color = cyan
-#header_window_color = default
-#volume_color = default
-#state_line_color = default
-#state_flags_color = default:b
-#main_window_color = yellow
-#color1 = white
-#color2 = green
-#progressbar_color = black:b
-#progressbar_elapsed_color = green:b
-#statusbar_color = default
-#statusbar_time_color = default:b
-#player_state_color = default:b
-#alternative_ui_separator_color = black:b
-#window_border_color = green
-#active_window_border = red
+colors_enabled = yes
+empty_tag_color = cyan
+header_window_color = default
+volume_color = default
+state_line_color = default
+state_flags_color = default:b
+main_window_color = yellow
+color1 = white
+color2 = green
+progressbar_color = yellow:b
+progressbar_elapsed_color = blue:b
+statusbar_color = default
+statusbar_time_color = default:b
+player_state_color = default:b
+alternative_ui_separator_color = black:b
+window_border_color = green
+active_window_border = red

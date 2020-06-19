@@ -14,7 +14,7 @@ ealias tm="$TASKMAN"
 ealias e='echo'
 ealias c='cat'
 ealias btctl='bluetoothctl'
-ealias hl='highlight'
+ealias hl='highlight -O ansi'
 ealias pw='pass'
 ealias o='xdg-open'
 ealias q='exit'
@@ -25,9 +25,11 @@ ealias bc='bc -ql'
 ealias py='python'
 ealias gam='mangohud gamemoderun'
 ealias amdvlkpro='VK_ICD_FILENAMES=/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd64.json:/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd32.json'
-ealias amdvlkfree='VK_ICD_FILENAMES=/opt/amdvlk/etc/vulkan/icd.d/amd_icd64.json:/opt/amdvlk/etc/vulkan/icd.d/amd_icd32.json'
-ealias radv='VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:/usr/share/vulkan/icd.d/radeon_icd.i686.json'
-ealias amdgpusensors='sensors | grep -A 10 amdgpu'
+ealias amdvlkfreebin='VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/amd_icd64.json:VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/amd_icd32.json'
+ealias amdvlkfreesrc='VK_ICD_FILENAMES=/opt/amdvlk/etc/vulkan/icd.d/amd_icd64.json:/opt/amdvlk/etc/vulkan/icd.d/amd_icd32.json'
+ealias radvaco='RADV_PERFTEST=aco VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:/usr/share/vulkan/icd.d/radeon_icd.i686.json'
+ealias radvllvm='RADV_PERFTEST=llvm VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:/usr/share/vulkan/icd.d/radeon_icd.i686.json'
+ealias amdgpusensors='watch "sensors | grep -A 10 amdgpu"'
 # end() {sed $1 '$!d'}
 
 # Overwriting commands

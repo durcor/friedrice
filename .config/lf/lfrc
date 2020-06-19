@@ -1,0 +1,94 @@
+# vi:ft=sh
+
+set preview
+set previewer ~/.config/lf/lfprev
+# set previewer ~/.config/ranger/scope.sh
+set hidden
+set color256
+# set drawbox
+set icons
+set ignorecase
+set number
+set relativenumber
+# set tabstop
+set sortby time
+# natural
+set reverse
+set period 1
+
+cmd open ${{
+    case $(file --mime-type "$f" -bL) in
+        text/*|application/json|inode/*|application/z*) $EDITOR "$f";;
+        video/*|image/*) mpv "$f";;
+        application/pdf) zathura "$f";;
+        application/x-dosexec) wine "$f";;
+        application/vnd*) libreoffice "$f";;
+        *) ;;
+    esac
+}}
+
+cmd mkdir ${{
+    printf "Directory Name: "
+    read name
+    mkdir $name
+}}
+
+cmd touch ${{
+    printf "File Name: "
+    read name
+    $EDITOR $name
+}}
+
+cmd chmod ${{
+    for file in "$fx"; do
+        chmod +x $file
+    done
+}}
+
+map gm cd ~/data/mus
+map gd cd ~/doc
+map gv cd ~/data/vid
+map gp cd ~/pic
+map gw cd ~/pic/wal
+map gz cd ~/dl
+map gc cd ~/.config
+
+map y
+map yy copy
+
+map yp %readlink -f "$f" | xclip -se c -i
+map yf %xclip -se c -i "$f" -t "$(file -b --mime-type "$f")"
+
+map u unselect
+map U clear
+
+# map $
+
+map v
+map V invert
+
+map p paste
+map x delete
+
+map d
+map dd cut
+map df delete
+
+map c
+map cw rename
+
+map i $"$EDITOR" "$f"
+map I $sudoedit "$f" || $EDITOR "$f"
+
+map e
+map E
+
+map w
+map wa %tmux splitw -v walman add "$f"
+map ws %tmux splitw -v walman set "$f"
+map wz %tmux splitw -v walman shuf
+map wg %tmux splitw -v autoglitch "$f"
+
+map z
+map zr source ~/.config/lf/lfrc
+map 

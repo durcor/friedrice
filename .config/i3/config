@@ -343,11 +343,14 @@ for_window [instance="pop"] resize set 900 600
 for_window [instance="pop"] move scratchpad
 for_window [instance="pop"] border pixel 10
 
+for_window [instance="float"] floating enable
+
 exec alacritty 
 exec nm-applet
 exec mullvad-vpn
 # exec qutebrowser
 exec firefox-nightly
+exec_always ~/.fehbg
 exec discord
 exec cfg rf
 # exec xrandr --output HDMI-A-1 --auto --left-of DisplayPort-1

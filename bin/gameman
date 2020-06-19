@@ -13,8 +13,11 @@ prepare_gamemode(){
         -h string:x-canonical-private-synchronous:gamemode \
         -i ~/.local/share/icons/flattrcolor/devices/64/input-gaming.svg \
         "GameMode started"
-    # systemctl --user stop foldingathome
-    # sudo systemctl stop boinc-client
+    if systemctl --user is-active foldingathome; then
+        systemctl --user stop foldingathome
+    elif systemctl is-active boinc-client; then
+        sudo systemctl stop boinc-client
+    fi
     # systemctl --user stop picom
     systemctl --user stop discordlfm
 }
@@ -24,8 +27,11 @@ stop_gamemode(){
         -h string:x-canonical-private-synchronous:gamemode \
         -i ~/.local/share/icons/flattrcolor/devices/64/input-gaming.svg \
         "GameMode ended"
-    # systemctl --user start foldingathome
-    # sudo systemctl start boinc-client
+    if systemctl --user is-enabled foldingathome; then
+        systemctl --user start foldingathome
+    elif systemctl is-enabled boinc-client; then
+        sudo systemctl start boinc-client
+    fi
     # systemctl --user start picom
     systemctl --user start discordlfm
 }
@@ -57,11 +63,10 @@ newgame(){
 }
 
 killwine(){
-    for proc in $(ps aux | grep "[.]exe" | awk '{print $2}')
-    do
+    for proc in $(ps aux | grep "[.]exe" | awk '{print $2}'); do
         kill -9 "$proc"
     done
-    killall -9 wineserver winedbg
+    killall -9 wineserver winedbg wineconsole
     echo "All wine-dependent services killed"
 }
 
@@ -82,10 +87,22 @@ helpmsg(){
 }
 
 case $1 in
-    new|n|o)newprefix;;
-    play|p)playgame "$@";;
-    kill|k|x)killwine;;
-    prepare)prepare_gamemode;;
-    stop)stop_gamemode;;
-    *)helpmsg;;
+    new|n|o)
+        newprefix
+        ;;
+    play|p)
+        playgame "$@"
+        ;;
+    kill|k|x)
+        killwine
+        ;;
+    prepare)
+        prepare_gamemode
+        ;;
+    stop)
+        stop_gamemode
+        ;;
+    *)
+        helpmsg
+        ;;
 esac

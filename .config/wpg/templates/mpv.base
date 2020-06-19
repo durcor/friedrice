@@ -47,19 +47,23 @@ save-position-on-quit=yes
 vo=gpu
 vulkan-queue-count=8
 vulkan-async-transfer=yes
+vulkan-async-compute=yes
 vulkan-swap-mode=immediate
 
 gpu-api=vulkan
 # gpu-api=opengl
 
-# vulkan-queue-count=8
-vulkan-async-transfer=yes
-vulkan-async-compute=yes
-# vulkan-swap-mode=immediate
-
 # Specify high quality video rendering preset (for --vo=gpu only)
 # Can cause performance problems with some drivers and GPUs.
 profile=gpu-hq
+scale=ewa_lanczossharp
+cscale=ewa_lanczossharp
+## Force video to lock on the display's refresh rate, and change video and audio
+## speed to some degree to ensure synchronous playback - can cause problems
+## with some drivers and desktop environments.
+# video-sync=display-resample
+interpolation
+tscale=oversample
 
 hdr-compute-peak=yes
 # fbo-format=rgba16hf
@@ -71,18 +75,13 @@ force-window=immediate
 
 osc=no
 cache=yes
-x11-bypass-compositor=yes
-
-## Force video to lock on the display's refresh rate, and change video and audio
-## speed to some degree to ensure synchronous playback - can cause problems
-## with some drivers and desktop environments.
-# video-sync=display-resample
-# video-sync=
+x11-bypass-compositor=no
 
 ## Enable hardware decoding if available. Often, this does not work with all
 ## video outputs, but should work well with default settings on most systems.
 ## If performance or energy usage is an issue, forcing the vdpau or vaapi VOs
 ## may or may not help.
+# hwdec=vaapi
 hwdec=vaapi
 
 # Scaling
@@ -175,6 +174,9 @@ script=/usr/share/mpv/scripts/mpris.so
 # You can also include other configuration files.
 #include=/path/to/the/file/you/want/to/include
 
+[extension.gif]
+loop
+
 ###########
 ## Profiles
 ###########
@@ -207,3 +209,6 @@ save-position-on-quit=no
 profile-desc="make the current video the background for your desktop"
 wid=0
 loop
+
+[lfprev]
+geometry=95%:0%

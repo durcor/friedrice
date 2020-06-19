@@ -1,7 +1,0 @@
-#!/bin/sh
-
-killall -9 wineserver
-killall -9 winedevice.exe
-killall -9 explorer.exe
-killall -9 services.exe
-killall -9 plugplay.exe

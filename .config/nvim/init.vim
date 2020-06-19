@@ -37,12 +37,12 @@ let g:deoplete#enable_at_startup = 1
 Plug 'rhysd/vim-grammarous'
 Plug 'dpelle/vim-LanguageTool'
 let g:languagetool_jar='$HOME/.local/share/nvim/plug/vim-grammarous/misc/LanguageTool-4.1/languagetool-commandline.jar'
-"Plug 'DanManN/vim-razer'
+" Plug 'DanManN/vim-razer'
 Plug 'vimwiki/vimwiki'
 Plug 'jceb/vim-orgmode'
 Plug 'KabbAmine/vCoolor.vim'
+" Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-Plug 'vbe0201/vimdiscord'
 Plug 'wlangstroth/vim-racket', { 'for': 'rkt' }
 Plug 'luochen1990/rainbow',
 Plug 'tpope/vim-commentary'
