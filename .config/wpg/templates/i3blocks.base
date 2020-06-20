@@ -1,5 +1,5 @@
 # ~/.config/i3blocks/config
-# vi:ft=python
+# vi:ft=dosini
 #
 # Please see man i3blocks for a complete reference!
 # The man page is also hosted at http://vivien.github.io/i3blocks
@@ -54,7 +54,6 @@ color={color9}
 interval=100000000000
 signal=12
 color={color13}
-
 
 [accuweather]
 command=~/.local/bin/i3blocks/accuweather 07840

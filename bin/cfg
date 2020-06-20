@@ -11,7 +11,7 @@ refreshcfg() {
     wpg -s "$(wpg -c)"
 
     if command -v openrgb; then
-        sudo openrgb -c $(echo $color14 | sed 's/#//') -m Static
+        sudo openrgb -c "$(echo "$color14" | sed 's/#//')" -m Static
     fi
     # if command -v openrgb >/dev/null; then
     #     sudo openrgb \
@@ -51,6 +51,11 @@ refreshcfg() {
     #         -c ${color9:1} `# Ends at bottom of 2nd fan`
     # fi
 
+    if lsusb | grep NZXT; then
+        sudo liquidctl set led1 color starry-night "$(echo "$color14" | sed 's/#//')"
+        sudo liquidctl set led2 color starry-night "$(echo "$color11" | sed 's/#//')"
+    fi
+
     if lsusb | grep AMD; then
         wraith-master -m swirl -c "$color14" ring
         wraith-master -m static -c "$color11" logo
@@ -82,10 +87,12 @@ refreshcfg() {
     cd ~/prg/slock || exit
     sudo make clean install
     wal_steam -g
-    pywal-discord && pywal-discord
     pywalfox update
     oomox-cli ~/.cache/wal/colors-oomox
     # oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
+    pywal-discord
+    sleep 1
+    pywal-discord
 
     if pgrep spotify; then
         spicetify apply

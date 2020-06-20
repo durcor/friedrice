@@ -22,5 +22,5 @@ color_scheme=0
 delay=15
 left_meters=AllCPUs2
 left_meter_modes=1
-right_meters=Memory Tasks LoadAverage
-right_meter_modes=1 1 1
+right_meters=CPU Memory Tasks LoadAverage
+right_meter_modes=1 1 1 1

@@ -1,4 +1,5 @@
 # vi:ft=sh
+# https://godoc.org/github.com/gokcehan/lf
 
 set preview
 set previewer ~/.config/lf/lfprev
@@ -13,7 +14,7 @@ set relativenumber
 # set tabstop
 set sortby time
 # natural
-set reverse
+# set reverse
 set period 1
 
 cmd open ${{
@@ -75,9 +76,11 @@ map dd cut
 map df delete
 
 map c
-map cw rename
+map cw $vimv $fx
+map cd cd
 
-map i $"$EDITOR" "$f"
+map i
+map i $$EDITOR "$f"
 map I $sudoedit "$f" || $EDITOR "$f"
 
 map e
