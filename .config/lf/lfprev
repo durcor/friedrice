@@ -35,10 +35,12 @@ case $(file --mime-type "$1" -bL) in
     application/x-iso9660-image) 
         iso-info --no-header "$1"
         ;;
+    # odt
     application/vnd*) 
-        # odt
-        # pandoc "$1" -t markdown | highlight -O ansi --syntax markdown
-        pandoc "$1" -t markdown | pygmentize -f terminal -l md
+        pandoc "$1" -t markdown | highlight -O ansi --syntax markdown
+        ;;
+    application/octet-stream|application/x-pie-executable|application/x-executable) 
+        hexdump "$1" | pygmentize -f terminal -l asm
         ;;
     *) 
         case $1 in

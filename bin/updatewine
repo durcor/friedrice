@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TKG_DIR=$HOME/prg/tkg
+TKG_DIR=$HOME/prg/pkgbuild/tkg
 
 rebuild_pkg(){
     rm ./*.pkg.tar.xz

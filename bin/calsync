@@ -2,9 +2,7 @@
 
 ping -q -c 1 1.1.1.1 || exit
 
-echo 🔃 > /tmp/calsync
-vdirsyncer discover
-vdirsyncer sync
-khal >/dev/null
-khard >/dev/null
+touch /tmp/calsync
+vdirsyncer -v ERROR discover
+vdirsyncer -v ERROR sync
 rm /tmp/calsync

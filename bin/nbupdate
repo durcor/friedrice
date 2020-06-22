@@ -4,18 +4,17 @@
 
 ping -q -c 1 1.1.1.1 || exit
 
-if pgrep -x newsboat >/dev/null
-then
-    tmux send-keys -t0:.1 vlR
-    echo 🔃 > /tmp/nbupdate
+if pgrep -x newsboat >/dev/null; then
+    tmux send-keys -t" ":" ".1 vlR
+    touch /tmp/nbupdate
     pkill -RTMIN+6 i3blocks
-    sleep "$(echo "$(wc -l < ~/.config/newsboat/urls)"\*0.3 | bc)"
-    rm -rf /tmp/nbupdate
+    sleep "$(echo "$(wc -l < ~/.config/newsboat/urls)*0.3" | bc)"
+    rm /tmp/nbupdate
     pkill -RTMIN+6 i3blocks
 else
-    echo 🔃 > /tmp/nbupdate
+    touch /tmp/nbupdate
     pkill -RTMIN+6 i3blocks
     newsboat -x reload
-    rm -f /tmp/nbupdate
+    rm /tmp/nbupdate
     pkill -RTMIN+6 i3blocks
 fi

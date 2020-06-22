@@ -4,16 +4,23 @@ screenshot_dir=$HOME/scr
 
 screenshot_file=$screenshot_dir/$(date +%Y-%m-%d_%H%M-%S).png
 
-maim -u -s "$screenshot_file"
-# scrot -s "$screenshot_file"
+if [ "$WAYLAND_DISPLAY" ]; then
+    grim -g "$(slurp)" -o "$screenshot_file"
+else
+    maim -u -s "$screenshot_file"
+    # scrot -s "$screenshot_file"
+fi
 
 uploadscr(){
     fup 0x0 "$screenshot_file"
 }
 
 copyscr(){
-    xclip -se c -t "$(file -b --mime-type "$screenshot_file")" -i "$screenshot_file"
-    # wl-copy -t "$(file -b --mime-type "$screenshot_file")" < "$screenshot_file"
+    if [ "$WAYLAND_DISPLAY" ]; then
+        wl-copy -t "$(file -b --mime-type "$screenshot_file")" < "$screenshot_file"
+    else
+        xclip -se c -t "$(file -b --mime-type "$screenshot_file")" -i "$screenshot_file"
+    fi
 }
 
 case $1 in

@@ -1,0 +1,97 @@
+##################### MANGOHUD
+#
+#                `.--:::::::-.`         
+#             .-://////////////:-`      
+#          `.:////////////::://///:.`   
+#         .////////////:`    `.//////.  
+#        -////////////-   `:/. .//////:`
+#       -/////////////    `-:. .////:.` 
+#      .//////////////       `-///-`    
+#     `///////////////.     `////`      
+#     .///////////////:`    :///.       
+#     :////////////////:`   -///-       
+#  `  ///////////////////.   -///.      
+#  :. ////////////////////`   -///`     
+# `o+.:////////////:://///.   `///:     
+# -ooo+/////////////``:///`    :///`    
+# :ooooo++//////////-  -/-     :///.    
+# :oooooooo+++//////-  `.     `////`    
+# .oooo+/oooooo++///-        `:///.     
+#  /oooo+-/oooooo++/`       .:///.      
+#  `/ooooo/--+ooooo.  ``..-////-`       
+#    -+ooooo+:-::/+-`-/////:-.`         
+#      .:/oooooo+:.-/....``             
+#         ``...`  `+.                   
+#                                       
+##################### 
+# ~/.config/wpg/templates/mangohud.base
+# ->
+# ~/.config/MangoHud/MangoHud.conf
+##################### PERFORMANCE
+# fps_limit         = 144
+## VSYNC [0-3] 
+## 0 = adaptive
+## 1 = off
+## 2 = mailbox
+## 3 = on
+vsync               = 0
+## OpenGL VSYNC [0-N]
+## 0 = off
+## >=1 = wait for N v-blanks
+## N > 1 acts as a fps limiter
+## (fps = display refresh rate / N)
+gl_vsync            = 0
+##################### CONTENTS
+version             = 0
+gpu_stats           = 1
+gpu_temp            = 1
+gpu_core_clock      = 1
+gpu_power           = 1
+cpu_stats           = 1
+cpu_temp            = 1
+core_load           = 0
+io_read             = 1
+io_write            = 1
+vram                = 1
+gpu_mem_clock       = 1
+ram                 = 1
+engine_version      = 1
+gpu_name            = 0
+vulkan_driver       = 1
+frame_timing        = 1
+histogram           = 1
+time                = 0
+arch                = 0
+media_player        = 1
+##################### AESTHETICS
+position            = top-left
+font_size           = 20
+font_scale_media_player = 0.55
+# font_file         = 
+cpu_text            = 3700X
+gpu_text            = 5700XT
+# media_player_player = spotify
+no_display          = 0
+# offset_x            = 0
+# offset_y            = 0
+# width               =
+# height              =
+background_alpha    = 0
+alpha               = 1
+output_file         = /home/ty/doc/mangohud.log
+##################### COLORS
+text_color          = {color15.strip}
+gpu_color           = {color9.strip}
+cpu_color           = {color10.strip}
+io_color            = {color11.strip}
+vram_color          = {color12.strip}
+ram_color           = {color13.strip}
+engine_color        = {color14.strip}
+frametime_color     = {color14.strip}
+background_color    = {color8.strip}
+##################### KEYBINDS
+toggle_hud          = Shift_L+F12
+toggle_logging      = Shift_L+F2
+reload_cfg          = Shift_L+F4
+#####################
+# vi:ft=dosini

@@ -10,46 +10,16 @@ fi
 refreshcfg() {
     wpg -s "$(wpg -c)"
 
-    if command -v openrgb; then
-        sudo openrgb -c "$(echo "$color14" | sed 's/#//')" -m Static
+    if command -v openrgb >/dev/null; then
+        sudo openrgb \
+        -d 0 `# Left RAM Stick` \
+            -c "$(echo $color14 | sed 's/#//')" -m Static \
+        -d 1 `# Right RAM Stick` \
+            -c "$(echo $color9 | sed 's/#//')" -m Static \
+        -d 2 `# X570 Taichi` \
+            `#-c ${color9:1} -m Neon \ ` \
+            -m Random
     fi
-    # if command -v openrgb >/dev/null; then
-    #     sudo openrgb \
-    #     -d 0 `# Left RAM Stick` \
-    #         -c ${color14:1} -m Static \
-    #     -d 1 `# Right RAM Stick` \
-    #         -c ${color9:1} -m Static \
-    #     -d 2 `# X570 Taichi` \
-    #         `#-c ${color9:1} -m Neon \ ` \
-    #         -m Random \
-    #     -d 3 `# AMD Wraith Prism Cooler` \
-    #         -c ${color1:1} -m Swirl `# Logo` \
-    #         -c ${color14:1} `# Fan` \
-    #         -c ${color11:1} `# Ring` \
-    #     -d 4 `# NZXT Hue` \
-    #         -c ${color14:1} `# Starts at top left LED strip` \
-    #         -c ${color9:1} \
-    #         -c ${color14:1} \
-    #         -c ${color9:1} \
-    #         -c ${color9:1} \
-    #         -c ${color12:1} \
-    #         -c ${color9:1} \
-    #         -c ${color10:1} \
-    #         -c ${color9:1} \
-    #         -c ${color9:1} \
-    #         -c ${color9:1} \
-    #         -c ${color14:1} \
-    #         -c ${color11:1} \
-    #         -c ${color14:1} \
-    #         -c ${color9:1} \
-    #         -c ${color9:1} \
-    #         -c ${color14:1} \
-    #         -c ${color14:1} \
-    #         -c ${color11:1} \
-    #         -c ${color9:1} \
-    #         -c ${color11:1} \
-    #         -c ${color9:1} `# Ends at bottom of 2nd fan`
-    # fi
 
     if lsusb | grep NZXT; then
         sudo liquidctl set led1 color starry-night "$(echo "$color14" | sed 's/#//')"
@@ -75,10 +45,10 @@ refreshcfg() {
         qutebrowser :config-source &
     fi
 
-    if pgrep i3; then
-        i3 restart &
-    elif pgrep sway; then
+    if [ "$WAYLAND_DISPLAY" ]; then
         sway restart &
+    else
+        i3 restart &
     fi
     # cd ~/prg/st || exit
     # sudo make clean install

@@ -62,7 +62,7 @@ cscale=ewa_lanczossharp
 ## speed to some degree to ensure synchronous playback - can cause problems
 ## with some drivers and desktop environments.
 # video-sync=display-resample
-interpolation
+# interpolation
 tscale=oversample
 
 hdr-compute-peak=yes

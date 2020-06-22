@@ -6,6 +6,7 @@ set previewer ~/.config/lf/lfprev
 # set previewer ~/.config/ranger/scope.sh
 set hidden
 set color256
+set ifs "\n"
 # set drawbox
 set icons
 set ignorecase
@@ -13,19 +14,63 @@ set number
 set relativenumber
 # set tabstop
 set sortby time
+set info size
 # natural
 # set reverse
 set period 1
+set dircounts
+# set promptfmt " \[\033[38;5;166m\]%u\[\033[38;5;244m\]@\[\033[38;5;217m\]%h\[\033[38;5;15m\] \[\033[38;5;155;1m\]%w" 
+
+set noanchorfind
+set findlen 0
 
 cmd open ${{
     case $(file --mime-type "$f" -bL) in
-        text/*|application/json|inode/*|application/z*) $EDITOR "$f";;
-        video/*|image/*) mpv "$f";;
-        application/pdf) zathura "$f";;
-        application/x-dosexec) wine "$f";;
-        application/vnd*) libreoffice "$f";;
-        *) ;;
+    text/*|application/json|inode/*|application/z*)
+        $EDITOR "$f"
+            ;;
+    video/*|image/*|audio/*) 
+        mpv "$f"
+            ;;
+    application/pdf)
+        zathura "$f"
+            ;;
+    application/x-dosexec) 
+        wine "$f"
+            ;;
+    application/vnd*) 
+        libreoffice "$f"
+            ;;
+    *)
+        echo "File cannot be opened"
+            ;;
     esac
+}}
+
+cmd extract ${{
+    for file in $fx; do
+        case $file in
+            *.zip)
+                unzip "$file"
+                rm "$file"
+                ;;
+            *.tar.zst)
+                tar -I zstd -xvf "$file"
+                rm "$file"
+                ;;
+            *.zst)
+                zstd -d "$file"
+                rm "$file"
+                ;;
+            *.7z)
+                7z x "$file"
+                rm "$file"
+                ;;
+            *)
+                echo "File cannot be extracted"
+                ;;
+        esac
+    done
 }}
 
 cmd mkdir ${{
@@ -41,7 +86,7 @@ cmd touch ${{
 }}
 
 cmd chmod ${{
-    for file in "$fx"; do
+    for file in $fx; do
         chmod +x $file
     done
 }}
@@ -50,9 +95,11 @@ map gm cd ~/data/mus
 map gd cd ~/doc
 map gv cd ~/data/vid
 map gp cd ~/pic
+map gP cd ~/prg
 map gw cd ~/pic/wal
 map gz cd ~/dl
 map gc cd ~/.config
+map gG cd ~/data/gam
 
 map y
 map yy copy
@@ -74,12 +121,15 @@ map x delete
 map d
 map dd cut
 map df delete
+map dG $rm -rf ~/data/.garb/* ; rm -rf ~/data/.garb/.*
+
+map o extract
+map O mkdir
 
 map c
 map cw $vimv $fx
 map cd cd
 
-map i
 map i $$EDITOR "$f"
 map I $sudoedit "$f" || $EDITOR "$f"
 

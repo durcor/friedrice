@@ -1,0 +1,22 @@
+# vi:ft=dosini
+
+font=Fantasque Sans Mono Nerd Font 9
+
+output=HDMI-A-2
+
+# Set padding on each side to the size specified by directional. 
+# See DIRECTIONAL VALUES for more information.
+padding=5
+
+margin=2
+
+height=500
+
+width=500
+
+text-color={color15}
+background-color={color8}
+border-color={color9}
+
+[urgency=low]
+default-timeout=500
