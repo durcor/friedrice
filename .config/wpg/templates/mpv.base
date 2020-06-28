@@ -209,6 +209,3 @@ save-position-on-quit=no
 profile-desc="make the current video the background for your desktop"
 wid=0
 loop
-
-[lfprev]
-geometry=95%:0%

@@ -19,60 +19,49 @@ set_from_resource $c14 color14
 set_from_resource $c15 color15
 set_from_resource $font def-font
 
+set $ex exec --no-startup-id
+set $exa exec_always --no-startup-id
+
+set $mode-notif notify-send -h string:x-canonical-private-synchronous:i3mode -u low
+
+set $terminal alacritty
+set $browser firefox-nightly
+
 # font for window titles+status bar
 font pango: $font 9
-
-mode "WINDOW" {
-    bindsym Super_L mode "MANAGER";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MANAGER MODE"
-
-    bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost -i 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-    bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --allow-boost -d 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-    bindsym XF86AudioMute exec --no-startup-id pamixer -t ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-    bindsym XF86AudioStop exec --no-startup-id playerctl stop
-    bindsym XF86AudioPrev exec --no-startup-id playerctl previous
-    bindsym XF86AudioNext exec --no-startup-id playerctl next
-    bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-    bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
-    bindsym XF86Search exec --no-startup-id dmenual
-    bindsym XF86Calculator exec --no-startup-id st -e bc -ql
-    bindsym XF86HomePage exec --no-startup-id dmenual
-    bindsym XF86Tools exec --no-startup-id dmenual
-    bindsym --release Print exec --no-startup-id "maim -u -n 2 -s | xclip -se c -i"
-}
 
 #mode [--pango_markup foreground=blue] MANAGER {
 #mode --pango_markup "<span color='blue'>MANAGER</span>" {
 mode MANAGER {
-    bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost -i 5
-    bindsym F3 exec --no-startup-id pamixer --allow-boost -i 5
-    bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --allow-boost -d 5
-    bindsym F1 exec --no-startup-id pamixer --allow-boost -d 5
-    bindsym XF86AudioMute exec --no-startup-id pamixer -t
-    bindsym F1 exec --no-startup-id pamixer -t
-    bindsym XF86AudioPrev exec --no-startup-id mpc prev
-    bindsym F5 exec --no-startup-id mpc prev
-    bindsym XF86AudioNext exec --no-startup-id mpc next
-    bindsym F7 exec --no-startup-id mpc next
-    bindsym XF86AudioPlay exec --no-startup-id mpc toggle
-    bindsym F6 exec --no-startup-id mpc toggle
-    bindsym --release Print exec --no-startup-id "maim -u -n 2 -s | xclip -se c -i"
+    bindsym XF86AudioRaiseVolume $ex pamixer --allow-boost -i 5
+    bindsym F3 $ex pamixer --allow-boost -i 5
+    bindsym XF86AudioLowerVolume $ex pamixer --allow-boost -d 5
+    bindsym F1 $ex pamixer --allow-boost -d 5
+    bindsym XF86AudioMute $ex pamixer -t
+    bindsym F1 $ex pamixer -t
+    bindsym XF86AudioPrev $ex mpc prev
+    bindsym F5 $ex mpc prev
+    bindsym XF86AudioNext $ex mpc next
+    bindsym F7 $ex mpc next
+    bindsym XF86AudioPlay $ex mpc toggle
+    bindsym F6 $ex mpc toggle
+    bindsym --release Print $ex "maim -u -n 2 -s | xclip -se c -i"
     
-    bindsym Return exec --no-startup-id alacritty
+    bindsym Return $ex $terminal
     
     # mouse + binding moves floating windows
     # floating_modifier Mod4
     
-    bindsym --release q exec --no-startup-id slock -m "$(cowsay -f tux "Locked at $(date +%H:%M)")" xset dpms force off
-    # bindsym --release q exec --no-startup-id slock -m "$(cowsay -f tux "$(uptime)")"
-    bindsym --release Shift+q exec --no-startup-id sudo slock -m "$(cowsay -f tux "Locked at $(date '%H:%M')")" systemctl suspend
-    bindsym --release XF86Sleep exec --no-startup-id sudo slock -m "$(cowsay -f tux "Locked at $(date '%H:%M')")" systemctl suspend
-    bindsym u exec --no-startup-id "xclip -t -se p | xclip -i -s c"
-    bindsym slash exec --no-startup-id dmenual -i -p run
-    bindsym Shift+slash exec --no-startup-id rofi -show run
-    bindsym Shift+f exec --no-startup-id st -e ranger
-    bindsym Shift+b exec --no-startup-id clipmenu
-    bindsym p exec --no-startup-id mpv $(xclip -se c -o)
-    bindsym Shift+p exec --no-startup-id "passmenu"
+    bindsym --release q $ex slock -m "$(cowsay -f tux "Locked at $(date +%H:%M)")" xset dpms force off
+    bindsym --release Shift+q $ex sudo slock -m "$(cowsay -f tux "Locked at $(date '%H:%M')")" systemctl suspend
+    bindsym --release XF86Sleep $ex sudo slock -m "$(cowsay -f tux "Locked at $(date '%H:%M')")" systemctl suspend
+    bindsym u $ex "xclip -t -se p | xclip -i -s c"
+    bindsym slash $ex dmenual -i -p run
+    bindsym Shift+slash $ex rofi -show run
+    bindsym Shift+f $ex $terminal -e lf
+    bindsym Shift+b $ex clipmenu
+    bindsym p $ex mpv $(xclip -se c -o)
+    bindsym Shift+p $ex passmenu -p pass
     
     bindsym Menu [instance="pop"] scratchpad show; [instance="pop"] move position center
     
@@ -100,8 +89,8 @@ mode MANAGER {
     bindsym Control+k move up 2 px
     bindsym Control+l move right 2 px
     
-    bindsym backslash split h;exec notify-send -h string:x-canonical-private-synchronous:i3tiling -u low "HORIZONTAL TILING"
-    bindsym minus split v;exec notify-send -h string:x-canonical-private-synchronous:i3tiling -u low "VERTICAL TILING"
+    bindsym backslash split h ; $ex notify-send -h string:x-canonical-private-synchronous:i3tiling -u low "HORIZONTAL TILING"
+    bindsym minus split v ; $ex notify-send -h string:x-canonical-private-synchronous:i3tiling -u low "VERTICAL TILING"
     
     bindsym b workspace prev
     bindsym w workspace next
@@ -110,17 +99,17 @@ mode MANAGER {
     
     # change container layout (stacked, tabbed, toggle split)
     bindsym s layout stacking
-    bindsym w layout tabbed
+    bindsym t layout tabbed
     bindsym e layout toggle split
+
+    bindsym n focus parent
+    bindsym m focus child
     
     # toggle tiling / floating
     bindsym Shift+space floating toggle
     
     # change focus between tiling / floating windows
     bindsym space focus mode_toggle
-    
-    # bindsym a focus parent
-    # bindsym p focus child
     
     bindsym 1 workspace $ws1
     bindsym 2 workspace $ws2
@@ -144,26 +133,44 @@ mode MANAGER {
     bindsym Shift+9 move container to workspace $ws9
     bindsym Shift+0 move container to workspace $ws10
     
-    bindsym Shift+c reload;exec --no-startup-id sleep 0.4; mode MANAGER
-    bindsym Shift+r restart;exec --no-startup-id sleep 4; mode MANAGER
-    bindsym Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'exit i3?' -b 'yes' 'i3-msg exit'"
+    bindsym Shift+c reload ; mode MANAGER
+    bindsym Shift+r restart ; mode MANAGER
+    bindsym Shift+e $ex "i3-nagbar -t warning -m 'exit i3?' -b 'yes' 'i3-msg exit'"
     
-    bindsym i mode "WINDOW";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "WINDOW MODE"
-    bindsym a mode "WINDOW";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "WINDOW MODE"
-    bindsym A mode "WINDOW";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "WINDOW MODE"
-    bindsym I mode "WINDOW";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "WINDOW MODE"
+    bindsym i mode "WINDOW"; $ex $mode-notif "WINDOW MODE"
+    bindsym a mode "WINDOW"; $ex $mode-notif "WINDOW MODE"
+    bindsym A mode "WINDOW"; $ex $mode-notif "WINDOW MODE"
+    bindsym I mode "WINDOW"; $ex $mode-notif "WINDOW MODE"
     
-    bindsym o mode "LAUNCH";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "LAUNCH MODE"
-    bindsym g mode "GAPS";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "GAPS MODE"
-    bindsym m mode "MUSIC";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MUSIC MODE"
-    bindsym z mode "AUDIO";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "AUDIO MODE"
-    bindsym Shift+colon mode "COMMAND";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "COMMAND MODE"
-    bindsym r mode "RESIZE";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "RESIZE MODE"
-    bindsym v mode "VISUAL";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "VISUAL MODE"
-    bindsym c mode "BRIGHTNESS";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "BRIGHTNESS MODE"
+    bindsym o mode "LAUNCH"; $ex $mode-notif "LAUNCH MODE"
+    bindsym g mode "GAPS"; $ex $mode-notif "GAPS MODE"
+    bindsym m mode "MUSIC"; $ex $mode-notif "MUSIC MODE"
+    bindsym z mode "AUDIO"; $ex $mode-notif "AUDIO MODE"
+    bindsym Shift+colon mode "COMMAND"; $ex $mode-notif "COMMAND MODE"
+    bindsym r mode "RESIZE"; $ex $mode-notif "RESIZE MODE"
+    bindsym v mode "VISUAL"; $ex $mode-notif "VISUAL MODE"
+    bindsym c mode "BRIGHTNESS"; $ex $mode-notif "BRIGHTNESS MODE"
 }
 
-bindsym Super_L mode "MANAGER";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MANAGER MODE"
+mode WINDOW {
+    bindsym Super_L mode "MANAGER"; $ex $mode-notif "MANAGER MODE"
+
+    bindsym XF86AudioRaiseVolume $ex pamixer --allow-boost -i 5 ; $ex pkill -RTMIN+13 i3blocks
+    bindsym XF86AudioLowerVolume $ex pamixer --allow-boost -d 5 ; $ex pkill -RTMIN+13 i3blocks
+    bindsym XF86AudioMute $ex pamixer -t ; $ex pkill -RTMIN+13 i3blocks
+    bindsym XF86AudioStop $ex playerctl stop
+    bindsym XF86AudioPrev $ex playerctl previous
+    bindsym XF86AudioNext $ex playerctl next
+    bindsym XF86AudioPlay $ex playerctl play-pause
+    bindsym XF86AudioPause $ex playerctl play-pause
+    bindsym XF86Search $ex dmenual
+    bindsym XF86Calculator $ex $terminal -e bc -ql
+    bindsym XF86HomePage $ex dmenual
+    bindsym XF86Tools $ex dmenual
+    bindsym --release Print $ex "maim -u -n 2 -s | xclip -se c -i"
+}
+
+bindsym Super_L mode "MANAGER" ; $ex $mode-notif "MANAGER MODE"
 
 mode "RESIZE" {
     bindsym h resize shrink width 40 px or 5 ppt
@@ -186,7 +193,7 @@ mode "RESIZE" {
     bindsym Shift+k resize grow height 80 px or 10 ppt
     bindsym Shift+l resize grow width 80 px or 10 ppt
     
-    bindsym Escape mode "MANAGER";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MANAGER MODE"
+    bindsym Escape mode "MANAGER" ; $ex $mode-notif "MANAGER MODE"
 }
 
 mode "GAPS" {
@@ -199,65 +206,65 @@ mode "GAPS" {
 }
 
 mode "MUSIC" {
-    bindsym h exec --no-startup-id playerctl previous
-    bindsym l exec --no-startup-id playerctl next
-    bindsym j exec --no-startup-id playerctl position 5-
-    bindsym k exec --no-startup-id playerctl position 5-
-    bindsym v exec --no-startup-id notify-send "$(playerctl status)"
-    bindsym z exec --no-startup-id playerctl shuffle "On"
-    bindsym space exec --no-startup-id playerctl play-pause
-    bindsym m mode "MPD";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MPD"
+    bindsym h $ex playerctl previous
+    bindsym l $ex playerctl next
+    bindsym j $ex playerctl position 5-
+    bindsym k $ex playerctl position 5-
+    bindsym v $ex mpdmenu
+    bindsym z $ex playerctl shuffle "On"
+    bindsym space $ex playerctl play-pause
+    bindsym m mode "MPD"; $ex $mode-notif "MPD"
     
-    bindsym Escape mode "MANAGER";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MANAGER MODE"
+    bindsym Escape mode "MANAGER" ; $ex $mode-notif "MANAGER MODE"
 }
 
 mode "MPD" {
-    bindsym h exec --no-startup-id mpc prev
-    bindsym l exec --no-startup-id mpc next
-    bindsym j exec --no-startup-id mpc seek -5
-    bindsym k exec --no-startup-id mpc seek +5
-    bindsym v exec --no-startup-id notify-send "$(mpc status)"
-    bindsym z exec --no-startup-id mpc random ; notify-send " " ""
-    bindsym space exec --no-startup-id mpc toggle
+    bindsym h exec $ex mpc prev
+    bindsym l exec $ex mpc next
+    bindsym j exec $ex mpc seek -5
+    bindsym k exec $ex mpc seek +5
+    bindsym v exec $ex notify-send "$(mpc status)"
+    bindsym z exec $ex mpc random ; notify-send " " ""
+    bindsym space $ex mpc toggle
     
-    bindsym Escape mode "MUSIC";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MUSIC MODE"
+    bindsym Escape mode "MANAGER" ; $ex $mode-notif "MANAGER MODE"
 }
 
 mode "AUDIO" {
-    bindsym h exec --no-startup-id pamixer --allow-boost -d 1 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-    bindsym l exec --no-startup-id pamixer --allow-boost -i 1 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-    bindsym j exec --no-startup-id pamixer --allow-boost -d 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-    bindsym k exec --no-startup-id pamixer --allow-boost -i 5 ; exec --no-startup-id pkill -RTMIN+13 i3blocks
-    bindsym v exec --no-startup-id notifaudio
-    bindsym space exec --no-startup-id pamixer -t ; exec --no-startup-id pkill -RTMIN+13 i3blocks
+    bindsym h $ex pamixer --allow-boost -d 1 ; $ex pkill -RTMIN+13 i3blocks
+    bindsym l $ex pamixer --allow-boost -i 1 ; $ex pkill -RTMIN+13 i3blocks
+    bindsym j $ex pamixer --allow-boost -d 5 ; $ex pkill -RTMIN+13 i3blocks
+    bindsym k $ex pamixer --allow-boost -i 5 ; $ex pkill -RTMIN+13 i3blocks
+    bindsym v $ex notifaudio
+    bindsym space $ex pamixer -t ; $ex pkill -RTMIN+13 i3blocks
     
-    bindsym Escape mode "MANAGER";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MANAGER MODE"
+    bindsym Escape mode "MANAGER"; $ex $mode-notif "MANAGER MODE"
 }
 
 mode "LAUNCH" {
-    bindsym n exec --no-startup-id st -e newsboat
-    bindsym w exec --no-startup-id qutebrowser
-    bindsym m exec --no-startup-id st -e neomutt
-    bindsym c exec --no-startup-id st -e ncmpcpp -s visualizer
-    bindsym v exec --no-startup-id st -e gotop
-    bindsym a exec --no-startup-id st -e pulsemixer
+    bindsym n $ex $terminal -e newsboat
+    bindsym w $ex $browser
+    bindsym m $ex $terminal -e neomutt
+    bindsym c $ex $terminal -e ncmpcpp -s visualizer
+    bindsym v $ex $terminal -e gotop
+    bindsym a $ex $terminal -e pulsemixer
     
-    bindsym Escape mode "MANAGER";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MANAGER MODE"
+    bindsym Escape mode "MANAGER"; $ex $mode-notif "MANAGER MODE"
 }
 
 mode "COMMAND" {
-    bindsym --release q exec --no-startup-id slock xset dpms force off
-    bindsym --release Shift+q exec --no-startup-id sudo slock systemctl suspend
+    bindsym --release q $ex slock xset dpms force off
+    bindsym --release Shift+q $ex sudo slock systemctl suspend
     
-    bindsym Escape mode "MANAGER";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MANAGER MODE"
+    bindsym Escape mode "MANAGER"; $ex $mode-notif "MANAGER MODE"
 }
 
 mode "VISUAL" {
-    bindsym --release s exec --no-startup-id scrman
-    bindsym --release c exec --no-startup-id scrman cp
-    bindsym --release u exec --no-startup-id scrman up
+    bindsym --release s $ex scrman
+    bindsym --release c $ex scrman cp
+    bindsym --release u $ex scrman up
     
-    bindsym Escape mode "MANAGER";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MANAGER MODE"
+    bindsym Escape mode "MANAGER"; $ex $mode-notif "MANAGER MODE"
 }
 
 mode "BRIGHTNESS" {
@@ -266,7 +273,7 @@ mode "BRIGHTNESS" {
     bindsym j exec backlightctl down 10
     bindsym k exec backlightctl up 10
     
-    bindsym Escape mode "MANAGER";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MANAGER MODE"
+    bindsym Escape mode "MANAGER"; $ex $mode-notif "MANAGER MODE"
 }
 
 gaps inner 10
@@ -342,17 +349,18 @@ for_window [instance="pop"] floating enable
 for_window [instance="pop"] resize set 900 600
 for_window [instance="pop"] move scratchpad
 for_window [instance="pop"] border pixel 10
-exec alacritty --class pop
+exec $terminal --class pop
 
 for_window [instance="float"] floating enable
 
-exec alacritty 
-exec nm-applet
-exec mullvad-vpn
+$ex $terminal
+$ex nm-applet
+$ex mullvad-vpn
 # exec qutebrowser
-exec firefox-nightly
-exec_always ~/.fehbg
-exec discord
-exec cfg rf
+$ex firefox-nightly
+$exa ~/.fehbg
+$ex discord
+$ex cfg rf
+$exa i3-msg mode MANAGER
 # exec xrandr --output HDMI-A-1 --auto --left-of DisplayPort-1
-# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# $exa $HOME/.config/polybar/launch.sh

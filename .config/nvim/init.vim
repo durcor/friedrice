@@ -9,7 +9,8 @@ endif
 
 call plug#begin('~/.local/share/nvim/plug')
 Plug 'deviantfero/wpgtk.vim'
-Plug 'dylanaraps/wal.vim'
+" Plug 'dylanaraps/wal.vim'
+Plug 'richtan/pywal.vim'
 Plug 'jamessan/vim-gnupg'
 Plug 'junegunn/fzf', { 'dir': '~/prg/fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
@@ -27,6 +28,7 @@ Plug 'ziglang/zig.vim', { 'for': 'zig' }
 " Plug 'tpope/vim-fugitive'
 " git commit info
 Plug 'rhysd/committia.vim'
+Plug 'VebbNix/lf-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
 Plug 'dixonary/vimty'
@@ -41,11 +43,15 @@ let g:languagetool_jar='$HOME/.local/share/nvim/plug/vim-grammarous/misc/Languag
 Plug 'vimwiki/vimwiki'
 Plug 'jceb/vim-orgmode'
 Plug 'KabbAmine/vCoolor.vim'
-" Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'wlangstroth/vim-racket', { 'for': 'rkt' }
 Plug 'luochen1990/rainbow',
 Plug 'tpope/vim-commentary'
+Plug 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_theme='wpgtk_alternate'
 let g:rainbow_active = 1
 call plug#end()
 
@@ -64,9 +70,11 @@ call deoplete#custom#option({
                         \ 'auto_complete_delay': 0,
                         \ })
 
-color wpgtk
-
 " se termguicolors
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+color wpgtk
+" color pywal
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -170,6 +178,9 @@ map <leader>l :Goyo<cr>:Limelight!!<cr>
 map <leader>g :GrammarousCheck<cr>
 
 map ZW :w<cr>
+" Replace the useless (sorry) ex-mode keybind
+" with quick file exiting
+map Q :q<cr>
 
 " remove white space at end of lines
 " autocmd BufWritePre * %s/\s\+$//e

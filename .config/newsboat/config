@@ -1,5 +1,5 @@
 # ~/.config/newsboat/config
-# vi:ft=python
+# vi:ft=sh
 
 auto-reload no
 reload-time 60
@@ -116,7 +116,7 @@ browser "qutebrowser %u"
 macro SPACE open-in-browser
 
 # open url in mpv
-macro v set browser "tmux splitw -v -p 25 mpv %u" ; open-in-browser-and-mark-read ; set browser "qutebrowser %u"
+macro v set browser "setsid mpv %u" ; open-in-browser-and-mark-read ; set browser "qutebrowser %u"
 
 # open url in mpv in new tmux pane and no X output
 macro V set browser "tmux splitw -v -p 25 mpv --profile=nowin %u" ; open-in-browser-and-mark-read ; set browser "qutebrowser %u"

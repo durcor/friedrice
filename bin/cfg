@@ -2,10 +2,7 @@
 
 . $HOME/.cache/wal/colors.sh
 
-if [ ! -f ~/.config/cfg/al ]; then
-    mkdir ~/.config/cfg
-    touch ~/.config/cfg/al
-fi
+[ ! -f ~/.config/cfg/al ] && mkdir -p ~/.config/cfg && touch ~/.config/cfg/al
 
 refreshcfg() {
     wpg -s "$(wpg -c)"
@@ -18,47 +15,48 @@ refreshcfg() {
             -c "$(echo $color9 | sed 's/#//')" -m Static \
         -d 2 `# X570 Taichi` \
             `#-c ${color9:1} -m Neon \ ` \
-            -m Random
+            -m Random &
     fi
 
-    if lsusb | grep NZXT; then
-        sudo liquidctl set led1 color starry-night "$(echo "$color14" | sed 's/#//')"
-        sudo liquidctl set led2 color starry-night "$(echo "$color11" | sed 's/#//')"
-    fi
+    [ "$(lsusb | grep NZXT)" ] && 
+        if liquidctl; then
+            sudo liquidctl set led1 color starry-night "$(echo "$color14" | sed 's/#//')" &
+            sudo liquidctl set led2 color starry-night "$(echo "$color11" | sed 's/#//')" &
+        else
+            openrgb -d 3 \
+                -z 0 -c "$(echo "$color13" | sed 's/#//')" \
+                -z 1 -c "$(echo "$color19" | sed 's/#//')" \
+                -z 2 -c "$(echo "$color11" | sed 's/#//')" \
+                -z 3 -c "$(echo "$color10" | sed 's/#//')" &
+        fi
 
-    if lsusb | grep AMD; then
-        wraith-master -m swirl -c "$color14" ring
-        wraith-master -m static -c "$color11" logo
-        wraith-master --mirage on fan
-        wraith-master -c "$color9" fan
-    fi
+    [ "$(lsusb | grep AMD)" ] &&
+        wraith-master -m swirl -c "$color14" ring &&
+        wraith-master -m static -c "$color11" logo &&
+        wraith-master --mirage on fan &&
+        wraith-master -c "$color9" fan &
 
-    if lsusb | grep Microdia; then
-        rgb_keyboard -c 000000
-    fi
-
-    if lsusb | grep Razer; then
-        razerricer
-    fi
-
-    if pgrep qutebrowser; then
-        qutebrowser :config-source &
-    fi
+    [ "$(lsusb | grep Microdia)" ] && rgb_keyboard -c 000000 &
+    [ "$(lsusb | grep Razer)" ] && razerricer &
+    [ "$(pgrep qutebrowser)" ] && qutebrowser :config-source &
 
     if [ "$WAYLAND_DISPLAY" ]; then
         sway restart &
     else
-        i3 restart &
+        i3 restart
+        sleep 0.1
+        i3 mode WINDOW
     fi
-    # cd ~/prg/st || exit
-    # sudo make clean install
+
+    cd ~/prg/st || exit
+    sudo make clean install || exit
     cd ~/prg/dmenu || exit
-    sudo make clean install
+    sudo make clean install || exit
     cd ~/prg/slock || exit
-    sudo make clean install
-    wal_steam -g
-    pywalfox update
-    oomox-cli ~/.cache/wal/colors-oomox
+    sudo make clean install || exit
+    wal_steam -g &
+    pywalfox update &
+    oomox-cli ~/.cache/wal/colors-oomox &
     # oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
     pywal-discord
     sleep 1
@@ -83,25 +81,27 @@ addcfg() {
 }
 
 editcfg() {
-    if [ "$2" = "" ];then
-        cfgfileloc=$(awk '{print $1 " " $2}' ~/.config/cfg/al | fzf)
+    if [ -z "$2"  ]; then
+        cfgfileloc="$(sed "s/~/\/home\/$USER/" ~/.config/cfg/al | awk '{print $2}' | fzf)"
     else
-        cfgfileloc=$(awk '{print $2}' ~/.config/cfg/al)
+        cfgfileloc="$(sed "s/~/\/home\/$USER/" ~/.config/cfg/al | grep "^$2 " | awk '{print $2}')"
     fi
 
-    cfgfilepostrun="$(grep "$cfgfileloc" ~/.config/cfg/al | awk '{$1="" ; $2="" ; print}' ~/.config/cfg/al)"
+    cfgfilepostrun="$(grep "$(echo "$cfgfileloc" | sed "s/\/home\/$USER/~/")" ~/.config/cfg/al | awk '{$1="";$2="";print}' | xargs)"
 
-    if [ "$(stat -c %U "$cfgfileloc")" = "ty" ];then
+    if [ -O "$cfgfileloc" ]; then
         $EDITOR "$cfgfileloc"
     else
         sudoedit "$cfgfileloc"
-    fi
+    # Only advance onto the post run command if the edit of the
+    # file succeeds
+    fi &&
 
-    $cfgfilepostrun
+    [ -n "$cfgfilepostrun" ] && $SHELL -c "$cfgfilepostrun"
 }
 
 listcfg() {
-    awk '{print $1}' ~/config/cfg/al
+    awk '{print $1}' ~/.config/cfg/al
 }
 
 case $1 in

@@ -1,14 +1,16 @@
-# vi:ft=sh
 # https://godoc.org/github.com/gokcehan/lf
 
 set preview
-set previewer ~/.config/lf/lfprev
-# set previewer ~/.config/ranger/scope.sh
+set previewer ~/.config/lf/prev
 set hidden
 set color256
 set ifs "\n"
 # set drawbox
 set icons
+set shell sh
+# Keep cursor centered
+set scrolloff 1000
+set shellopts '-eu'
 set ignorecase
 set number
 set relativenumber
@@ -18,6 +20,8 @@ set info size
 # natural
 # set reverse
 set period 1
+set ratios 1:2:3
+# set ratios 100:1
 set dircounts
 # set promptfmt " \[\033[38;5;166m\]%u\[\033[38;5;244m\]@\[\033[38;5;217m\]%h\[\033[38;5;15m\] \[\033[38;5;155;1m\]%w" 
 
@@ -91,6 +95,20 @@ cmd chmod ${{
     done
 }}
 
+cmd changedir ${{
+    printf "New dir: "
+    read name
+    cd $name
+}}
+
+cmd smarted ${{
+    if [ -O "$f" ]; then
+        $EDITOR "$f"
+    else
+        sudoedit "$f"
+    fi
+}}
+
 map gm cd ~/data/mus
 map gd cd ~/doc
 map gv cd ~/data/vid
@@ -105,6 +123,7 @@ map y
 map yy copy
 
 map yp %readlink -f "$f" | xclip -se c -i
+map yn %echo "$f" | xclip -se c -i
 map yf %xclip -se c -i "$f" -t "$(file -b --mime-type "$f")"
 
 map u unselect
@@ -128,10 +147,15 @@ map O mkdir
 
 map c
 map cw $vimv $fx
-map cd cd
+map cd changedir
 
-map i $$EDITOR "$f"
-map I $sudoedit "$f" || $EDITOR "$f"
+map q
+map Q quit
+
+map i smarted "$f"
+map I smarted "$f"
+# map i $$EDITOR "$f"
+# map I $sudoedit "$f" || $EDITOR "$f"
 
 map e
 map E

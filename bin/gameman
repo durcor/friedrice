@@ -19,7 +19,7 @@ prepare_gamemode(){
         sudo systemctl stop boinc-client
     fi
     systemctl --user stop picom
-    systemctl --user stop discordlfm
+    systemctl --user start DiscordLastfm
 }
 
 stop_gamemode(){
@@ -32,8 +32,10 @@ stop_gamemode(){
     elif systemctl is-enabled boinc-client; then
         sudo systemctl start boinc-client
     fi
-    systemctl --user start picom
-    systemctl --user start discordlfm
+    if systemctl --user is-enabled; then
+        systemctl --user start picom
+    fi
+    systemctl --user start DiscordLastfm
 }
 
 newprefix(){

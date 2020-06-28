@@ -79,6 +79,7 @@ no_display          = 0
 background_alpha    = 0
 alpha               = 1
 output_file         = /home/ty/doc/mangohud.log
+permit_upload       = 0
 ##################### COLORS
 text_color          = {color15.strip}
 gpu_color           = {color9.strip}
@@ -93,5 +94,6 @@ background_color    = {color8.strip}
 toggle_hud          = Shift_L+F12
 toggle_logging      = Shift_L+F2
 reload_cfg          = Shift_L+F4
+upload_log          = Shift_L+F3
 #####################
 # vi:ft=dosini

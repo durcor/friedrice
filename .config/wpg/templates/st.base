@@ -10,7 +10,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "{def-font}:pixelsize=11:antialias=true:autohint=true";
+static char *font = "{def-font}:pixelsize=12:antialias=true:autohint=true";
 static int borderpx = 10;
 
 /*
@@ -82,7 +82,8 @@ const int boxdraw_braille = 1;
 static int bellvolume = 0;
 
 /* default TERM value */
-char *termname = "xterm-256color";
+char *termname = "st-256color";
+/* char *termname = "st"; */
 
 /*
  * spaces per tab

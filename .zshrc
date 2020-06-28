@@ -80,32 +80,13 @@ SAVEHIST=100000
 HISTFILE=~/.shhis
 HISTCONTROL=ignoreboth
 
+source ~/.zinit/bin/zinit.zsh
+
 # Use modern completion system
 autoload -Uz compinit
 compinit
 
 source ~/.zsh/compopt
-
-# alias auto-expand
-typeset -a ealiases
-ealiases=()
-
-function ealias()
-{
-	alias $1
-	ealiases+=(${1%%\=*})
-}
-
-function expand-ealias()
-{
-	if [[ $LBUFFER =~ "\<(${(j:|:)ealiases})\$" ]]; then
-		zle _expand_alias
-		zle expand-word
-	fi
-	zle magic-space
-}
-
-zle -N expand-ealias
 
 function lf()
 {
@@ -122,26 +103,20 @@ function lf()
     fi
 }
 
-source ~/.config/lf/lfico
+source ~/.config/lf/ico
 
-source ~/.zshal
-
-bindkey -M viins ' '   	expand-ealias
-bindkey -M emacs ' '   	expand-ealias
 bindkey -M viins '^ '   magic-space     # control-space to bypass completion
 bindkey -M emacs '^ '   magic-space
 bindkey -M isearch " "  magic-space     # normal space during searches
 
 # plugins
-if [ -f ~/.zsh/antigen.zsh ]; then
-    source ~/.zsh/antigen.zsh
-    antigen bundle zdharma/fast-syntax-highlighting
-    antigen bundle zsh-users/zsh-autosuggestions
-    antigen bundle zsh-users/zsh-completions
-    # antigen bundle b4b4r07/zsh-vimode-visual
-    antigen apply
-    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=5
-else
-    mkdir -p ~/.zsh
-    curl -L git.io/antigen-nightly > ~/.zsh/antigen.zsh
-fi
+zinit for \
+    light-mode b4b4r07/zsh-vimode-visual \
+    light-mode zdharma/fast-syntax-highlighting \
+    light-mode zsh-users/zsh-autosuggestions \
+    light-mode zsh-users/zsh-completions \
+    light-mode momo-lab/zsh-abbrev-alias
+
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=5
+
+source ~/.zshal
