@@ -97,7 +97,9 @@ editcfg() {
     else
         sudoedit "$cfgfileloc"
     # Only advance onto the post run command if the edit of the
-    # file succeeds
+    # file succeeds 
+    # (ie. sudoedit without doing any actual editing or
+    # editing a file in vim that is already open in another instance)
     fi &&
 
     [ -n "$cfgfilepostrun" ] && $SHELL -c "$cfgfilepostrun"
