@@ -1,0 +1,8 @@
+#!/bin/sh
+
+MIC="alsa_input.usb-BLUE_MICROPHONE_Blue_Snowball_797_2018_08_31_63498-00.analog-stereo"
+DESKTOP_AUDIO="bluez_sink.38_18_4C_17_2E_97.a2dp_sink"
+
+pactl load-module module-null-sink sink_name=Virtual1
+pactl load-module module-loopback source=$MIC sink=Virtual1
+pactl load-module module-loopback source=Virtual1.monitor sink=$DESKTOP_AUDIO

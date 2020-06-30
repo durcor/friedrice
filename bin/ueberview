@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source "`ueberzug library`"
+
+{
+    ImageLayer::add [identifier]="example0" [x]="0" [y]="0" [path]="$(readlink -f "$1")"
+    sleep 1
+} | ImageLayer

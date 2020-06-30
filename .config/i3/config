@@ -24,7 +24,7 @@ set $exa exec_always --no-startup-id
 
 set $mode-notif notify-send -h string:x-canonical-private-synchronous:i3mode -u low
 
-set $terminal alacritty
+set $terminal kitty
 set $browser firefox-nightly
 
 # font for window titles+status bar
@@ -331,7 +331,7 @@ bar {
     position top
     separator_symbol /
     strip_workspace_numbers no
-    
+  
     colors {
         background $c0
         statusline $c7

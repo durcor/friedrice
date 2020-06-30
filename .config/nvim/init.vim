@@ -12,6 +12,8 @@ Plug 'deviantfero/wpgtk.vim'
 " Plug 'dylanaraps/wal.vim'
 Plug 'richtan/pywal.vim'
 Plug 'jamessan/vim-gnupg'
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/prg/fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
 " distraction-free reading+writing
@@ -34,8 +36,8 @@ Plug 'tpope/vim-surround'
 Plug 'dixonary/vimty'
 Plug 'neomake/neomake'
 " completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" let g:deoplete#enable_at_startup = 1
 Plug 'rhysd/vim-grammarous'
 Plug 'dpelle/vim-LanguageTool'
 let g:languagetool_jar='$HOME/.local/share/nvim/plug/vim-grammarous/misc/LanguageTool-4.1/languagetool-commandline.jar'
@@ -43,7 +45,7 @@ let g:languagetool_jar='$HOME/.local/share/nvim/plug/vim-grammarous/misc/Languag
 Plug 'vimwiki/vimwiki'
 Plug 'jceb/vim-orgmode'
 Plug 'KabbAmine/vCoolor.vim'
-Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'wlangstroth/vim-racket', { 'for': 'rkt' }
 Plug 'luochen1990/rainbow',
@@ -53,6 +55,7 @@ let g:airline_powerline_fonts = 1
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme='wpgtk_alternate'
 let g:rainbow_active = 1
+" Plug 'preservim/nerdtree'
 call plug#end()
 
 let g:Hexokinase_highlighters = [
@@ -66,9 +69,9 @@ let g:Hexokinase_highlighters = [
 
 " run neomake on file save
 call neomake#configure#automake('w')
-call deoplete#custom#option({
-                        \ 'auto_complete_delay': 0,
-                        \ })
+" call deoplete#custom#option({
+"                         \ 'auto_complete_delay': 0,
+"                         \ })
 
 " se termguicolors
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -187,6 +190,8 @@ map Q :q<cr>
 
 se cursorline
 hi CursorLine term=bold ctermbg=8
+
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " se cursorcolumn
 " hi CursorColumn ctermbg=8
 
@@ -197,23 +202,23 @@ hi CursorLine term=bold ctermbg=8
 " set statusline=%M%h%y %t %F %p%% %l/%L %=[%{&ff},%{&ft}] [a=%03.3b] [h=%02.2B] [%l,%v]
 " set title titlelen=150 titlestring=%( %M%)%( (%{expand("%:p:h")})%)%( %a%) - %{v:servername}
 " statusline
-se stl=
-se stl+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
-se stl+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
-se stl+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
-se stl+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
-se stl+=%#CursorIM#     " colour
-se stl+=%R
-se stl+=%#PmenuSel#
-se stl+=%#LineNr#
-se stl+=\ %f
-se stl+=\ %m
-se stl+=%=
-se stl+=%#Visual#       " colour
-se stl+=%{&paste?'\ PASTE\ ':''}
-se stl+=%{&spell?'\ SPELL\ ':''}
-se stl+=%#CursorColumn#
-se stl+=\ %y
-se stl+=\ %p%%
-se stl+=\ %l:%c
-se stl+=\ 
+" se stl=
+" se stl+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
+" se stl+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
+" se stl+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
+" se stl+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
+" se stl+=%#CursorIM#     " colour
+" se stl+=%R
+" se stl+=%#PmenuSel#
+" se stl+=%#LineNr#
+" se stl+=\ %f
+" se stl+=\ %m
+" se stl+=%=
+" se stl+=%#Visual#       " colour
+" se stl+=%{&paste?'\ PASTE\ ':''}
+" se stl+=%{&spell?'\ SPELL\ ':''}
+" se stl+=%#CursorColumn#
+" se stl+=\ %y
+" se stl+=\ %p%%
+" se stl+=\ %l:%c
+" se stl+=\ 

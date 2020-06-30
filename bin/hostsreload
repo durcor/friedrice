@@ -2,10 +2,10 @@
 
 ping -c 1 1.1.1.1 || exit
 
-if ! ls /etc/hosts.mine
-then
-    cp /etc/hosts /etc/hosts.mine
-else
+if [ -f /etc/hosts.mine ]; then
     cp /etc/hosts.mine /etc/hosts
+else
+    cp /etc/hosts /etc/hosts.mine
 fi
+
 curl https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts >> /etc/hosts

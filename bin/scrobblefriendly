@@ -1,0 +1,11 @@
+#!/bin/sh
+
+read -r currentvid
+mkdir -p /tmp/mpv
+cd /tmp/mpv || exit
+rm /tmp/mpv/*
+
+youtube-dl -icw -f bestaudio --embed-thumbnail --add-metadata --format mp4 --audio-quality 0 "$currentvid"
+mpv --keep-open=no /tmp/mpv/*.mp4
+
+~/bin/scrobblefriendly

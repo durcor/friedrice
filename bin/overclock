@@ -1,0 +1,10 @@
+#!/bin/sh
+
+gpu_dir="/sys/class/drm/card0/device"
+
+echo "s 7 2100 900" > $gpu_dir/pp_od_clk_voltage
+# echo "m 2 1850 850" > $gpu_dir/pp_od_clk_voltage
+echo "c" > $gpu_dir/pp_od_clk_voltage
+
+# Default of 220 W
+echo 265000000 > $gpu_dir/hwmon/hwmon3/power1_cap

@@ -7,7 +7,7 @@
 refreshcfg() {
     wpg -s "$(wpg -c)"
 
-    if command -v openrgb >/dev/null; then
+    command -v openrgb >/dev/null &&
         sudo openrgb \
         -d 0 `# Left RAM Stick` \
             -c "$(echo $color14 | sed 's/#//')" -m Static \
@@ -16,9 +16,8 @@ refreshcfg() {
         -d 2 `# X570 Taichi` \
             `#-c ${color9:1} -m Neon \ ` \
             -m Random &
-    fi
 
-    [ "$(lsusb | grep NZXT)" ] && 
+    lsusb | grep -q NZXT && 
         if liquidctl; then
             sudo liquidctl set led1 color starry-night "$(echo "$color14" | sed 's/#//')" &
             sudo liquidctl set led2 color starry-night "$(echo "$color11" | sed 's/#//')" &
@@ -30,14 +29,14 @@ refreshcfg() {
                 -z 3 -c "$(echo "$color10" | sed 's/#//')" &
         fi
 
-    [ "$(lsusb | grep AMD)" ] &&
+    lsusb | grep -q AMD &&
         wraith-master -m swirl -c "$color14" ring &&
         wraith-master -m static -c "$color11" logo &&
         wraith-master --mirage on fan &&
         wraith-master -c "$color9" fan &
 
-    [ "$(lsusb | grep Microdia)" ] && rgb_keyboard -c 000000 &
-    [ "$(lsusb | grep Razer)" ] && razerricer &
+    lsusb | grep -q Microdia && rgb_keyboard -c 000000 &
+    lsusb | grep -q Razer && razerricer &
     [ "$(pgrep qutebrowser)" ] && qutebrowser :config-source &
 
     if [ "$WAYLAND_DISPLAY" ]; then
@@ -104,9 +103,19 @@ listcfg() {
     awk '{print $1}' ~/.config/cfg/al
 }
 
+updatecfg() {
+    cd "$HOME" || exit
+    git add -f "$HOME"/bin/*
+    git add -f "$HOME"/.config/wpg/templtes/*.base
+    pacman -Qeq > "$HOME"/.config/pkgs
+    git commit -a
+    git push
+}
+
 case $1 in
     r|rf|re|refresh)refreshcfg;;
     a|add)addcfg "$@";;
     e|ed|edit)editcfg "$@";;
     l|ls|list)listcfg;;
+    u|up|update)updatecfg;;
 esac
