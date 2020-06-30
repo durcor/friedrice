@@ -105,9 +105,9 @@ listcfg() {
 
 updatecfg() {
     cd "$HOME" || exit
-    git add -f "$HOME"/bin/*
-    git add -f "$HOME"/.config/wpg/templtes/*.base
-    pacman -Qeq > "$HOME"/.config/pkgs
+    git add -f ~/bin/*
+    git add -f ~/.config/wpg/templtes/*.base
+    pacman -Qeq > ~/.config/pkgs
     git commit -a
     git push
 }
