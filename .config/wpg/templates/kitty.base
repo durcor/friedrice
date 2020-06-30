@@ -13,7 +13,7 @@ scrollback_lines        100000
 # placement_strategy      top-left
 placement_strategy      center
 background_opacity      0.9
-window_padding_width    0
+window_padding_width    5
 allow_remote_control    true
 disable_ligatures       always
 draw_minimal_borders    yes
@@ -60,15 +60,40 @@ map kitty_mod+minus     change_font_size all -0.5
 map kitty_mod+backspace change_font_size all 0
 
 map alt+escape>h         previous_window
+map alt+h                previous_window
+
 map alt+escape>l         next_window
+map alt+l                next_window
+
 map alt+escape>b         previous_tab
+map alt+b                previous_tab
+
 map alt+escape>w         next_tab
+map alt+w                next_tab
+
 map alt+escape>o         new_window_with_cwd
+map alt+o                new_window_with_cwd
+
 map alt+escape>shift+o   new_tab
+map alt+shift+o          new_tab
+
 map alt+escape>x         close_window
+map alt+x                close_window
+
 map alt+escape>d         close_tab
+map alt+d                close_tab
+
 map alt+escape>shift+w   move_tab_forward
+map alt+shift+w          move_tab_forward
+
 map alt+escape>shift+b   move_tab_backward
+map alt+shift+b          move_tab_backward
+
 map alt+escape>ctrl+b    scroll_page_up
+map alt+ctrl+b           scroll_page_up
+
 map alt+escape>ctrl+f    scroll_page_down
+map alt+ctrl+f           scroll_page_down
+
 map alt+escape>v         launch --stdin-source=@screen_scrollback nvim
+map alt+v                launch --stdin-source=@screen_scrollback nvim

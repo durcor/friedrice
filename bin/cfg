@@ -105,8 +105,12 @@ listcfg() {
 
 updatecfg() {
     cd "$HOME" || exit
-    git add -f ~/bin/*
-    git add -f ~/.config/wpg/templtes/*.base
+    for f in ~/bin/*; do
+        git add -f "$f" || exit
+    done
+    for f in ~/.config/wpg/templates/*.base; do
+        git add -f "$f" || exit
+    done
     pacman -Qeq > ~/.config/pkgs
     git commit -a
     git push
