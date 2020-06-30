@@ -74,6 +74,10 @@ refreshcfg() {
 
 
 addcfg() {
+    if [ ! "$3" ]; then
+        echo "You can't add a config without an alias/path!"
+        exit
+    fi
     cfgalias=$3
     newcfg=$(readlink -f "$2")
     echo "$cfgalias $newcfg" >> ~/.config/cfg/al
@@ -100,7 +104,7 @@ editcfg() {
 }
 
 listcfg() {
-    awk '{print $1}' ~/.config/cfg/al
+    awk '{print $1 ; print $2}' ~/.config/cfg/al
 }
 
 updatecfg() {
@@ -116,10 +120,58 @@ updatecfg() {
     git push
 }
 
+deletecfg() {
+    path_to_del="$(fzf < ~/.config/cfg/al | awk '{print $2}')"
+    rm -i "$path_to_del" && sed -i "/$2/d"
+}
+
 case $1 in
-    r|rf|re|refresh)refreshcfg;;
-    a|add)addcfg "$@";;
-    e|ed|edit)editcfg "$@";;
-    l|ls|list)listcfg;;
-    u|up|update)updatecfg;;
+    r|rf|re|refresh)
+        refreshcfg
+        ;;
+    a|add)
+        addcfg "$@"
+        ;;
+    e|ed|edit)
+        editcfg "$@"
+        ;;
+    l|ls|list)
+        listcfg
+        ;;
+    u|up|update)
+        updatecfg
+        ;;
+    x|d|del|delete|rm)
+        deletecfg "$@"
+        ;;
+    *)
+        echo "\
+cfg - the simple config controller
+
+    r/rf/refresh - refresh all configs
+        - cfg r
+    
+    a/add - add new config
+        - cfg a (PATH TO CONFIG) (CONFIG ALIAS)
+    
+    e/ed/edit - edit existing config
+        - cfg e
+            - calls fzf
+            OR
+        - cfg e (CONFIG ALIAS)
+    
+    l/ls/list - list existing config aliases
+        - cfg l
+
+    l/ls/list - list existing config aliases
+        - cfg l
+    
+    u/up/update - push to your main repo
+        - cfg u
+
+    x/d/rm/delete - delete a config file
+    - cfg x
+        - calls fzf
+"
+        ;;
 esac
