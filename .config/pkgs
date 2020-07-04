@@ -66,7 +66,6 @@ dunst-git
 ebtables
 efibootmgr
 env-modules
-evince
 fakeroot
 faudio-git
 feh
@@ -114,8 +113,6 @@ i2c-piix4-aura-dkms
 i2c-tools
 i3-gaps-next-git
 i3blocks
-i3lock
-icecat
 ifuse
 im2a
 inkscape
