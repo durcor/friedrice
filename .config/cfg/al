@@ -1,6 +1,6 @@
 z       ~/.zshrc source ~/.zshrc
-i3      ~/.config/i3/config i3 restart && sleep 0.1 && i3 mode WINDOW
-i3b     ~/.config/wpg/templates/i3blocks.base wpg -s $(wpg -c)
+i3      ~/.config/i3/config i3 restart
+i3b     ~/.config/wpg/templates/i3blocks.base wpg -s $(wpg -c) && i3 restart
 sw      ~/.config/wpg/templates/sway.base wpg -s $(wpg -c) && sway reload
 dm      ~/.config/wpg/templates/dmenu.base wpg -s $(wpg -c) && cd ~/prg/dmenu && sudo make clean install
 du      ~/.config/wpg/templates/dunst.base cfg rf
@@ -43,5 +43,5 @@ pa      /etc/pacman.conf
 pam     /etc/pacman.d/mirrorlist
 mn      ~/.config/wpg/templates/mangohud.base wpg -s $(wpg -c)
 cfg     ~/.config/cfg/al
-pb      ~/.config/polybar/config i3 restart && sleep 0.065 && i3 mode WINDOW
+pb      ~/.config/polybar/config i3 restart
 k       ~/.config/wpg/templates/kitty.base wpg -s $(wpg -c)

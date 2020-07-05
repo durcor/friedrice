@@ -119,7 +119,7 @@ updatecfg() {
     git add -f ~/bin
     git add -f "$XDG_CONFIG_HOME/wpg/templates/*.base"
     pacman -Qeq > "$XDG_CONFIG_HOME/pkgs"
-    git commit -a
+    # git commit -a
     # git push
 }
 

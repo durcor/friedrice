@@ -28,11 +28,20 @@ set $terminal kitty
 set $browser firefox-nightly
 
 # font for window titles+status bar
-font pango: $font 9
+font pango: $font 12
 
-#mode [--pango_markup foreground=blue] MANAGER {
-#mode --pango_markup "<span color='blue'>MANAGER</span>" {
-mode MANAGER {
+set $mode_manager <span background='red'><b> MANAGER </b></span><span foreground='red'><b></b></span>
+set $mode_window <span background='green'><b> WINDOW </b></span><span foreground='green'><b></b></span>
+set $mode_launch <span background='blue'><b> LAUNCH </b></span><span foreground='blue'><b></b></span>
+set $mode_music <span background='white'><b> MUSIC </b></span><span foreground='white'><b></b></span>
+set $mode_mpd <span background='brown'><b> MPD </b></span><span foreground='brown'><b></b></span>
+set $mode_brightness <span background='cyan'><b> BRIGHTNESS </b></span><span foreground='cyan'><b></b></span>
+set $mode_audio <span background='yellow'><b> AUDIO </b></span><span foreground='yellow'><b></b></span>
+set $mode_gaps <b><span background='orange'> GAPS </span><span foreground='orange'></span></b>
+set $mode_resize <b><span background='purple'> RESIZE </span><span foreground='purple'></span></b>
+set $mode_visual <b><span background='maroon'> VISUAL </span><span foreground='maroon'></span></b>
+
+mode --pango_markup "$mode_manager" {
     bindsym XF86AudioRaiseVolume $ex pamixer --allow-boost -i 5
     bindsym F3 $ex pamixer --allow-boost -i 5
     bindsym XF86AudioLowerVolume $ex pamixer --allow-boost -d 5
@@ -103,10 +112,10 @@ mode MANAGER {
     bindsym e layout toggle split
 
     bindsym n focus parent
-    bindsym m focus child
+    bindsym shift+n focus child
     
     # toggle tiling / floating
-    bindsym Shift+space floating toggle
+    bindsym shift+space floating toggle
     
     # change focus between tiling / floating windows
     bindsym space focus mode_toggle
@@ -122,38 +131,40 @@ mode MANAGER {
     bindsym 9 workspace $ws9
     bindsym 0 workspace $ws10
     
-    bindsym Shift+1 move container to workspace $ws1
-    bindsym Shift+2 move container to workspace $ws2
-    bindsym Shift+3 move container to workspace $ws3
-    bindsym Shift+4 move container to workspace $ws4
-    bindsym Shift+5 move container to workspace $ws5
-    bindsym Shift+6 move container to workspace $ws6
-    bindsym Shift+7 move container to workspace $ws7
-    bindsym Shift+8 move container to workspace $ws8
-    bindsym Shift+9 move container to workspace $ws9
-    bindsym Shift+0 move container to workspace $ws10
+    bindsym shift+1 move container to workspace $ws1
+    bindsym shift+2 move container to workspace $ws2
+    bindsym shift+3 move container to workspace $ws3
+    bindsym shift+4 move container to workspace $ws4
+    bindsym shift+5 move container to workspace $ws5
+    bindsym shift+6 move container to workspace $ws6
+    bindsym shift+7 move container to workspace $ws7
+    bindsym shift+8 move container to workspace $ws8
+    bindsym shift+9 move container to workspace $ws9
+    bindsym shift+0 move container to workspace $ws10
     
-    bindsym Shift+c reload ; mode MANAGER
-    bindsym Shift+r restart ; mode MANAGER
-    bindsym Shift+e $ex "i3-nagbar -t warning -m 'exit i3?' -b 'yes' 'i3-msg exit'"
+    bindsym shift+c reload
+    bindsym shift+r restart
+    bindsym shift+e $ex "i3-nagbar -t warning -m 'exit i3?' -b 'yes' 'i3-msg exit'"
     
-    bindsym i mode "WINDOW"; $ex $mode-notif "WINDOW MODE"
-    bindsym a mode "WINDOW"; $ex $mode-notif "WINDOW MODE"
-    bindsym A mode "WINDOW"; $ex $mode-notif "WINDOW MODE"
-    bindsym I mode "WINDOW"; $ex $mode-notif "WINDOW MODE"
+    bindsym i mode "$mode_window" ; $ex $mode-notif "WINDOW MODE"
+    bindsym a mode "$mode_window" ; $ex $mode-notif "WINDOW MODE"
+    bindsym A mode "$mode_window" ; $ex $mode-notif "WINDOW MODE"
+    bindsym I mode "$mode_window" ; $ex $mode-notif "WINDOW MODE"
     
-    bindsym o mode "LAUNCH"; $ex $mode-notif "LAUNCH MODE"
-    bindsym g mode "GAPS"; $ex $mode-notif "GAPS MODE"
-    bindsym m mode "MUSIC"; $ex $mode-notif "MUSIC MODE"
-    bindsym z mode "AUDIO"; $ex $mode-notif "AUDIO MODE"
-    bindsym Shift+colon mode "COMMAND"; $ex $mode-notif "COMMAND MODE"
-    bindsym r mode "RESIZE"; $ex $mode-notif "RESIZE MODE"
-    bindsym v mode "VISUAL"; $ex $mode-notif "VISUAL MODE"
-    bindsym c mode "BRIGHTNESS"; $ex $mode-notif "BRIGHTNESS MODE"
+    bindsym o mode "$mode_launch" ; $ex $mode-notif "LAUNCH MODE"
+    bindsym g mode "$mode_gaps" ; $ex $mode-notif "GAPS MODE"
+    bindsym m mode "$mode_music" ; $ex $mode-notif "MUSIC MODE"
+    bindsym z mode "$mode_audio" ; $ex $mode-notif "AUDIO MODE"
+    bindsym shift+colon [instance="pop"] mode "$mode_window" ; scratchpad show ; [instance="pop"] move position center
+    bindsym r mode "$mode_resize" ; $ex $mode-notif "RESIZE MODE"
+    bindsym v mode "$mode_visual" ; $ex $mode-notif "VISUAL MODE"
+    bindsym c mode "$mode_brightness" ; $ex $mode-notif "BRIGHTNESS MODE"
 }
 
-mode WINDOW {
-    bindsym Super_L mode "MANAGER"; $ex $mode-notif "MANAGER MODE"
+bindsym Super_L mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
+
+mode --pango_markup "$mode_window" {
+    bindsym Super_L mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 
     bindsym XF86AudioRaiseVolume $ex pamixer --allow-boost -i 5 ; $ex pkill -RTMIN+13 i3blocks
     bindsym XF86AudioLowerVolume $ex pamixer --allow-boost -d 5 ; $ex pkill -RTMIN+13 i3blocks
@@ -170,9 +181,9 @@ mode WINDOW {
     bindsym --release Print $ex "maim -u -n 2 -s | xclip -se c -i"
 }
 
-bindsym Super_L mode "MANAGER" ; $ex $mode-notif "MANAGER MODE"
+# bindsym Super_L mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 
-mode "RESIZE" {
+mode --pango_markup "$mode_resize" {
     bindsym h $ex i3resize left 20
     bindsym j $ex i3resize down 20
     bindsym k $ex i3resize up 20
@@ -193,19 +204,19 @@ mode "RESIZE" {
     bindsym Shift+k $ex i3resize up 40
     bindsym Shift+l $ex i3resize right 40
     
-    bindsym Escape mode "MANAGER" ; $ex $mode-notif "MANAGER MODE"
+    bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }
 
-mode "GAPS" {
+mode --pango_markup "$mode_gaps" {
     bindsym h gaps inner current minus 5
     bindsym l gaps inner current plus 5
     bindsym j gaps outer current minus 5
     bindsym k gaps outer current plus 5
     
-    bindsym Escape mode "MANAGER"
+    bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }
 
-mode "MUSIC" {
+mode --pango_markup "$mode_music" {
     bindsym h $ex playerctl previous
     bindsym l $ex playerctl next
     bindsym j $ex playerctl position 5-
@@ -213,12 +224,12 @@ mode "MUSIC" {
     bindsym v $ex mpdmenu
     bindsym z $ex playerctl shuffle "On"
     bindsym space $ex playerctl play-pause
-    bindsym m mode "MPD"; $ex $mode-notif "MPD"
+    bindsym m mode "$mode_mpd" ; $ex $mode-notif "MPD MODE"
     
-    bindsym Escape mode "MANAGER" ; $ex $mode-notif "MANAGER MODE"
+    bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }
 
-mode "MPD" {
+mode --pango_markup "$mode_mpd" {
     bindsym h exec $ex mpc prev
     bindsym l exec $ex mpc next
     bindsym j exec $ex mpc seek -5
@@ -227,10 +238,10 @@ mode "MPD" {
     bindsym z exec $ex mpc random ; notify-send " " ""
     bindsym space $ex mpc toggle
     
-    bindsym Escape mode "MANAGER" ; $ex $mode-notif "MANAGER MODE"
+    bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }
 
-mode "AUDIO" {
+mode --pango_markup "$mode_audio" {
     bindsym h $ex pamixer --allow-boost -d 1 ; $ex pkill -RTMIN+13 i3blocks
     bindsym l $ex pamixer --allow-boost -i 1 ; $ex pkill -RTMIN+13 i3blocks
     bindsym j $ex pamixer --allow-boost -d 5 ; $ex pkill -RTMIN+13 i3blocks
@@ -238,10 +249,11 @@ mode "AUDIO" {
     bindsym v $ex notifaudio
     bindsym space $ex pamixer -t ; $ex pkill -RTMIN+13 i3blocks
     
-    bindsym Escape mode "MANAGER"; $ex $mode-notif "MANAGER MODE"
+    bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }
 
-mode "LAUNCH" {
+mode --pango_markup "$mode_launch" {
+    bindsym t $ex $terminal
     bindsym n $ex $terminal -e newsboat
     bindsym w $ex $browser
     bindsym m $ex $terminal -e neomutt
@@ -249,31 +261,24 @@ mode "LAUNCH" {
     bindsym v $ex $terminal -e gotop
     bindsym a $ex $terminal -e pulsemixer
     
-    bindsym Escape mode "MANAGER"; $ex $mode-notif "MANAGER MODE"
+    bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }
 
-mode "COMMAND" {
-    bindsym --release q $ex slock xset dpms force off
-    bindsym --release Shift+q $ex sudo slock systemctl suspend
-    
-    bindsym Escape mode "MANAGER"; $ex $mode-notif "MANAGER MODE"
-}
-
-mode "VISUAL" {
+mode --pango_markup "$mode_visual" {
     bindsym --release s $ex scrman
     bindsym --release c $ex scrman cp
     bindsym --release u $ex scrman up
     
-    bindsym Escape mode "MANAGER"; $ex $mode-notif "MANAGER MODE"
+    bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }
 
-mode "BRIGHTNESS" {
+mode --pango_markup "$mode_brightness" {
     bindsym h exec backlightctl down 1
     bindsym l exec backlightctl up 1
     bindsym j exec backlightctl down 10
     bindsym k exec backlightctl up 10
     
-    bindsym Escape mode "MANAGER"; $ex $mode-notif "MANAGER MODE"
+    bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }
 
 gaps inner 10
@@ -338,10 +343,10 @@ bar {
         separator  $c1
         # class				border 	bg		txt
         focused_workspace 	$c0 	$c15 	$c0
-        # active_workspace
+        active_workspace    $c0     $c0     $c0
         inactive_workspace	$c0		$c7 	$c0
         urgent_workspace	$c0		$c1		$c0
-        binding_mode        $c0     $c10    $c0
+        binding_mode        $c0     $c0     $c0
     	}
 }
 
@@ -349,7 +354,7 @@ for_window [instance="pop"] floating enable
 for_window [instance="pop"] resize set 900 600
 for_window [instance="pop"] move scratchpad
 for_window [instance="pop"] border pixel 10
-exec $terminal --class pop
+$ex $terminal --class pop
 
 for_window [instance="float"] floating enable
 
@@ -361,6 +366,6 @@ $ex firefox-nightly
 $exa ~/.fehbg
 $ex discord
 $ex cfg rf
-$exa i3-msg mode MANAGER
+$exa sleep 0.007 ; i3 mode "$mode_manager"
 # exec xrandr --output HDMI-A-1 --auto --left-of DisplayPort-1
 # $exa $HOME/.config/polybar/launch.sh
