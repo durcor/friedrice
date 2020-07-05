@@ -92,15 +92,13 @@ editcfg() {
 
     cfgfilepostrun="$(grep "$(echo "$cfgfileloc" | sed "s/\/home\/$USER/~/")" ~/.config/cfg/al | awk '{$1="";$2="";print}' | xargs)"
 
-    if [ -O "$cfgfileloc" ]; then
-        $EDITOR "$cfgfileloc"
-    else
-        sudoedit "$cfgfileloc"
     # Only advance onto the post run command if the edit of the
     # file succeeds 
     # (ie. sudoedit without doing any actual editing or
-    # editing a file in vim that is already open in another instance)
-    fi &&
+    # editing a file that is already open in another instance)
+    edit "$cfgfileloc" &&
+
+    updatecfg
 
     [ -n "$cfgfilepostrun" ] && $SHELL -c "$cfgfilepostrun"
 }
@@ -110,7 +108,17 @@ listcfg() {
 }
 
 updatecfg() {
-    cd "$HOME" || exit
+    cp /etc/pacman.conf ~/.config/root/etc/ || exit
+    cp /etc/makepkg.conf ~/.config/root/etc/ || exit
+    cp /etc/pulse/default.pa ~/.config/root/etc/pulse/ || exit
+    cp /etc/sysctl.d -r ~/.config/root/etc/ || exit
+    cp /etc/bluetooth -r ~/.config/root/etc/ || exit
+    cp /etc/locale.gen ~/.config/root/etc/ || exit
+    sudo cp /etc/sudoers ~/.config/root/etc/ || exit
+    cp /etc/hostname ~/.config/root/etc/ || exit
+    cp /etc/profile ~/.config/root/etc/ || exit
+    git add -f ~/.config/root
+
     git add -f ~/bin
     git add -f ~/.config/templates/*.base
     pacman -Qeq > ~/.config/pkgs

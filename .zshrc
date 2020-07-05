@@ -2,28 +2,39 @@
 # vi:ft=zsh
 #
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  . "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # [[ $- != *i* ]] && return
 
 . /etc/profile
+. ~/.profile
+
+# autoload -U colors && colors
 #
 # Set up the prompt
 autoload -Uz promptinit
 promptinit
 
-PROMPT='%F{10}%n%f@%F{12}%m%f in %F{11}%~%f
-%F{13}-%F{14}-%F{9}%# '
-RPROMPT=''
+unsetopt nomatch
 
+# PROMPT='%F{10}%n%f@%F{12}%m%f in %F{11}%~%f
+# %F{13}-%F{14}-%F{9}%# '
+# RPROMPT=''
+
+export KEYTIMEOUT=1
 # Make zsh more like vim - no key timeouts
-export KEYTIMEOUT=0
+# XXX: Breaks escaping into NORMAL mode by default
+# export KEYTIMEOUT=0
 
 setopt \
     histignorealldups \
     sharehistory \
     autocd
-
-zmodload zsh/complist
-bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 # Keep 100000 lines of history within the shell and save it to ~/.shhis
 HISTSIZE=100000
@@ -33,11 +44,12 @@ HISTCONTROL=ignoreboth
 
 . ~/.zinit/bin/zinit.zsh
 
+zstyle ':completion:*' menu select
+zmodload zsh/complist
 # Use modern completion system
 autoload -Uz compinit
 compinit
-
-. ~/.zsh/compopt
+_comp_options+=(globdots)
 
 kitty + complete setup zsh | . /dev/stdin
 
@@ -93,27 +105,37 @@ zinit for \
     light-mode zsh-users/zsh-autosuggestions \
     light-mode zsh-users/zsh-completions \
     light-mode momo-lab/zsh-abbrev-alias \
+    light-mode romkatv/powerlevel10k \
     light-mode softmoth/zsh-vim-mode
 
     # light-mode zsh-users/zsh-history-substring-search \
+
+# zinit wait lucid for \
+#     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+#         zdharma/fast-syntax-highlighting \
+#     blockf \
+#         zsh-users/zsh-completions \
+#         zdharma/history-search-multi-word \
+#     atload"!_zsh_autosuggest_start" \
+#         zsh-users/zsh-autosuggestions
 
 zstyle :plugin:history-search-multi-word reset-prompt-protect 1
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=5
 
 export MODE_CURSOR_VIINS="white blinking bar"
-export MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS red"
-export MODE_CURSOR_VICMD="green block"
+# export MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS white"
+# export MODE_CURSOR_VICMD="white block"
 export MODE_CURSOR_SEARCH="#ff00ff steady underline"
 export MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
-export MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL blue"
+# export MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL white"
 
 # Mode prompts on the right
-export MODE_INDICATOR_VIINS='%B%F{10}%K{10}%F{0} INSERT %f%K{0}'
-export MODE_INDICATOR_VICMD='%B%F{12}%K{12}%F{0} NORMAL %f%K{0}'
-export MODE_INDICATOR_REPLACE='%B%F{13}%K{13}%F{1} REPLACE %f%K{0}'
-export MODE_INDICATOR_SEARCH='%B%F{5}%K{5}%F{0} SEARCH %f%K{0}'
-export MODE_INDICATOR_VISUAL='%B%F{9}%K{9}%F{0} VISUAL %f%K{0}'
-export MODE_INDICATOR_VLINE='%B%F{9}%K{9}%F{0} V-LINE %f%K{0}'
+# export MODE_INDICATOR_VIINS='%B%F{10}%K{10}%F{0} INSERT %f%K{0}'
+# export MODE_INDICATOR_VICMD='%B%F{12}%K{12}%F{0} NORMAL %f%K{0}'
+# export MODE_INDICATOR_REPLACE='%B%F{13}%K{13}%F{1} REPLACE %f%K{0}'
+# export MODE_INDICATOR_SEARCH='%B%F{5}%K{5}%F{0} SEARCH %f%K{0}'
+# export MODE_INDICATOR_VISUAL='%B%F{9}%K{9}%F{0} VISUAL %f%K{0}'
+# export MODE_INDICATOR_VLINE='%B%F{9}%K{9}%F{0} V-LINE %f%K{0}'
 
 # bindkey -M isearch " "  magic-space     # normal space during searches
 # bindkey -M vicmd '/' history-incremental-search-backward
@@ -122,4 +144,16 @@ export MODE_INDICATOR_VLINE='%B%F{9}%K{9}%F{0} V-LINE %f%K{0}'
 # Disable all escape sequences in normal mode
 # bindkey -rpM viins '\e'
 # bindkey -rpM viins '\e\e'
+
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+
 . ~/.zshal
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# source /home/ty/.config/broot/launcher/bash/br

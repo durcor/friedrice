@@ -10,8 +10,8 @@ italic_font             auto
 bold_italic_font        auto
 font_size               10.0
 scrollback_lines        100000
-# placement_strategy      top-left
-placement_strategy      center
+placement_strategy      top-left
+# placement_strategy      center
 background_opacity      0.9
 window_padding_width    5
 allow_remote_control    true
@@ -97,5 +97,7 @@ map alt+ctrl+b           scroll_page_up
 map alt+escape>ctrl+f    scroll_page_down
 map alt+ctrl+f           scroll_page_down
 
-map alt+escape>v         launch --stdin-source=@screen_scrollback nvim
-map alt+v                launch --stdin-source=@screen_scrollback nvim
+# map alt+escape>v         launch --stdin-source=@screen_scrollback nvim
+# map alt+v                launch --stdin-source=@screen_scrollback nvim
+map alt+escape>v         launch --stdin-source=@screen_scrollback less
+map alt+v                launch --stdin-source=@screen_scrollback less

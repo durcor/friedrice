@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+    $EDITOR 
+else
+    if [ -O "$1" ]; then 
+        $EDITOR "$1"
+    else
+        sudoedit "$1"
+    fi
+fi

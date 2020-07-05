@@ -173,25 +173,25 @@ mode WINDOW {
 bindsym Super_L mode "MANAGER" ; $ex $mode-notif "MANAGER MODE"
 
 mode "RESIZE" {
-    bindsym h resize shrink width 40 px or 5 ppt
-    bindsym j resize shrink height 40 px or 5 ppt
-    bindsym k resize grow height 40 px or 5 ppt
-    bindsym l resize grow width 40 px or 5 ppt
+    bindsym h $ex i3resize left 20
+    bindsym j $ex i3resize down 20
+    bindsym k $ex i3resize up 20
+    bindsym l $ex i3resize right 20
     
-    bindsym Mod1+h resize shrink width 20 px or 2 ppt
-    bindsym Mod1+j resize shrink height 20 px or 2 ppt
-    bindsym Mod1+k resize grow height 20 px or 2 ppt
-    bindsym Mod1+l resize grow width 20 px or 2 ppt
+    bindsym Mod1+h $ex i3resize left 10
+    bindsym Mod1+j $ex i3resize down 10
+    bindsym Mod1+k $ex i3resize up 10
+    bindsym Mod1+l $ex i3resize right 10
     
-    bindsym Control+h resize shrink width 10 px or 1 ppt
-    bindsym Control+j resize shrink height 10 px or 1 ppt
-    bindsym Control+k resize grow height 10 px or 1 ppt
-    bindsym Control+l resize grow width 10 px or 1 ppt
+    bindsym Control+h $ex i3resize left 1
+    bindsym Control+j $ex i3resize down 1
+    bindsym Control+k $ex i3resize up 1
+    bindsym Control+l $ex i3resize right 1
     
-    bindsym Shift+h resize shrink width 80 px or 10 ppt
-    bindsym Shift+j resize shrink height 80 px or 10 ppt
-    bindsym Shift+k resize grow height 80 px or 10 ppt
-    bindsym Shift+l resize grow width 80 px or 10 ppt
+    bindsym Shift+h $ex i3resize left 40
+    bindsym Shift+j $ex i3resize down 40
+    bindsym Shift+k $ex i3resize up 40
+    bindsym Shift+l $ex i3resize right 40
     
     bindsym Escape mode "MANAGER" ; $ex $mode-notif "MANAGER MODE"
 }

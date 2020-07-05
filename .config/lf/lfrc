@@ -15,10 +15,12 @@ set ignorecase
 set number
 set relativenumber
 # set tabstop
+# atime: last time read
+# ctime: last time metadata changed (file permissions)
+# natural: 
 set sortby time
+set reverse
 set info size
-# natural
-# set reverse
 set period 1
 set ratios 1:2:3
 # set ratios 100:1
@@ -31,7 +33,7 @@ set findlen 0
 cmd open ${{
     case $(file --mime-type "$f" -bL) in
     text/*|application/json|inode/*|application/z*)
-        $EDITOR "$f"
+        edit "$f"
             ;;
     video/*|image/*|audio/*) 
         mpv "$f"
@@ -95,20 +97,7 @@ cmd chmod ${{
     done
 }}
 
-cmd changedir ${{
-    printf "New dir: "
-    read name
-    cd $name
-}}
-
-cmd smarted ${{
-    if [ -O "$f" ]; then
-        $EDITOR "$f"
-    else
-        sudoedit "$f"
-    fi
-}}
-
+map gg top
 map gm cd ~/data/mus
 map gd cd ~/doc
 map gv cd ~/data/vid
@@ -118,6 +107,8 @@ map gw cd ~/pic/wal
 map gz cd ~/dl
 map gc cd ~/.config
 map gG cd ~/data/gam
+map ge cd /etc
+map gt cd ~/data/.garb
 
 map y
 map yy copy
@@ -131,7 +122,7 @@ map U clear
 
 # map $
 
-map v
+map v :toggle; down
 map V invert
 
 map p paste
@@ -147,13 +138,13 @@ map O mkdir
 
 map c
 map cw $vimv $fx
-map cd changedir
+map cd $cd $(fzffm)
 
 map q
 map Q quit
 
-map i smarted "$f"
-map I smarted "$f"
+map i $edit "$f"
+map I $edit "$f"
 # map i $$EDITOR "$f"
 # map I $sudoedit "$f" || $EDITOR "$f"
 
@@ -167,5 +158,15 @@ map wz %tmux splitw -v walman shuf
 map wg %tmux splitw -v autoglitch "$f"
 
 map z
+map za
+map zt
 map zr source ~/.config/lf/lfrc
-map 
+map zR set reverse!
+map zst set sortby time
+map zss set sortby size
+
+map <space>
+map <space>r source ~/.config/lf/lfrc
+map <space>R set reverse!
+map <space>st set sortby time
+map <space>ss set sortby size
