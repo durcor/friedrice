@@ -28,6 +28,7 @@ export READER=zathura
 export MAILREADER=neomutt
 export QT_QPA_PLATFORMTHEME=qt5ct
 export LYNX_CFG=$HOME/.lynxrc
+export XDG_CONFIG_HOME="$HOME/.config"
 
 [ "$TERM" = linux ] && \
 	. ~/.cache/wal/colors-tty.sh && \
