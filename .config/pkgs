@@ -354,7 +354,6 @@ wraith-master-cli
 xclip
 xdg-user-dirs
 xf86-video-amdgpu
-xf86-video-vesa
 xkblayout-state-git
 xorg-bdftopcf
 xorg-docs
