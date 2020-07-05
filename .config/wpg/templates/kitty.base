@@ -10,8 +10,9 @@ italic_font             auto
 bold_italic_font        auto
 font_size               10.0
 scrollback_lines        100000
-placement_strategy      top-left
-# placement_strategy      center
+scrollback_pager_history_size 100000
+# placement_strategy      top-left
+placement_strategy      center
 background_opacity      0.9
 window_padding_width    5
 allow_remote_control    true
@@ -20,6 +21,7 @@ draw_minimal_borders    yes
 active_border_color     {color15}
 inactive_border_color   {color7}
 window_border_width     0.5
+enabled_layouts         splits
 
 # Audio
 enable_audio_bell       no
@@ -50,7 +52,7 @@ inactive_tab_background {color8}
 inactive_tab_font_style normal
 
 # Keybinds
-clear_all-shortcuts     yes
+clear_all_shortcuts     yes
 # kitty_mod alt+ctrl
 
 map kitty_mod+equal     change_font_size all +0.5
@@ -61,43 +63,60 @@ map ctrl+shift+v        paste_from_clipboard
 map alt+escape>p        paste_from_clipboard
 map alt+p               paste_from_clipboard
 
-map alt+escape>h         previous_window
-map alt+h                previous_window
+# map alt+escape>h         previous_window
+# map alt+h                previous_window
+# map alt+escape>l         next_window
+# map alt+l                next_window
 
-map alt+escape>l         next_window
-map alt+l                next_window
+map alt+h               neighboring_window left
+map alt+j               neighboring_window down
+map alt+k               neighboring_window up
+map alt+l               neighboring_window right
+
+map alt+ctrl+h          move_window left
+map alt+ctrl+j          move_window down
+map alt+ctrl+k          move_window up
+map alt+ctrl+l          move_window right
 
 map alt+escape>b         previous_tab
 map alt+b                previous_tab
-
 map alt+escape>w         next_tab
 map alt+w                next_tab
 
 map alt+escape>o         new_window_with_cwd
 map alt+o                new_window_with_cwd
-
 map alt+escape>shift+o   new_tab
 map alt+shift+o          new_tab
 
 map alt+escape>x         close_window
 map alt+x                close_window
-
 map alt+escape>d         close_tab
 map alt+d                close_tab
 
 map alt+escape>shift+w   move_tab_forward
 map alt+shift+w          move_tab_forward
-
 map alt+escape>shift+b   move_tab_backward
 map alt+shift+b          move_tab_backward
 
 map alt+escape>ctrl+b    scroll_page_up
 map alt+ctrl+b           scroll_page_up
-
 map alt+escape>ctrl+f    scroll_page_down
 map alt+ctrl+f           scroll_page_down
 
-# map alt+escape>v         launch --stdin-source=@screen_scrollback nvim
-# map alt+v                launch --stdin-source=@screen_scrollback nvim
-map alt+escape>v         launch --stdin-source=@screen_scrollback less
-map alt+v                launch --stdin-source=@screen_scrollback less
+map alt+escape>shift+h  resize_window narrower
+map alt+shift+h         resize_window narrower
+map alt+escape>shift+j  resize_window shorter
+map alt+shift+j         resize_window shorter
+map alt+escape>shift+k  resize_window taller
+map alt+shift+k         resize_window taller
+map alt+escape>shift+l  resize_window wider
+map alt+shift+l         resize_window wider
+
+map alt+escape>slash    launch --location=vsplit
+map alt+slash           launch --location=vsplit
+map alt+escape>minus    launch --location=hsplit
+map alt+minus           launch --location=hsplit
+
+# Other good pagers: nvim, nvimpager
+map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting less +G -R
+map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting less

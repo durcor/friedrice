@@ -47,12 +47,9 @@ refreshcfg() {
         i3 mode WINDOW
     fi
 
-    cd ~/prg/st || exit
-    sudo make clean install || exit
-    cd ~/prg/dmenu || exit
-    sudo make clean install || exit
-    cd ~/prg/slock || exit
-    sudo make clean install || exit
+    cd ~/prg/st && sudo make clean install || exit
+    cd ~/prg/dmenu && sudo make clean install || exit
+    cd ~/prg/slock && sudo make clean install || exit
     wal_steam -g &
     pywalfox update &
     oomox-cli ~/.cache/wal/colors-oomox &
@@ -114,7 +111,7 @@ updatecfg() {
     cp /etc/sysctl.d -r "$XDG_CONFIG_HOME/root/etc/" || exit
     cp /etc/bluetooth -r "$XDG_CONFIG_HOME/root/etc/" || exit
     cp /etc/locale.gen "$XDG_CONFIG_HOME/root/etc/" || exit
-    ( sudo cp /etc/sudoers "$XDG_CONFIG_HOME/root/etc/" && sudo chown -R ty:users "$XDG_CONFIG_HOME/root" ) || exit
+    sudo cp /etc/sudoers "$XDG_CONFIG_HOME/root/etc/" && sudo chown -R ty:users "$XDG_CONFIG_HOME/root" || exit
     cp /etc/hostname "$XDG_CONFIG_HOME/root/etc/" || exit
     cp /etc/profile "$XDG_CONFIG_HOME/root/etc/" || exit
     git add -f "$XDG_CONFIG_HOME/root"
