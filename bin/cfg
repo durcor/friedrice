@@ -114,7 +114,7 @@ updatecfg() {
     cp /etc/sysctl.d -r ~/.config/root/etc/ || exit
     cp /etc/bluetooth -r ~/.config/root/etc/ || exit
     cp /etc/locale.gen ~/.config/root/etc/ || exit
-    sudo cp /etc/sudoers ~/.config/root/etc/ || exit
+    ( sudo cp /etc/sudoers ~/.config/root/etc/ && sudo chown -R ty:users ~/.config/root ) || exit
     cp /etc/hostname ~/.config/root/etc/ || exit
     cp /etc/profile ~/.config/root/etc/ || exit
     git add -f ~/.config/root
