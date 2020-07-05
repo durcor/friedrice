@@ -2,7 +2,7 @@
 
 . $HOME/.cache/wal/colors.sh
 
-[ ! -f ~/.config/cfg/al ] && mkdir -p ~/.config/cfg && touch ~/.config/cfg/al
+[ ! -f "$XDG_CONFIG_HOME/cfg/al" ] && mkdir -p "$XDG_CONFIG_HOME/cfg" && touch "$XDG_CONFIG_HOME/cfg/al"
 
 refreshcfg() {
     wpg -s "$(wpg -c)"
@@ -80,17 +80,17 @@ addcfg() {
     fi
     cfgalias=$3
     newcfg=$(readlink -f "$2")
-    echo "$cfgalias $newcfg" >> ~/.config/cfg/al
+    echo "$cfgalias $newcfg" >> "$XDG_CONFIG_HOME/cfg/al"
 }
 
 editcfg() {
     if [ -z "$2"  ]; then
-        cfgfileloc="$(sed "s/~/\/home\/$USER/" ~/.config/cfg/al | awk '{print $2}' | fzf)"
+        cfgfileloc="$(sed "s/~/\/home\/$USER/" "$XDG_CONFIG_HOME/cfg/al" | awk '{print $2}' | fzf)"
     else
-        cfgfileloc="$(sed "s/~/\/home\/$USER/" ~/.config/cfg/al | grep "^$2 " | awk '{print $2}')"
+        cfgfileloc="$(sed "s/~/\/home\/$USER/" "$XDG_CONFIG_HOME/cfg/al" | grep "^$2 " | awk '{print $2}')"
     fi
 
-    cfgfilepostrun="$(grep "$(echo "$cfgfileloc" | sed "s/\/home\/$USER/~/")" ~/.config/cfg/al | awk '{$1="";$2="";print}' | xargs)"
+    cfgfilepostrun="$(grep "$(echo "$cfgfileloc" | sed "s/\/home\/$USER/~/")" "$XDG_CONFIG_HOME/cfg/al" | awk '{$1="";$2="";print}' | xargs)"
 
     # Only advance onto the post run command if the edit of the
     # file succeeds 
@@ -104,30 +104,30 @@ editcfg() {
 }
 
 listcfg() {
-    awk '{print $1 ; print $2}' ~/.config/cfg/al
+    awk '{print $1 ; print $2}' "$XDG_CONFIG_HOME/cfg/al"
 }
 
 updatecfg() {
-    cp /etc/pacman.conf ~/.config/root/etc/ || exit
-    cp /etc/makepkg.conf ~/.config/root/etc/ || exit
-    cp /etc/pulse/default.pa ~/.config/root/etc/pulse/ || exit
-    cp /etc/sysctl.d -r ~/.config/root/etc/ || exit
-    cp /etc/bluetooth -r ~/.config/root/etc/ || exit
-    cp /etc/locale.gen ~/.config/root/etc/ || exit
-    ( sudo cp /etc/sudoers ~/.config/root/etc/ && sudo chown -R ty:users ~/.config/root ) || exit
-    cp /etc/hostname ~/.config/root/etc/ || exit
-    cp /etc/profile ~/.config/root/etc/ || exit
-    git add -f ~/.config/root
+    cp /etc/pacman.conf "$XDG_CONFIG_HOME/root/etc/" || exit
+    cp /etc/makepkg.conf "$XDG_CONFIG_HOME/root/etc/" || exit
+    cp /etc/pulse/default.pa "$XDG_CONFIG_HOME/root/etc/pulse/" || exit
+    cp /etc/sysctl.d -r "$XDG_CONFIG_HOME/root/etc/" || exit
+    cp /etc/bluetooth -r "$XDG_CONFIG_HOME/root/etc/" || exit
+    cp /etc/locale.gen "$XDG_CONFIG_HOME/root/etc/" || exit
+    ( sudo cp /etc/sudoers "$XDG_CONFIG_HOME/root/etc/" && sudo chown -R ty:users "$XDG_CONFIG_HOME/root" ) || exit
+    cp /etc/hostname "$XDG_CONFIG_HOME/root/etc/" || exit
+    cp /etc/profile "$XDG_CONFIG_HOME/root/etc/" || exit
+    git add -f "$XDG_CONFIG_HOME/root"
 
     git add -f ~/bin
-    git add -f ~/.config/templates/*.base
-    pacman -Qeq > ~/.config/pkgs
+    git add -f "$XDG_CONFIG_HOME/wpg/templates/*.base"
+    pacman -Qeq > "$XDG_CONFIG_HOME/pkgs"
     git commit -a
     # git push
 }
 
 deletecfg() {
-    path_to_del="$(fzf < ~/.config/cfg/al | awk '{print $2}')"
+    path_to_del="$(fzf < "$XDG_CONFIG_HOME/cfg/al" | awk '{print $2}')"
     rm -i "$path_to_del" && sed -i "/$2/d"
 }
 
