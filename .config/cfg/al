@@ -1,0 +1,47 @@
+z       ~/.zshrc source ~/.zshrc
+i3      ~/.config/i3/config i3 restart && sleep 0.1 && i3 mode WINDOW
+i3b     ~/.config/wpg/templates/i3blocks.base wpg -s $(wpg -c)
+sw      ~/.config/wpg/templates/sway.base wpg -s $(wpg -c) && sway reload
+dm      ~/.config/wpg/templates/dmenu.base wpg -s $(wpg -c) && cd ~/prg/dmenu && sudo make clean install
+du      ~/.config/wpg/templates/dunst.base cfg rf
+ma      ~/.config/wpg/templates/mako.base wpg -s $(wpg -c) systemctl --user restart mako
+dw      ~/.config/wpg/templates/dwm.base cfg rf
+mp      ~/.config/wpg/templates/mpv.base wpg -s $(wpg -c)
+qc      ~/.config/wpg/templates/qutebrowser.base wpg -s $(wpg -c) && qutebrowser :config-source
+q       ~/.config/qutebrowser/config.py qutebrowser :config-source
+qu      ~/.config/qutebrowser/urls.py qutebrowser :config-source
+qs      ~/.config/qutebrowser/searchengines.py qutebrowser :config-source
+qk      ~/.config/qutebrowser/keybinds.py qutebrowser :config-source
+st      ~/.config/wpg/templates/st.base wpg -s $(wpg -c) && cd ~/prg/st && sudo make clean install
+rof     ~/.config/wpg/templates/rofi.base cfg rf
+sl      ~/.config/wpg/templates/slock.base cfg rf
+nbu     ~/.config/newsboat/urls
+nb      ~/.config/newsboat/config
+rng     ~/.config/ranger/rc.conf
+lf      ~/.config/lf/lfrc
+lfi     ~/.config/lf/ico
+lfp     ~/.config/lf/prev
+x       ~/.xinitrc
+p       ~/.profile source ~/.zshrc
+sp      /etc/profile source ~/.zshrc
+t       ~/.tmux.conf tmux source ~/.config/tmux/tmux.conf
+v       ~/.config/nvim/init.vim
+vb      ~/.config/vimb/config
+nf      ~/.config/neofetch/config.conf
+al      ~/.zshal source ~/.zshrc
+ala     ~/.config/wpg/templates/alacritty.base wpg -s $(wpg -c)
+nc      ~/.ncmpcpp/config
+nck     ~/.ncmpcpp/bindings
+mu      ~/.config/mutt/muttrc
+smu     /etc/neomuttrc
+khal    ~/.config/khal/config
+khard   ~/.config/khard/khard.conf
+vd      ~/.config/vdirsyncer/config
+wp      ~/.config/wpg/wpg.conf
+g       /etc/default/grub sudo grub-mkconfig -o /boot/grub/grub.cfg
+pa      /etc/pacman.conf
+pam     /etc/pacman.d/mirrorlist
+mn      ~/.config/wpg/templates/mangohud.base wpg -s $(wpg -c)
+cfg     ~/.config/cfg/al
+pb      ~/.config/polybar/config i3 restart && sleep 0.065 && i3 mode WINDOW
+k       ~/.config/wpg/templates/kitty.base wpg -s $(wpg -c)
