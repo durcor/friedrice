@@ -123,7 +123,7 @@ updatecfg() {
     git add -f ~/.config/templates/*.base
     pacman -Qeq > ~/.config/pkgs
     git commit -a
-    git push
+    # git push
 }
 
 deletecfg() {
