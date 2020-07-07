@@ -1,0 +1,116 @@
+#!/bin/sh
+
+LINES=50
+
+HIGHLIGHT_THEME="$HOME/.cache/wal/pywal.theme"
+HIGHLIGHT_CMD="highlight -O ansi -s $HIGHLIGHT_THEME"
+PYGMENTIZE_CMD="pygmentize -f terminal"
+
+# kitty +kitten icat --transfer-mode file --clear
+
+case $1 in
+    *.md|*.cfg|*.sh|*.ini)
+        $HIGHLIGHT_CMD "$1"
+        ;;
+    *.txt)
+        $HIGHLIGHT_CMD --syntax md "$1"
+        ;;
+    *BUILD)
+        $HIGHLIGHT_CMD --syntax sh "$1"
+        ;;
+    *.python*)
+        $HIGHLIGHT_CMD --syntax python "$1"
+        ;;
+    # *.zsh*)
+    #     $HIGHLIGHT_CMD --syntax zsh "$1"
+    #     ;;
+    *.tar.gz|*.tgz)
+        tar -ztvf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        ;;
+    *.gz)
+        gzip -l "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        # gzip -l "$1" | $HIGHLIGHT_CMD --syntax ls
+        ;;
+    *.tar.bz2) 
+        tar -jtvf "$1" head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        ;;
+    *.tar.xz) 
+        tar -tvf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        ;;
+    *.xz) 
+        xzcat "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        ;;
+    *.tar) 
+        tar -tvf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        ;;
+    *.7z|*.rar) 
+        7z l "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        ;;
+    *.log*) 
+        head -n$LINES "$1" | $PYGMENTIZE_CMD -l logtalk
+        ;;
+    *.res) 
+        head -n$LINES "$1" | $HIGHLIGHT_CMD --syntax json
+        ;;
+    *.Xauth*) 
+        hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
+        ;;
+    *.X*) 
+        $PYGMENTIZE_CMD -l xorg.conf "$1"
+        ;;
+    *) 
+        case $(file --mime-type "$1" -bL) in
+            audio/*)
+                mediainfo "$1" | $PYGMENTIZE_CMD -l make
+                ;;
+            video/*)
+                mediainfo "$1" | $PYGMENTIZE_CMD -l make
+                ;;
+            image/svg+xml|text/x-shellscript)
+                $HIGHLIGHT_CMD "$1"
+                ;;
+            image/*)
+                chafa -c 256 "$1"
+                # kitty +kitten icat --transfer-mode file --place 80x40@88x1 --silent "$1"
+                # ueberview "$1"
+                mediainfo "$1"
+                ;;
+            application/pdf) 
+                pdftotext "$1" -
+                ;;
+            application/zip) 
+                zipinfo "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+                ;;
+            application/zstd) 
+                # zstdcat "$1" | head -n30
+                tar -tvf "$1"
+                ;;
+            application/x-dosexec|inode/*)
+                file -b "$1"
+                hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
+                ;;
+            application/x-iso9660-image) 
+                iso-info --no-header "$1"
+                hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
+                ;;
+            # odt
+            application/vnd*) 
+                pandoc "$1" -t markdown | $HIGHLIGHT_CMD --syntax markdown
+                ;;
+            application/octet-stream)
+                # hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
+                hexdump -C "$1" | $PYGMENTIZE_CMD -l hexdump
+                ;;
+            application/x*)
+                file -b "$1"
+                echo "-----------------------------------------------------------------------------"
+                hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
+                ;;
+            *) 
+                # nvimpager -c "$1"
+                $PYGMENTIZE_CMD -g "$1"
+                # $PYGMENTIZE_CMD -g "$1" || sudo $PYGMENTIZE_CMD -g "$1"
+                ;;
+        esac
+        ;;
+esac

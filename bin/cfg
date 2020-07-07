@@ -15,7 +15,7 @@ refreshcfg() {
             -c "$(echo $color9 | sed 's/#//')" -m Static \
         -d 2 `# X570 Taichi` \
             `#-c ${color9:1} -m Neon \ ` \
-            -m Random &
+            -m Random
 
     lsusb | grep -q NZXT && 
         if liquidctl; then
@@ -33,24 +33,24 @@ refreshcfg() {
         wraith-master -m swirl -c "$color14" ring &&
         wraith-master -m static -c "$color11" logo &&
         wraith-master --mirage on fan &&
-        wraith-master -c "$color9" fan &
+        wraith-master -c "$color9" fan
 
-    lsusb | grep -q Microdia && rgb_keyboard -c 000000 &
-    lsusb | grep -q Razer && razerricer &
-    [ "$(pgrep qutebrowser)" ] && qutebrowser :config-source &
+    lsusb | grep -q Microdia && rgb_keyboard -c 000000
+    lsusb | grep -q Razer && razerricer
+    [ "$(pgrep qutebrowser)" ] && qutebrowser :config-source
 
     if [ "$WAYLAND_DISPLAY" ]; then
-        sway restart &
+        sway restart
     else
-        i3 restart &
+        i3 restart
     fi
 
     # cd ~/prg/st && sudo make clean install || exit
     cd ~/prg/dmenu && sudo make clean install || exit
     cd ~/prg/slock && sudo make clean install || exit
-    wal_steam -g &
-    pywalfox update &
-    oomox-cli ~/.cache/wal/colors-oomox &
+    wal_steam -g
+    pywalfox update
+    oomox-cli ~/.cache/wal/colors-oomox
     # oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
     pywal-discord
     sleep 1
