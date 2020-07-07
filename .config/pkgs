@@ -4,7 +4,10 @@ amd-ucode
 amdgpu-pro-amf-only
 amdgpu-pro-vulkan-only
 amdvlk
+anbox-bridge
 anbox-git
+anbox-image-gapps
+android-tools
 arch-install-scripts
 asciiquarium-git
 atomicparsley
@@ -28,7 +31,6 @@ browserpass-chromium
 browserpass-firefox
 buku-git
 bukubrow
-c-lolcat
 ca-certificates-mozilla
 cadmus-appimage
 capitaine-cursors
@@ -38,6 +40,8 @@ chafa
 clang
 cli-visualizer-git
 clinfo
+clipmenu
+clipnotify
 cloog
 clspv-git
 cnijfilter-common
@@ -50,6 +54,7 @@ cpio
 cpupower
 cups
 dash
+dashbinsh
 dbus
 ddrescue
 dhcpcd
@@ -75,11 +80,7 @@ feh
 ff2mpv-native-messaging-host-git
 ffmpeg-amd-full-git
 firefox-nightly
-firefox-stylus
-firefox-tridactyl-git
 firefox-tridactyl-native
-firefox-ublock-origin
-firefox-umatrix
 flashplugin
 flex
 foldingathome
@@ -261,6 +262,7 @@ python-openrazer-git
 python-pillow
 python-pip
 python-pyalsa
+python-pylast
 python-pynvim
 python-pypresence
 python-pywal
@@ -287,6 +289,7 @@ rpcs3-git
 rsync
 ruby
 rust
+rust-lolcat-git
 ryujinx-git
 samba
 sconsify

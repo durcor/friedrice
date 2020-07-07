@@ -14,6 +14,7 @@ Plug 'deviantfero/wpgtk.vim'
 Plug 'jamessan/vim-gnupg'
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'junegunn/fzf', { 'dir': '~/prg/fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
 " distraction-free reading+writing
@@ -56,12 +57,18 @@ let g:rainbow_active = 1
 " Plug 'jaxbot/semantic-highlight.vim'
 call plug#end()
 
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
 
 let g:airline_left_sep=''
 let g:airline_left_alt_sep='/'
+let g:airline_left_alt_sep=''
 let g:airline_right_sep=''
-let g:airline_right_alt_sep='/'
-let g:airline_symbols_readonly=''
+let g:airline_right_alt_sep=''
+let g:airline_symbols.readonly=''
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.branch = ''
 " Buffer tab line customization
 let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#right_sep = ''
@@ -73,6 +80,8 @@ let g:airline_powerline_fonts = 1
 let g:airline_statusline_ontop = 0
 let g:airline_highlighting_cache = 1
 let g:airline_skip_empty_sections = 0
+
+let g:airline#extensions#coc#enabled = 1
 
 let g:airline_theme='wpgtk_alternate'
 

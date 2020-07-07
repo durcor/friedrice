@@ -30,6 +30,7 @@ set $browser firefox-nightly
 # font for window titles+status bar
 font pango: Fantasque Sans Mono Nerd Font 10
 
+# Define all the modes and their colors
 set $mode_manager <b><span background='{color12}'> MANAGER </span><span foreground='{color12}'></span></b>
 set $mode_window <b><span background='{color10}'> WINDOW </span><span foreground='{color10}'></span></b>
 set $mode_launch <b><span background='{color6}'> LAUNCH </span><span foreground='{color6}'></span></b>
@@ -40,7 +41,10 @@ set $mode_mpd <b><span background='{color14}'> MPD </span><span foreground='{col
 set $mode_visual <b><span background='{color9}'> VISUAL </span><span foreground='{color9}'></span></b>
 set $mode_gaps <b><span background='{color15}'> GAPS </span><span foreground='{color15}'></span></b>
 set $mode_brightness <b><span background='{color13}'> BRIGHTNESS </span><span foreground='{color13}'></span></b>
+set $mode_paste <b><span background='{color3}'> PASTE </span><span foreground='{color3}'></span></b>
+set $mode_yank <b><span background='{color4}'> YANK </span><span foreground='{color4}'></span></b>
 
+# Manage the windows
 mode --pango_markup "$mode_manager" {{
     bindsym XF86AudioRaiseVolume $ex pamixer --allow-boost -i 5
     bindsym F3 $ex pamixer --allow-boost -i 5
@@ -69,9 +73,10 @@ mode --pango_markup "$mode_manager" {{
     bindsym slash $ex dmenual -i -p run
     bindsym shift+slash $ex rofi -show run
     bindsym shift+f $ex $terminal -e lf
-    bindsym shift+b $ex clipmenu
-    bindsym p $ex mpv $(xclip -se c -o)
-    bindsym shift+p $ex passmenu -p pass
+    # TODO: make pasting intelligent using the file extension and falling back to mpv
+    # Alternatively, I could make ANOTHER MODE for pasting (ex: 'pv' opens the clipboard in mpv.
+    bindsym p mode "$mode_paste" ; $ex $mode-notif "PASTE MODE"
+    bindsym y mode "$mode_yank" ; $ex $mode-notif "YANK MODE"
     
     bindsym Menu [instance="pop"] scratchpad show; [instance="pop"] move position center
     
@@ -162,8 +167,25 @@ mode --pango_markup "$mode_manager" {{
     bindsym c mode "$mode_brightness" ; $ex $mode-notif "BRIGHTNESS MODE"
 }}
 
+# Yank stuff to clipboard
+mode --pango_markup "$mode_yank" {{
+    bindsym p $ex passmenu -p pass ; i3 mode "$mode_manager"
+    bindsym c $ex clipmenu ; i3 mode "$mode_manager"
+
+    bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
+}}
+
+# Paste stuff to programs
+mode --pango_markup "$mode_paste" {{
+    bindsym v $ex mpv $(xclip -se c -i)
+    bindsym t $ex $terminal -e nvim $(xclip -se c -i)
+
+    bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
+}}
+
 bindsym Super_L mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 
+# Interact with the highlighted window
 mode --pango_markup "$mode_window" {{
     bindsym Super_L mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 
@@ -182,8 +204,7 @@ mode --pango_markup "$mode_window" {{
     bindsym --release Print $ex "maim -u -n 2 -s | xclip -se c -i"
 }}
 
-# bindsym Super_L mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
-
+# Resize the current window
 mode --pango_markup "$mode_resize" {{
     bindsym h $ex i3resize left 20
     bindsym j $ex i3resize down 20
@@ -208,6 +229,7 @@ mode --pango_markup "$mode_resize" {{
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }}
 
+# Change the gaps of all windows
 mode --pango_markup "$mode_gaps" {{
     bindsym h gaps inner current minus 5
     bindsym l gaps inner current plus 5
@@ -217,6 +239,7 @@ mode --pango_markup "$mode_gaps" {{
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }}
 
+# Interact with mpris
 mode --pango_markup "$mode_music" {{
     bindsym h $ex playerctl previous
     bindsym l $ex playerctl next
@@ -230,6 +253,7 @@ mode --pango_markup "$mode_music" {{
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }}
 
+# Interact with mpd
 mode --pango_markup "$mode_mpd" {{
     bindsym h $ex mpc prev
     bindsym l $ex mpc next
@@ -243,6 +267,7 @@ mode --pango_markup "$mode_mpd" {{
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }}
 
+# Interact with pulseaudio
 mode --pango_markup "$mode_audio" {{
     bindsym h $ex pamixer --allow-boost -d 1 ; $ex pkill -RTMIN+13 i3blocks
     bindsym l $ex pamixer --allow-boost -i 1 ; $ex pkill -RTMIN+13 i3blocks
@@ -254,6 +279,7 @@ mode --pango_markup "$mode_audio" {{
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }}
 
+# Launch programs
 mode --pango_markup "$mode_launch" {{
     bindsym t $ex $terminal
     bindsym n $ex $terminal -e newsboat
@@ -267,6 +293,7 @@ mode --pango_markup "$mode_launch" {{
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }}
 
+# Select an area of the screen and convert it to an image
 mode --pango_markup "$mode_visual" {{
     bindsym --release s $ex scrman
     bindsym --release c $ex scrman cp
@@ -275,6 +302,7 @@ mode --pango_markup "$mode_visual" {{
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }}
 
+# Change the brightness of the screen
 mode --pango_markup "$mode_brightness" {{
     bindsym h exec backlightctl down 1
     bindsym l exec backlightctl up 1
@@ -323,6 +351,7 @@ set $ws10 "10  "
 assign [class="Lutris"] $ws6
 assign [class="discord"] $ws1
 assign [class="qutebrowser"] $ws1
+assign [class="nicotine"] $ws8
 for_window [class="Spotify"] move to workspace $ws4
 for_window [instance="origin.exe"] floating enable
 assign [class="Steam"] $ws6
@@ -372,6 +401,7 @@ $ex firefox-nightly
 $exa ~/.fehbg
 $ex discord
 $ex cfg rf
+$ex clipmenud
 $exa sleep 0.007 ; i3 mode "$mode_manager"
 # exec xrandr --output HDMI-A-1 --auto --left-of DisplayPort-1
 # $exa $HOME/.config/polybar/launch.sh
