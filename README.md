@@ -1,3 +1,5 @@
+![rice](rice.png "rice")
+
 # My Dotfiles
 
 *wpgtk templates are stored in .config/wpg/templates/*
