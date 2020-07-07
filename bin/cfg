@@ -1,21 +1,22 @@
 #!/bin/sh
+# shellcheck disable=1090,2154
 
-. $HOME/.cache/wal/colors.sh
+. "$HOME/.cache/wal/colors.sh"
 
 [ ! -f "$XDG_CONFIG_HOME/cfg/al" ] && mkdir -p "$XDG_CONFIG_HOME/cfg" && touch "$XDG_CONFIG_HOME/cfg/al"
 
 refreshcfg() {
     wpg -s "$(wpg -c)"
 
+    # 0: Left RAM Stick
+    # 1: Right RAM Stick
+    # 2: X570 Taichi
+        # -c ${color9:1} -m Neon
     command -v openrgb >/dev/null &&
         sudo openrgb \
-        -d 0 `# Left RAM Stick` \
-            -c "$(echo $color14 | sed 's/#//')" -m Static \
-        -d 1 `# Right RAM Stick` \
-            -c "$(echo $color9 | sed 's/#//')" -m Static \
-        -d 2 `# X570 Taichi` \
-            `#-c ${color9:1} -m Neon \ ` \
-            -m Random
+        -d 0 -c "$(echo "$color14" | sed 's/#//')" -m Static \
+        -d 1 -c "$(echo "$color9" | sed 's/#//')" -m Static \
+        -d 2 -m Random
 
     lsusb | grep -q NZXT && 
         if liquidctl; then
@@ -93,7 +94,7 @@ editcfg() {
     # editing a file that is already open in another instance)
     edit "$cfgfileloc" &&
 
-    updatecfg
+    # updatecfg
 
     [ -n "$cfgfilepostrun" ] && $SHELL -c "$cfgfilepostrun"
 }
@@ -103,22 +104,22 @@ listcfg() {
 }
 
 updatecfg() {
-    cp /etc/pacman.conf "$XDG_CONFIG_HOME/root/etc/" || exit
-    cp /etc/makepkg.conf "$XDG_CONFIG_HOME/root/etc/" || exit
-    cp /etc/pulse/default.pa "$XDG_CONFIG_HOME/root/etc/pulse/" || exit
-    cp /etc/sysctl.d -r "$XDG_CONFIG_HOME/root/etc/" || exit
-    cp /etc/bluetooth -r "$XDG_CONFIG_HOME/root/etc/" || exit
-    cp /etc/locale.gen "$XDG_CONFIG_HOME/root/etc/" || exit
-    sudo cp /etc/sudoers "$XDG_CONFIG_HOME/root/etc/" && sudo chown -R ty:users "$XDG_CONFIG_HOME/root" || exit
-    cp /etc/hostname "$XDG_CONFIG_HOME/root/etc/" || exit
-    cp /etc/profile "$XDG_CONFIG_HOME/root/etc/" || exit
+    cp /etc/pacman.conf "$XDG_CONFIG_HOME/root/etc/" || exit 1
+    cp /etc/makepkg.conf "$XDG_CONFIG_HOME/root/etc/" || exit 1
+    cp /etc/pulse/default.pa "$XDG_CONFIG_HOME/root/etc/pulse/" || exit 1
+    cp /etc/sysctl.d -r "$XDG_CONFIG_HOME/root/etc/" || exit 1
+    cp /etc/bluetooth -r "$XDG_CONFIG_HOME/root/etc/" || exit 1
+    cp /etc/locale.gen "$XDG_CONFIG_HOME/root/etc/" || exit 1
+    sudo cp /etc/sudoers "$XDG_CONFIG_HOME/root/etc/" && sudo chown -R ty:users "$XDG_CONFIG_HOME/root" || exit 1
+    cp /etc/hostname "$XDG_CONFIG_HOME/root/etc/" || exit 1
+    cp /etc/profile "$XDG_CONFIG_HOME/root/etc/" || exit 1
     git add -f "$XDG_CONFIG_HOME/root"
 
     git add -f ~/bin
     git add -f "$XDG_CONFIG_HOME/wpg/templates/*.base"
     pacman -Qeq > "$XDG_CONFIG_HOME/pkgs"
-    # git commit -a
-    # git push
+    git commit -a
+    git push
 }
 
 deletecfg() {
