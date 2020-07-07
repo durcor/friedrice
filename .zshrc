@@ -1,6 +1,5 @@
 # ~/.zshrc
 # vi:ft=zsh
-#
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -11,8 +10,25 @@ fi
 
 # [[ $- != *i* ]] && return
 
-. /etc/profile
-. ~/.profile
+# Source the global shell-agnostic script
+. ~/.shrc
+
+autoload -Uz add-zsh-hook
+
+function xterm_title_precmd () {
+	print -Pn -- '\e]2;%n@%m %~\a'
+	[[ "$TERM" == 'screen'* ]] && print -Pn -- '\e_\005{g}%n\005{-}@\005{m}%m\005{-} \005{B}%~\005{-}\e\\'
+}
+
+function xterm_title_preexec () {
+	print -Pn -- '\e]2;%n@%m %~ %# ' && print -n -- "${(q)1}\a"
+	[[ "$TERM" == 'screen'* ]] && { print -Pn -- '\e_\005{g}%n\005{-}@\005{m}%m\005{-} \005{B}%~\005{-} %# ' && print -n -- "${(q)1}\e\\"; }
+}
+
+if [[ "$TERM" == (alacritty*|gnome*|konsole*|putty*|rxvt*|screen*|tmux*|xterm*) ]]; then
+	add-zsh-hook -Uz precmd xterm_title_precmd
+	add-zsh-hook -Uz preexec xterm_title_preexec
+fi
 
 # autoload -U colors && colors
 #
@@ -42,71 +58,31 @@ SAVEHIST=100000
 HISTFILE=~/.shhis
 HISTCONTROL=ignoreboth
 
+# Use zinit as the zsh plugin manager
 . ~/.zinit/bin/zinit.zsh
 
+setopt COMPLETE_ALIASES
 zstyle ':completion:*' menu select
+zstyle ':completion:*' rehash true
+zstyle ':completion::complete:*' gain-privileges 1
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zmodload zsh/complist
-# Use modern completion system
+# Use zsh's modern completion system
 autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
 
 kitty + complete setup zsh | . /dev/stdin
 
-function lf()
-{
-    tmp="$(mktemp)"
-    command lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        if [ -d "$dir" ]; then
-            if [ "$dir" != "$(pwd)" ]; then
-                cd "$dir"
-            fi
-        fi
-    fi
-}
-
-n ()
-{
-    # Block nesting of nnn in subshells
-    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
-        echo "nnn is already running"
-        return
-    fi
-
-    # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
-    # To cd on quit only on ^G, remove the "export" as in:
-    #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-    # NOTE: NNN_TMPFILE is fixed, should not be modified
-    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-
-    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
-    # stty start undef
-    # stty stop undef
-    # stty lwrap undef
-    # stty lnext undef
-
-    nnn "$@"
-
-    if [ -f "$NNN_TMPFILE" ]; then
-            . "$NNN_TMPFILE"
-            rm -f "$NNN_TMPFILE" > /dev/null
-    fi
-}
-
-. ~/.config/lf/ico
-
-# plugins
+# Plugin loading
 zinit for \
     light-mode zdharma/fast-syntax-highlighting \
-    light-mode zdharma/history-search-multi-word \
+    light-mode softmoth/zsh-vim-mode \
     light-mode zsh-users/zsh-autosuggestions \
     light-mode zsh-users/zsh-completions \
     light-mode momo-lab/zsh-abbrev-alias \
     light-mode romkatv/powerlevel10k \
-    light-mode softmoth/zsh-vim-mode
+    light-mode zdharma/history-search-multi-word
 
     # light-mode zsh-users/zsh-history-substring-search \
 
@@ -141,6 +117,11 @@ export MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
 # bindkey -M vicmd '/' history-incremental-search-backward
 # bindkey -M vicmd '?' history-incremental-search-forward
 
+bindkey -M vicmd 'Q' exit-cmd
+bindkey -M vicmd 'q' exit-cmd
+zle -N lf
+bindkey -M vicmd 'z' lf
+
 # Disable all escape sequences in normal mode
 # bindkey -rpM viins '\e'
 # bindkey -rpM viins '\e\e'
@@ -153,7 +134,7 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 . ~/.zshal
 
+# source /home/ty/.config/broot/launcher/bash/br
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# source /home/ty/.config/broot/launcher/bash/br

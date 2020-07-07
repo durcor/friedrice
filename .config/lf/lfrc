@@ -140,7 +140,7 @@ map c
 map cw $vimv $fx
 map cd $cd $(fzffm)
 
-map q
+map q quit
 map Q quit
 
 map i $edit "$f"

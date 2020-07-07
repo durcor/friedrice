@@ -17,19 +17,23 @@ background_opacity      0.9
 window_padding_width    5
 allow_remote_control    true
 disable_ligatures       always
-draw_minimal_borders    yes
-active_border_color     {color15}
-inactive_border_color   {color7}
-window_border_width     0.5
+draw_minimal_borders    no
+window_margin_width     0
+window_border_width     2.0
+active_border_color     {color7}
+inactive_border_color   {color8}
 enabled_layouts         splits
+pointer_shape_when_grabbed hand
 
 # Audio
 enable_audio_bell       no
-visual_bell_duration    0.1
+visual_bell_duration    0.0
+window_alert_on_bell    yes
 
 # Performance
 repaint_delay           5
 input_delay             0
+sync_to_monitor         no
 
 # Tab Bar
 tab_bar_edge            top
@@ -47,9 +51,11 @@ active_tab_foreground   {color8}
 active_tab_background   {color15}
 # active_tab_font_style   bold-italic
 active_tab_font_style   bold
-inactive_tab_foreground {color15}
-inactive_tab_background {color8}
+inactive_tab_foreground {color8}
+inactive_tab_background {color6}
 inactive_tab_font_style normal
+inactive_text_alpha     1.0
+tab_bar_background      {color1}
 
 # Keybinds
 clear_all_shortcuts     yes
@@ -103,20 +109,22 @@ map alt+ctrl+b           scroll_page_up
 map alt+escape>ctrl+f    scroll_page_down
 map alt+ctrl+f           scroll_page_down
 
-map alt+escape>shift+h  resize_window narrower
-map alt+shift+h         resize_window narrower
-map alt+escape>shift+j  resize_window shorter
-map alt+shift+j         resize_window shorter
-map alt+escape>shift+k  resize_window taller
-map alt+shift+k         resize_window taller
-map alt+escape>shift+l  resize_window wider
-map alt+shift+l         resize_window wider
+map alt+escape>shift+h   resize_window narrower
+map alt+shift+h          resize_window narrower
+map alt+escape>shift+j   resize_window shorter
+map alt+shift+j          resize_window shorter
+map alt+escape>shift+k   resize_window taller
+map alt+shift+k          resize_window taller
+map alt+escape>shift+l   resize_window wider
+map alt+shift+l          resize_window wider
 
-map alt+escape>slash    launch --location=vsplit
-map alt+slash           launch --location=vsplit
-map alt+escape>minus    launch --location=hsplit
-map alt+minus           launch --location=hsplit
+map alt+escape>backslash launch --location=vsplit
+map alt+backslash        launch --location=vsplit
+map alt+escape>minus     launch --location=hsplit
+map alt+minus            launch --location=hsplit
 
 # Other good pagers: nvim, nvimpager
-map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting less +G -R
-map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting less
+# map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting less --chop-long-lines +G -R
+# map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting less --chop-long-lines +G -R
+map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting nvimpager
+map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting nvimpager

@@ -1,5 +1,5 @@
-z       ~/.zshrc source ~/.zshrc
-i3      ~/.config/i3/config i3 restart
+z       ~/.zshrc exec zsh
+i3      ~/.config/wpg/templates/i3.base wpg -s $(wpg -c) && i3 restart
 i3b     ~/.config/wpg/templates/i3blocks.base wpg -s $(wpg -c) && i3 restart
 sw      ~/.config/wpg/templates/sway.base wpg -s $(wpg -c) && sway reload
 dm      ~/.config/wpg/templates/dmenu.base wpg -s $(wpg -c) && cd ~/prg/dmenu && sudo make clean install
@@ -22,13 +22,13 @@ lf      ~/.config/lf/lfrc
 lfi     ~/.config/lf/ico
 lfp     ~/.config/lf/prev
 x       ~/.xinitrc
-p       ~/.profile source ~/.zshrc
-sp      /etc/profile source ~/.zshrc
+p       ~/.profile exec zsh
+sp      /etc/profile exec zsh
 t       ~/.tmux.conf tmux source ~/.config/tmux/tmux.conf
 v       ~/.config/nvim/init.vim
 vb      ~/.config/vimb/config
 nf      ~/.config/neofetch/config.conf
-al      ~/.zshal source ~/.zshrc
+al      ~/.zshal exec zsh
 ala     ~/.config/wpg/templates/alacritty.base wpg -s $(wpg -c)
 nc      ~/.ncmpcpp/config
 nck     ~/.ncmpcpp/bindings
@@ -45,3 +45,4 @@ mn      ~/.config/wpg/templates/mangohud.base wpg -s $(wpg -c)
 cfg     ~/.config/cfg/al
 pb      ~/.config/polybar/config i3 restart
 k       ~/.config/wpg/templates/kitty.base wpg -s $(wpg -c)
+p10     ~/.p10k.zsh exec zsh

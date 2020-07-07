@@ -42,12 +42,10 @@ refreshcfg() {
     if [ "$WAYLAND_DISPLAY" ]; then
         sway restart &
     else
-        i3 restart
-        sleep 0.1
-        i3 mode WINDOW
+        i3 restart &
     fi
 
-    cd ~/prg/st && sudo make clean install || exit
+    # cd ~/prg/st && sudo make clean install || exit
     cd ~/prg/dmenu && sudo make clean install || exit
     cd ~/prg/slock && sudo make clean install || exit
     wal_steam -g &

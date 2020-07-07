@@ -6,14 +6,14 @@
 ## want to store everything somewhere else and provide command line setting for
 ## alternative location to config file which defines that while launching
 ## ncmpcpp.
-#ncmpcpp_directory = ~/.ncmpcpp
+ncmpcpp_directory = ~/.ncmpcpp
 ## Directory for storing downloaded lyrics. It defaults to ~/.lyrics since other
 ## MPD clients (eg. ncmpc) also use that location.
-#lyrics_directory = ~/.lyrics
+lyrics_directory = ~/.lyrics
 ##### connection settings #####
-#mpd_host = localhost
-#mpd_port = 6600
-#mpd_connection_timeout = 5
+mpd_host = localhost
+mpd_port = 6600
+mpd_connection_timeout = 5
 ## Needed for tag editor and file operations to work.
 mpd_music_dir = ~/data/mus
 mpd_crossfade_time = 8
@@ -127,7 +127,8 @@ song_status_format = "$2%a $7- $3%t $7- $4%b {(Disc %d) }$7($5%y$7)"
 #current_item_suffix = $/r$(end)
 #current_item_inactive_column_prefix = $(white)$r
 #current_item_inactive_column_suffix = $/r$(end)
-#now_playing_prefix = $b
+# now_playing_prefix = $b
+now_playing_prefix = ""
 #now_playing_suffix = $/b
 browser_playlist_prefix = "$2plist »$9 "
 #browser_playlist_prefix = "$2playlist$9 "
@@ -182,10 +183,10 @@ playlist_show_remaining_time = no
 #playlist_shorten_total_times = no
 #playlist_separate_albums = no
 ## Note: Possible display modes: classic, columns.
-#playlist_display_mode = columns
+playlist_display_mode = columns
 browser_display_mode = columns
-#search_engine_display_mode = classic
-#playlist_editor_display_mode = classic
+search_engine_display_mode = classic
+playlist_editor_display_mode = classic
 #discard_colors_if_item_is_selected = yes
 #show_duplicate_tags = yes
 incremental_seeking = yes
@@ -239,36 +240,36 @@ titles_visibility = no
 ## Screens available for use: help, playlist, browser, search_engine,
 ## media_library, playlist_editor, tag_editor, outputs, visualizer, clock,
 ## lyrics, last_fm.
-#screen_switcher_mode = playlist, browser
+screen_switcher_mode = playlist, last_fm
 ## Note: You can define startup screen by choosing screen from the list above.
-#startup_screen = playlist
+startup_screen = playlist
 ## Note: You can define startup slave screen by choosing screen from the list
 ## above or an empty value for no slave screen.
-#startup_slave_screen = ""
-#startup_slave_screen_focus = no
+startup_slave_screen = visualizer
+startup_slave_screen_focus = no
 ## Default width of locked screen (in %).  Acceptable values are from 20 to 80.
-#locked_screen_width_part = 50
-#ask_for_locked_screen_width_part = yes
-#jump_to_now_playing_song_at_start = yes
-#ask_before_clearing_playlists = yes
+locked_screen_width_part = 70
+ask_for_locked_screen_width_part = yes
+jump_to_now_playing_song_at_start = yes
+ask_before_clearing_playlists = yes
 clock_display_seconds = no
 display_volume_level = yes
 display_bitrate = yes
-#display_remaining_time = no
+display_remaining_time = no
 ## Available values: none, basic, extended, perl.
-#regular_expressions = perl
+regular_expressions = perl
 ## Note: if below is enabled, ncmpcpp will ignore leading "The" word while
 ## sorting items in browser, tags in media library, etc.
-#ignore_leading_the = no
+ignore_leading_the = no
 ## Note: if below is enabled, ncmpcpp will ignore diacritics while searching and
 ## filtering lists. This takes an effect only if boost was compiled with ICU
 ## support.
-#ignore_diacritics = no
-#block_search_constraints_change_if_items_found = yes
+ignore_diacritics = no
+block_search_constraints_change_if_items_found = yes
 mouse_support = yes
 #mouse_list_scroll_whole_page = yes
 #empty_tag_marker = <empty>
-#tags_separator = " | "
+tags_separator = " | "
 #tag_editor_extended_numeration = no
 #media_library_sort_by_mtime = no
 enable_window_title = yes

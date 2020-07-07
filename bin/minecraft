@@ -1,5 +1,0 @@
-#!/bin/sh
-MESA_LOADER_DRIVER_OVERRIDE=zink \
-    MANGOHUD_DLSYM=1 \
-    gamemoderun mangohud \
-    "$HOME"/gam/minecraft/MultiMC

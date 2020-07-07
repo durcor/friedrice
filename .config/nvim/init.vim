@@ -10,7 +10,7 @@ endif
 call plug#begin('~/.local/share/nvim/plug')
 Plug 'deviantfero/wpgtk.vim'
 " Plug 'dylanaraps/wal.vim'
-Plug 'richtan/pywal.vim'
+" Plug 'richtan/pywal.vim'
 Plug 'jamessan/vim-gnupg'
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -24,8 +24,6 @@ Plug 'junegunn/limelight.vim'
 Plug 'tpope/vim-obsession'
 " more language support
 Plug 'sheerun/vim-polyglot'
-" zig syntax support
-Plug 'ziglang/zig.vim', { 'for': 'zig' }
 " git integration
 " Plug 'tpope/vim-fugitive'
 " git commit info
@@ -42,21 +40,41 @@ Plug 'rhysd/vim-grammarous'
 Plug 'dpelle/vim-LanguageTool'
 let g:languagetool_jar='$HOME/.local/share/nvim/plug/vim-grammarous/misc/LanguageTool-4.1/languagetool-commandline.jar'
 " Plug 'DanManN/vim-razer'
+" Better vim markdown integration
 Plug 'vimwiki/vimwiki'
-Plug 'jceb/vim-orgmode'
+" Plug 'jceb/vim-orgmode'
 Plug 'KabbAmine/vCoolor.vim'
 " Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-Plug 'wlangstroth/vim-racket', { 'for': 'rkt' }
 Plug 'luochen1990/rainbow',
 Plug 'tpope/vim-commentary'
+" Statusline
 Plug 'vim-airline/vim-airline'
-let g:airline_powerline_fonts = 1
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme='wpgtk_alternate'
 let g:rainbow_active = 1
 " Plug 'preservim/nerdtree'
+" Plug 'jaxbot/semantic-highlight.vim'
 call plug#end()
+
+
+let g:airline_left_sep=''
+let g:airline_left_alt_sep='/'
+let g:airline_right_sep=''
+let g:airline_right_alt_sep='/'
+let g:airline_symbols_readonly=''
+" Buffer tab line customization
+let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+
+let g:airline_powerline_fonts = 1
+let g:airline_statusline_ontop = 0
+let g:airline_highlighting_cache = 1
+let g:airline_skip_empty_sections = 0
+
+let g:airline_theme='wpgtk_alternate'
 
 let g:Hexokinase_highlighters = [
 "\   'virtual',
@@ -88,6 +106,7 @@ se ttyfast
 " improve macro performance
 se lazyredraw
 se shell=/bin/zsh
+se background=dark
 " add a litte margin on the left
 se foldcolumn=1
 let base16colorspace=256
@@ -168,7 +187,7 @@ map <leader>w :w<cr>
 map <leader>W :wq<cr>
 map <leader>q :q<cr>
 map <leader>Q :q!<cr>
-map <leader>c :source ~/.config/nvim/init.vim<cr>
+map <leader>r :source ~/.config/nvim/init.vim<cr>
 map <leader>f :'<,'>w !wc -w<cr>
 
 " Document compiling
@@ -180,10 +199,15 @@ map <leader>cm :!tmux splitw -vd -p 20 make<cr><cr>
 map <leader>l :Goyo<cr>:Limelight!!<cr>
 map <leader>g :GrammarousCheck<cr>
 
-map ZW :w<cr>
+" Remap q to \ so that q can be used for quitting
+noremap \ q
+map q :q<cr>
 " Replace the useless (sorry) ex-mode keybind
 " with quick file exiting
-map Q :q<cr>
+map Q :wq<cr>
+map <C-Q> :q!<cr>
+
+map ZW :w<cr>
 
 " remove white space at end of lines
 " autocmd BufWritePre * %s/\s\+$//e

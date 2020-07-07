@@ -7,7 +7,7 @@ screenshot_file=$screenshot_dir/$(date +%Y-%m-%d_%H%M-%S).png
 if [ "$WAYLAND_DISPLAY" ]; then
     grim -g "$(slurp)" -o "$screenshot_file"
 else
-    maim -u -s "$screenshot_file"
+    maim -B -u -s "$screenshot_file"
     # scrot -s "$screenshot_file"
 fi
 

@@ -30,6 +30,7 @@ buku-git
 bukubrow
 c-lolcat
 ca-certificates-mozilla
+cadmus-appimage
 capitaine-cursors
 cava
 ccache
@@ -54,6 +55,7 @@ ddrescue
 dhcpcd
 dialog
 discord-canary
+discord-overlay-git
 discordrp-mpris-git
 dmenu
 dmidecode
@@ -151,7 +153,7 @@ lib32-ocl-icd
 lib32-openal
 lib32-sdl2
 lib32-v4l-utils
-lib32-vkd3d-tkg-git
+lib32-vkd3d-proton-tkg-git
 lib32-vulkan-icd-loader
 libclc
 libdrm
@@ -196,7 +198,6 @@ mingw-w64-gcc
 mingw-w64-headers
 mingw-w64-winpthreads
 modprobed-db
-monodevelop-bin
 moon-buggy
 mpc
 mpd
@@ -225,7 +226,8 @@ ntfs-3g
 nvimpager-git
 obs-studio
 oil
-openrazer-meta
+openrazer-driver-dkms-git
+openrazer-meta-git
 openrgb-git
 openssh
 os-prober
@@ -238,7 +240,6 @@ pamixer
 pandoc
 pass
 patch
-pavucontrol
 pcsx2-git
 pdfjs
 pepper-flash
@@ -256,6 +257,7 @@ pulseaudio-alsa
 pulseaudio-modules-bt-git
 python-beautifulsoup4
 python-notify2
+python-openrazer-git
 python-pillow
 python-pip
 python-pyalsa
@@ -297,6 +299,7 @@ spicetify-cli
 spotify-dev
 steam
 steam-native-runtime
+steamcmd
 sudo
 supertuxkart
 sway-git
@@ -331,7 +334,7 @@ vdpauinfo
 vimv-git
 virt-manager
 vkbasalt
-vkd3d-tkg-git
+vkd3d-proton-tkg-git
 vulkan-headers
 vulkan-icd-loader
 vulkan-tools
