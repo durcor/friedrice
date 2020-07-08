@@ -8,10 +8,13 @@
 distanceStr="$2 px"
 
 moveChoice() {
-  # i3-msg resize "$1" "$2" "$distanceStr" | grep '"success":true' || \
-  # i3-msg resize "$3" "$4" "$distanceStr"
-  swaymsg resize "$1" "$2" "$distanceStr" | grep '"success":true' || \
-  swaymsg resize "$3" "$4" "$distanceStr"
+    if [ "$WAYLAND_DISPLAY" ]; then
+        swaymsg resize "$1" "$2" "$distanceStr" | grep '"success":true' || \
+        swaymsg resize "$3" "$4" "$distanceStr"
+    else
+        i3-msg resize "$1" "$2" "$distanceStr" | grep '"success":true' || \
+        i3-msg resize "$3" "$4" "$distanceStr"
+    fi
 }
 
 case $1 in
