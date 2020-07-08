@@ -33,7 +33,6 @@ markup=pango
 interval=5
 signal=2
 # min_width=50
-color={color9}
 #align=left
 
 # [weather]
@@ -43,37 +42,29 @@ color={color9}
 [news]
 interval=100000000000
 signal=6
-color={color11}
 
 [distcompute]
 interval=15
-color={color9}
 
 [mail]
 interval=100000000000
 signal=12
-color={color13}
 
 [accuweather]
 command=~/.local/bin/i3blocks/accuweather 07840
 interval=1800
-color={color10}
 
 [cpu]
 interval=5
-color={color14}
 
 [amdgpu]
 interval=5
-color={color9}
 
 [mem]
-interval=30
-color={color13}
+interval=5
 
 [dsk]
 interval=30
-color={color13}
 
 # CPU usage
 #
@@ -114,27 +105,23 @@ color={color13}
 #interval=10
 #separator=true
 
+[vpn]
+interval=30
+
 [kb]
 interval=100000000000
-color={color15}
+
 
 [vol]
 signal=13
 interval=10
-color={color14}
 
 [bt]
-color={color3}
 interval=10
 
 # [net]
 # color={color13}
 # interval=10
-
-# [vpn]
-# label= 
-# interval=30
-# color={color11}
 
 # [bat]
 # command=~/.local/bin/i3blocks/bat
@@ -147,7 +134,6 @@ interval=10
 
 [time]
 interval=1
-color={color15}
 
 # Key indicators
 #

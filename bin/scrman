@@ -8,7 +8,6 @@ if [ "$WAYLAND_DISPLAY" ]; then
     grim -g "$(slurp)" -o "$screenshot_file"
 else
     maim -B -u -s "$screenshot_file"
-    # scrot -s "$screenshot_file"
 fi
 
 uploadscr(){

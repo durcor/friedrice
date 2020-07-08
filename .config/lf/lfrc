@@ -152,10 +152,10 @@ map e
 map E
 
 map w
-map wa %tmux splitw -v walman add "$f"
-map ws %tmux splitw -v walman set "$f"
-map wz %tmux splitw -v walman shuf
-map wg %tmux splitw -v autoglitch "$f"
+map wa %walman add "$f"
+map ws %walman set "$f"
+map wz %walman shuf
+map wg %autoglitch "$f"
 
 map z
 map za

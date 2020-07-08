@@ -38,19 +38,19 @@ export CLASSPATH="$CLASSPATH:/usr/share/java/*"
 export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
 
 [ "$TERM" = "linux" ] &&
-	. "$HOME/cache/wal/colors-tty.sh" &&
+	. "$HOME/.cache/wal/colors-tty.sh" &&
 	sudo -n loadkeys ~/.config/ttymaps.kmap &&
 	sudo -n kbdrate -r 35 -d 150
 
-bluetoothctl devices | grep XB9 && 
-    ! bluetoothctl info &&
+bluetoothctl devices | grep XB9 >/dev/null && 
+    ! bluetoothctl info >/dev/null &&
     bluetoothctl connect 38:18:4C:17:2E:97
 
 systemctl -q is-active graphical.target && 
     [ ! "$DISPLAY" ] && 
     [ "$XDG_VTNR" -eq 1 ] &&
+    # DISPLAY_SERVER=x &&
     DISPLAY_SERVER=x &&
-    # DISPLAY_SERVER=w &&
     if [ "$DISPLAY_SERVER" = "x" ]; then
         export MOZ_ENABLE_WAYLAND=0
         startx

@@ -15,14 +15,14 @@ static const char *fonts[] = {{
 }};
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][2] = {{
-	/*     fg         bg       */
-	[SchemeNorm] = {{ "{color15}", "{color0}" }},
-	[SchemeSel] = {{ "{color15}", "{color3}" }},
-	[SchemeSelHighlight] = {{ "{color14}", "{color8}" }},
-	[SchemeNormHighlight] = {{ "{color12}", "{color8}" }},
-	[SchemeOut] = {{ "{color10}", "{color0}" }},
-	[SchemeMid] = {{ "{color9}", "{color0}" }},
-	[SchemeHp] = {{ "{color0}", "{color9}" }}
+	                /*     fg         bg       */
+	[SchemeNorm] = {{ "{color15}", "{color2}" }},
+	[SchemeSel] = {{ "{color5}", "{color9}" }},
+	[SchemeSelHighlight] = {{ "{color8}", "{color9}" }},
+	[SchemeNormHighlight] = {{ "{color11}", "{color2}" }},
+	[SchemeOut] = {{ "{color12}", "{color2}" }},
+	[SchemeMid] = {{ "{color5}", "{color2}" }},
+	[SchemeHp] = {{ "{color9}", "{color2}" }}
 }};
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 30;

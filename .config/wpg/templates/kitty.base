@@ -1,14 +1,15 @@
-# vi:ft=sh
+# vi:ft=dosini
 include                 ~/.cache/wal/colors-kitty.conf
 selection_foreground    {color7}
 selection_background    {color8}
 
 # Appearance
-font_family             Fantasque Sans Mono Nerd Font
+font_family             {def-font}
+font_size               12.0
+# symbol_map              U+E0A0-U+E0A3,U+E0C0-U+E0C7 Sauce Code Nerd Font Mono
 bold_font               auto
 italic_font             auto
 bold_italic_font        auto
-font_size               10.0
 scrollback_lines        100000
 scrollback_pager_history_size 100000
 # placement_strategy      top-left
@@ -40,9 +41,10 @@ tab_bar_edge            top
 tab_bar_margin_width    0.0
 # fade, separator, hidden, powerline
 tab_bar_style           powerline
+# tab_bar_powerline_char  triangle
 tab_bar_min_tabs        0
 
-tab_separator           "|"
+tab_separator           ""
 tab_fade 0.25 0.5 0.75 1
 
 tab_title_template " {{title}} "
@@ -124,7 +126,7 @@ map alt+escape>minus     launch --location=hsplit
 map alt+minus            launch --location=hsplit
 
 # Other good pagers: nvim, nvimpager
-# map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting less --chop-long-lines +G -R
-# map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting less --chop-long-lines +G -R
-map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting nvimpager
-map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting nvimpager
+map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting less --chop-long-lines +G -R
+map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting less --chop-long-lines +G -R
+# map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting nvimpager
+# map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting nvimpager

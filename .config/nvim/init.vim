@@ -18,11 +18,11 @@ Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'junegunn/fzf', { 'dir': '~/prg/fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
 " distraction-free reading+writing
-Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/goyo.vim'
 " highlight selected paragraph of text
-Plug 'junegunn/limelight.vim'
+" Plug 'junegunn/limelight.vim'
 " save vim sessions
-Plug 'tpope/vim-obsession'
+" Plug 'tpope/vim-obsession'
 " more language support
 Plug 'sheerun/vim-polyglot'
 " git integration
@@ -32,11 +32,8 @@ Plug 'rhysd/committia.vim'
 Plug 'VebbNix/lf-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
-Plug 'dixonary/vimty'
+" Plug 'dixonary/vimty'
 Plug 'neomake/neomake'
-" completion
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" let g:deoplete#enable_at_startup = 1
 Plug 'rhysd/vim-grammarous'
 Plug 'dpelle/vim-LanguageTool'
 let g:languagetool_jar='$HOME/.local/share/nvim/plug/vim-grammarous/misc/LanguageTool-4.1/languagetool-commandline.jar'
@@ -44,9 +41,9 @@ let g:languagetool_jar='$HOME/.local/share/nvim/plug/vim-grammarous/misc/Languag
 " Better vim markdown integration
 Plug 'vimwiki/vimwiki'
 " Plug 'jceb/vim-orgmode'
-Plug 'KabbAmine/vCoolor.vim'
+" Plug 'KabbAmine/vCoolor.vim'
 " Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'luochen1990/rainbow',
 Plug 'tpope/vim-commentary'
 " Statusline

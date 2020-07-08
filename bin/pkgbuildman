@@ -5,7 +5,7 @@ TKG_DIR="$HOME/prg/pkgbuild/tkg"
 cd "$TKG_DIR" || exit
 
 for pkg in "$TKG_DIR"/*; do
-    cd "$pkg" || exit
+    cd "$pkg" || exit 1
     echo "$pkg: $(git pull --recurse-submodules)"
     # if [ "$(git pull --recurse-submodules)" != "Already up to date." ]; then
     #     rm *.tar

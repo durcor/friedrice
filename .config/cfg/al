@@ -1,7 +1,7 @@
 z       ~/.zshrc exec zsh
 i3      ~/.config/wpg/templates/i3.base wpg -s $(wpg -c) && i3 restart
 i3b     ~/.config/wpg/templates/i3blocks.base wpg -s $(wpg -c) && i3 restart
-sw      ~/.config/wpg/templates/sway.base wpg -s $(wpg -c) && sway reload
+s      ~/.config/wpg/templates/sway.base wpg -s $(wpg -c) && sway reload
 dm      ~/.config/wpg/templates/dmenu.base wpg -s $(wpg -c) && cd ~/prg/dmenu && sudo make clean install
 du      ~/.config/wpg/templates/dunst.base cfg rf
 ma      ~/.config/wpg/templates/mako.base wpg -s $(wpg -c) systemctl --user restart mako
@@ -37,7 +37,7 @@ smu     /etc/neomuttrc
 khal    ~/.config/khal/config
 khard   ~/.config/khard/khard.conf
 vd      ~/.config/vdirsyncer/config
-wp      ~/.config/wpg/wpg.conf
+wp      ~/.config/wpg/wpg.conf wpg -s $(wpg -c)
 g       /etc/default/grub sudo grub-mkconfig -o /boot/grub/grub.cfg
 pa      /etc/pacman.conf
 pam     /etc/pacman.d/mirrorlist

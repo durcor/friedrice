@@ -17,7 +17,6 @@ set_from_resource $c12 color12
 set_from_resource $c13 color13
 set_from_resource $c14 color14
 set_from_resource $c15 color15
-set_from_resource $font def-font
 
 set $ex exec --no-startup-id
 set $exa exec_always --no-startup-id
@@ -28,21 +27,22 @@ set $terminal kitty
 set $browser firefox-nightly
 
 # font for window titles+status bar
-font pango: Fantasque Sans Mono Nerd Font 10
+font pango: Iosevka Nerd Font Mono 12
+# font pango: Iosevka Nerd Font 12
 
 # Define all the modes and their colors
-set $mode_manager <b><span background='#59ffff'> MANAGER </span><span foreground='#59ffff'></span></b>
-set $mode_window <b><span background='#b8ffff'> WINDOW </span><span foreground='#b8ffff'></span></b>
-set $mode_launch <b><span background='#0CAEF6'> LAUNCH </span><span foreground='#0CAEF6'></span></b>
-set $mode_audio <b><span background='#59ffff'> AUDIO </span><span foreground='#59ffff'></span></b>
-set $mode_music <b><span background='#ffc6f3'> MUSIC </span><span foreground='#ffc6f3'></span></b>
-set $mode_resize <b><span background='#9C97E7'> RESIZE </span><span foreground='#9C97E7'></span></b>
-set $mode_mpd <b><span background='#01e7ff'> MPD </span><span foreground='#01e7ff'></span></b>
-set $mode_visual <b><span background='#b5abff'> VISUAL </span><span foreground='#b5abff'></span></b>
-set $mode_gaps <b><span background='#f1ffff'> GAPS </span><span foreground='#f1ffff'></span></b>
-set $mode_brightness <b><span background='#ba70ff'> BRIGHTNESS </span><span foreground='#ba70ff'></span></b>
-set $mode_paste <b><span background='#CAABBB'> PASTE </span><span foreground='#CAABBB'></span></b>
-set $mode_yank <b><span background='#54C0D8'> YANK </span><span foreground='#54C0D8'></span></b>
+set $mode_manager <b><span background='#3c7cc2'> MANAGER </span><span foreground='#3c7cc2'></span></b>
+set $mode_window <b><span background='#75c182'> WINDOW </span><span foreground='#75c182'></span></b>
+set $mode_launch <b><span background='#366F8D'> LAUNCH </span><span foreground='#366F8D'></span></b>
+set $mode_audio <b><span background='#3c7cc2'> AUDIO </span><span foreground='#3c7cc2'></span></b>
+set $mode_music <b><span background='#ebba52'> MUSIC </span><span foreground='#ebba52'></span></b>
+set $mode_resize <b><span background='#DA6031'> RESIZE </span><span foreground='#DA6031'></span></b>
+set $mode_mpd <b><span background='#3994c4'> MPD </span><span foreground='#3994c4'></span></b>
+set $mode_visual <b><span background='#ff752e'> VISUAL </span><span foreground='#ff752e'></span></b>
+set $mode_gaps <b><span background='#cee5fd'> GAPS </span><span foreground='#cee5fd'></span></b>
+set $mode_brightness <b><span background='#598191'> BRIGHTNESS </span><span foreground='#598191'></span></b>
+set $mode_paste <b><span background='#A98B4C'> PASTE </span><span foreground='#A98B4C'></span></b>
+set $mode_yank <b><span background='#38608C'> YANK </span><span foreground='#38608C'></span></b>
 
 # Manage the windows
 mode --pango_markup "$mode_manager" {
@@ -169,8 +169,8 @@ mode --pango_markup "$mode_manager" {
 
 # Yank stuff to clipboard
 mode --pango_markup "$mode_yank" {
-    bindsym p $ex passmenu -p pass ; i3 mode "$mode_manager"
-    bindsym c $ex clipmenu ; i3 mode "$mode_manager"
+    bindsym p $ex passmenu -p pass ; $ex i3 mode "$mode_manager"
+    bindsym c $ex clipmenu ; $ex i3 mode "$mode_manager"
 
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }
@@ -273,7 +273,8 @@ mode --pango_markup "$mode_audio" {
     bindsym l $ex pamixer --allow-boost -i 1 ; $ex pkill -RTMIN+13 i3blocks
     bindsym j $ex pamixer --allow-boost -d 5 ; $ex pkill -RTMIN+13 i3blocks
     bindsym k $ex pamixer --allow-boost -i 5 ; $ex pkill -RTMIN+13 i3blocks
-    bindsym v $ex notifaudio
+    bindsym V $ex notify-send -u low "Volume is at $(pamixer --get-volume)%"
+    bindsym v $ex $terminal -e ncpamixer
     bindsym space $ex pamixer -t ; $ex pkill -RTMIN+13 i3blocks
     
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
@@ -288,7 +289,7 @@ mode --pango_markup "$mode_launch" {
     bindsym m $ex $terminal -e neomutt
     bindsym c $ex $terminal -e ncmpcpp -s visualizer
     bindsym v $ex $terminal -e gotop
-    bindsym a $ex $terminal -e pulsemixer
+    bindsym a $ex $terminal -e ncpamixer
     
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }
@@ -398,10 +399,13 @@ $ex nm-applet
 $ex mullvad-vpn
 # exec qutebrowser
 $ex firefox-nightly
+$exa picom --experimental-backends
+$exa dunst
 $exa ~/.fehbg
 $ex discord
 $ex cfg rf
+$ex dunst
 $ex clipmenud
-$exa sleep 0.007 ; i3 mode "$mode_manager"
+$exa sleep 0.1 ; i3 mode "$mode_window"
 # exec xrandr --output HDMI-A-1 --auto --left-of DisplayPort-1
 # $exa $HOME/.config/polybar/launch.sh

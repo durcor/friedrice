@@ -11,12 +11,18 @@ refreshcfg() {
     # 0: Left RAM Stick
     # 1: Right RAM Stick
     # 2: X570 Taichi
-        # -c ${color9:1} -m Neon
+    # 3: NZXT Controller
+    # 4: AMD Wraith Prism
+    # 5: Razer Huntsman Elite
+    # 6: Razer DeathAdder Elite
+    # 7: Razer Goliathus Extended
+
     command -v openrgb >/dev/null &&
         sudo openrgb \
         -d 0 -c "$(echo "$color14" | sed 's/#//')" -m Static \
         -d 1 -c "$(echo "$color9" | sed 's/#//')" -m Static \
-        -d 2 -m Random
+        -d 2 -m Rainbow
+        # -d 2 -c ${color9:1} -m Neon
 
     lsusb | grep -q NZXT && 
         if liquidctl; then
@@ -38,7 +44,7 @@ refreshcfg() {
 
     lsusb | grep -q Microdia && rgb_keyboard -c 000000
     lsusb | grep -q Razer && razerricer
-    [ "$(pgrep qutebrowser)" ] && qutebrowser :config-source
+    pgrep qutebrowser && qutebrowser :config-source
 
     if [ "$WAYLAND_DISPLAY" ]; then
         sway restart
@@ -46,9 +52,9 @@ refreshcfg() {
         i3 restart
     fi
 
-    # cd ~/prg/st && sudo make clean install || exit
-    cd ~/prg/dmenu && sudo make clean install || exit
-    cd ~/prg/slock && sudo make clean install || exit
+    # cd ~/prg/st && sudo make clean install || exit 1
+    cd ~/prg/dmenu && sudo make clean install || exit 1
+    cd ~/prg/slock && sudo make clean install || exit 1
     wal_steam -g
     pywalfox update
     oomox-cli ~/.cache/wal/colors-oomox

@@ -9,7 +9,7 @@ PYGMENTIZE_CMD="pygmentize -f terminal"
 # kitty +kitten icat --transfer-mode file --clear
 
 case $1 in
-    *.md|*.cfg|*.sh|*.ini)
+    *.md|*.cfg|*.sh|*.ini|*.js)
         $HIGHLIGHT_CMD "$1"
         ;;
     *.txt)

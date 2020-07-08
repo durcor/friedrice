@@ -31,6 +31,7 @@ browserpass-chromium
 browserpass-firefox
 buku-git
 bukubrow
+c-lolcat
 ca-certificates-mozilla
 cadmus-appimage
 capitaine-cursors
@@ -103,6 +104,7 @@ grabc
 grim
 groff
 grub
+gtkcord3-git
 gutenprint
 hashcat-git
 hidapi-git
@@ -142,12 +144,14 @@ lib32-gtk3
 lib32-libdrm
 lib32-libomxil-bellagio
 lib32-libpulse
+lib32-libva-mesa-driver
 lib32-libva1
 lib32-libxslt
 lib32-llvm
 lib32-llvm-libs
 lib32-mangohud-git
-lib32-mesa-tkg-git
+lib32-mesa
+lib32-mesa-vdpau
 lib32-mpg123
 lib32-nss
 lib32-ocl-icd
@@ -156,6 +160,7 @@ lib32-sdl2
 lib32-v4l-utils
 lib32-vkd3d-proton-tkg-git
 lib32-vulkan-icd-loader
+lib32-vulkan-radeon
 libclc
 libdrm
 libirecovery-git
@@ -164,6 +169,7 @@ libopenmpt-svn
 libreoffice-fresh
 libsixel-git
 libtool
+libva-mesa-driver
 libva-utils
 libva1
 libvlc
@@ -191,8 +197,9 @@ mako-git
 mangohud-git
 mediainfo
 memtest86+
+mesa
 mesa-demos
-mesa-tkg-git
+mesa-vdpau
 mingw-w64-binutils
 mingw-w64-crt
 mingw-w64-gcc
@@ -214,7 +221,7 @@ ncmpcpp
 ncnn-git
 ncpamixer-git
 neomutt
-neovim
+neovim-git
 nerd-fonts-complete
 netctl
 network-manager-applet
@@ -289,7 +296,6 @@ rpcs3-git
 rsync
 ruby
 rust
-rust-lolcat-git
 ryujinx-git
 samba
 sconsify
@@ -340,6 +346,7 @@ vkbasalt
 vkd3d-proton-tkg-git
 vulkan-headers
 vulkan-icd-loader
+vulkan-radeon
 vulkan-tools
 waifu2x-ncnn-vulkan-git
 waybar
