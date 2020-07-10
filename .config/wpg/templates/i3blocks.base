@@ -26,6 +26,7 @@
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
 command=~/.local/bin/i3blocks/$BLOCK_NAME
+separator=false
 separator_block_width=0
 markup=pango
 
@@ -66,19 +67,6 @@ interval=5
 [dsk]
 interval=30
 
-# CPU usage
-#
-# The script may be called with -w and -c switches to specify thresholds,
-# see the script for details.
-#[cpu_usage]
-#label=cpu
-#interval=10
-#min_width=CPU: 100.00%
-#separator=false
-
-#[load_average]
-#interval=10
-
 # Disk usage
 #
 # The directory defaults to $HOME if the instance is not specified.
@@ -100,11 +88,6 @@ interval=30
 #separator=true
 #label=
 
-#[wifi]
-#instance=enp3s0
-#interval=10
-#separator=true
-
 [vpn]
 interval=30
 
@@ -124,8 +107,7 @@ interval=10
 # interval=10
 
 # [bat]
-# command=~/.local/bin/i3blocks/bat
-# # color={color14}
+# color={color14}
 # interval=5
 
 # [batplus]
@@ -134,19 +116,3 @@ interval=10
 
 [time]
 interval=1
-
-# Key indicators
-#
-# Add the following bindings to i3 config file:
-#
-# bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
-# bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
-#[keyindicator]
-#instance=CAPS
-#interval=once
-#signal=11
-
-#[keyindicator]
-#instance=NUM
-#interval=once
-#signal=11

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 # Set as a systemd timer to check for new RSS entries for newsboat.
 # If newsboat is open in tmux, sends it an "R" key to refresh.
 

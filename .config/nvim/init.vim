@@ -1,5 +1,4 @@
 " ~/.config/nvim/init.vim
-" vi:ft=vim
 "
 " auto-install plug.vim if it isn't installed
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
@@ -49,6 +48,7 @@ Plug 'tpope/vim-commentary'
 " Statusline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'tridactyl/vim-tridactyl'
 let g:rainbow_active = 1
 " Plug 'preservim/nerdtree'
 " Plug 'jaxbot/semantic-highlight.vim'
@@ -69,9 +69,9 @@ let g:airline_symbols.branch = ''
 " Buffer tab line customization
 let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#right_sep = ''
-let g:airline#extensions#tabline#right_alt_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
 let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
 
 let g:airline_powerline_fonts = 1
 let g:airline_statusline_ontop = 0
@@ -82,14 +82,14 @@ let g:airline#extensions#coc#enabled = 1
 
 let g:airline_theme='wpgtk_alternate'
 
-let g:Hexokinase_highlighters = [
-"\   'virtual',
-"\   'sign_column',
-"\   'background',
-\   'backgroundfull',
-"\   'foreground',
-"\   'foregroundfull'
-\ ]
+"let g:Hexokinase_highlighters = [
+""\   'virtual',
+""\   'sign_column',
+""\   'background',
+"\   'backgroundfull',
+""\   'foreground',
+""\   'foregroundfull'
+"\ ]
 
 " run neomake on file save
 call neomake#configure#automake('w')
@@ -109,22 +109,49 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 let $PAGER=''
 se nocompatible
 se ttyfast
+
 " improve macro performance
 se lazyredraw
 se shell=/bin/zsh
 se background=dark
-" add a litte margin on the left
-se foldcolumn=1
+" Decide the amount of empty space to the left
+se foldcolumn=0
+set updatetime=300
 let base16colorspace=256
 let mapleader ="\<Space>"
 
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" TODO: Map // to remove hlsearcH
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 " line number
 se nu
+" Don't wrap lines if they extend off the screen
+se nowrap
+se smartcase
+se undodir=~/.local/share/nvim/undo
+se undofile
 
 se cmdheight=1
 se wildmenu
 se ruler
-" scrolloff
+" Keep the cursor in the center of the vim buffer
 se so=200
 
 " auto indent
@@ -166,6 +193,18 @@ se clipboard+=unnamedplus
 
 " set calcurse note files to be markdown
 autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
+autocmd BufRead,BufNewFile *.hex set filetype=c
+autocmd BufRead,BufNewFile *.conf set filetype=dosini
+" Better systemd file syntax highlighting
+autocmd BufRead,BufNewFile *.service*,*.timer* set filetype=dosini
+
+" use ls syntax highlighting for vimv buffers
+autocmd BufRead,BufNewFile /tmp/vimv.* set filetype=ls 
+" jump straight to the file name in vimv if you are given the ability to edit
+" the entire path (such as when called inside of lf)
+autocmd BufRead,BufNewFile /tmp/vimv.* normal $T/
+" " Edit extension of current file in vimv
+" autocmd BufRead,BufNewFile /tmp/vimv.ext* normal $T.C
 
 " spell checking for LaTeX, markdown, plaintext, and git commits
 autocmd FileType tex,markdown,gitcommit,text setlocal spell spelllang=en_us,es
@@ -221,6 +260,12 @@ map ZW :w<cr>
 se cursorline
 hi CursorLine term=bold ctermbg=8
 
+" GoTo code navigation via coc
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " se cursorcolumn
 " hi CursorColumn ctermbg=8
@@ -228,27 +273,3 @@ hi CursorLine term=bold ctermbg=8
 " function Vimty()
 "         source ~/.local/share/nvim/plug/vimty/vimty.vim
 " endfunction
-
-" set statusline=%M%h%y %t %F %p%% %l/%L %=[%{&ff},%{&ft}] [a=%03.3b] [h=%02.2B] [%l,%v]
-" set title titlelen=150 titlestring=%( %M%)%( (%{expand("%:p:h")})%)%( %a%) - %{v:servername}
-" statusline
-" se stl=
-" se stl+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
-" se stl+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
-" se stl+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
-" se stl+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
-" se stl+=%#CursorIM#     " colour
-" se stl+=%R
-" se stl+=%#PmenuSel#
-" se stl+=%#LineNr#
-" se stl+=\ %f
-" se stl+=\ %m
-" se stl+=%=
-" se stl+=%#Visual#       " colour
-" se stl+=%{&paste?'\ PASTE\ ':''}
-" se stl+=%{&spell?'\ SPELL\ ':''}
-" se stl+=%#CursorColumn#
-" se stl+=\ %y
-" se stl+=\ %p%%
-" se stl+=\ %l:%c
-" se stl+=\ 

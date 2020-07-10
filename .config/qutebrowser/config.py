@@ -426,7 +426,7 @@ c.content.proxy = 'system'
 ## Type: List of File, or File
 # c.content.user_stylesheets = []
 c.content.user_stylesheets = [
-        '/home/ty/.config/wpg/templates/pywalcssqb',
+        '/home/ty/.config/wpg/templates/pywal-everywhere.css',
         # '/home/ty/doc/css/inv-low_contrast.css',
         # '/home/ty/doc/css/solarized-dark-all-sites.css',
         # '/home/ty/doc/css/searx-dark.css',
@@ -1002,7 +1002,7 @@ c.tabs.title.format = '{audio} {current_title}'
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 ## for a blank page.
 ## Type: FuzzyUrl
-c.url.default_page = '/home/ty/doc/sp/index.html'
+c.url.default_page = '/home/ty/prg/sp/index.html'
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.

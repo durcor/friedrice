@@ -1,5 +1,7 @@
 #!/bin/sh
 
-conscript(){ bluetoothctl connect $(bluetoothctl devices | awk '{print $2}' | rofi -dmenu -p btman) ;}
+bt_device=$(bluetoothctl devices | awk '{print $2}' | dmenu -p bt || notify-send "Device Required" && exit 1)
 
-notify-send "$(conscript)"
+[ -e "$bt_device" ] &&
+    bluetoothctl connect "$bt_device"
+    notify-send "$("$bt_device" connected)"

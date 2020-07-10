@@ -12,10 +12,13 @@ case $1 in
     *.md|*.cfg|*.sh|*.ini|*.js)
         $HIGHLIGHT_CMD "$1"
         ;;
+    *.c*nf*)
+        $HIGHLIGHT_CMD --syntax ini "$1"
+        ;;
     *.txt)
         $HIGHLIGHT_CMD --syntax md "$1"
         ;;
-    *BUILD)
+    *BUILD|*.bash*)
         $HIGHLIGHT_CMD --syntax sh "$1"
         ;;
     *.python*)
@@ -101,7 +104,7 @@ case $1 in
                 # hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
                 hexdump -C "$1" | $PYGMENTIZE_CMD -l hexdump
                 ;;
-            application/x*)
+            application/x*|text/x-bytecode*)
                 file -b "$1"
                 echo "-----------------------------------------------------------------------------"
                 hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump

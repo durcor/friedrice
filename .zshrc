@@ -13,23 +13,6 @@ fi
 # Source the global shell-agnostic script
 . ~/.shrc
 
-# autoload -Uz add-zsh-hook
-
-# function xterm_title_precmd () {
-# 	print -Pn -- '\e]2;%n@%m %~\a'
-# 	[[ "$TERM" == 'screen'* ]] && print -Pn -- '\e_\005{g}%n\005{-}@\005{m}%m\005{-} \005{B}%~\005{-}\e\\'
-# }
-
-# function xterm_title_preexec () {
-# 	print -Pn -- '\e]2;%n@%m %~ %# ' && print -n -- "${(q)1}\a"
-# 	[[ "$TERM" == 'screen'* ]] && { print -Pn -- '\e_\005{g}%n\005{-}@\005{m}%m\005{-} \005{B}%~\005{-} %# ' && print -n -- "${(q)1}\e\\"; }
-# }
-
-# if [[ "$TERM" == (alacritty*|gnome*|konsole*|putty*|rxvt*|screen*|tmux*|xterm*) ]]; then
-# 	add-zsh-hook -Uz precmd xterm_title_precmd
-# 	add-zsh-hook -Uz preexec xterm_title_preexec
-# fi
-
 # autoload -U colors && colors
 #
 # Set up the prompt
@@ -99,7 +82,8 @@ zinit for \
 zstyle :plugin:history-search-multi-word reset-prompt-protect 1
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=5
 
-export ZSH_TMUX_AUTO_TITLE_IDLE_TEXT="%last"
+# export ZSH_TMUX_AUTO_TITLE_IDLE_TEXT="%last"
+export ZSH_TMUX_AUTO_TITLE_IDLE_TEXT="%pwd"
 
 export MODE_CURSOR_VIINS="white blinking bar"
 # export MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS white"

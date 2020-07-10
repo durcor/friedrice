@@ -24,7 +24,7 @@ lfp     ~/.config/lf/prev
 x       ~/.xinitrc
 p       ~/.profile exec zsh
 sp      /etc/profile exec zsh
-t       ~/.tmux.conf tmux source ~/.config/tmux/tmux.conf
+t       ~/.config/tmux/tmux.conf tmux source ~/.config/tmux/tmux.conf
 v       ~/.config/nvim/init.vim
 vb      ~/.config/vimb/config
 nf      ~/.config/neofetch/config.conf
@@ -46,3 +46,5 @@ cfg     ~/.config/cfg/al
 pb      ~/.config/polybar/config i3 restart
 k       ~/.config/wpg/templates/kitty.base wpg -s $(wpg -c)
 p10     ~/.p10k.zsh exec zsh
+tr      ~/.config/tridactyl/tridactylrc
+vp      ~/.config/nvimpager/init.vim

@@ -31,7 +31,6 @@ browserpass-chromium
 browserpass-firefox
 buku-git
 bukubrow
-c-lolcat
 ca-certificates-mozilla
 cadmus-appimage
 capitaine-cursors
@@ -109,6 +108,7 @@ gutenprint
 hashcat-git
 hidapi-git
 highlight
+hsa-rocr-git
 hsakmt-roct-git
 htop
 hunspell-en_US
@@ -264,6 +264,7 @@ protontricks-git
 pulseaudio-alsa
 pulseaudio-modules-bt-git
 python-beautifulsoup4
+python-lolcat
 python-notify2
 python-openrazer-git
 python-pillow
@@ -284,7 +285,7 @@ qt5ct
 qutebrowser-git
 racket
 radeontop-git
-ranger
+ranger-git
 razercommander-git
 read-edid
 reshade-shaders-git
@@ -296,7 +297,6 @@ rpcs3-git
 rsync
 ruby
 rust
-ryujinx-git
 samba
 sconsify
 sex
@@ -332,6 +332,7 @@ tmux-git
 tor
 tor-browser
 transmission-cli
+trash-cli
 tty-clock-git
 tty-solitaire-git
 ttyqr-git

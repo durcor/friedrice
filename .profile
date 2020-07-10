@@ -32,7 +32,7 @@ export WINEFSYNC=1
 export DXVK_ASYNC=0
 export AMDVLK_ENABLE_DEVELOPING_EXT="all"
 
-export GOPATH="$HOME/.local/share/go"
+export GOPATH="$XDG_DATA_HOME/go"
 export CLASSPATH="$CLASSPATH:/usr/share/java/*"
 # LaTeX plugins
 export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"

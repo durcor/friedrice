@@ -23,61 +23,41 @@ set reverse
 set info size
 set period 1
 set ratios 1:2:3
+# set ratios 1:2:3:4:6
 # set ratios 100:1
 set dircounts
-# set promptfmt " \[\033[38;5;166m\]%u\[\033[38;5;244m\]@\[\033[38;5;217m\]%h\[\033[38;5;15m\] \[\033[38;5;155;1m\]%w" 
+# 38 is fg
+# 48 is bg
+# the # before the m is the terminal color (0-255)
+set promptfmt "
+\033[38;5;9m
+\033[48;5;8m
+%u
+\033[38;5;13m
+@
+\033[38;5;12m
+\033[48;5;8m
+%h 
+\033[38;5;8m
+\033[48;5;10m
+
+\033[38;5;8m
+\033[48;5;10m
+ %w/
+\033[38;5;8m
+\033[48;5;10m
+\033[1m
+%f 
+\033[38;5;10m
+\033[48;5;0m
+
+"
 
 set noanchorfind
 set findlen 0
 
-cmd open ${{
-    case $(file --mime-type "$f" -bL) in
-    text/*|application/json|inode/*|application/z*)
-        edit "$f"
-            ;;
-    video/*|image/*|audio/*) 
-        mpv "$f"
-            ;;
-    application/pdf)
-        zathura "$f"
-            ;;
-    application/x-dosexec) 
-        wine "$f"
-            ;;
-    application/vnd*) 
-        libreoffice "$f"
-            ;;
-    *)
-        echo "File cannot be opened"
-            ;;
-    esac
-}}
-
-cmd extract ${{
-    for file in $fx; do
-        case $file in
-            *.zip)
-                unzip "$file"
-                rm "$file"
-                ;;
-            *.tar.zst)
-                tar -I zstd -xvf "$file"
-                rm "$file"
-                ;;
-            *.zst)
-                zstd -d "$file"
-                rm "$file"
-                ;;
-            *.7z)
-                7z x "$file"
-                rm "$file"
-                ;;
-            *)
-                echo "File cannot be extracted"
-                ;;
-        esac
-    done
-}}
+cmd open $open $fx
+cmd extract $extract $fx
 
 cmd mkdir ${{
     printf "Directory Name: "
@@ -108,7 +88,7 @@ map gz cd ~/dl
 map gc cd ~/.config
 map gG cd ~/data/gam
 map ge cd /etc
-map gt cd ~/data/.garb
+map gt cd ~/.local/share/Trash
 
 map y
 map yy copy
@@ -126,7 +106,7 @@ map v :toggle; down
 map V invert
 
 map p paste
-map x delete
+map x $trash $fx
 
 map d
 map dd cut
@@ -138,7 +118,12 @@ map O mkdir
 
 map c
 map cw $vimv $fx
+map ce $vimv $fx
+map cv set ratios 1:2
+map cV set ratios 1:2:3
 map cd $cd $(fzffm)
+
+map A $vimv $fx
 
 map q quit
 map Q quit
@@ -160,10 +145,6 @@ map wg %autoglitch "$f"
 map z
 map za
 map zt
-map zr source ~/.config/lf/lfrc
-map zR set reverse!
-map zst set sortby time
-map zss set sortby size
 
 map <space>
 map <space>r source ~/.config/lf/lfrc

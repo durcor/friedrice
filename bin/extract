@@ -1,0 +1,28 @@
+#!/bin/sh
+
+REMOVE_AFTER_EXTRACT=false
+
+for file in "$@"; do
+    extract_dir_name=$(basename "$file")
+    case "$file" in
+        *.zip)
+            unzip "$file"
+            ( "$REMOVE_AFTER_EXTRACT" ) && rm "$file"
+            ;;
+        *.tar.zst)
+            tar -I zstd -xvf "$file"
+            ( "$REMOVE_AFTER_EXTRACT" ) && rm "$file"
+            ;;
+        *.zst)
+            zstd -d "$file"
+            ( "$REMOVE_AFTER_EXTRACT" ) && rm "$file"
+            ;;
+        *.7z)
+            7z x "$file"
+            ( "$REMOVE_AFTER_EXTRACT" ) && rm "$file"
+            ;;
+        *)
+            echo "File cannot be extracted"
+            ;;
+    esac
+done

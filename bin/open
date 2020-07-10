@@ -1,0 +1,22 @@
+#!/bin/sh
+
+case $(file --mime-type "$1" -bL) in
+    text/*|application/json|inode/*|application/z*)
+        edit "$1"
+            ;;
+    video/*|image/*|audio/*) 
+        mpv "$1"
+            ;;
+    application/pdf)
+        zathura "$1"
+            ;;
+    application/x-dosexec) 
+        wine "$1"
+            ;;
+    application/vnd*) 
+        libreoffice "$1"
+            ;;
+    *)
+        echo "File cannot be opened"
+            ;;
+esac

@@ -87,7 +87,8 @@ addcfg() {
 
 editcfg() {
     if [ -z "$2"  ]; then
-        cfgfileloc="$(sed "s/~/\/home\/$USER/" "$XDG_CONFIG_HOME/cfg/al" | awk '{print $2}' | fzf)"
+        # If the user quits out of fzf, exit cfg immediately
+        cfgfileloc="$(sed "s/~/\/home\/$USER/" "$XDG_CONFIG_HOME/cfg/al" | awk '{print $2}' | fzf)" || exit 1
     else
         cfgfileloc="$(sed "s/~/\/home\/$USER/" "$XDG_CONFIG_HOME/cfg/al" | grep "^$2 " | awk '{print $2}')"
     fi

@@ -128,5 +128,5 @@ map alt+minus            launch --location=hsplit
 # Other good pagers: nvim, nvimpager
 map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting less --chop-long-lines +G -R
 map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting less --chop-long-lines +G -R
-# map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting nvimpager
-# map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting nvimpager
+# map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting nvimpager +
+# map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting nvimpager +

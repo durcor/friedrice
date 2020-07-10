@@ -177,7 +177,7 @@ mode --pango_markup "$mode_yank" {{
 
 # Paste stuff to programs
 mode --pango_markup "$mode_paste" {{
-    bindsym v $ex mpv $(xclip -se c -i)
+    bindsym v $ex mpv $(xclip -se c -o)
     bindsym t $ex $terminal -e nvim $(xclip -se c -i)
 
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
