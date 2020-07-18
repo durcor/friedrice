@@ -2,7 +2,8 @@
 # vi:ft=dosini
 
 [global]
-font = {def-font} 9
+# font = {def-font} {def-font-size}
+font = {def-font} 8
 
 # Allow a small subset of html markup:
 #   <b>bold</b>
@@ -159,19 +160,20 @@ color = "{color14}"
 # "mod3" and "mod4" (windows-key).
 # Xev might be helpful to find names for keys.
 
+# Unbind all dunst keybinds and rely on dunstctl via wm keybinds instead
 # Close notification.
-close = ctrl+space
+# close = ctrl+space
 
 # Close all notifications.
-close_all = ctrl+shift+space
+# close_all = ctrl+shift+space
 
 # Redisplay last message(s).
 # On the US keyboard layout "grave" is normally above TAB and left
 # of "1".
-history = ctrl+grave
+# history = ctrl+grave
 
 # Context menu.
-context = ctrl+shift+period
+# context = ctrl+shift+period
 
 [urgency_low]
 # IMPORTANT: colors have to be defined in quotation marks.

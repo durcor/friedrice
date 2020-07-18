@@ -5,7 +5,7 @@
 ping -q -c 1 1.1.1.1 || exit
 
 if pgrep -x newsboat >/dev/null; then
-    tmux send-keys -t" ":" ".1 vlR
+    tmux send-keys -t" ":" ".1 vlR || tmux send-keys -t0:news.1 vlR || tmux send-keys -t0:newsboat.1 vlR
     touch /tmp/nbupdate
     pkill -RTMIN+6 i3blocks
     sleep "$(echo "$(wc -l < ~/.config/newsboat/urls)*0.3" | bc)"

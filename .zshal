@@ -3,6 +3,7 @@
 
 # Shorter commands
 abbrev-alias s="sudo"
+abbrev-alias y="yay"
 abbrev-alias p="$PAGER"
 abbrev-alias b="$BROWSER"
 abbrev-alias v="edit"
@@ -17,6 +18,7 @@ abbrev-alias diff="diff --color=auto"
 abbrev-alias ip="ip --color=auto"
 abbrev-alias btctl="bluetoothctl"
 abbrev-alias radeontop="radeontop -c"
+abbrev-alias ytop="ytop -p"
 abbrev-alias hl="highlight -O truecolor -s ~/.cache/wal/pywal.theme"
 abbrev-alias pyg="pygmentize -f terminal -g"
 abbrev-alias pw="pass"

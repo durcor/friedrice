@@ -1,4 +1,4 @@
-/* 
+/*
  * vi:ft=css
  */
 :root {{
@@ -19,12 +19,16 @@
     --base0E: {color14};
     --base0F: {color15};
 
-    --tridactyl-fg: var(--base05);
-    --tridactyl-bg: var(--base00);
-    --tridactyl-url-fg: var(--base08);
-    --tridactyl-url-bg: var(--base00);
+    /* Prompt Text Color */
+    --tridactyl-fg: var(--base0F);
+    /* Prompt Background */
+    --tridactyl-bg: var(--base02);
+    /* Prompt URL */
+    --tridactyl-url-fg: var(--base07);
+    --tridactyl-url-bg: var(--base02);
+    /* URL bar border highlight */
     --tridactyl-highlight-box-bg: var(--base0B);
-    --tridactyl-highlight-box-fg: var(--base00);
+    --tridactyl-highlight-box-fg: var(--base0A);
 
     /* Hint character tags */
     --tridactyl-hintspan-fg: var(--base00) !important;

@@ -245,7 +245,7 @@ screen_switcher_mode = playlist, last_fm
 startup_screen = playlist
 ## Note: You can define startup slave screen by choosing screen from the list
 ## above or an empty value for no slave screen.
-startup_slave_screen = visualizer
+# startup_slave_screen = visualizer
 startup_slave_screen_focus = no
 ## Default width of locked screen (in %).  Acceptable values are from 20 to 80.
 locked_screen_width_part = 70

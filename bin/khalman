@@ -1,0 +1,22 @@
+#!/bin/sh
+
+reload_interval=5
+
+current_min=$(date +%M)
+current_hour=$(date +%H)
+
+if [ "$((current_min + reload_interval))" -gt 60 ]; then
+    if [ "$((current_hour + 1))" -gt 23 ]; then
+        current_hour=0
+        current_min=$((current_min + reload_interval))
+    else
+        current_hour=$((current_hour + 1))
+        current_min=$((current_min + reload_interval))
+    fi
+else
+    current_min=$((current_min + reload_interval))
+fi
+
+current_time="$current_hour:$current_min"
+
+notify-send "khal" "$(khal at "$current_time")"

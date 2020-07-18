@@ -1,4 +1,4 @@
-# vi:ft=python
+# vi:ft=dosini
 [calendars]
 
     [[event]]

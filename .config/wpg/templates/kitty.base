@@ -3,17 +3,18 @@ include                 ~/.cache/wal/colors-kitty.conf
 selection_foreground    {color7}
 selection_background    {color8}
 
-# Appearance
+## Appearance
 font_family             {def-font}
-font_size               12.0
+# font_size               10.2
+font_size               {def-font-size}
 # symbol_map              U+E0A0-U+E0A3,U+E0C0-U+E0C7 Sauce Code Nerd Font Mono
 bold_font               auto
 italic_font             auto
 bold_italic_font        auto
 scrollback_lines        100000
 scrollback_pager_history_size 100000
-# placement_strategy      top-left
-placement_strategy      center
+# placement_strategy      center
+placement_strategy      top-left
 background_opacity      0.9
 window_padding_width    5
 allow_remote_control    true
@@ -26,15 +27,18 @@ inactive_border_color   {color8}
 enabled_layouts         splits
 pointer_shape_when_grabbed hand
 
-# Audio
+## Audio
 enable_audio_bell       no
 visual_bell_duration    0.0
 window_alert_on_bell    yes
 
-# Performance
-repaint_delay           5
-input_delay             0
-sync_to_monitor         no
+## Performance
+# repaint_delay           5
+repaint_delay           15
+# input_delay             0
+input_delay             3
+# sync_to_monitor         no
+sync_to_monitor         yes
 
 # Tab Bar
 tab_bar_edge            top
@@ -49,8 +53,9 @@ tab_fade 0.25 0.5 0.75 1
 
 tab_title_template " {{title}} "
 
-active_tab_foreground   {color8}
-active_tab_background   {color15}
+active_tab_foreground   {color15}
+# active_tab_background   {color0}
+active_tab_background   {color8}
 # active_tab_font_style   bold-italic
 active_tab_font_style   bold
 inactive_tab_foreground {color8}
@@ -110,6 +115,8 @@ map alt+escape>ctrl+b    scroll_page_up
 map alt+ctrl+b           scroll_page_up
 map alt+escape>ctrl+f    scroll_page_down
 map alt+ctrl+f           scroll_page_down
+map alt+ctrl+u           scroll_line_up
+map alt+ctrl+d           scroll_line_down
 
 map alt+escape>shift+h   resize_window narrower
 map alt+shift+h          resize_window narrower

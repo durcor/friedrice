@@ -1,8 +1,8 @@
 #!/bin/sh
 
 if [ -z "$1" ]; then
-    $EDITOR 
-elif [ -O "$1" ] || [ ! -f "$1" ]; then 
+    $EDITOR
+elif [ -O "$1" ] || [ ! -f "$1" ]; then
     $EDITOR "$1"
 else
     sudoedit "$1"

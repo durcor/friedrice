@@ -3,7 +3,7 @@ i3      ~/.config/wpg/templates/i3.base wpg -s $(wpg -c) && i3 restart
 i3b     ~/.config/wpg/templates/i3blocks.base wpg -s $(wpg -c) && i3 restart
 s      ~/.config/wpg/templates/sway.base wpg -s $(wpg -c) && sway reload
 dm      ~/.config/wpg/templates/dmenu.base wpg -s $(wpg -c) && cd ~/prg/dmenu && sudo make clean install
-du      ~/.config/wpg/templates/dunst.base cfg rf
+du      ~/.config/wpg/templates/dunst.base wpg -s $(wpg -c) && systemctl --user restart dunst
 ma      ~/.config/wpg/templates/mako.base wpg -s $(wpg -c) systemctl --user restart mako
 dw      ~/.config/wpg/templates/dwm.base cfg rf
 mp      ~/.config/wpg/templates/mpv.base wpg -s $(wpg -c)
@@ -47,4 +47,5 @@ pb      ~/.config/polybar/config i3 restart
 k       ~/.config/wpg/templates/kitty.base wpg -s $(wpg -c)
 p10     ~/.p10k.zsh exec zsh
 tr      ~/.config/tridactyl/tridactylrc
+trc     ~/.config/wpg/templates/tridactyl.base
 vp      ~/.config/nvimpager/init.vim

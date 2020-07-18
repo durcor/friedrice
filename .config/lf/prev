@@ -9,10 +9,10 @@ PYGMENTIZE_CMD="pygmentize -f terminal"
 # kitty +kitten icat --transfer-mode file --clear
 
 case $1 in
-    *.md|*.cfg|*.sh|*.ini|*.js)
+    *.md|*.sh|*.ini|*.js)
         $HIGHLIGHT_CMD "$1"
         ;;
-    *.c*nf*)
+    *.c*nf*|*.cfg)
         $HIGHLIGHT_CMD --syntax ini "$1"
         ;;
     *.txt)
@@ -28,17 +28,20 @@ case $1 in
     #     $HIGHLIGHT_CMD --syntax zsh "$1"
     #     ;;
     *.tar.gz|*.tgz)
-        tar -ztvf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        # tar -ztvf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        tar -ztf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
         ;;
     *.gz)
         gzip -l "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
         # gzip -l "$1" | $HIGHLIGHT_CMD --syntax ls
         ;;
     *.tar.bz2) 
-        tar -jtvf "$1" head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        # tar -jtvf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        tar -jtf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
         ;;
     *.tar.xz) 
-        tar -tvf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        # tar -tvf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+        tar -tf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
         ;;
     *.xz) 
         xzcat "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
@@ -59,7 +62,7 @@ case $1 in
         hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
         ;;
     *.X*) 
-        $PYGMENTIZE_CMD -l xorg.conf "$1"
+        head -n$LINES "$1" | $PYGMENTIZE_CMD -l xorg.conf
         ;;
     *) 
         case $(file --mime-type "$1" -bL) in
@@ -67,6 +70,8 @@ case $1 in
                 mediainfo "$1" | $PYGMENTIZE_CMD -l make
                 ;;
             video/*)
+                ffmpegthumbnailer -i "$1" -o /tmp/ffmpegthumbnailer.png
+                chafa -c 256 /tmp/ffmpegthumbnailer.png
                 mediainfo "$1" | $PYGMENTIZE_CMD -l make
                 ;;
             image/svg+xml|text/x-shellscript)
@@ -86,7 +91,7 @@ case $1 in
                 ;;
             application/zstd) 
                 # zstdcat "$1" | head -n30
-                tar -tvf "$1"
+                tar -tf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
                 ;;
             application/x-dosexec|inode/*)
                 file -b "$1"

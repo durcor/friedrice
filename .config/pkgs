@@ -4,6 +4,7 @@ amd-ucode
 amdgpu-pro-amf-only
 amdgpu-pro-vulkan-only
 amdvlk
+amdvlk-tkg
 anbox-bridge
 anbox-git
 anbox-image-gapps
@@ -32,7 +33,6 @@ browserpass-firefox
 buku-git
 bukubrow
 ca-certificates-mozilla
-cadmus-appimage
 capitaine-cursors
 cava
 ccache
@@ -72,15 +72,19 @@ dosfstools
 dunst-git
 ebtables
 efibootmgr
-env-modules
 exa
 fakeroot
 faudio-git
 feh
 ff2mpv-native-messaging-host-git
 ffmpeg-amd-full-git
+ffmpegthumbnailer
+firefox-extension-ublock-git
+firefox-hg
 firefox-nightly
-firefox-tridactyl-native
+firefox-stylus
+firefox-tridactyl-git
+firefox-umatrix
 flashplugin
 flex
 foldingathome
@@ -98,7 +102,6 @@ git-lfs
 glances
 glfw-x11
 go
-gotop
 grabc
 grim
 groff
@@ -128,7 +131,6 @@ kdb
 kdenlive
 khal
 khard
-kitty-git
 krita
 legendary
 lf-git
@@ -144,14 +146,12 @@ lib32-gtk3
 lib32-libdrm
 lib32-libomxil-bellagio
 lib32-libpulse
-lib32-libva-mesa-driver
 lib32-libva1
 lib32-libxslt
 lib32-llvm
 lib32-llvm-libs
 lib32-mangohud-git
-lib32-mesa
-lib32-mesa-vdpau
+lib32-mesa-tkg-git
 lib32-mpg123
 lib32-nss
 lib32-ocl-icd
@@ -160,7 +160,6 @@ lib32-sdl2
 lib32-v4l-utils
 lib32-vkd3d-proton-tkg-git
 lib32-vulkan-icd-loader
-lib32-vulkan-radeon
 libclc
 libdrm
 libirecovery-git
@@ -169,7 +168,6 @@ libopenmpt-svn
 libreoffice-fresh
 libsixel-git
 libtool
-libva-mesa-driver
 libva-utils
 libva1
 libvlc
@@ -177,6 +175,8 @@ libxnvctrl
 linux-firmware
 linux-zen
 linux-zen-headers
+linux57-tkg-cfs
+linux57-tkg-cfs-headers
 linux57-tkg-pds
 linux57-tkg-pds-headers
 linux58-tkg-pds
@@ -197,9 +197,8 @@ mako-git
 mangohud-git
 mediainfo
 memtest86+
-mesa
 mesa-demos
-mesa-vdpau
+mesa-tkg-git
 mingw-w64-binutils
 mingw-w64-crt
 mingw-w64-gcc
@@ -217,7 +216,7 @@ mpv-mpris-git
 mtools
 mullvad-vpn-beta
 mutt-wizard-git
-ncmpcpp
+ncmpcpp-git
 ncnn-git
 ncpamixer-git
 neomutt
@@ -231,7 +230,6 @@ nicotine-plus-git
 nnn-git
 noise-repellent
 ntfs-3g
-nvimpager-git
 obs-studio
 oil
 openrazer-driver-dkms-git
@@ -289,7 +287,6 @@ ranger-git
 razercommander-git
 read-edid
 reshade-shaders-git
-riot-desktop
 rocm-cmake-git
 rocm-opencl-runtime
 rofi
@@ -347,7 +344,6 @@ vkbasalt
 vkd3d-proton-tkg-git
 vulkan-headers
 vulkan-icd-loader
-vulkan-radeon
 vulkan-tools
 waifu2x-ncnn-vulkan-git
 waybar
@@ -357,6 +353,7 @@ wine-gecko
 wine-mono
 wine-tkg-staging-fsync-vkd3d-git
 winetricks-git
+wireguard-tools
 wireless_tools
 wl-clipboard
 wlr-randr
@@ -365,6 +362,7 @@ wofi-hg
 wpa_supplicant
 wpgtk-git
 wraith-master-cli
+xcape
 xclip
 xdg-user-dirs
 xf86-video-amdgpu
@@ -421,8 +419,9 @@ xorg-xwud
 xsel
 yay-git
 youtube-dl-git
+ytop-git
 zathura
 zathura-pdf-poppler
 zenpower-dkms-git
 zoom
-zsh
+zsh-git

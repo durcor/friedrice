@@ -55,7 +55,7 @@ autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
 
-kitty + complete setup zsh | . /dev/stdin
+# kitty + complete setup zsh | . /dev/stdin
 
 # Plugin loading
 zinit for \
@@ -91,6 +91,8 @@ export MODE_CURSOR_VIINS="white blinking bar"
 export MODE_CURSOR_SEARCH="#ff00ff steady underline"
 export MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
 # export MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL white"
+
+export ZLE_RPROMPT_INDENT=0
 
 # Mode prompts on the right
 # export MODE_INDICATOR_VIINS='%B%F{10}%K{10}%F{0} INSERT %f%K{0}'

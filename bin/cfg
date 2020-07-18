@@ -24,17 +24,13 @@ refreshcfg() {
         -d 2 -m Rainbow
         # -d 2 -c ${color9:1} -m Neon
 
-    lsusb | grep -q NZXT && 
-        if liquidctl; then
-            sudo liquidctl set led1 color starry-night "$(echo "$color14" | sed 's/#//')" &
-            sudo liquidctl set led2 color starry-night "$(echo "$color11" | sed 's/#//')" &
-        else
-            openrgb -d 3 \
-                -z 0 -c "$(echo "$color13" | sed 's/#//')" \
-                -z 1 -c "$(echo "$color19" | sed 's/#//')" \
-                -z 2 -c "$(echo "$color11" | sed 's/#//')" \
-                -z 3 -c "$(echo "$color10" | sed 's/#//')" &
-        fi
+    lsusb | grep -q NZXT &&
+        liquidctl initialize all &&
+        liquidctl set fan1 speed 100 &&
+        liquidctl set fan2 speed 100 &&
+        liquidctl set fan3 speed 100 &&
+        liquidctl set led1 color starry-night "$(echo "$color14" | sed 's/#//')" &&
+        liquidctl set led2 color starry-night "$(echo "$color11" | sed 's/#//')"
 
     lsusb | grep -q AMD &&
         wraith-master -m swirl -c "$color14" ring &&
@@ -96,7 +92,7 @@ editcfg() {
     cfgfilepostrun="$(grep "$(echo "$cfgfileloc" | sed "s/\/home\/$USER/~/")" "$XDG_CONFIG_HOME/cfg/al" | awk '{$1="";$2="";print}' | xargs)"
 
     # Only advance onto the post run command if the edit of the
-    # file succeeds 
+    # file succeeds
     # (ie. sudoedit without doing any actual editing or
     # editing a file that is already open in another instance)
     edit "$cfgfileloc" &&
@@ -159,22 +155,22 @@ cfg - the simple config controller
 
     r/rf/refresh - refresh all configs
         - cfg r
-    
+
     a/add - add new config
         - cfg a (PATH TO CONFIG) (CONFIG ALIAS)
-    
+
     e/ed/edit - edit existing config
         - cfg e
             - calls fzf
             OR
         - cfg e (CONFIG ALIAS)
-    
+
     l/ls/list - list existing config aliases
         - cfg l
 
     l/ls/list - list existing config aliases
         - cfg l
-    
+
     u/up/update - push to your main repo
         - cfg u
 
