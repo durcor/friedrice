@@ -109,7 +109,7 @@ call neomake#configure#automake('w')
 "                         \ 'auto_complete_delay': 0,
 "                         \ })
 
-let g:coc_global_extensions = "coc-sh,coc-json,coc-tsserver,coc-discord,coc-clangd,coc-texlab"
+let g:coc_global_extensions = "coc-sh,coc-json,coc-tsserver,coc-cord,coc-clangd,coc-texlab"
 
 " Themes
 " se termguicolors
@@ -131,7 +131,7 @@ se ttyfast
 
 " improve macro performance
 se lazyredraw
-se shell=/bin/sh
+se shell=/bin/zsh
 se background=dark
 " Decide the amount of empty space to the left
 se foldcolumn=0

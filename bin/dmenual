@@ -1,4 +1,5 @@
 #!/bin/bash
+
 cache=~/.cache/dmenu_run
 freq=~/.dmenuhis
 aliases=~/.shal

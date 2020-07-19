@@ -1,2 +1,3 @@
 #!/bin/sh
+
 jpglitch $1 -o $HOME/wal/gltch/$1_gltch

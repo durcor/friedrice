@@ -90,6 +90,7 @@ flex
 foldingathome
 fwupd
 fzf
+fzwal-git
 gamemode
 gcc
 gconf
@@ -246,6 +247,7 @@ pamixer
 pandoc
 pass
 patch
+pcmanfm
 pcsx2-git
 pdfjs
 pepper-flash
@@ -328,6 +330,7 @@ themix-full-git
 tmux-git
 tor
 tor-browser
+torsocks
 transmission-cli
 trash-cli
 tty-clock-git

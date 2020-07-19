@@ -1,5 +1,6 @@
 # Alacritty
 ###########
+# vi:ft=yaml
 #
 #   'r>>>>|||?\\\llssxxti%***TTYY)Jzo11111aae43ja~
 # ~ZR8BBBBBBBBBBBBBBBBBBBBBB0000000000000000Q0QQQBZ~
@@ -24,7 +25,6 @@
 # rrr>::::::::::::::::::::::::::::::::::::::::::>rrr
 # !rrrr>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>rrrr!
 #
-# vi:ft=yaml
 
 background_opacity: 1.0
 

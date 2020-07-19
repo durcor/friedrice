@@ -7,18 +7,18 @@
 # My Workflow
 * OS - arch
 * WM - i3-gaps w/ i3blocks and picom
-* Terminal - kitty
-* Shell - zsh
+* Terminal - alacritty + tmux
+* Shell - zsh (zinit)
     - [zsh expandable aliases](.zshal)
     - powerline10k prompt
-* Browser - firefox-nightly, qutebrowser, brave, ungoogled-chromium
+* Browser - firefox, qutebrowser, brave, ungoogled-chromium
     - tridactyl
-    - bukubrow
     - ublock origin + umatrix
+    - bukubrow
     - stylus
 * File Manager - lf
-* Editor - nvim
-    - vim-plug
+* Editor - nvim (vim-plug)
+    - coc.nvim
 * Mail Reader - neomutt
 * Music Player - mpd (ncmpcpp)
 * Notification Daemon - dunst

@@ -1,4 +1,5 @@
 #!/bin/sh
+
 url="$(curl -s $1 | grep -Eoi '<source [^>]+>' | grep -Eo 'src="[^\"]+"' | grep -Eo '(http|https)://[^"]+')"
 # mpv --vo=opengl --ao=pulse "$url"
 mpv "$url"
