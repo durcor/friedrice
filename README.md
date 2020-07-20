@@ -23,5 +23,3 @@
 * Music Player - mpd (ncmpcpp)
 * Notification Daemon - dunst
 * Media Viewer - mpv
-
-![winblows](windows_and_cameras.png "winblows")
