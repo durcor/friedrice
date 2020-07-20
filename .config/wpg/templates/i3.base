@@ -83,6 +83,7 @@ mode --pango_markup "$mode_manager" {{
     bindsym p mode "$mode_paste" ; $ex $mode-notif "PASTE MODE"
     bindsym y mode "$mode_yank" ; $ex $mode-notif "YANK MODE"
     bindsym n mode "$mode_notify" ; $ex $mode-notif "NOTIFY MODE"
+    bindsym shift+n $ex dunstctl close
 
     bindsym Menu [instance="pop"] scratchpad show; [instance="pop"] move position center
 

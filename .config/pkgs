@@ -69,6 +69,7 @@ dolphin-emu-git
 dos2unix
 dosbox
 dosfstools
+dragon-drag-and-drop-git
 dunst-git
 ebtables
 efibootmgr
@@ -151,7 +152,7 @@ lib32-libva1
 lib32-libxslt
 lib32-llvm
 lib32-llvm-libs
-lib32-mangohud-git
+lib32-mangohud-amd-git
 lib32-mesa-tkg-git
 lib32-mpg123
 lib32-nss
@@ -195,7 +196,8 @@ m4
 maim
 make
 mako-git
-mangohud-git
+mangohud-amd-git
+mangohud-common-git
 mediainfo
 memtest86+
 mesa-demos
@@ -247,7 +249,6 @@ pamixer
 pandoc
 pass
 patch
-pcmanfm
 pcsx2-git
 pdfjs
 pepper-flash
@@ -274,6 +275,7 @@ python-pylast
 python-pynvim
 python-pypresence
 python-pywal
+python-pywalfox
 python-selenium
 python-steamcontroller-git
 python-tldextract
@@ -312,6 +314,7 @@ sudo
 supertuxkart
 sway-git
 system-config-printer
+termite
 testdisk
 texinfo
 texlive-bibtexextra
@@ -333,6 +336,7 @@ tor-browser
 torsocks
 transmission-cli
 trash-cli
+tridactyl-native-git
 tty-clock-git
 tty-solitaire-git
 ttyqr-git
@@ -426,5 +430,6 @@ ytop-git
 zathura
 zathura-pdf-poppler
 zenpower-dkms-git
+zimg-git
 zoom
 zsh-git

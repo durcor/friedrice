@@ -1,9 +1,11 @@
 #!/bin/sh
 # shellcheck disable=1090,2154
 
-. "$HOME/.cache/wal/colors.sh"
+. "$XDG_CACHE_HOME/wal/colors.sh"
 
-[ ! -f "$XDG_CONFIG_HOME/cfg/al" ] && mkdir -p "$XDG_CONFIG_HOME/cfg" && touch "$XDG_CONFIG_HOME/cfg/al"
+[ ! -f "$XDG_CONFIG_HOME/cfg/al" ] &&
+    mkdir -p "$XDG_CONFIG_HOME/cfg" &&
+    touch "$XDG_CONFIG_HOME/cfg/al"
 
 refreshcfg() {
     wpg -s "$(wpg -c)"
@@ -48,10 +50,15 @@ refreshcfg() {
         i3 restart
     fi
 
-    # cd ~/prg/st && sudo make clean install || exit 1
+    cd ~/prg/st && sudo make clean install || exit 1
     cd ~/prg/dmenu && sudo make clean install || exit 1
     cd ~/prg/slock && sudo make clean install || exit 1
-    wal_steam -g
+
+    wal_steam -w
+    pgrep steam &&
+        killall -9 steam &&
+        steam-native
+
     pywalfox update
     oomox-cli ~/.cache/wal/colors-oomox
     # oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
@@ -84,12 +91,14 @@ addcfg() {
 editcfg() {
     if [ -z "$2"  ]; then
         # If the user quits out of fzf, exit cfg immediately
-        cfgfileloc="$(sed "s/~/\/home\/$USER/" "$XDG_CONFIG_HOME/cfg/al" | awk '{print $2}' | fzf)" || exit 1
+        cfgfileloc="$(sed "s|~|/home/$USER|" "$XDG_CONFIG_HOME/cfg/al" |
+            awk '{print $2}' | fzf)" || exit 1
     else
-        cfgfileloc="$(sed "s/~/\/home\/$USER/" "$XDG_CONFIG_HOME/cfg/al" | grep "^$2 " | awk '{print $2}')"
+        cfgfileloc="$(sed "s|~|/home/$USER|" "$XDG_CONFIG_HOME/cfg/al" |
+            grep "^$2 " | awk '{print $2}')"
     fi
 
-    cfgfilepostrun="$(grep "$(echo "$cfgfileloc" | sed "s/\/home\/$USER/~/")" "$XDG_CONFIG_HOME/cfg/al" | awk '{$1="";$2="";print}' | xargs)"
+    cfgfilepostrun="$(grep "$(echo "$cfgfileloc" | sed "s|/home/$USER|~|")" "$XDG_CONFIG_HOME/cfg/al" | awk '{$1="";$2="";print}' | xargs)"
 
     # Only advance onto the post run command if the edit of the
     # file succeeds
@@ -113,7 +122,8 @@ updatecfg() {
     cp /etc/sysctl.d -r "$XDG_CONFIG_HOME/root/etc/" || exit 1
     cp /etc/bluetooth -r "$XDG_CONFIG_HOME/root/etc/" || exit 1
     cp /etc/locale.gen "$XDG_CONFIG_HOME/root/etc/" || exit 1
-    sudo cp /etc/sudoers "$XDG_CONFIG_HOME/root/etc/" && sudo chown -R ty:users "$XDG_CONFIG_HOME/root" || exit 1
+    sudo cp /etc/sudoers "$XDG_CONFIG_HOME/root/etc/" &&
+        sudo chown -R "$USER":users "$XDG_CONFIG_HOME/root" || exit 1
     cp /etc/hostname "$XDG_CONFIG_HOME/root/etc/" || exit 1
     cp /etc/profile "$XDG_CONFIG_HOME/root/etc/" || exit 1
     git add -f "$XDG_CONFIG_HOME/root"

@@ -3,8 +3,8 @@
 #
 # shellcheck disable=1090
 #
-# Put stuff here that you only want sourced once
-# at login
+# Put stuff here that you only want sourced when
+# initializing login shells
 
 . "$HOME/.mancolors"
 . "$HOME/.config/lf/ico"

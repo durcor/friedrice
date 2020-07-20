@@ -56,6 +56,7 @@ vram                = 1
 gpu_mem_clock       = 1
 ram                 = 1
 engine_version      = 1
+wine                = 1
 gpu_name            = 0
 vulkan_driver       = 1
 frame_timing        = 1
@@ -89,6 +90,8 @@ vram_color          = {color12.strip}
 ram_color           = {color13.strip}
 engine_color        = {color14.strip}
 frametime_color     = {color14.strip}
+media_player_color  = {color14.strip}
+wine_color          = {color11.strip}
 background_color    = {color8.strip}
 ##################### KEYBINDS
 toggle_hud          = Shift_L+F12

@@ -2,7 +2,7 @@
 # vi:ft=i3config
 
 # font for window titles+status bar
-font pango: Fantasque Sans Mono Nerd Font 9
+font pango: {def-font} {def-font-size}
 
 input * {{
     xkb_options "caps:escape"
