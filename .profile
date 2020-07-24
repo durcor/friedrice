@@ -10,7 +10,7 @@
 . "$HOME/.config/lf/ico"
 
 # Default Programs
-export EDITOR="nvim"
+export EDITOR="nvr --remote"
 export VISUAL="$EDITOR"
 export TERMINAL="alacritty"
 export BROWSER="copytoclip"
@@ -27,12 +27,15 @@ export MAILREADER="neomutt"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export LYNX_CFG="$HOME/.lynxrc"
 
-# XDG
-## Move to ~/.local/bin
+# XDG AppDirs
+## Move to ~/.local/etc or ~/etc
 export XDG_CONFIG_HOME="$HOME/.config"
-## Move to ~/.local/cache
+## Move to ~/.local/cache or ~/cache or ~/var/cache
 export XDG_CACHE_HOME="$HOME/.cache"
+## Keep at current place or move to ~/share
 export XDG_DATA_HOME="$HOME/.local/share"
+## Keep at current place or move to ~/var/log
+export XDG_STATE_HOME="$HOME/.local/state"
 
 # Gaming Environment
 ## Wine

@@ -32,7 +32,7 @@ load-module module-augment-properties
 ### Should be after module-*-restore but before module-*-detect
 load-module module-switch-on-port-available
 
-load-module module-switch-on-connect
+# load-module module-switch-on-connect
 
 ### Load audio drivers statically
 ### (it's probably better to not load these drivers manually, but instead
@@ -109,7 +109,7 @@ load-module module-default-device-restore
 
 ### Automatically move streams to the default sink if the sink they are
 ### connected to dies, similar for sources
-load-module module-rescue-streams
+# load-module module-rescue-streams
 
 ### Make sure we always have a sink around, even if it is a null sink.
 load-module module-always-sink

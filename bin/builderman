@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TKG_DIR="$HOME/prg/pkgbuild/tkg"
+TKG_DIR="$HOME/src/pkgbuild/tkg"
 
 updatepkgbuilds(){
     cd "$TKG_DIR" || exit
@@ -8,10 +8,6 @@ updatepkgbuilds(){
     for pkg in "$TKG_DIR"/*; do
         cd "$pkg" || exit 1
         echo "$pkg: $(git pull --recurse-submodules)"
-        # if [ "$(git pull --recurse-submodules)" != "Already up to date." ]; then
-        #     rm *.tar
-        #     makepkg -si
-        # fi
         cd "$TKG_DIR" || exit
     done
 }
@@ -60,7 +56,7 @@ updatemesa(){
 }
 
 case $1 in
-    update|sync|up)
+    sync)
         updatepkgbuilds
         ;;
     wine)

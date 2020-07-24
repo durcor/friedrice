@@ -1,9 +1,9 @@
 #!/bin/sh
 
 case $(file --mime-type "$1" -bL) in
-    text/*|application/json|inode/*|application/z*)
-        edit "$1"
-            ;;
+    # text/*|application/json|inode/*|application/z*)
+    #     edit "$1"
+    #         ;;
     video/*|image/*|audio/*) 
         mpv "$1"
             ;;
@@ -17,6 +17,6 @@ case $(file --mime-type "$1" -bL) in
         libreoffice "$1"
             ;;
     *)
-        echo "File cannot be opened"
+        edit "$1"
             ;;
 esac

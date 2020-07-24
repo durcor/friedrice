@@ -1,7 +1,11 @@
 #!/bin/sh
 
 if [ -z "$1" ]; then
-    $EDITOR
+    if [ ! "$VIMRUNTIME" ]; then
+        nvim
+    else
+        $EDITOR -c Startify
+    fi
 elif [ -O "$1" ] || [ ! -f "$1" ]; then
     $EDITOR "$1"
 else

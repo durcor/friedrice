@@ -56,6 +56,8 @@ abbrev-alias df="df -hT -x tmpfs -x squashfs -x devtmpfs"
 abbrev-alias dd="dd conv=noerror,sync status=progress bs=64K"
 abbrev-alias whatsbig="du -hs * | sort -h"
 
+fzfcd(){ cd "$(find / -type d 2>/dev/null | fzf)" || exit 1 ;}
+
 # List files
 abbrev-alias ls="ls --color=auto"
 abbrev-alias ll="ls -alF"

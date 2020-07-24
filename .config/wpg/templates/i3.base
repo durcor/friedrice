@@ -412,7 +412,7 @@ for_window [instance="float"] floating enable
 $ex $terminal
 $ex $browser
 $ex nm-applet
-# $ex mullvad-vpn
+$ex mullvad reconnect
 $exa picom --experimental-backends
 # $exa dunst
 $exa ~/.fehbg

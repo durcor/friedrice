@@ -1,5 +1,0 @@
-#!/bin/sh
-
-updatewine
-cd "$HOME/prg/pkgbuild/tkg/mesa-git" && rm *.pkg.* && makepkg -si
-cd "$HOME/prg/pkgbuild/browser/firefox-hg" && makepkg -si

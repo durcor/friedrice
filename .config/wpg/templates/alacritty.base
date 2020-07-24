@@ -206,10 +206,10 @@ live_config_reload: true
 #
 # Default:
 #   - (Linux/BSD) user login shell
-#shell:
-#  program: /bin/bash
-#  args:
-#    - --login
+shell:
+  program: /bin/zsh
+  args:
+    - --login
 
 # Startup directory
 #

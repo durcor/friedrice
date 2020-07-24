@@ -17,7 +17,7 @@ set relativenumber
 # set tabstop
 # atime: last time read
 # ctime: last time metadata changed (file permissions)
-# natural: 
+# natural:
 set sortby time
 set reverse
 set info size
@@ -37,7 +37,7 @@ set promptfmt "
 @
 \033[38;5;12m
 \033[48;5;8m
-%h 
+%h
 \033[38;5;8m
 \033[48;5;10m
 
@@ -47,7 +47,7 @@ set promptfmt "
 \033[38;5;8m
 \033[48;5;10m
 \033[1m
-%f 
+%f
 \033[38;5;10m
 \033[48;5;0m
 
@@ -77,6 +77,10 @@ cmd chmod ${{
     done
 }}
 
+cmd fzfcd ${{
+    find / -type d 2>/dev/null | fzf
+}}
+
 map gg top
 map gm cd ~/data/mus
 map gd cd ~/doc
@@ -93,9 +97,16 @@ map gt cd ~/.local/share/Trash
 map y
 map yy copy
 
+# Copy selected file's path
 map yp %readlink -f "$f" | xclip -se c -i
+# Copy selected file's name
 map yn %echo "$f" | xclip -se c -i
+# Yank a file in its entirety with respect to its mime type to
+# the clipboard
 map yf %xclip -se c -i "$f" -t "$(file -b --mime-type "$f")"
+# Put the selected files in a temporary gtk window which allows them
+# to be dragged and dropped into different gui applications (such as web browsers and chat clients)
+map yv %dragon-drag-and-drop $fx
 
 map u unselect
 map U clear
@@ -121,7 +132,10 @@ map cw $vimv $fx
 map ce $vimv $fx
 map cv set ratios 1:2
 map cV set ratios 1:2:3
-map cd $cd $(fzffm)
+# Interactively cd to a new directory inside of lf with
+# tab-completion
+map cd push :cd<space>
+map cD
 
 map A $vimv $fx
 
@@ -129,9 +143,7 @@ map q quit
 map Q quit
 
 map i $edit "$f"
-map I $edit "$f"
-# map i $$EDITOR "$f"
-# map I $sudoedit "$f" || $EDITOR "$f"
+map I $nvr -cc call TermOpen(&shell,'v')
 
 map e
 map E
@@ -145,6 +157,8 @@ map wg %autoglitch "$f"
 map z
 map za
 map zt
+
+map S $$SHELL
 
 map <space>
 map <space>r source ~/.config/lf/lfrc

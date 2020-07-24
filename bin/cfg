@@ -50,9 +50,9 @@ refreshcfg() {
         i3 restart
     fi
 
-    cd ~/prg/st && sudo make clean install || exit 1
-    cd ~/prg/dmenu && sudo make clean install || exit 1
-    cd ~/prg/slock && sudo make clean install || exit 1
+    cd ~/src/st && sudo make clean install || exit 1
+    # cd ~/src/dmenu && sudo make clean install || exit 1
+    cd ~/src/slock && sudo make clean install || exit 1
 
     wal_steam -w
     pgrep steam &&
@@ -62,9 +62,7 @@ refreshcfg() {
     pywalfox update
     oomox-cli ~/.cache/wal/colors-oomox
     # oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
-    pywal-discord
-    sleep 1
-    pywal-discord
+    pywal-discord -t abou -p ~/src/powercord/src/Powercord/themes/pywal/
 
     if pgrep spotify; then
         spicetify apply

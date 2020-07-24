@@ -19,8 +19,6 @@ barrier
 base
 bash-pipes
 bashtop-git
-betterdiscord-rauenzi-git
-betterdiscordctl-git
 binutils
 bison
 blender
@@ -86,6 +84,7 @@ firefox-nightly
 firefox-stylus
 firefox-tridactyl-git
 firefox-umatrix
+fish
 flashplugin
 flex
 foldingathome
@@ -165,7 +164,7 @@ lib32-vulkan-icd-loader
 libclc
 libdrm
 libirecovery-git
-libldac
+libldac-git
 libopenmpt-svn
 libreoffice-fresh
 libsixel-git
@@ -224,6 +223,7 @@ ncnn-git
 ncpamixer-git
 neomutt
 neovim-git
+neovim-remote
 nerd-fonts-complete
 netctl
 network-manager-applet
@@ -251,6 +251,7 @@ pass
 patch
 pcsx2-git
 pdfjs
+pdftk
 pepper-flash
 perf
 picom-git
@@ -358,7 +359,7 @@ wf-recorder-git
 which
 wine-gecko
 wine-mono
-wine-tkg-staging-fsync-vkd3d-git
+wine-tkg-staging-fsync-git
 winetricks-git
 wireguard-tools
 wireless_tools

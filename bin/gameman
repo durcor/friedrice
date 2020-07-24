@@ -22,6 +22,7 @@ prepare_gamemode(){
     fi
     # setsid discord-overlay
     # systemctl --user stop picom
+    killall -9 picom
     systemctl --user stop DiscordLastfm
 }
 
@@ -38,6 +39,7 @@ stop_gamemode(){
     # if systemctl --user is-enabled picom; then
     #     systemctl --user start picom
     # fi
+    i3 restart
     # killall -9 discord-overlay
     systemctl --user start DiscordLastfm
 }

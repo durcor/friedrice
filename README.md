@@ -6,11 +6,13 @@
 
 # My Workflow
 * OS - arch
-* WM - i3-gaps w/ i3blocks and picom
-* Terminal - alacritty + tmux
+* WM
+    * XORG - i3-gaps w/ i3blocks and picom 
+    * WAYLAND - sway w/ waybar
+* Terminal - alacritty + nvim terminal
 * Shell - zsh (zinit)
     - [zsh expandable aliases](.zshal)
-    - powerline10k prompt
+    - [powerline10k prompt](.p10k.sh)
 * Browser - firefox, qutebrowser, brave, ungoogled-chromium
     - tridactyl
     - ublock origin + umatrix

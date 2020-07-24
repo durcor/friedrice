@@ -35,36 +35,36 @@ case $1 in
         gzip -l "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
         # gzip -l "$1" | $HIGHLIGHT_CMD --syntax ls
         ;;
-    *.tar.bz2) 
+    *.tar.bz2)
         # tar -jtvf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
         tar -jtf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
         ;;
-    *.tar.xz) 
+    *.tar.xz)
         # tar -tvf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
         tar -tf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
         ;;
-    *.xz) 
+    *.xz)
         xzcat "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
         ;;
-    *.tar) 
+    *.tar)
         tar -tvf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
         ;;
-    *.7z|*.rar) 
+    *.7z|*.rar)
         7z l "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
         ;;
-    *.log*) 
+    *.log*)
         head -n$LINES "$1" | $PYGMENTIZE_CMD -l logtalk
         ;;
-    *.res) 
+    *.res)
         head -n$LINES "$1" | $HIGHLIGHT_CMD --syntax json
         ;;
-    *.Xauth*) 
+    *.Xauth*)
         hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
         ;;
-    *.X*) 
+    *.X*)
         head -n$LINES "$1" | $PYGMENTIZE_CMD -l xorg.conf
         ;;
-    *) 
+    *)
         case $(file --mime-type "$1" -bL) in
             audio/*)
                 mediainfo "$1" | $PYGMENTIZE_CMD -l make
@@ -83,26 +83,29 @@ case $1 in
                 # ueberview "$1"
                 mediainfo "$1"
                 ;;
-            application/pdf) 
+            application/pdf)
                 pdftotext "$1" -
                 ;;
-            application/zip) 
+            application/zip)
                 zipinfo "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
                 ;;
-            application/zstd) 
+            application/zstd)
                 # zstdcat "$1" | head -n30
                 tar -tf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
+                ;;
+            inode/symlink)
+                file -b "$1"
                 ;;
             application/x-dosexec|inode/*)
                 file -b "$1"
                 hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
                 ;;
-            application/x-iso9660-image) 
+            application/x-iso9660-image)
                 iso-info --no-header "$1"
                 hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
                 ;;
             # odt
-            application/vnd*) 
+            application/vnd*)
                 pandoc "$1" -t markdown | $HIGHLIGHT_CMD --syntax markdown
                 ;;
             application/octet-stream)
@@ -114,9 +117,9 @@ case $1 in
                 echo "-----------------------------------------------------------------------------"
                 hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
                 ;;
-            *) 
+            *)
                 # nvimpager -c "$1"
-                $PYGMENTIZE_CMD -g "$1"
+                head -n$LINES | $PYGMENTIZE_CMD -g "$1"
                 # $PYGMENTIZE_CMD -g "$1" || sudo $PYGMENTIZE_CMD -g "$1"
                 ;;
         esac

@@ -7,21 +7,9 @@
 [submodule ".config/mpv/scripts/mpv_thumbnail_script"]
 	path = .config/mpv/scripts/mpv_thumbnail_script
 	url = https://github.com/TheAMM/mpv_thumbnail_script
-[submodule ".config/mpv/scripts/mpv-acestream"]
-	path = .config/mpv/scripts/mpv-acestream
-	url = https://github.com/Digitalone1/mpv-acestream
-[submodule "prg/fzf"]
-	path = prg/fzf
-	url = https://github.com/junegunn/fzf
 [submodule "prg/wal-discord"]
 	path = prg/wal-discord
 	url = https://github.com/guglicap/wal-discord
 [submodule "prg/jpglitch"]
 	path = prg/jpglitch
 	url = https://github.com/Kareeeeem/jpglitch
-[submodule ".config/ranger/plugins/ranger_devicons"]
-	path = .config/ranger/plugins/ranger_devicons
-	url = https://github.com/alexanderjeurissen/ranger_devicons
-[submodule ".config/mpv/scripts/mpv-mpris"]
-	path = .config/mpv/scripts/mpv-mpris
-	url = https://github.com/hoyon/mpv-mpris

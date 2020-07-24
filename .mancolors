@@ -14,7 +14,7 @@ export LESS_TERMCAP_se=$'\e[0m'        # reset reverse video
 export LESS_TERMCAP_ue=$'\e[0m'        # reset underline
 export GROFF_NO_SGR=1                  # for konsole and gnome-terminal
 #export MANPAGER='less -s -M +Gg'
-export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
+export MANPAGER="/bin/sh -c \"col -b | nvr -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
 # percent in manpg
 # export MANPAGER='less -s -M +Gg'
