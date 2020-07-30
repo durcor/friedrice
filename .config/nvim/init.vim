@@ -4,15 +4,15 @@
 "          'K@@WG.                    .ggZ`
 "        'G@@@@NN&~                   .gggg]'
 "      _qg@@@@@N##0*                  .ggggggZ'
-"    'Gg@@@@@@@#0000X.                .ggggggggZ'
-"  'jRNgggggggg000000D:               .gggggggggWZ'
-" aNWNBBggggggg0BBBBBBBs              .WWWWWWWWWWWW2
-" mWWWW0RWgggggBBBBBBBBBh.             WWWWWWWWWWWW0
-" ANNNNN#R0ggggBBBBBBBBBBm:            WWWWWWWWWWWWB
-" O#######8RWggB&&&&&&&&&&&s           NWWWWWWWWWWWB
-" K00000000BDNg8&&&&&&&&&&&&].         0NNNNNNNNNNN8
-" KBBBBBBBBBBD&R&&&&&&&&&&&&RA:        B00000000000&
-" qBBBBBBBBBBBR_PRRRRRRRRRRRRRR\       800000000000R
+"     Gg@@@@@@@#0000X.                .ggggggggZ'
+"  'jR gggggggg000000D:               .gggggggggWZ'
+" aNWNB ggggggg0BBBBBBBs              .WWWWWWWWWWWW2
+" mWWWW0 WgggggBBBBBBBBBh.             WWWWWWWWWWWW0
+" ANNNNN#R ggggBBBBBBBBBBm.            WWWWWWWWWWWWB
+" O#######8 WggB&&&&&&&&&&&s           NWWWWWWWWWWWB
+" K00000000BD g8&&&&&&&&&&&&].         0NNNNNNNNNNN8
+" KBBBBBBBBBBD R&&&&&&&&&&&&RA:        B00000000000&
+" qBBBBBBBBBBBR PRRRRRRRRRRRRRR\       800000000000R
 " q888888888888  *DDDDDDDDDDDDDD2.     RBBBBBBBBBBBR
 " G&&&&&&&&&&&&   "mDDDDDDDDDDDDDq:    D88888888888D
 " PRRRRRRRRRRRR    `hDDDDDDDDDDDDDm>   m&&&&&&&&&&&D
@@ -37,11 +37,13 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Plugins
+" Plugins via vim-plug
 call plug#begin('~/.local/share/nvim/plug')
 
 " Colorschemes
 Plug 'deviantfero/wpgtk.vim'
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'morhetz/gruvbox'
 " Plug 'dylanaraps/wal.vim'
 " Plug 'richtan/pywal.vim'
 
@@ -49,6 +51,8 @@ Plug 'deviantfero/wpgtk.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+
+" Plug 'aurieh/discord.nvim'
 
 Plug 'gcmt/taboo.vim'
 
@@ -82,7 +86,7 @@ let g:rainbow_active = 1
 " git integration
 Plug 'tpope/vim-fugitive'
 " git commit info
-Plug 'rhysd/committia.vim'
+" Plug 'rhysd/committia.vim'
 Plug 'airblade/vim-gitgutter'
 
 "" Functionality
@@ -91,18 +95,11 @@ Plug 'tpope/vim-surround'
 " Better comment management
 Plug 'tpope/vim-commentary'
 " Plug 'unblevable/quick-scope'
-" highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
-" highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 " Decrypt GPG files
 Plug 'jamessan/vim-gnupg'
 " Plug 'preservim/nerdtree'
 
 " Plug 'neomake/neomake'
-" run neomake on file save
-" call neomake#configure#automake('w')
-" call deoplete#custom#option({
-"                         \ 'auto_complete_delay': 0,
-"                         \ })
 
 Plug 'dense-analysis/ale'
 Plug 'vim-syntastic/syntastic'
@@ -110,13 +107,21 @@ Plug 'vim-syntastic/syntastic'
 "" Grammar checking
 " Plug 'rhysd/vim-grammarous'
 " Plug 'dpelle/vim-LanguageTool'
-" let g:languagetool_jar='$HOME/.local/share/nvim/plug/vim-grammarous/misc/LanguageTool-4.8/languagetool-commandline.jar'
 
 " Better vim markdown integration
 Plug 'vimwiki/vimwiki'
 
 " Plug 'KabbAmine/vCoolor.vim'
 " Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+
+" Statusline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Start page
+Plug 'mhinz/vim-startify'
+call plug#end()
+
 "let g:Hexokinase_highlighters = [
 ""\   'virtual',
 ""\   'sign_column',
@@ -125,19 +130,16 @@ Plug 'vimwiki/vimwiki'
 ""\   'foreground',
 ""\   'foregroundfull'
 "\ ]
+"
+" run neomake on file save
+" call neomake#configure#automake('w')
+" call deoplete#custom#option({
+"                         \ 'auto_complete_delay': 0,
+"                         \ })
 
-
-" Statusline
-Plug 'vim-airline/vim-airline'
-" Limelight
-let g:limelight_conceal_ctermfg = '8'
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme='wpgtk_alternate'
-
-" Start page
-Plug 'mhinz/vim-startify'
-call plug#end()
-
+" let g:languagetool_jar='$HOME/.local/share/nvim/plug/vim-grammarous/misc/LanguageTool-4.8/languagetool-commandline.jar'
+" highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+" highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 let g:termopen_autoinsert = 0
 
 let g:startify_custom_header =
@@ -176,12 +178,23 @@ let g:coc_global_extensions = "coc-sh,coc-json,coc-tsserver,coc-cord,coc-clangd,
 let g:taboo_tab_format = "%f%m"
 let g:taboo_renamed_tab_format = "%l"
 
-color wpgtk
-" se termguicolors
-" color blue
+" set termguicolors
+colorscheme wpgtk
+" colorscheme moonfly
+" colorscheme gruvbox
+let g:moonflyTerminalColors = 1
+let g:gruvbox_termcolors = '16'
+
+" Limelight
+let g:limelight_conceal_ctermfg = '8'
+let g:airline_theme='wpgtk_alternate'
+" let g:airline_theme='moonfly'
+" let g:airline_theme='gruvbox'
 
 set nobackup
 set nowritebackup
+" Swap files do literally nothing other than cause problems
+set noswapfile
 
 set virtualedit=block
 set splitbelow
@@ -191,6 +204,7 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 let $PAGER=''
 set nocompatible
+" set hidden
 set ttyfast
 " Disable the timeout when non-modal keys (leader keys)
 " are pressed (ie. c,f,custom leaders)
@@ -204,7 +218,7 @@ set background=dark
 " Decide the amount of empty space to the left
 set foldcolumn=0
 set updatetime=300
-let base16colorspace=256
+" let base16colorspace=256
 let mapleader ="\<Space>"
 
 " Always show the signcolumn, otherwise it would shift the text each time
@@ -270,7 +284,7 @@ se relativenumber
 "highlight search
 se hlsearch
 
-se encoding=utf8
+se encoding=utf-8
 filetype on
 filetype indent on
 
@@ -348,7 +362,7 @@ map <leader>w :w<cr>
 map <leader>W :wq<cr>
 map <leader>q :q<cr>
 map <leader>Q :q!<cr>
-map <leader>r :source ~/.config/nvim/init.vim<cr>
+map <leader>r :source $MYVIMRC<cr>
 map <leader><C-w> :'<,'>w !wc -w<cr>
 
 map <leader>h :Startify<cr>
