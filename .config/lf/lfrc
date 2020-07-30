@@ -32,7 +32,7 @@ set dircounts
 set promptfmt "
 \033[38;5;9m
 \033[48;5;8m
-%u
+ %u
 \033[38;5;13m
 @
 \033[38;5;12m
