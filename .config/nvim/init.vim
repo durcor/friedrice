@@ -382,7 +382,12 @@ map <leader>cm :!make<cr><cr>
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 map <leader>l :Goyo<cr>
-map <leader>g :GrammarousCheck<cr>
+map <leader>G :GrammarousCheck<cr>
+
+map <leader>gg :G<cr>
+map <leader>gc :Gco<cr>
+map <leader>gs :GitGutterStageHunk<cr>:Gco<cr>
+map <leader>gu :GitGutterUndoHunk<cr>
 
 " Remap q to \ so that q can be used for quitting
 noremap \ q
