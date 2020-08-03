@@ -334,6 +334,12 @@ map <F12>h <C-w>h<F12>
 map <F12>j <C-w>j<F12>
 map <F12>k <C-w>k<F12>
 map <F12>l <C-w>l<F12>
+
+map <F12>H :vertical resize +1<cr><F12>
+map <F12>L :vertical resize -1<cr><F12>
+map <F12>J :resize -1<cr><F12>
+map <F12>K :resize +1<cr><F12>
+
 map <F12>0 :tabfirst<cr><F12>
 map <F12>w :tabnext<cr><F12>
 map <F12>b :tabprevious<cr><F12>
