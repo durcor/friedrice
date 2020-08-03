@@ -195,6 +195,8 @@ set nobackup
 set nowritebackup
 " Swap files do literally nothing other than cause problems
 set noswapfile
+" Automatically change directory to dir of current file
+set autochdir
 
 set virtualedit=block
 set splitbelow
