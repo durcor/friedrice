@@ -39,7 +39,7 @@ n ()
     fi
 }
 
-. /usr/share/lf-git/lfcd.sh
+. /usr/share/lf*/lfcd.sh
 
 fb() {
     # save newline separated string into an array
