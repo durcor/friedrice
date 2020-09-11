@@ -6,7 +6,7 @@
 
 ## My Workflow
 ```sh 
-awk -F"=" '/^NAME/ {print $2}' /etc/os-release | sed 's|"||g' == "Arch Linux"
+[ "$(awk -F"=" '/^NAME/ {print $2}' /etc/os-release | sed 's|"||g')" = "Arch Linux" ]
 ```
 * WM
 : Xorg
@@ -56,3 +56,6 @@ awk -F"=" '/^NAME/ {print $2}' /etc/os-release | sed 's|"||g' == "Arch Linux"
 : chromium (vimium)
 * shell
 : zsh (vi-mode)
+
+## Some Usage Information
+- wpg templates need to be symlinked upon cloning/pulling if the symlink isn't there already
