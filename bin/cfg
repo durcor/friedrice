@@ -1,13 +1,15 @@
 #!/bin/sh
 # shellcheck disable=1090,2154
 
-. "$XDG_CACHE_HOME/wal/colors.sh"
+. "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors.sh"
 
-[ ! -f "$XDG_CONFIG_HOME/cfg/al" ] &&
-    mkdir -p "$XDG_CONFIG_HOME/cfg" &&
-    touch "$XDG_CONFIG_HOME/cfg/al"
+[ ! -f "${XDG_CONFIG_HOME-$HOME/.config}/cfg/al" ] && {
+    mkdir -p "${XDG_CONFIG_HOME-$HOME/.config}/cfg"
+    touch "${XDG_CONFIG_HOME-$HOME/.config}/cfg/al"
+}
 
 refreshcfg() {
+    connected_usb_devices=$(lsusb)
     wpg -s "$(wpg -c)"
 
     # 0: Left RAM Stick
@@ -20,33 +22,37 @@ refreshcfg() {
     # 7: Razer Goliathus Extended
 
     command -v openrgb >/dev/null &&
-        sudo openrgb \
-        -d 0 -c "$(echo "$color14" | sed 's/#//')" -m Static \
-        -d 1 -c "$(echo "$color9" | sed 's/#//')" -m Static \
-        -d 2 -m Rainbow
-        # -d 2 -c ${color9:1} -m Neon
+        openrgb \
+        -d 0 -c "$(echo "$color14" | sed 's|#||')" -m Static \
+        -d 1 -c "$(echo "$color9" | sed 's|#||')" -m Static \
+        -d 2 -c "$(echo "$color9" | sed 's|#||' )" -m Neon
 
-    lsusb | grep -q NZXT &&
-        liquidctl initialize all &&
-        liquidctl set fan1 speed 100 &&
-        liquidctl set fan2 speed 100 &&
-        liquidctl set fan3 speed 100 &&
-        liquidctl set led1 color starry-night "$(echo "$color14" | sed 's/#//')" &&
-        liquidctl set led2 color starry-night "$(echo "$color11" | sed 's/#//')"
+    echo "$connected_usb_devices" | grep -q NZXT && {
+        liquidctl initialize all
+        liquidctl set fan1 speed 100
+        liquidctl set fan2 speed 100
+        liquidctl set fan3 speed 100
+        liquidctl set led1 color starry-night "$(echo "$color13" | sed 's/#//')"
+        liquidctl set led2 color starry-night "$(echo "$color13" | sed 's/#//')"
+    }
 
-    lsusb | grep -q AMD &&
-        wraith-master -m swirl -c "$color14" ring &&
-        wraith-master -m static -c "$color11" logo &&
-        wraith-master --mirage on fan &&
+    echo "$connected_usb_devices" | grep -q AMD && {
+        wraith-master -m swirl -c "$color14" ring
+        wraith-master -m static -c "$color11" logo
+        wraith-master --mirage on fan
         wraith-master -c "$color9" fan
+    }
 
-    lsusb | grep -q Microdia && rgb_keyboard -c 000000
-    lsusb | grep -q Razer && razerricer
+    echo "$connected_usb_devices" | grep -q Razer && razerricer
     pgrep qutebrowser && qutebrowser :config-source
+
+    echo "$connected_usb_devices" | grep -q Microdia && rgb_keyboard --custom-pattern "${XDG_CONFIG_HOME-$HOME/.config}/wpg/templates/gmmk"
+    sleep 0.1
 
     if [ "$WAYLAND_DISPLAY" ]; then
         sway restart
     else
+        rfkb
         i3 restart
     fi
 
@@ -55,9 +61,9 @@ refreshcfg() {
     cd ~/src/slock && sudo make clean install || exit 1
 
     wal_steam -w
-    pgrep steam &&
-        killall -9 steam &&
-        steam-native
+    pgrep steam && killall -9 steam && setsid steam-native
+
+    # pgrep nm-applet && killall -9 nm-applet && setsid nm-applet
 
     pywalfox update
     oomox-cli ~/.cache/wal/colors-oomox
@@ -121,7 +127,7 @@ updatecfg() {
     cp /etc/bluetooth -r "$XDG_CONFIG_HOME/root/etc/" || exit 1
     cp /etc/locale.gen "$XDG_CONFIG_HOME/root/etc/" || exit 1
     sudo cp /etc/sudoers "$XDG_CONFIG_HOME/root/etc/" &&
-        sudo chown -R "$USER":users "$XDG_CONFIG_HOME/root" || exit 1
+    sudo chown -R "$USER":users "$XDG_CONFIG_HOME/root" || exit 1
     cp /etc/hostname "$XDG_CONFIG_HOME/root/etc/" || exit 1
     cp /etc/profile "$XDG_CONFIG_HOME/root/etc/" || exit 1
     git add -f "$XDG_CONFIG_HOME/root"

@@ -56,6 +56,16 @@ compinit
 _comp_options+=(globdots)
 
 # kitty + complete setup zsh | . /dev/stdin
+# pip zsh completion
+function _pip_completion {
+  local words cword
+  read -Ac words
+  read -cn cword
+  reply=( $( COMP_WORDS="$words[*]" \
+             COMP_CWORD=$(( cword-1 )) \
+             PIP_AUTO_COMPLETE=1 $words[1] 2>/dev/null ))
+}
+compctl -K _pip_completion pip
 
 # Plugin loading
 zinit for \
@@ -108,8 +118,8 @@ export ZLE_RPROMPT_INDENT=0
 
 bindkey -M vicmd 'Q' exit-cmd
 bindkey -M vicmd 'q' exit-cmd
-zle -N lf
-bindkey -M vicmd 'z' lf
+bindkey -M vicmd 'z' 'lfcd\n'
+bindkey -s '^o' 'lfcd\n'
 
 # Disable all escape sequences in normal mode
 # bindkey -rpM viins '\e'
@@ -127,3 +137,4 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [ -e /home/ty/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ty/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

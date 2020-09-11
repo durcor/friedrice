@@ -1,22 +1,58 @@
 #!/bin/sh
+# The smartest file opener of all time :^)
 
-case $(file --mime-type "$1" -bL) in
-    # text/*|application/json|inode/*|application/z*)
-    #     edit "$1"
-    #         ;;
-    video/*|image/*|audio/*) 
+case $1 in
+    *.ogg)
         mpv "$1"
-            ;;
-    application/pdf)
-        zathura "$1"
-            ;;
-    application/x-dosexec) 
+        ;;
+    *.exe)
         wine "$1"
-            ;;
-    application/vnd*) 
-        libreoffice "$1"
-            ;;
-    *)
+        ;;
+    *.dll)
         edit "$1"
-            ;;
+        ;;
+    *.love)
+        love "$1"
+        ;;
+    *.url)
+        $GUIBROWSER "$(cat "$1")"
+        ;;
+    *)
+        case $(file --mime-type "$1" -bL) in
+            # text/*|application/json|inode/*|application/z*)
+            #     edit "$1"
+            #         ;;
+            image/vnd.adobe.photoshop)
+                gimp "$1"
+                ;;
+            video/*|image/*|audio/*) 
+                mpv "$1"
+                    ;;
+            application/pdf)
+                zathura "$1"
+                    ;;
+            application/x-dosexec) 
+                wine "$1"
+                    ;;
+            application/x-pie-executable) 
+                "$1"
+                    ;;
+            application/vnd*) 
+                libreoffice "$1"
+                    ;;
+            text/x-shellscript)
+                "$1" || (chmod +x "$1" && "$1") || (sudo chmod +x "$1" && "$1")
+                    ;;
+            text/html)
+                firefox-nightly "$1"
+                    ;;
+            application/x-iso9660-image)
+                # spin up a vm using this iso as a virtual disk
+                edit "$1"
+                    ;;
+            *)
+                edit "$1"
+                    ;;
+        esac
+        ;;
 esac

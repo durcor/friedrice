@@ -32,13 +32,13 @@
 "            .r                       ~T'
 "
 " auto-install plug.vim if it isn't installed
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if empty(glob('$XDG_DATA_HOME/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo $XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " Plugins via vim-plug
-call plug#begin('~/.local/share/nvim/plug')
+call plug#begin('$XDG_DATA_HOME/nvim/plug')
 
 " Colorschemes
 Plug 'deviantfero/wpgtk.vim'
@@ -47,14 +47,15 @@ Plug 'morhetz/gruvbox'
 " Plug 'dylanaraps/wal.vim'
 " Plug 'richtan/pywal.vim'
 
-" Language server
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Language serve
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
-" Plug 'aurieh/discord.nvim'
-
 Plug 'gcmt/taboo.vim'
+
+" Plug 'yggdroot/indentline'
 
 " FZF
 Plug 'junegunn/fzf.vim'
@@ -79,6 +80,7 @@ Plug 'fabi1cazenave/termopen.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'VebbNix/lf-vim'
 Plug 'tridactyl/vim-tridactyl'
+" Highlight matching parentheses
 Plug 'luochen1990/rainbow',
 let g:rainbow_active = 1
 
@@ -100,9 +102,7 @@ Plug 'jamessan/vim-gnupg'
 " Plug 'preservim/nerdtree'
 
 " Plug 'neomake/neomake'
-
 Plug 'dense-analysis/ale'
-Plug 'vim-syntastic/syntastic'
 
 "" Grammar checking
 " Plug 'rhysd/vim-grammarous'
@@ -178,7 +178,10 @@ let g:coc_global_extensions = "coc-sh,coc-json,coc-tsserver,coc-cord,coc-clangd,
 let g:taboo_tab_format = "%f%m"
 let g:taboo_renamed_tab_format = "%l"
 
-" set termguicolors
+let g:indentLine_setColors = 1
+let g:indentLine_char = '-'
+
+" set termguicolors " truecolor support - breaks some colorschemes (pywal-related) ones :(
 colorscheme wpgtk
 " colorscheme moonfly
 " colorscheme gruvbox
@@ -191,13 +194,12 @@ let g:airline_theme='wpgtk_alternate'
 " let g:airline_theme='moonfly'
 " let g:airline_theme='gruvbox'
 
-set nobackup
+set nobackup " Save often :^)
 set nowritebackup
-" Swap files do literally nothing other than cause problems
-set noswapfile
-" Automatically change directory to dir of current file
-set autochdir
+set noswapfile " Swap files do literally nothing other than cause problems
+set autochdir " Automatically change directory to dir of current file
 
+set shortmess+=c
 set virtualedit=block
 set splitbelow
 
@@ -206,31 +208,25 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 let $PAGER=''
 set nocompatible
-" set hidden
+set hidden
 set ttyfast
 " Disable the timeout when non-modal keys (leader keys)
 " are pressed (ie. c,f,custom leaders)
 set notimeout
 
-" improve macro performance
-set lazyredraw
+set lazyredraw " improve macro performance
 set sessionoptions+=tabpages,globals
 set shell=/bin/zsh
 set background=dark
-" Decide the amount of empty space to the left
-set foldcolumn=0
-set updatetime=300
+set foldcolumn=0 " Amount of empty space to the left of signcolumn/number line
+set updatetime=250
 " let base16colorspace=256
 let mapleader ="\<Space>"
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+" set signcolumn=number
+set signcolumn=yes
 
 " let $GIT_EDITOR = 'nvr -cc split --remote-wait'
 
@@ -250,18 +246,17 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Don't wrap lines if they extend off the screen
-set nowrap
-set smartcase
-set undodir=~/.local/share/nvim/undo
-set undofile
+set nowrap " Don't wrap lines if they extend off the screen
+set smartcase " Searches case-insensitively unless capitals are in the query
+set undofile " Save undo history
+set undodir=$XDG_DATA_HOME/nvim/undo
 
 set cmdheight=1
 set wildmenu
+set wildmode=longest,full
 set ruler
-" Keep the cursor in the center of the vim buffer
-set scrolloff=200
-set scrollback=100000
+set scrolloff=200 " Keep the cursor in the center of the vim buffer
+set scrollback=100000 " Terminal scrollback
 
 set autoindent
 set smartindent
@@ -272,7 +267,7 @@ set magic
 set noshowmode
 set showcmd
 set mouse=a
-set expandtab
+set noexpandtab
 set ts=4
 set sw=4
 set smarttab
@@ -300,13 +295,14 @@ set clipboard+=unnamedplus
 
 "autocmd SwapExists * let v:swapchoice = "o"
 
+" File-type specific configuration
 " set calcurse note files to be markdown
 autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 autocmd BufRead,BufNewFile *.hex set filetype=c
-autocmd BufRead,BufNewFile *.conf,*.cfg set filetype=dosini
-" Better systemd file syntax highlighting
-autocmd BufRead,BufNewFile *.service*,*.timer* set filetype=dosini
+" Better systemd/config file syntax highlighting
+autocmd BufRead,BufNewFile *.conf,*.cfg,*.service*,*.timer* set filetype=dosini
 autocmd BufRead,BufNewFile *.css.* set filetype=css
+autocmd BufRead,BufNewFile *.*patch set filetype=gitsendemail
 
 " use ls syntax highlighting for vimv buffers
 autocmd BufRead,BufNewFile /tmp/vimv.* set filetype=ls | normal $T/
@@ -350,6 +346,7 @@ map <F12>- :call TermOpen()<cr><F12><F12>
 map <F12>\ :call TermOpen(&shell,'v')<cr><F12><F12>
 map <F12>x :bdelete!<cr><F12>
 map <F12>i <Esc>
+map gb :Buffers<cr>
 
 map <leader>u :!urlscan %<cr>
 map <leader><leader> :w<cr>
@@ -375,21 +372,40 @@ map <leader><C-w> :'<,'>w !wc -w<cr>
 
 map <leader>h :Startify<cr>
 
-" Document compiling
+" Compiling within vim
 map <leader>ch :!pandoc % -o %.html<cr><cr>
 map <leader>ct :!pdflatex %<cr><cr>
 map <leader>cp :!pandoc % -o %.pdf<cr><cr>
 map <leader>cm :!make<cr><cr>
 
+" Goyo
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 map <leader>l :Goyo<cr>
 map <leader>G :GrammarousCheck<cr>
 
+" Git Integration
 map <leader>gg :G<cr>
 map <leader>gc :Gco<cr>
-map <leader>gs :GitGutterStageHunk<cr>:Gco<cr>
+map <leader>gs :GitGutterStageHunk<cr>
 map <leader>gu :GitGutterUndoHunk<cr>
+map <leader>gn :GitGutterNextHunk<cr><leader>g
+map <leader>gN :GitGutterPrevHunk<cr><leader>g
+"" GitGutter
+let g:gitgutter_highlight_linenrs = 1
+let g:gitgutter_sign_allow_clobber = 1
+let g:gitgutter_set_sign_backgrounds = 1
+highlight GitGutterAdd ctermbg=Green ctermfg=0
+highlight GitGutterAddLineNr ctermbg=Green ctermfg=0
+
+highlight GitGutterChange ctermbg=Yellow ctermfg=0
+highlight GitGutterChangeLineNr ctermbg=Yellow ctermfg=0
+
+highlight GitGutterDelete ctermbg=Red ctermfg=0
+highlight GitGutterDeleteLineNr ctermbg=Red ctermfg=0
+
+highlight GitGutterChangeDelete ctermbg=Yellow ctermfg=0
+highlight GitGutterChangeDeleteLineNr ctermbg=Yellow ctermfg=0
 
 " Remap q to \ so that q can be used for quitting
 noremap \ q
@@ -403,6 +419,8 @@ map <C-Q> :q!<cr>
 
 map ZW :w<cr>
 
+map cd :call TermOpenRanger('lf')<cr>
+
 set cursorline
 highlight CursorLine term=bold ctermbg=8
 
@@ -412,10 +430,10 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " se cursorcolumn
 " hi CursorColumn ctermbg=8
 
 " function Vimty()
-"         source ~/.local/share/nvim/plug/vimty/vimty.vim
+"         source $XDG_DATA_HOME/nvim/plug/vimty/vimty.vim
 " endfunction

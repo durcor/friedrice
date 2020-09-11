@@ -1,14 +1,37 @@
 #!/bin/sh
 
-screenshot_dir=$HOME/scr
+screenshot_dir="$(xdg-user-dir PICTURES)/scr"
 
-screenshot_file=$screenshot_dir/$(date +%Y-%m-%d_%H%M-%S).png
+[ -z "$screenshot_dir" ] && {
+	if command -v xdg-user-dir >/dev/null; then
+		screenshot_dir="$(xdg-user-dir PICTURES)/Screenshots"
+	else
+		screenshot_dir="$HOME/Pictures/Screenshots"
+	fi
+}
 
-if [ "$WAYLAND_DISPLAY" ]; then
-    grim -g "$(slurp)" -o "$screenshot_file"
-else
-    maim -B -u -s "$screenshot_file"
-fi
+[ ! -d "$screenshot_dir" ] && {
+	mkdir -p "$screenshot_dir"
+}
+
+screenshot_file="$screenshot_dir/$(date +%Y-%m-%d_%H%M-%S).png"
+
+grabscr(){
+    if [ "$WAYLAND_DISPLAY" ]; then
+        grim -g "$(slurp)" "$screenshot_file"
+    else
+        maim -B -u -s "$screenshot_file"
+    fi
+}
+
+delaygrabscr(){
+    if [ "$WAYLAND_DISPLAY" ]; then
+        sleep "$4"
+        grim -g "$(slurp)" -o "$screenshot_file"
+    else
+        maim -B -u -s "$screenshot_file"
+    fi
+}
 
 uploadscr(){
     fup 0x0 "$screenshot_file"
@@ -23,7 +46,20 @@ copyscr(){
 }
 
 case $1 in
-    up)uploadscr;;
-    cp)copyscr;;
+    up)
+        uploadscr
+        ;;
+    cp)
+        case $2 in
+            d)
+                delaygrabscr "$@"
+                copyscr
+                ;;
+            *)
+                grabscr
+                copyscr
+                ;;
+        esac
+        ;;
     *);;
 esac

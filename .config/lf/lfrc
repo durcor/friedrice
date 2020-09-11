@@ -3,7 +3,6 @@
 set preview
 set previewer ~/.config/lf/prev
 set hidden
-set color256
 set ifs "\n"
 # set drawbox
 set icons

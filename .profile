@@ -10,11 +10,12 @@
 . "$HOME/.config/lf/ico"
 
 # Default Programs
-export EDITOR="nvr --remote"
+export EDITOR="nvr --remote -p"
 export VISUAL="$EDITOR"
 export TERMINAL="alacritty"
 export BROWSER="copytoclip"
-export GUIBROWSER="qutebrowser"
+# export GUIBROWSER="qutebrowser"
+export GUIBROWSER="firefox-nightly"
 export PAGER="less"
 export FILEMAN="lf"
 export TASKMAN="ytop -p"
@@ -22,9 +23,11 @@ export MUSICPLAYER="ncmpcpp"
 export NEWSREADER="newsboat"
 export READER="zathura"
 export MAILREADER="neomutt"
+export STATUSBAR="i3blocks"
 
 # Program Configuration
-export QT_QPA_PLATFORMTHEME="qt5ct"
+# export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_QPA_PLATFORMTHEME="gtk2"
 export LYNX_CFG="$HOME/.lynxrc"
 
 # XDG AppDirs
@@ -62,11 +65,11 @@ export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
 
 if systemctl -q is-active graphical.target; then
     if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
-        if ! bluetoothctl info >/dev/null; then
-            if bluetoothctl devices | grep XB9 >/dev/null; then
-                bluetoothctl connect 38:18:4C:17:2E:97
-            fi
-        fi
+        # if ! bluetoothctl info >/dev/null; then
+        #     if bluetoothctl devices | grep XB9 >/dev/null; then
+        #         bluetoothctl connect 38:18:4C:17:2E:97
+        #     fi
+        # fi
         DISPLAY_SERVER=x
         if [ "$DISPLAY_SERVER" = "x" ]; then
             export MOZ_ENABLE_WAYLAND=0
@@ -77,3 +80,4 @@ if systemctl -q is-active graphical.target; then
         fi
     fi
 fi
+if [ -e /home/ty/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ty/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

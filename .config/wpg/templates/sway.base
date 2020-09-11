@@ -5,19 +5,20 @@
 font pango: {def-font} {def-font-size}
 
 input * {{
-    xkb_options "caps:escape"
+    xkb_options caps:escape
+    # xkb_options Alt_L:F12
+	repeat_delay 135
+	repeat_rate 35
 }}
 
 smart_borders on
 
-input * repeat_delay 135
-input * repeat_rate 35
-
 # xwayland disable
 
-output * adaptive_sync on
-output "*" bg /home/ty/.config/wpg/wallpapers/future.png fill
-# output "*" bg #000000 fill
+output * {{
+	adaptive_sync on
+	bg /home/ty/.config/wpg/wallpapers/future.png fill
+}}
 
 mode "WINDOW" {{
     bindsym Super_L mode "MANAGER";exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low "MANAGER MODE"

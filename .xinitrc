@@ -3,7 +3,6 @@
 
 ~/.config/wpg/wp_init.sh &
 ~/.fehbg &
-setxkbmap -layout us,es -option caps:escape 
-xset r rate 150 35 &
+~/bin/rfkb
 source ~/.zshrc
 i3

@@ -1,23 +1,23 @@
 #!/bin/sh
 
-export VK_ICD_FILENAMES=/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd64.json:/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd32.json
+# export VK_ICD_FILENAMES=/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd64.json
 
 ffmpeg \
     `# Video Settings` \
     `# -f kmsgrab` \
     -f x11grab \
+    -hwaccel vulkan \
     `# -s "$(xdpyinfo | grep dimensions | awk '{print $2}')"` \
-    -s 2560x1440 \
+    -s 4480x1440 \
     -r 60 \
     -i "$DISPLAY" \
     `# Audio Settings` \
-    -f pulse -i default \
+    `# -f pulse -i default` \
     `# -filter_complex amix=inputs=2` \
     `# -ar 44100` \
     `# -af "volume=50"` \
     `# -c:a libvorbis` \
     `# Filters` \
-    -c:v hevc_vaapi -vf format='nv12|vaapi,hwupload' -vaapi_device /dev/dri/renderD128 \
     `# -c:v hevc_vaapi` \
     `# -c:v h264_amf` \
     `# -c:v libx264 -preset medium -pix_fmt yuv420p` \

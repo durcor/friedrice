@@ -44,15 +44,18 @@ signal=2
 interval=100000000000
 signal=6
 
+[mscr]
+interval=900
+
 [distcompute]
 interval=15
 
 [mail]
 interval=100000000000
-signal=12
+signal=46
 
 [accuweather]
-command=~/.local/bin/i3blocks/accuweather 07840
+command=~/.local/bin/i3blocks/accuweather
 interval=1800
 
 [cpu]
@@ -94,13 +97,12 @@ interval=30
 [kb]
 interval=100000000000
 
-
 [vol]
 signal=13
 interval=10
 
 [bt]
-interval=10
+interval=120
 
 # [net]
 # color={color13}

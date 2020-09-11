@@ -1,3 +1,4 @@
+# vi:ft=dosini
 [curses]
 escdelay = 15
 window_timeout = 20
@@ -9,22 +10,21 @@ tab_spaces = 1
 wrap_width = -1
 
 [xterm256colors]
-author = (240, 233)
-background = 233
-correct = (240, 233)
-incorrect = (197, 52)
-prompt = (244, 233)
-quote = (195, 233)
-score = (230, 197)
-top_bar = (51, 24)
-
-[xtermcolors]
-author = (7, 0)
+author = (14, 0)
 background = 0
-correct = (7, 0)
-incorrect = (1, 0)
-prompt = (7, 0)
-quote = (7, 0)
-score = (3, 1)
-top_bar = (6, 4)
+correct = (8, 0)
+incorrect = (8, 9)
+prompt = (0, 0)
+quote = (15, 0)
+score = (13, 0)
+top_bar = (9, 8)
 
+; [xtermcolors]
+; author = (7, 0)
+; background = 0
+; correct = (7, 0)
+; incorrect = (1, 0)
+; prompt = (7, 0)
+; quote = (7, 0)
+; score = (3, 1)
+; top_bar = (6, 4)

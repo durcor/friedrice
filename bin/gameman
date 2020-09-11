@@ -15,11 +15,16 @@ prepare_gamemode(){
         -h string:x-canonical-private-synchronous:gamemode \
         -i ~/.local/share/icons/flattrcolor/devices/64/input-gaming.svg \
         "GameMode started"
+
     if systemctl --user is-active foldingathome; then
         systemctl --user stop foldingathome
     elif systemctl is-active boinc-client; then
         sudo systemctl stop boinc-client
     fi
+
+    # command -v mullvad >/dev/null && mullvad disconnect
+    # nvr -cc "CocCommand cord.disconnect"
+    killall -9 node
     # setsid discord-overlay
     # systemctl --user stop picom
     killall -9 picom
@@ -31,11 +36,19 @@ stop_gamemode(){
         -h string:x-canonical-private-synchronous:gamemode \
         -i ~/.local/share/icons/flattrcolor/devices/64/input-gaming.svg \
         "GameMode ended"
+
     if systemctl --user is-enabled foldingathome; then
         systemctl --user start foldingathome
     elif systemctl is-enabled boinc-client; then
         sudo systemctl start boinc-client
     fi
+
+    [ -e /usr/share/vulkan/icd.d/amd_icd64.json ] &&
+        sudo mv /usr/share/vulkan/icd.d/down/radeon_icd.* /usr/share/vulkan/icd.d/ &&
+        sudo mv /usr/share/vulkan/icd.d/amd_icd* /usr/share/vulkan/icd.d/down/
+
+    # command -v mullvad >/dev/null && mullvad connect
+    # command -v nvr >/dev/null && nvr -cc "CocCommand cord.reconnect"
     # if systemctl --user is-enabled picom; then
     #     systemctl --user start picom
     # fi
@@ -51,7 +64,7 @@ newprefix(){
 
 playgame(){
     cd ~/.local/bin/gam || exit
-    $(readlink -f $(ls | dmenu -p gam))
+    devour "$(readlink -f "$(fzf)")"
 }
 
 killwine(){

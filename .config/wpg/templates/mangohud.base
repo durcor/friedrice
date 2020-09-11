@@ -79,7 +79,8 @@ no_display          = 0
 # height              =
 background_alpha    = 0
 alpha               = 1
-output_file         = /home/ty/doc/mangohud.log
+# output_file         = /home/ty/doc/mangohud.log
+output_folder       = /tmp
 permit_upload       = 0
 ##################### COLORS
 text_color          = {color15.strip}

@@ -21,6 +21,9 @@ case $1 in
     *BUILD|*.bash*)
         $HIGHLIGHT_CMD --syntax sh "$1"
         ;;
+    *.*patch)
+        $HIGHLIGHT_CMD --syntax patch "$1"
+        ;;
     *.python*)
         $HIGHLIGHT_CMD --syntax python "$1"
         ;;
@@ -64,6 +67,9 @@ case $1 in
     *.X*)
         head -n$LINES "$1" | $PYGMENTIZE_CMD -l xorg.conf
         ;;
+    *.git*)
+        head -n$LINES "$1" | $PYGMENTIZE_CMD -l lsl
+        ;;
     *)
         case $(file --mime-type "$1" -bL) in
             audio/*)
@@ -81,7 +87,7 @@ case $1 in
                 chafa -c 256 "$1"
                 # kitty +kitten icat --transfer-mode file --place 80x40@88x1 --silent "$1"
                 # ueberview "$1"
-                mediainfo "$1"
+                mediainfo "$1" | $PYGMENTIZE_CMD -l make
                 ;;
             application/pdf)
                 pdftotext "$1" -
@@ -105,14 +111,20 @@ case $1 in
                 hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
                 ;;
             # odt
-            application/vnd*)
+            application/vnd.oasis.*)
                 pandoc "$1" -t markdown | $HIGHLIGHT_CMD --syntax markdown
                 ;;
             application/octet-stream)
-                # hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
-                hexdump -C "$1" | $PYGMENTIZE_CMD -l hexdump
+                hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump
+                # hexdump -C "$1" | $PYGMENTIZE_CMD -l hexdump
                 ;;
-            application/x*|text/x-bytecode*)
+            application/json)
+                head -n$LINES "$1" | $HIGHLIGHT_CMD --syntax json
+                ;;
+            application/csv)
+                head -n$LINES "$1" | $HIGHLIGHT_CMD --syntax c
+                ;;
+            application/*|text/x-bytecode*)
                 file -b "$1"
                 echo "-----------------------------------------------------------------------------"
                 hexdump -C "$1" | head -n$LINES | $PYGMENTIZE_CMD -l hexdump

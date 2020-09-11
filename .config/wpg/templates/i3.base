@@ -1,6 +1,28 @@
 # ~/.config/i3/config
+#
 # vi:ft=i3config
-
+#                         'cNgW)
+#                         'O@@@#
+#                          _rT|   __
+#                               "g@@g]:
+#                               !W@@@@gX~
+#                l@@@g~           c0@@@@@q!_
+#                rg@@8:_            >B@@@@@O"_
+#                  @@[    a~:        :rD@@@@@Dr_
+#                     _g@@@gh,:        :rm@@@@@R"
+#       rPA2,         :c#@@@@@q":        :"K@@@@@x
+#      -g@@@m:          :r0@@@@@K":       ::,W@@@g`
+#       "hwj:            `-rD@@@@@m"        .a@@@@!
+#             Rggq,        ``!A@@@@@m!      `W@@@g'
+#            x@@@@@D"         `~q@@@@@R"    m@@@@o.
+#             :U@@@@@D"          :kg@@@@' ~0@@@@k.
+#               :hg@@@@Br.         _aOGr']@@@@gT.
+#                 _Zg@@@@Br         ..!Xg@@@@R~
+#                   -jg@@@@W\```.._rZW@@@@@R"
+#                     'eg@@@@g#8#g@@@@@@gX
+#                       'i0@@@@@@@@@gBS"
+#                         `_r*ajeY|!`
+#
 # Some future plans:
 # Create a "goto" mode instead of using super+num for switching workspaces
 set_from_resource $c0 color0
@@ -75,7 +97,8 @@ mode --pango_markup "$mode_manager" {{
     bindsym --release control+q $ex sudo slock -m "$(cowsay -f tux "Locked at $(date '%H:%M')")" systemctl suspend
     bindsym --release XF86Sleep $ex sudo slock -m "$(cowsay -f tux "Locked at $(date '%H:%M')")" systemctl suspend
     bindsym u $ex "xclip -t -se p | xclip -i -s c"
-    bindsym slash $ex dmenual -i -p run
+    # bindsym slash $ex dmenual -i -p run
+    bindsym slash $ex $terminal --class float -e fzfexec ; $ex i3 mode "$mode_window"
     bindsym shift+slash $ex rofi -show run
     bindsym shift+f $ex $terminal -e lf
     # TODO: make pasting intelligent using the file extension and falling back to mpv
@@ -170,12 +193,14 @@ mode --pango_markup "$mode_manager" {{
     bindsym shift+colon [instance="pop"] mode "$mode_window" ; scratchpad show ; [instance="pop"] move position center
     bindsym r mode "$mode_resize" ; $ex $mode-notif "RESIZE MODE"
     bindsym v mode "$mode_visual" ; $ex $mode-notif "VISUAL MODE"
+    bindsym shift+v $ex maim > /tmp/test.png
     bindsym c mode "$mode_brightness" ; $ex $mode-notif "BRIGHTNESS MODE"
 }}
 
 # Yank stuff to clipboard
 mode --pango_markup "$mode_yank" {{
-    bindsym p $ex passmenu -p pass ; $ex i3 mode "$mode_manager"
+    # bindsym p $ex passmenu -p pass ; $ex i3 mode "$mode_manager"
+    bindsym p $ex $terminal --class float -e fzfpw ; $ex i3 mode "$mode_window"
     bindsym c $ex clipmenu ; $ex i3 mode "$mode_manager"
 
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
@@ -222,6 +247,7 @@ mode --pango_markup "$mode_window" {{
 }}
 
 # Resize the current window
+# Relies on ~/bin/i3resize for intelligent resizing
 mode --pango_markup "$mode_resize" {{
     bindsym h $ex i3resize left 20
     bindsym j $ex i3resize down 20
@@ -302,7 +328,7 @@ mode --pango_markup "$mode_launch" {{
     bindsym t $ex $terminal
     bindsym n $ex $terminal -e newsboat
     bindsym w $ex $browser
-    bindsym g $ex gameman play
+    bindsym g $ex $terminal --class float -e gameman play ; $ex i3 mode "$mode_window"
     bindsym m $ex $terminal -e neomutt
     bindsym c $ex $terminal -e ncmpcpp -s visualizer
     bindsym v $ex $terminal -e ytop
@@ -316,6 +342,7 @@ mode --pango_markup "$mode_visual" {{
     bindsym --release s $ex scrman
     bindsym --release c $ex scrman cp
     bindsym --release u $ex scrman up
+    bindsym --release d $ex scrman cp d 5
 
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }}

@@ -4,24 +4,55 @@
 
 *wpgtk templates are stored in .config/wpg/templates/*
 
-# My Workflow
-* OS - arch
+## My Workflow
+```sh 
+awk -F"=" '/^NAME/ {print $2}' /etc/os-release | sed 's|"||g' == "Arch Linux"
+```
 * WM
-    * XORG - i3-gaps w/ i3blocks and picom 
-    * WAYLAND - sway w/ waybar
-* Terminal - alacritty + nvim terminal
-* Shell - zsh (zinit)
+: Xorg
+    - i3-gaps w/ i3blocks and picom
+: Wayland
+    - sway w/ waybar
+* $TERMINAL
+: alacritty + nvim :terminal
+* $SHELL
+: zsh (zinit)
     - [zsh expandable aliases](.zshal)
-    - [powerline10k prompt](.p10k.sh)
-* Browser - firefox, qutebrowser, brave, ungoogled-chromium
+    - [powerline10k prompt](.p10k.zsh)
+* $BROWSER
+: firefox
+: qutebrowser
+: brave
+: ungoogled-chromium
     - tridactyl
     - ublock origin + umatrix
     - bukubrow
     - stylus
-* File Manager - lf
-* Editor - nvim (vim-plug)
+* $FILEMAN
+: lf
+* $EDITOR
+: nvim (vim-plug)
     - coc.nvim
-* Mail Reader - neomutt
-* Music Player - mpd (ncmpcpp)
-* Notification Daemon - dunst
-* Media Viewer - mpv
+* MAIL READER
+: neomutt
+* MUSIC PLAYER
+: mpd (ncmpcpp[tui] + mpc[cli])
+* NOTIF DAEMON
+: dunst
+* MEDIA VIEWER
+: mpv
+
+## Bringing Vim-Like Modes to Your Own Setup
+* Text Editor/IDE
+: Neovim
+* Terminal Multiplexer
+: Neovim :terminal + tabs/windows functionality
+* Window Manager
+: Xorg - i3
+: Wayland - sway
+* Browser
+: qutebrowser
+: firefox (tridactyl)
+: chromium (vimium)
+* shell
+: zsh (vi-mode)

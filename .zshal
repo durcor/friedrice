@@ -3,12 +3,16 @@
 
 # Shorter commands
 abbrev-alias s="sudo"
+abbrev-alias mk="make"
+abbrev-alias mkp="makepkg -sif"
 abbrev-alias y="yay"
+abbrev-alias -g noerr="2>/dev/null"
 abbrev-alias bm="builderman"
 abbrev-alias build="builderman"
 abbrev-alias p="$PAGER"
 abbrev-alias b="$BROWSER"
 abbrev-alias v="edit"
+abbrev-alias fd="\fd -I"
 abbrev-alias ed="edit"
 abbrev-alias re="$READER"
 abbrev-alias fm="$FILEMAN"
@@ -21,7 +25,7 @@ abbrev-alias ip="ip --color=auto"
 abbrev-alias btctl="bluetoothctl"
 abbrev-alias radeontop="radeontop -c"
 abbrev-alias ytop="\ytop -p"
-abbrev-alias hl="highlight -O truecolor -s ~/.cache/wal/pywal.theme"
+abbrev-alias hl="highlight -O ansi -s ~/.cache/wal/pywal.theme"
 abbrev-alias pyg="pygmentize -f terminal -g"
 abbrev-alias pw="pass"
 abbrev-alias o="xdg-open"
@@ -41,8 +45,8 @@ abbrev-alias -g amdgpusensors="watch "sensors | grep -A 10 amdgpu""
 # end() {sed $1 '$!d'}
 
 # Overwriting commands
-abbrev-alias mv="mv -i"
-abbrev-alias cp="cp -i"
+abbrev-alias -g mv="mv -i"
+abbrev-alias -g cp="cp -i"
 abbrev-alias rs="rsync"
 abbrev-alias pipes="pipes -R"
 abbrev-alias bk="buku --np"
@@ -50,14 +54,15 @@ abbrev-alias bkp="buku --np -p"
 abbrev-alias bkt="buku --np --tag"
 abbrev-alias bks="buku --np -s"
 abbrev-alias bked="buku --np -w"
-abbrev-alias -g grep="grep --color=auto"
+abbrev-alias -g grep="\grep --color=always"
+abbrev-alias -g dmesg="dmesg --color=always"
 # Disk utilities
 abbrev-alias du="du -h"
 abbrev-alias df="df -hT -x tmpfs -x squashfs -x devtmpfs"
 abbrev-alias dd="dd conv=noerror,sync status=progress bs=64K"
 abbrev-alias whatsbig="du -hs * | sort -h"
 
-fzfcd(){ cd "$(fd -IH -t d . / 2>/dev/null | fzf)" || exit 1 ;}
+fzfcd(){ cd "$(\fd -IH -t d . 2>/dev/null | fzf)" || exit 1 ;}
 
 # List files
 abbrev-alias ls="ls --color=auto"
@@ -83,7 +88,7 @@ abbrev-alias trem="transmission-remote"
 abbrev-alias t="tmux"
 abbrev-alias k="kitty"
 abbrev-alias g="git"
-abbrev-alias nf="neofetch"
+abbrev-alias -g nf="neofetch"
 abbrev-alias nb="newsboat"
 abbrev-alias qb="qutebrowser"
 
@@ -93,7 +98,7 @@ abbrev-alias -g ytdl-ytmus="youtube-dl -icw -f bestaudio --embed-thumbnail --add
 abbrev-alias -g ytdl-ytvid="youtube-dl -icw -f bestaudio --embed-thumbnail --add-metadata --format mp4 --audio-quality 0"
 abbrev-alias -g ytdl-aud="youtube-dl -icwx -f bestaudio --embed-thumbnail --add-metadata --write-thumbnail --audio-format mp3 --audio-quality 0"
 
-abbrev-alias -g rng="ranger --choosedir=~/.rangerdir;LASTDIR=$(cat ~/.rangerdir);cd $LASTDIR"
+abbrev-alias -g rng="ranger --choosedir=$XDG_DATA_HOME/ranger/dir;cd $XDG_DATA_HOME/ranger/dir"
 
 abbrev-alias -g whatismyip="curl http://icanhazip.com"
 abbrev-alias -g whatismyip2="curl ipecho.net/plain;echo"

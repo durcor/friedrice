@@ -1,17 +1,18 @@
 #!/bin/sh
 
-game_monitor_res=$(xrandr \
-    | grep '\*' \
-    | awk '{print $1}' \
-    | sort -r \
-    | xargs \
-    | awk '{print $1}')
+[ ! "$1" ] && echo "Accepts a steam gameID as the first parameter
+Some examples are:
+    TF2: 440
+"
+
+game_monitor_res=$(
+    xrandr | awk '/*/' |
+    sort -k 2,2 | head -1 |
+    awk '{print $1}'
+)
 
 game_monitor_height=$(echo "$game_monitor_res" | awk -Fx '{print $2}')
-
 game_monitor_width=$(echo "$game_monitor_res" | awk -Fx '{print $1}')
-
-# TF2's ID is 440
 
 xinit /usr/bin/steam \
     -height "$game_monitor_height" \
