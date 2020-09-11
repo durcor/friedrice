@@ -1,0 +1,36 @@
+#!/bin/sh
+
+if [ "$WAYLAND_DISPLAY" ]; then
+	close_notification() { makoctl dismiss ;}
+	close_all_notifications() { makoctl dismiss -a ;}
+	undo_close_notification() { makoctl restore ;}
+	view_notification_menu() { makoctl menu ;}
+	act_on_notification() { makoctl invoke ;}
+else
+	close_notification() { dunstctl close ;}
+	close_all_notifications() { dunstctl close-all ;}
+	undo_close_notification() { dunstctl history-pop ;}
+	view_notification_menu() { dunstctl context ;}
+	act_on_notification() { dunstctl action ;}
+fi
+
+case $1 in
+	"close")
+		case $2 in
+			"all")
+				close_all_notifications
+				;;
+			*)
+				close_notification
+				;;
+		esac
+		;;
+	"view")
+		view_notification_menu
+		;;
+	"undo")
+		undo_close_notification
+		;;
+	"act"|"do")
+		;;
+esac

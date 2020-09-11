@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ "$WAYLAND_DISPLAY" ]; then
+    copy_cmd="wl-copy"
+else
+    copy_cmd="xclip -i -se c"
+fi
+
+echo "$1" | $copy_cmd

@@ -1,0 +1,35 @@
+#!/bin/sh
+
+usage(){
+    cat <<HELP_MSG
+
+    $0 [URL to FPS log]
+
+    RETURNS:
+        > stdout : Average FPS of log file
+HELP_MSG
+}
+
+main(){
+    fps=$(
+        curl --no-progress-meter "$1" |
+        awk -F',' '{print $1}')
+
+    seconds_logged=$(
+        echo "$fps" | wc -l)
+
+    total_frames_rendered=$(
+        echo "$fps" | tail +3 |
+        tr '\n' '+' | sed 's|+$|\n|')
+
+    echo "($total_frames_rendered)/$seconds_logged" | bc -ql
+}
+
+case $1 in
+    http*)
+        main "$@"
+        ;;
+    *)
+        usage
+        ;;
+esac

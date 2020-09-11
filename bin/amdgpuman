@@ -1,0 +1,168 @@
+#!/bin/sh
+# Grabs new commits from amd's amdgpu staging branch and turns them into patches for use in stable kernels
+# NOTE: Made for use with TK-Glitch's community-patches repo and his linux-tkg PKGBUILDs
+
+# TODO
+# 	Move installed stuff to $XDG_DATA_HOME/amdgpuman
+
+if [ -e /lib/pacnostic.sh ]; then
+    . /lib/pacnostic.sh
+else
+    echo "Pacnostic needs to be installed"
+    exit 1
+fi
+
+source_code_dir="$HOME/src"
+pkgbuild_dir="$source_code_dir/pkgbuild"
+tkg_patch_dir="$source_code_dir/tkg-patches"
+# Kernel config
+kernel_pkgbuild_dir="$pkgbuild_dir/kernel"
+# Mesa config
+mesa_pkgbuild_dir="$pkgbuild_dir/gpu/mesa"
+# ROCm config
+rocm_pkgbuild_dir="$pkgbuild_dir/gpu/amd/rocm"
+
+###
+
+if command -v xdg-user-dir >/dev/null; then
+	download_dir="$(xdg-user-dir DOWNLOAD || echo "$HOME/Downloads")"
+else
+	download_dir="$HOME/Downloads"
+fi
+
+mkdir -p "$download_dir"
+
+[ -z "$source_code_dir" ] && {
+	source_code_dir="$download_dir"
+}
+
+[ -z "$pkgbuild_dir" ] && {
+	pkgbuild_dir="$source_code_dir/PKGBUILDS"
+}
+
+update_mesa()
+{
+    [ -z "$mesa_pkgbuild_dir" ] && {
+	    mesa_pkgbuild_dir="$pkgbuild_dir/mesa-git"
+	    [ -e "$mesa_pkgbuild_dir" ] || {
+		    cd "$pkgbuild_dir" || exit 1
+		    git clone https://github.com/Frogging-Family/mesa-git
+	    }
+    }
+
+    cd "$pkgbuild_dir/gpu/mesa" || exit 1
+    makepkg -sif
+}
+
+update_rocm_git()
+{
+    [ -z "$rocm_pkgbuild_dir" ] && {
+	    rocm_pkgbuild_dir="$pkgbuild_dir/rocm"
+	    [ -e "$rocm_pkgbuild_dir" ] || {
+		    cd "$pkgbuild_dir" || exit 1
+		    git clone https://github.com/durcor/rocm-opencl-runtime-git-PKGBUILD
+		    git clone https://github.com/durcor/rocclr-git-PKGBUILD
+		    git clone https://github.com/durcor/comgr-git-PKGBUILD
+		    git clone https://github.com/durcor/rocm-device-libs-git-PKGBUILD
+	    }
+    }
+
+    $PACNOSTIC_INSTALL hsa-rocr-git
+    for pkg in "$rocm_pkgbuild_dir"/*; do
+	    cd "$pkg" || exit 1
+	    yes | makepkg -sif
+    done
+}
+
+update_rocm_stable()
+{
+    if grep "^\[arch4edu" /etc/pacman.conf; then
+		$PACNOSTIC_INSTALL rocm-opencl-runtime llvm-amdgpu rocclr hsakmt-roct hsa-rocr
+    else
+		echo "the arch4edu repo is required"
+		exit 1
+    fi
+}
+
+update_amdgpu()
+{
+	[ -z "$kernel_pkgbuild_dir" ] && {
+		kernel_pkgbuild_dir="$pkgbuild_dir/linux-tkg"
+		[ -e "$pkgbuild_dir/linux-tkg" ] || {
+			cd "$pkgbuild_dir" || exit 1
+			git clone https://github.com/Frogging-Family/linux-tkg
+		}
+	}
+
+	# kernel_version="5.8"
+	# git_repo_url=""
+
+	[ -z "$tkg_patch_dir" ] && {
+		tkg_patch_dir="$pkgbuild_dir/community-patches"
+		[ -e "$tkg_patch_dir" ] || {
+			cd "$pkgbuild_dir" || exit 1
+			git clone https://github.com/Frogging-Family/community-patches
+		}
+	}
+
+	kernel_patch_dir="$tkg_patch_dir/linux$(echo "$kernel_version" | sed 's|\.||')-tkg"
+
+	[ -z "$git_repo_url" ] &&
+		git_repo_url="git://people.freedesktop.org/~agd5f/linux"
+
+	[ -z "$kernel_pkgbuild_dir" ] &&
+		kernel_pkgbuild_dir="$pkgbuild_dir/linux-tkg"
+
+	# Grab latest major release from kernel.org
+	[ -z "$kernel_version" ] &&
+		kernel_version=$(
+			curl https://kernel.org |
+			grep "Latest Release" -A5 |
+			awk -F'>' '/kernel/{print $2}' |
+			awk -F'<' '{print $1}' |
+			awk -F'.' '{print $1"."$2}'
+		)
+
+	kernel_pkgbuild_dir="$kernel_pkgbuild_dir/linux$(echo "$kernel_version" | sed 's|\.||')-tkg"
+
+	cd "$download_dir" || exit
+
+	if [ -d linux-amd-staging-drm-next ]; then
+		cd linux-amd-staging-drm-next || exit 1
+		git pull "$git_repo_url" amd-staging-drm-next
+	else
+		git clone "$git_repo_url" linux-amd-staging-drm-next
+		cd linux-amd-staging-drm-next || exit 1
+	fi
+
+	git diff "origin/drm-fixes-$kernel_version..origin/amd-staging-drm-next" drivers/gpu/drm/amd > "$kernel_patch_dir/amd-drm.mypatch"
+	# git diff "origin/drm-fixes-$kernel_version..origin/drm-next" drivers/gpu/drm/amd > "$kernel_patch_dir/amd-drm.mypatch"
+	cd "$kernel_pkgbuild_dir" || exit
+	makepkg -sifc
+	# TODO Urge to reboot afterwards
+}
+
+case $1 in
+	"rocm")
+	    case $2 in
+		"git")
+		    update_rocm_git
+		    ;;
+		"stable")
+		    update_rocm_stable
+		    ;;
+		*);;
+	    esac
+		;;
+	"amdgpu")
+		update_amdgpu
+		;;
+	"mesa")
+		update_mesa
+		;;
+	"all")
+		update_amdgpu
+		update_mesa
+		update_rocm
+		;;
+esac

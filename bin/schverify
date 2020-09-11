@@ -1,0 +1,39 @@
+#!/bin/sh
+
+submission_dir="./final"
+
+[ -z "$1" ] && {
+	echo "File to verify required."
+	exit 1
+}
+
+# Inject header verification into test script
+test_script=$(ls ./test*.sh)
+grep -q "schverify" "$test_script" ||
+	echo 'set -e && schverify "$file"' >> "$test_script"
+
+grep -q "Pledge : I pledge my honor that I have abided by the Stevens Honor System." "$1" || {
+	echo "Pledge test failed. Fix your pledge!"
+	exit 1
+}
+
+if [ -e "$HOME/.gitconfig" ]; then
+	extracted_name="$(awk '/name/ {$1=""; $2=""; print}' "$HOME/.gitconfig" | xargs)"
+else
+	echo "Enter your name:"
+	read -r name
+	extracted_name=$name
+fi
+
+grep -q "$extracted_name" "$1" || {
+	echo "Name test failed. Fix your name!"
+	exit 1
+}
+
+echo "Header test succeeded!"
+mkdir -p "$submission_dir"
+cd "$submission_dir" || exit 1
+rm ./*.zip
+7z a "$(ls | \grep -v '.zip\|makefile' | awk -F. '{print $1}').zip"
+echo "Submission zip file created!"
+exit 0

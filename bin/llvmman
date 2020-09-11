@@ -1,0 +1,14 @@
+#!/bin/sh
+
+. /lib/pacnostic.sh
+
+case $1 in
+	git)
+		$PACNOSTIC_REMOVE lld compiler-rt clang
+		$PACNOSTIC_INSTALL llvm-git lib32-llvm-git llvm-libs-git lib32-llvm-libs-git lld-git compiler-rt-git clang-git
+		;;
+	stable)
+		$PACNOSTIC_REMOVE lld-git compiler-rt-git clang-git
+		$PACNOSTIC_INSTALL llvm lib32-llvm llvm-libs lib32-llvm-libs lld compiler-rt clang
+		;;
+esac

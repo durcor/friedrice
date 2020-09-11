@@ -1,0 +1,37 @@
+#!/bin/sh
+
+WORK_DIRECTORY="$HOME/doc/wrk/uni"
+
+case $1 in
+    "up")
+	echo "Pushing password changes"
+	pass git push
+	if git push; then
+	    echo "Pushing config changes."
+	else
+	    echo "Failed to push config changes. Exiting now"
+	    exit 1
+	fi
+	[ -d "$WORK_DIR" ] && {
+	    echo "Trying to push work changes"
+	    cd "$WORK_DIR" || exit 1
+	    if git push; then 
+		echo "Pushing work changes suceeded"
+	    else 
+		echo "Pushing work changes failed" 
+		exit 1
+	    fi
+	}
+	;;
+    "down")
+	echo "Pulling password changes"
+	pass git pull
+	echo "Trying to pull down configs changes"
+	if git pull; then
+	    echo "Config pull successful"
+	else
+	    echo "Config pull failed. Exiting now"
+	    exit 1
+	fi
+	;;
+esac
