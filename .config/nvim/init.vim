@@ -80,6 +80,7 @@ Plug 'fabi1cazenave/termopen.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'VebbNix/lf-vim'
 Plug 'tridactyl/vim-tridactyl'
+Plug 'octol/vim-cpp-enhanced-highlight'
 " Highlight matching parentheses
 Plug 'luochen1990/rainbow',
 let g:rainbow_active = 1
@@ -174,6 +175,13 @@ let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#par
 " let g:airline#extensions#cursormode#enabled = 1
 
 let g:coc_global_extensions = "coc-sh,coc-json,coc-tsserver,coc-cord,coc-clangd,coc-texlab"
+
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_posix_standard = 1
+let g:cpp_experimental_simple_template_highlight = 1
+let g:cpp_concepts_highlight = 1
 
 let g:taboo_tab_format = "%f%m"
 let g:taboo_renamed_tab_format = "%l"
