@@ -52,10 +52,9 @@ interval=15
 
 [mail]
 interval=100000000000
-signal=46
+signal=17
 
 [accuweather]
-command=~/.local/bin/i3blocks/accuweather
 interval=1800
 
 [cpu]

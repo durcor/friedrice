@@ -26,7 +26,7 @@ fi
 updatepkgbuilds(){
 	cd "$PKGBUILD_DIR" || exit 1
 
-	for d in $(finder | grep -v 'subprojects' | grep -v 'src' | sed 's|/.git||'); do
+	for d in $(finder | grep -v 'subprojects\|src' | sed 's|/.git||'); do
         cd "$d" || exit 1
 		! ls Makefile* >/dev/null 2>&1 && ! ls BUILD* >/dev/null 2>&1 && {
 			if pull_status=$(git pull --recurse-submodules 2>&1); then
@@ -41,7 +41,8 @@ updatepkgbuilds(){
 }
 
 rebuild_pkg(){
-    yes | makepkg -sif
+	rm ./*.pkg.*
+	yes | makepkg -sif
 }
 
 updatewine(){
@@ -87,7 +88,7 @@ case $1 in
                 if [ -z "$2" ]; then
                     collector_program="fzf"
                 else
-                    collector_program="grep $2"
+                    collector_program="grep $2$"
                 fi
                 pkg_to_rebuild=$(finder | sed 's|/.git||' | $collector_program)
                 [ -z "$pkg_to_rebuild" ] && exit 1

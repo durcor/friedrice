@@ -74,10 +74,10 @@ zinit for \
     light-mode zsh-users/zsh-autosuggestions \
     light-mode zsh-users/zsh-completions \
     light-mode momo-lab/zsh-abbrev-alias \
-    light-mode romkatv/powerlevel10k \
-    light-mode zdharma/history-search-multi-word \
-    light-mode mbenford/zsh-tmux-auto-title
+    light-mode romkatv/powerlevel10k
 
+    # light-mode zdharma/history-search-multi-word \
+    # light-mode mbenford/zsh-tmux-auto-title \
     # light-mode zsh-users/zsh-history-substring-search \
 
 # zinit wait lucid for \

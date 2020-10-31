@@ -2,9 +2,6 @@
 # The smartest file opener of all time :^)
 
 case $1 in
-    *.ogg)
-        mpv "$1"
-        ;;
     *.exe)
         wine "$1"
         ;;
@@ -26,7 +23,7 @@ case $1 in
                 gimp "$1"
                 ;;
             video/*|image/*|audio/*) 
-                mpv "$1"
+                mpv "$@"
                     ;;
             application/pdf)
                 zathura "$1"

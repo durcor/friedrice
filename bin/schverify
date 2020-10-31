@@ -3,16 +3,25 @@
 submission_dir="./final"
 
 [ -z "$1" ] && {
+	tput setaf 9
 	echo "File to verify required."
+	tput sgr0
 	exit 1
 }
 
+rm -r $submission_dir
+mkdir $submission_dir
+cp ./makefile $submission_dir
+cp ./*.cpp $submission_dir
+
 # Inject header verification into test script
 test_script=$(ls ./test*.sh)
-grep -q "schverify" "$test_script" ||
-	echo 'set -e && schverify "$file"' >> "$test_script"
+grep -q "schverify" "$test_script" || {
+	sed -i -e '/failure/s/$/ \&\& everythings_alright=false/' "$test_script"
+	echo '$everythings_alright || { tput setaf 9 ; echo "Something went wrong!" ; tput sgr0 ; exit 1 ;} && schverify "$file"' >> "$test_script"
+}
 
-grep -q "Pledge : I pledge my honor that I have abided by the Stevens Honor System." "$1" || {
+grep -q "I pledge my honor that I have abided by the Stevens Honor System." "$1" || {
 	echo "Pledge test failed. Fix your pledge!"
 	exit 1
 }
@@ -31,9 +40,13 @@ grep -q "$extracted_name" "$1" || {
 }
 
 echo "Header test succeeded!"
-mkdir -p "$submission_dir"
 cd "$submission_dir" || exit 1
 rm ./*.zip
-7z a "$(ls | \grep -v '.zip\|makefile' | awk -F. '{print $1}').zip"
-echo "Submission zip file created!"
-exit 0
+
+if 7z a "$(ls | \grep -v '.zip\|makefile' | awk -F. '{print $1}').zip" >/dev/null; then
+	echo "Submission zip file created!"
+	exit 0
+else
+	echo "Something failed. Woops."
+	exit 1
+fi

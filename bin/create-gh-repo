@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ ! "$1" ]; then 
+	echo "Github username required!"
+	exit 1
+elif [ ! "$2" ]; then 
+	echo "Github repo name required!"
+	exit 1
+fi
+
+curl -u "$1" https://api.github.com/user/repos -d "{\"name\":\"$2\"}"

@@ -38,5 +38,5 @@
 	"combinedupgrade": true,
 	"useask": false
 }
-// vim:ft=json
+// vi:ft=json
 // ~/.config/yay/config.json

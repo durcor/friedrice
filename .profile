@@ -63,21 +63,20 @@ export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
     sudo -n loadkeys ~/.config/ttymaps.kmap &&
     sudo -n kbdrate -r 35 -d 150
 
-if systemctl -q is-active graphical.target; then
-    if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
-        # if ! bluetoothctl info >/dev/null; then
-        #     if bluetoothctl devices | grep XB9 >/dev/null; then
-        #         bluetoothctl connect 38:18:4C:17:2E:97
-        #     fi
-        # fi
-        DISPLAY_SERVER=x
-        if [ "$DISPLAY_SERVER" = "x" ]; then
-            export MOZ_ENABLE_WAYLAND=0
-            startx
-        else
-            export MOZ_ENABLE_WAYLAND=1
-            sway
-        fi
+if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
+    # if ! bluetoothctl info >/dev/null; then
+    #     if bluetoothctl devices | grep XB9 >/dev/null; then
+    #         bluetoothctl connect 38:18:4C:17:2E:97
+    #     fi
+    # fi
+    DISPLAY_SERVER=x
+    if [ "$DISPLAY_SERVER" = "x" ]; then
+        export MOZ_ENABLE_WAYLAND=0
+        startx
+    else
+        export MOZ_ENABLE_WAYLAND=1
+        sway
     fi
 fi
-if [ -e /home/ty/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ty/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+# if [ -e /home/ty/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ty/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

@@ -5,3 +5,69 @@ set statusbar-home-tilde false
 set show-hidden true
 set adjust-open width
 # set font 'Fantasque Sans Mono Nerd Font' normal 9
+set recolor "true"
+
+set completion-bg "#17120a"
+set completion-fg "#ffffe7"
+set completion-group-bg "#17120a"
+set completion-group-fg "#9B8655"
+set completion-highlight-bg "#ffffe7"
+set completion-highlight-fg "#17120a"
+
+set recolor-lightcolor "#17120a"
+set recolor-darkcolor "#ffffe7"
+set default-bg "#17120a"
+
+set inputbar-bg "#17120a"
+set inputbar-fg "#ffffe7"
+set notification-bg "#17120a"
+set notification-fg "#ffffe7"
+set notification-error-bg "#885F41"
+set notification-error-fg "#ffffe7"
+set notification-warning-bg "#885F41"
+set notification-warning-fg "#ffffe7"
+set statusbar-bg "#17120a"
+set statusbar-fg "#ffffe7"
+set index-bg "#17120a"
+set index-fg "#ffffe7"
+set index-active-bg "#ffffe7"
+set index-active-fg "#17120a"
+set render-loading-bg "#17120a"
+set render-loading-fg "#ffffe7"
+
+set window-title-home-tilde true
+set statusbar-basename true
+set selection-clipboard clipboard
+set recolor "true"
+
+set completion-bg "#161214"
+set completion-fg "#d6ffff"
+set completion-group-bg "#161214"
+set completion-group-fg "#698A75"
+set completion-highlight-bg "#d6ffff"
+set completion-highlight-fg "#161214"
+
+set recolor-lightcolor "#161214"
+set recolor-darkcolor "#d6ffff"
+set default-bg "#161214"
+
+set inputbar-bg "#161214"
+set inputbar-fg "#d6ffff"
+set notification-bg "#161214"
+set notification-fg "#d6ffff"
+set notification-error-bg "#C97768"
+set notification-error-fg "#d6ffff"
+set notification-warning-bg "#C97768"
+set notification-warning-fg "#d6ffff"
+set statusbar-bg "#161214"
+set statusbar-fg "#d6ffff"
+set index-bg "#161214"
+set index-fg "#d6ffff"
+set index-active-bg "#d6ffff"
+set index-active-fg "#161214"
+set render-loading-bg "#161214"
+set render-loading-fg "#d6ffff"
+
+set window-title-home-tilde true
+set statusbar-basename true
+set selection-clipboard clipboard

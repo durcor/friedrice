@@ -1,4 +1,9 @@
 #!/bin/sh
+# Important stuff to keep synced:
+# 	- school/work stuff ($HOME/doc/wrk)
+# 	- configs ($XDG_CONFIG_HOME)
+# 	- passwords ($HOME/.password_store)
+# 	- projects ($HOME/src)
 
 WORK_DIRECTORY="$HOME/doc/wrk/uni"
 

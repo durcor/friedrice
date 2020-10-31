@@ -83,6 +83,9 @@ case $1 in
             image/svg+xml|text/x-shellscript)
                 $HIGHLIGHT_CMD "$1"
                 ;;
+            text/x-asm)
+                $HIGHLIGHT_CMD --syntax asm "$1"
+                ;;
             image/*)
                 chafa -c 256 "$1"
                 # kitty +kitten icat --transfer-mode file --place 80x40@88x1 --silent "$1"

@@ -1,5 +1,7 @@
 #!/bin/sh
 # shellcheck disable=1090,2154
+# TODO:
+#       Fix editcfg() for cases when neovim-remote is used
 
 . "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors.sh"
 
@@ -8,10 +10,12 @@
     touch "${XDG_CONFIG_HOME-$HOME/.config}/cfg/al"
 }
 
-refreshcfg() {
+refreshcfg()
+{
     connected_usb_devices=$(lsusb)
     wpg -s "$(wpg -c)"
 
+    # Use OpenRGB's generic RGB peripheral interface to rice some hardware
     # 0: Left RAM Stick
     # 1: Right RAM Stick
     # 2: X570 Taichi
@@ -20,22 +24,22 @@ refreshcfg() {
     # 5: Razer Huntsman Elite
     # 6: Razer DeathAdder Elite
     # 7: Razer Goliathus Extended
-
     command -v openrgb >/dev/null &&
         openrgb \
-        -d 0 -c "$(echo "$color14" | sed 's|#||')" -m Static \
-        -d 1 -c "$(echo "$color9" | sed 's|#||')" -m Static \
-        -d 2 -c "$(echo "$color9" | sed 's|#||' )" -m Neon
+        -d 0 -c "${color14##\#}" -m Static \
+        -d 1 -c "${color9##\#}" -m Static \
+        -d 2 -c "${color9##\#}" -m Neon
 
+    # Coloring NZXT fans
     echo "$connected_usb_devices" | grep -q NZXT && {
         liquidctl initialize all
-        liquidctl set fan1 speed 100
-        liquidctl set fan2 speed 100
-        liquidctl set fan3 speed 100
-        liquidctl set led1 color starry-night "$(echo "$color13" | sed 's/#//')"
-        liquidctl set led2 color starry-night "$(echo "$color13" | sed 's/#//')"
+        for fan in fan1 fan2 fan3; do
+            liquidctl set $fan speed 25; done
+        liquidctl --speed fastest set sync color fading \
+            "${color13##\#}" "${color14##\#}" "${color11##\#}" "${color12##\#}"
     }
 
+    # Coloring the AMD Wraith Prism cooler
     echo "$connected_usb_devices" | grep -q AMD && {
         wraith-master -m swirl -c "$color14" ring
         wraith-master -m static -c "$color11" logo
@@ -43,33 +47,50 @@ refreshcfg() {
         wraith-master -c "$color9" fan
     }
 
+    # Rice all connected razer devices
     echo "$connected_usb_devices" | grep -q Razer && razerricer
     pgrep qutebrowser && qutebrowser :config-source
 
-    echo "$connected_usb_devices" | grep -q Microdia && rgb_keyboard --custom-pattern "${XDG_CONFIG_HOME-$HOME/.config}/wpg/templates/gmmk"
+    # Rice any RGB keyboards using Microdia's microcontroller
+    echo "$connected_usb_devices" | grep -q Microdia &&
+        rgb_keyboard --custom-pattern \
+        "${XDG_CONFIG_HOME-$HOME/.config}/wpg/templates/gmmk"
+
     sleep 0.1
 
-    if [ "$WAYLAND_DISPLAY" ]; then
-        sway restart
-    else
-        rfkb
-        i3 restart
-    fi
+    # Refresh window manager in use
+    { [ "$WAYLAND_DISPLAY" ] && sway restart; } || { rfkb; i3 restart; }
 
+    # Recompile all suckless utilities in use
     cd ~/src/st && sudo make clean install || exit 1
     # cd ~/src/dmenu && sudo make clean install || exit 1
     cd ~/src/slock && sudo make clean install || exit 1
 
+    # Rice and refresh Steam
     wal_steam -w
     pgrep steam && killall -9 steam && setsid steam-native
 
-    # pgrep nm-applet && killall -9 nm-applet && setsid nm-applet
+    pgrep nm-applet && killall -9 nm-applet && setsid nm-applet
 
+    # Rice Firefox
     pywalfox update
+    # Rice Zathura
+    command -v zathura >/dev/null 2>&1 && {
+        zathura_cfg_dir="${XDG_CONFIG_HOME-$HOME/.config}/zathura"
+        if [ -e "$zathura_cfg_dir/myzathurarc" ]; then
+            cat "$zathura_cfg_dir/myzathurarc" > "$zathura_cfg_dir/zathurarc"
+        else
+            cat "$zathura_cfg_dir/zathurarc" > "$zathura_cfg_dir/myzathurarc"
+        fi
+        "$HOME/src/Zathura-Pywal/genzathurarc" >> "$zathura_cfg_dir/zathurarc"
+    }
+    # Rice GTK/QT applications
     oomox-cli ~/.cache/wal/colors-oomox
-    # oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
+    # Rice Discord
     pywal-discord -t abou -p ~/src/powercord/src/Powercord/themes/pywal/
 
+    # Rice Spotify
+    oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
     if pgrep spotify; then
         spicetify apply
         sleep 1
@@ -82,7 +103,8 @@ refreshcfg() {
 }
 
 
-addcfg() {
+addcfg()
+{
     if [ ! "$3" ]; then
         echo "You can't add a config without an alias/path!"
         exit
@@ -92,7 +114,8 @@ addcfg() {
     echo "$cfgalias $newcfg" >> "$XDG_CONFIG_HOME/cfg/al"
 }
 
-editcfg() {
+editcfg()
+{
     if [ -z "$2"  ]; then
         # If the user quits out of fzf, exit cfg immediately
         cfgfileloc="$(sed "s|~|/home/$USER|" "$XDG_CONFIG_HOME/cfg/al" |
@@ -115,11 +138,13 @@ editcfg() {
     [ -n "$cfgfilepostrun" ] && $SHELL -c "$cfgfilepostrun"
 }
 
-listcfg() {
+listcfg()
+{
     awk '{print $1 ; print $2}' "$XDG_CONFIG_HOME/cfg/al"
 }
 
-updatecfg() {
+updatecfg()
+{
     cp /etc/pacman.conf "$XDG_CONFIG_HOME/root/etc/" || exit 1
     cp /etc/makepkg.conf "$XDG_CONFIG_HOME/root/etc/" || exit 1
     cp /etc/pulse/default.pa "$XDG_CONFIG_HOME/root/etc/pulse/" || exit 1
@@ -135,12 +160,11 @@ updatecfg() {
     git add -f ~/bin
     git add -f "$XDG_CONFIG_HOME/wpg/templates/*.base"
     pacman -Qeq > "$XDG_CONFIG_HOME/pkgs"
-    git commit -a
-    git push
 }
 
-deletecfg() {
-    path_to_del="$(fzf < "$XDG_CONFIG_HOME/cfg/al" | awk '{print $2}')"
+deletecfg()
+{
+    path_to_del="$(fzf < "${XDG_CONFIG_HOME-$HOME/.config}/cfg/al" | awk '{print $2}')"
     rm -i "$path_to_del" && sed -i "/$2/d"
 }
 

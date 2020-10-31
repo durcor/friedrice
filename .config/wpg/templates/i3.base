@@ -23,7 +23,7 @@
 #                       'i0@@@@@@@@@gBS"
 #                         `_r*ajeY|!`
 #
-# Some future plans:
+# TODO:
 # Create a "goto" mode instead of using super+num for switching workspaces
 set_from_resource $c0 color0
 set_from_resource $c1 color1

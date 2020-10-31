@@ -70,6 +70,7 @@ update_rocm_git()
     $PACNOSTIC_INSTALL hsa-rocr-git
     for pkg in "$rocm_pkgbuild_dir"/*; do
 	    cd "$pkg" || exit 1
+	    rm ./*.pkg.*
 	    yes | makepkg -sif
     done
 }

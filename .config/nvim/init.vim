@@ -57,6 +57,8 @@ Plug 'gcmt/taboo.vim'
 
 " Plug 'yggdroot/indentline'
 
+Plug 'ARM9/arm-syntax-vim'
+
 " FZF
 Plug 'junegunn/fzf.vim'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
@@ -101,6 +103,7 @@ Plug 'tpope/vim-commentary'
 " Decrypt GPG files
 Plug 'jamessan/vim-gnupg'
 " Plug 'preservim/nerdtree'
+Plug 'matze/vim-move'
 
 " Plug 'neomake/neomake'
 Plug 'dense-analysis/ale'
@@ -275,10 +278,13 @@ set magic
 set noshowmode
 set showcmd
 set mouse=a
+" Tab Stop
 set noexpandtab
-set ts=4
-set sw=4
-set smarttab
+set tabstop=8
+set shiftwidth=8
+set softtabstop=0
+set nosmarttab
+"
 set autoread
 set ffs=unix,dos,mac
 " Show current line number
@@ -385,6 +391,7 @@ map <leader>ch :!pandoc % -o %.html<cr><cr>
 map <leader>ct :!pdflatex %<cr><cr>
 map <leader>cp :!pandoc % -o %.pdf<cr><cr>
 map <leader>cm :!make<cr><cr>
+map <leader>cM :!./test*.sh<cr><cr>
 
 " Goyo
 autocmd! User GoyoEnter Limelight

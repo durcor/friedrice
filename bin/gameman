@@ -23,8 +23,8 @@ prepare_gamemode(){
     fi
 
     # command -v mullvad >/dev/null && mullvad disconnect
-    # nvr -cc "CocCommand cord.disconnect"
-    killall -9 node
+    NVIM_LISTEN_ADDRESS=$(ls /tmp/nvim*/0) command -v nvr >/dev/null 2>&1 &&
+        nvr -cc "CocCommand cord.disconnect"
     # setsid discord-overlay
     # systemctl --user stop picom
     killall -9 picom
@@ -48,7 +48,8 @@ stop_gamemode(){
         sudo mv /usr/share/vulkan/icd.d/amd_icd* /usr/share/vulkan/icd.d/down/
 
     # command -v mullvad >/dev/null && mullvad connect
-    # command -v nvr >/dev/null && nvr -cc "CocCommand cord.reconnect"
+    NVIM_LISTEN_ADDRESS=$(ls /tmp/nvim*/0) command -v nvr >/dev/null 2>&1 &&
+        nvr -cc "CocCommand cord.reconnect"
     # if systemctl --user is-enabled picom; then
     #     systemctl --user start picom
     # fi
@@ -71,7 +72,7 @@ killwine(){
     for proc in $(ps aux | grep "[.]exe" | awk '{print $2}'); do
         kill -9 "$proc"
     done
-    killall -9 wineserver winedbg wineconsole
+    killall -9 wineserver winedbg wineconsole winedevice.exe
     echo "All wine-dependent services killed"
 }
 

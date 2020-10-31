@@ -1,14 +1,19 @@
 #!/bin/sh
 
-for num in $(seq 1 100);do
-    if [ $((num % 3)) = 0 ];then
-        if [ $((num % 5)) = 0 ];then
-            echo "Fizz Buzz"
+limit=$1
+
+! $1 && limit=100 || exit 1
+
+for num in $(seq 1 "$limit"); do
+    if [ $((num % 3)) = 0 ]; then
+        printf 'Fizz'
+        if [ $((num % 5)) = 0 ]; then
+            printf 'Buzz'
         fi
-        echo "Fizz"
-    elif [ $((num % 5)) = 0 ];then
-        echo "Buzz"
+    elif [ $((num % 5)) = 0 ]; then
+        printf 'Buzz'
     else
-        echo "$num"
+        printf '%s' "$num"
     fi
+    printf '\n'
 done
