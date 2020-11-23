@@ -10,22 +10,22 @@ PYGMENTIZE_CMD="pygmentize -f terminal"
 
 case $1 in
     *.md|*.sh|*.ini|*.js)
-        $HIGHLIGHT_CMD "$1"
+        $HIGHLIGHT_CMD "$1" | head -$LINES
         ;;
     *.c*nf*|*.cfg)
-        $HIGHLIGHT_CMD --syntax ini "$1"
+        $HIGHLIGHT_CMD --syntax ini "$1" | head -$LINES
         ;;
     *.txt)
-        $HIGHLIGHT_CMD --syntax md "$1"
+        $HIGHLIGHT_CMD --syntax md "$1" | head -$LINES
         ;;
     *BUILD|*.bash*)
-        $HIGHLIGHT_CMD --syntax sh "$1"
+        $HIGHLIGHT_CMD --syntax sh "$1" | head -$LINES
         ;;
     *.*patch)
-        $HIGHLIGHT_CMD --syntax patch "$1"
+        $HIGHLIGHT_CMD --syntax patch "$1" | head -$LINES
         ;;
     *.python*)
-        $HIGHLIGHT_CMD --syntax python "$1"
+        $HIGHLIGHT_CMD --syntax python "$1" | head -$LINES
         ;;
     # *.zsh*)
     #     $HIGHLIGHT_CMD --syntax zsh "$1"

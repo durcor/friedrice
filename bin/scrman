@@ -1,22 +1,24 @@
 #!/bin/sh
+# shellcheck disable=2094
 
 screenshot_dir="$(xdg-user-dir PICTURES)/scr"
 
 [ -z "$screenshot_dir" ] && {
-	if command -v xdg-user-dir >/dev/null; then
-		screenshot_dir="$(xdg-user-dir PICTURES)/Screenshots"
-	else
-		screenshot_dir="$HOME/Pictures/Screenshots"
-	fi
+    if command -v xdg-user-dir >/dev/null; then
+        screenshot_dir="$(xdg-user-dir PICTURES)/Screenshots"
+    else
+        screenshot_dir="$HOME/Pictures/Screenshots"
+    fi
 }
 
 [ ! -d "$screenshot_dir" ] && {
-	mkdir -p "$screenshot_dir"
+    mkdir -p "$screenshot_dir"
 }
 
 screenshot_file="$screenshot_dir/$(date +%Y-%m-%d_%H%M-%S).png"
 
-grabscr(){
+grabscr()
+{
     if [ "$WAYLAND_DISPLAY" ]; then
         grim -g "$(slurp)" "$screenshot_file"
     else
@@ -24,20 +26,20 @@ grabscr(){
     fi
 }
 
-delaygrabscr(){
+delaygrabscr()
+{
     if [ "$WAYLAND_DISPLAY" ]; then
-        sleep "$4"
+        sleep "$1"
         grim -g "$(slurp)" -o "$screenshot_file"
     else
-        maim -B -u -s "$screenshot_file"
+        maim -B -d "$1" -u -s "$screenshot_file"
     fi
 }
 
-uploadscr(){
-    fup 0x0 "$screenshot_file"
-}
+uploadscr() { fup 0x0 "$screenshot_file" ;}
 
-copyscr(){
+copyscr()
+{
     if [ "$WAYLAND_DISPLAY" ]; then
         wl-copy -t "$(file -b --mime-type "$screenshot_file")" < "$screenshot_file"
     else
@@ -52,7 +54,7 @@ case $1 in
     cp)
         case $2 in
             d)
-                delaygrabscr "$@"
+                delaygrabscr "$3"
                 copyscr
                 ;;
             *)

@@ -257,7 +257,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-set nowrap " Don't wrap lines if they extend off the screen
+set wrap " Wrapping lines if they extend off the screen
 set smartcase " Searches case-insensitively unless capitals are in the query
 set undofile " Save undo history
 set undodir=$XDG_DATA_HOME/nvim/undo
