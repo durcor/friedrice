@@ -213,6 +213,7 @@ set autochdir " Automatically change directory to dir of current file
 set shortmess+=c
 set virtualedit=block
 set splitbelow
+set pyx=3
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -280,8 +281,8 @@ set showcmd
 set mouse=a
 " Tab Stop
 set noexpandtab
-set tabstop=8
-set shiftwidth=8
+set tabstop=4
+set shiftwidth=4
 set softtabstop=0
 set nosmarttab
 "
