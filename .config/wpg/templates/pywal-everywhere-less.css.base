@@ -1,0 +1,40 @@
+/* ==UserStyle==
+@name           pywal-everywhere
+@namespace      github.com/durcor
+@version        1.0.0
+@description    pywal css on every site
+@author         durcoke
+==/UserStyle== */
+
+html * {{
+  background: {color0} !important;
+  color: {color15} !important;
+  border-color: {color9} !important;
+}}
+
+a {{
+  color: {color14} !important;
+}}
+
+button {{
+  border-color: {color0} !important;
+}}
+
+pre {{
+  color: {color9} !important;
+  background: {color8} !important;
+}}
+
+a:visited {{
+  color: {color14} !important;
+}}
+
+::after {{
+  background: {color14} !important;
+  height: 0;
+}}
+
+input, textarea {{
+  background-color: {color8} !important;
+  color: {color15} !important;
+}}

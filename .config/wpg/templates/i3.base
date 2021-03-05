@@ -438,16 +438,14 @@ for_window [instance="float"] floating enable
 
 $ex $terminal
 $ex $browser
-$ex nm-applet
-$ex mullvad reconnect
+# $ex nm-applet
+# $ex $XDG_CONFIG_HOME/X11/layout/current
+# $ex mullvad reconnect
 $exa picom --experimental-backends
-# $exa dunst
+$exa dunst
 $exa ~/.fehbg
-$ex discord-canary
-$ex cfg rf
-# Allow applications to bind functions to pressing Alt
-# without being relegated to using it as a modifier key
-$ex xcape -e 'Alt_L=F12'
-$ex clipmenud
+$ex discord
+# $ex cfg rf
+# $ex clipmenud
 $exa sleep 0.1 ; i3 mode "$mode_window"
-# $exa $HOME/.config/polybar/launch.sh
+# $exa $XDG_CONFIG_HOME/polybar/launch.sh

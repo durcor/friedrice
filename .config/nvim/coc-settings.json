@@ -1,0 +1,12 @@
+{
+    "clangd.semanticHighlighting": true,
+    "clangd.path": "/bin/clangd"
+}
+
+"languageserver": {
+  "ocaml-lsp": {
+    "command": "opam",
+    "args": ["config", "exec", "--", "ocamllsp"],
+    "filetypes": ["ocaml", "reason", "ml"]
+  }
+}

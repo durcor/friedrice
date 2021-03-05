@@ -1,10 +1,43 @@
 #!/bin/sh
 
-gpu_dir="/sys/class/drm/card0/device"
+# In W
+MAX_TDP=265
+# In MHz
+MAX_CLOCK=2100
+# In mV
+MAX_VOLT=1100
 
-echo "s 7 2100 900" > $gpu_dir/pp_od_clk_voltage
-# echo "m 2 1850 850" > $gpu_dir/pp_od_clk_voltage
-echo "c" > $gpu_dir/pp_od_clk_voltage
+[ "$USER" != "root" ] && {
+	echo "$0 needs to be run by root."
+	exit 1
+}
+
+GPU=$(glxinfo -B | awk -F: '/OpenGL renderer string/{print $2}' | awk -F'(' '{print $1}' | xargs)
+
+# gpu_dir="/sys/class/drm/card0/device"
+gpu_dir="/sys/class/drm/card1/device"
 
 # Default of 220 W
-echo 265000000 > $gpu_dir/hwmon/hwmon3/power1_cap
+hwmon_dir=$(ls $gpu_dir/hwmon)
+
+overclock()
+{
+	echo "Changing the TDP of your $GPU to $MAX_TDP"
+	echo "${MAX_TDP}000000" > "$gpu_dir/hwmon/$hwmon_dir/power1_cap"
+
+	echo "Clocking your $GPU to $MAX_CLOCK MHz @ $MAX_VOLT mV"
+	echo "s 1 $MAX_CLOCK $MAX_VOLT" > $gpu_dir/pp_od_clk_voltage
+	echo "m 1 1850 625" > $gpu_dir/pp_od_clk_voltage
+	echo "c" > $gpu_dir/pp_od_clk_voltage
+
+	echo "Reclock of your $GPU complete!"
+}
+
+case $1 in
+	"off")
+		echo "r" > $gpu_dir/pp_od_clk_voltage
+		;;
+	"on"|"")
+		overclock
+		;;
+esac

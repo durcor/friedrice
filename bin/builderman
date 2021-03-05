@@ -17,13 +17,18 @@
 
 PKGBUILD_DIR="$HOME/src/pkgbuild"
 
+GAME_DIRS="$HOME/gam $HOME/data/gam"
+
+# set -e
+
 if command -v fd >/dev/null; then
 	finder(){ fd -IHL '^.git$' . ;}
 else
 	finder(){ find . -type d -name '.git' ;}
 fi
 
-updatepkgbuilds(){
+updatepkgbuilds()
+{
 	cd "$PKGBUILD_DIR" || exit 1
 
 	for d in $(finder | grep -v 'subprojects\|src' | sed 's|/.git||'); do
@@ -45,33 +50,38 @@ rebuild_pkg(){
 	yes | makepkg -sif
 }
 
-updatewine(){
-    updatepkgbuilds &&
-	cd "$PKGBUILD_DIR"/wine/vkd3d-git &&
-	rebuild_pkg &&
-        cd "$PKGBUILD_DIR"/wine/dxvk-tools &&
-        ./updxvk build &&
-        ./updxvk proton-tkg &&
-        ./updxvk lutris &&
-        cd "$PKGBUILD_DIR"/wine/wine-tkg-git/wine-tkg-git &&
-        rebuild_pkg &&
-        cd "$PKGBUILD_DIR"/wine/wine-tkg-git/proton-tkg &&
-        rebuild_pkg &&
-        cd "$PKGBUILD_DIR"/wine/dxvk-tools &&
-        ./updxvk ~/.wine &&
-        ./updxvk ~/.local/share/wineprefixes/roblox-wine &&
-        ./updxvk batch
-        # Batch update all prefixes in ~/gam/wine
+updategfx()
+{
+	builderman i mesa
+	cd "$PKGBUILD_DIR/wine/dxvk-tools"
+	./updxvk build
+	./upvkd3d-proton build
+}
 
-    # Now batch update all prefixes in ~/data/gam/wine
-    sed -e '/PREFIXES_ROOT=""$HOME"\/gam\/wine"/ s|^#*|#|' -i "$PKGBUILD_DIR/wine/dxvk-tools/updxvk.cfg"
-    sed -e '/PREFIXES_ROOT=""$HOME"\/data\/gam\/wine"/ s|^#*||' -i "$PKGBUILD_DIR/wine/dxvk-tools/updxvk.cfg"
+updatewine()
+{
+    # TODO:
+    # Add support for building DXVK with LTO
+	cd "$PKGBUILD_DIR"/wine/dxvk-tools
+	./updxvk build
+	./updxvk proton-dist
+	./updxvk proton-tkg
+	./updxvk lutris
+	./upvkd3d-proton build
+	./upvkd3d-proton proton-dist
+	cd "$PKGBUILD_DIR"/wine/wine-tkg-git/wine-tkg-git
+	rebuild_pkg
+	cd "$PKGBUILD_DIR"/wine/wine-tkg-git/proton-tkg
+	rebuild_pkg
+	cd "$PKGBUILD_DIR"/wine/dxvk-tools
+	./updxvk ~/.wine
 
-    ./updxvk batch
-
-    # Reset
-    sed -e '/PREFIXES_ROOT=""$HOME"\/gam\/wine"/ s|^#*||' -i "$PKGBUILD_DIR/wine/dxvk-tools/updxvk.cfg"
-    sed -e '/PREFIXES_ROOT=""$HOME"\/data\/gam\/wine"/ s|^#*|#|' -i "$PKGBUILD_DIR/wine/dxvk-tools/updxvk.cfg"
+	for i in $GAME_DIRS; do
+		PREFIXES_ROOT="$i/wine" ./updxvk batch
+	done
+	PREFIXES_ROOT="$HOME/gam/wine" ./updxvk batch
+	PREFIXES_ROOT="$HOME/data/gam/wine" ./updxvk batch
+	PREFIXES_ROOT="$HOME/.local/share/wineprefixes" ./updxvk batch
 }
 
 case $1 in
@@ -82,6 +92,9 @@ case $1 in
 		case $2 in
 			wine)
                 updatewine
+                ;;
+			gfx)
+                updategfx
                 ;;
             *)
                 cd "$PKGBUILD_DIR" || exit

@@ -1,19 +1,40 @@
 #!/bin/sh
 
+. ${XDG_CACHE_HOME-$HOME/.cache}/wal/colors.sh
+
 image_file="/tmp/lock.png"
 
-resolution=$(xdpyinfo | grep dimensions | awk '{print $2}')
+# resolution=$(xdpyinfo | grep dimensions | awk '{print $2}')
 
 # filters='noise=alls=10,scale=iw*.05:-1,scale=iw*20:-1:flags=neighbor' 
 filters='boxblur=10' 
 
-ffmpeg \
-    -y -loglevel 0 \
-    -s "$resolution" \
-    -f x11grab \
-    -i "$DISPLAY" \
-    -vframes 1 \
-    -vf "$filters" \
-    "$image_file"
+if [ "$WAYLAND_DISPLAY" ]; then
+	ffmpeg -y -loglevel 0 \
+		-hwaccel vulkan \
+	    -i "${XDG_CONFIG_HOME-$HOME/.config}/wpg/.current" \
+	    -vf "$filters" \
+	    "$image_file"
 
-i3lock -e -i "$image_file"
+	swaylock $color0 -r -n -K --font "mononoki Nerd Font" --font-size 30 --indicator-idle-visible \
+		--indicator-radius 100 --indicator-thickness 10 \
+		--separator-color $color8 \
+		--text-color $color10 --text-ver-color $color10 --text-clear-color $color11 --text-wrong-color $color9 \
+		--ring-color $color12 --ring-clear-color $color12 --ring-ver-color $color12 --ring-wrong-color $color12 \
+		--inside-color $color13 --inside-clear-color $color14 --inside-ver-color $color14 --inside-wrong-color $color14 \
+		--layout-bg-color $color10 --layout-border-color $color10 --layout-text-color $color10 \
+		--line-color $color11 --line-clear-color $color11 --line-ver-color $color11 --line-wrong-color $color11 \
+		--key-hl-color $color12 --bs-hl-color $color11 \
+		-i "$image_file"
+else
+	ffmpeg \
+	    -y -loglevel 0 \
+	    -s "$resolution" \
+	    -f x11grab \
+	    -i "$DISPLAY" \
+	    -vframes 1 \
+	    -vf "$filters" \
+	    "$image_file"
+	
+	i3lock -e -i "$image_file"
+fi

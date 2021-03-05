@@ -36,13 +36,9 @@ signal=2
 # min_width=50
 #align=left
 
-# [weather]
-# interval=7200
-# color={color10}
-
-[news]
-interval=100000000000
-signal=6
+# [news]
+# interval=100000000000
+# signal=6
 
 [mscr]
 interval=900

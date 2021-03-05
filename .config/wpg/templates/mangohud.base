@@ -28,7 +28,7 @@
 # ->
 # ~/.config/MangoHud/MangoHud.conf
 ##################### PERFORMANCE
-# fps_limit         = 144
+# fps_limit         = 120
 ## VSYNC [0-3]
 ## 0 = adaptive
 ## 1 = off
@@ -43,36 +43,56 @@ vsync               = 1
 gl_vsync            = 0
 ##################### CONTENTS
 version             = 0
+## Performance Metrics
+fps 				= 1
+frametime 			= 1
+## GPU
 gpu_stats           = 1
 gpu_temp            = 1
 gpu_core_clock      = 1
 gpu_power           = 1
+gpu_load_change 	= 1
+gpu_load_color 		= {color10.strip},{color11.strip},{color9.strip}
+gpu_name            = 0
+## CPU
 cpu_stats           = 1
 cpu_temp            = 1
+cpu_mhz 			= 1
+cpu_load_change 	= 1
+cpu_load_color 		= {color10.strip},{color11.strip},{color9.strip}
 core_load           = 0
+cpu_power 			= 1
+## I/O
 io_read             = 1
 io_write            = 1
+## RAM
 vram                = 1
 gpu_mem_clock       = 1
 ram                 = 1
+swap 				= 1
+## Environment
 engine_version      = 1
 wine                = 1
-gpu_name            = 0
 vulkan_driver       = 1
-frame_timing        = 1
-histogram           = 0
 time                = 0
 arch                = 0
 media_player        = 1
+## Graphs
+frame_timing        = 1
+histogram           = 0
 ##################### AESTHETICS
 position            = top-left
 font_size           = 20
 font_size_text 	    = 24
-font_scale 	    = 1.0
+font_scale 	    	= 1.0
 font_scale_media_player = 0.55
+table_columns 		= 3
+legacy_layout 		= 0
 # font_file         = /usr/share/fonts/nerd-fonts-complete/TTF/mononoki-Regular Nerd Font Complete.ttf
 cpu_text            = 3700X
 gpu_text            = 5700XT
+# custom_text_center = Gamer
+# custom_text 		= Gaming!
 # media_player_player = spotify
 no_display          = 0
 # offset_x            = 0

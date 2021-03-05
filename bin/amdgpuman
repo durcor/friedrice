@@ -4,6 +4,7 @@
 
 # TODO
 # 	Move installed stuff to $XDG_DATA_HOME/amdgpuman
+# 	Use $(uname -r) as basis for commit to diff from for drivers/gpu/drm/amd
 
 if [ -e /lib/pacnostic.sh ]; then
     . /lib/pacnostic.sh
@@ -130,10 +131,12 @@ update_amdgpu()
 
 	if [ -d linux-amd-staging-drm-next ]; then
 		cd linux-amd-staging-drm-next || exit 1
-		git pull "$git_repo_url" amd-staging-drm-next
+		# git pull "$git_repo_url" amd-staging-drm-next
+		git pull
 	else
 		git clone "$git_repo_url" linux-amd-staging-drm-next
 		cd linux-amd-staging-drm-next || exit 1
+		git remote add -f https://github.com/torvalds/linux
 	fi
 
 	git diff "origin/drm-fixes-$kernel_version..origin/amd-staging-drm-next" drivers/gpu/drm/amd > "$kernel_patch_dir/amd-drm.mypatch"

@@ -68,11 +68,21 @@ refreshcfg()
 
     # Rice and refresh Steam
     wal_steam -w
-    pgrep steam && killall -9 steam && setsid steam-native
+    pgrep steam && {
+		killall -9 steam
+		sleep 5
+		setsid steam-native
+	}
 
-    pgrep nm-applet && killall -9 nm-applet && setsid nm-applet
+    # pgrep nm-applet && {
+		# killall -9 nm-applet
+		# sleep 5
+		# setsid nm-applet
+	# }
 
     # Rice Firefox
+	! pgrep firefox &&
+		setsid firefox-nightly
     pywalfox update
     # Rice Zathura
     command -v zathura >/dev/null 2>&1 && {
@@ -85,21 +95,26 @@ refreshcfg()
         "$HOME/src/Zathura-Pywal/genzathurarc" >> "$zathura_cfg_dir/zathurarc"
     }
     # Rice GTK/QT applications
-    oomox-cli ~/.cache/wal/colors-oomox
+    oomox-cli "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors-oomox"
     # Rice Discord
-    pywal-discord -t abou -p ~/src/powercord/src/Powercord/themes/pywal/
+    pywal-discord -t default
+    pywal-discord -t abou
+	! pgrep Discord &&
+		setsid discord
+
+	beautifuldiscord --css "${XDG_CONFIG_HOME-$HOME/.config}/BetterDiscord/themes/pywal-discord-default.theme.css"
 
     # Rice Spotify
-    oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
-    if pgrep spotify; then
-        spicetify apply
-        sleep 1
-        playerctl -p spotify play
-    else
-        spicetify apply
-        sleep 1
-        killall -9 spotify
-    fi
+    oomoxify-cli -f "mononoki Nerd Font" -s /opt/spotify/Apps "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors-oomox"
+    # if pgrep spotify; then
+    #     spicetify apply
+    #     sleep 1
+    #     playerctl -p spotify play
+    # else
+    #     spicetify apply
+    #     sleep 1
+    #     killall -9 spotify
+    # fi
 }
 
 

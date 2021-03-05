@@ -5,8 +5,9 @@
 # Set our umask
 umask 022
 
-# Append our default paths
-appendpath () {
+# Append "$1" to $PATH when not already in.
+# This function API is accessible to scripts in /etc/profile.d
+append_path () {
     case ":$PATH:" in
         *:"$1":*)
             ;;
@@ -22,15 +23,20 @@ unset appendpath
 
 export PATH=$HOME/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/share/go/bin:$PATH
 # export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 
 export PATH
 
 # Load profiles from /etc/profile.d
-for profile in /etc/profile.d/*.sh; do
-	[ -r "$profile" ] && . "$profile"
-done
-unset profile
+if test -d /etc/profile.d/; then
+	for profile in /etc/profile.d/*.sh; do
+		test -r "$profile" && . "$profile"
+	done
+	unset profile
+fi
+
+unset -f append_path
 
 # Termcap is outdated, old, and crusty, kill it.
 unset TERMCAP

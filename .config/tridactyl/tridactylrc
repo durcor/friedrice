@@ -1,0 +1,176 @@
+" General Settings
+set configversion 1.9
+set newtab https://cokestronaut.neocities.org
+set theme base16-wpg
+set update.lastchecktime 1594223717970
+set update.nag true
+set update.nagwait 7
+set update.lastnaggedversion 1.14.0
+set update.checkintervalsecs 86400
+" Key Binds
+"" Tridactyl Interaction
+unbind <Space>
+bind <Space>r composite source ~/.config/tridactyl/tridactylrc; exclaim echo "Config reloaded"
+"" Page Movement
+bind h scrollpx -50
+bind l scrollpx 50
+bind j scrollline 10
+bind k scrollline -10
+bind <C-e> scrollline 10
+bind <C-y> scrollline -10
+"" Page Interaction
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
+bind <C-r> reload
+bind <C-l> reloadhard
+bind i mode ignore
+bind - zoom -0.1 true
+bind = zoom 0.1 true
+bind <Backspace> zoom 1
+bind zr source ~/.config/tridactyl/tridactylrc
+"" URL Interaction
+bind yy clipboard yank
+bind ys clipboard yankshort
+bind yc clipboard yankcanon
+bind ym clipboard yankmd
+bind yt clipboard yanktitle
+bind yv hint -W mpvsafe
+"" Tab Movement
+bind w tabnext
+bind b tabprev
+bind W tabmove +1
+bind B tabmove -1
+"" Tab Interaction
+bind s fillcmdline open
+bind x composite tabclose ; tabprev
+bind <A-p> pin
+bind <A-m> mute toggle
+bind <F1> help
+bind H back
+bind L forward
+bind o fillcmdline tabopen
+bind O fillcmdline tabopen
+unbind t
+bind td tabdetach
+bind tx composite tabclose ; tabprev
+bind tl fillcmdline taball
+bind T hint -b
+bind f hint -b
+bind F hint -b
+bind r current_url open
+bind R fillcmdline open
+" bind W current_url winopen
+bind ]] followpage next
+bind [[ followpage prev
+bind [c urlincrement -1
+bind ]c urlincrement 1
+bind <C-x> urlincrement -1
+bind <C-a> urlincrement 1
+bind gh home
+bind gH home true
+bind p clipboard open
+bind P clipboard tabopen
+bind G scrollto 100
+bind gg scrollto 0
+bind <C-u> scrollpage -0.5
+bind <C-d> scrollpage 0.5
+bind <C-f> scrollpage 1
+bind <C-b> scrollpage -1
+bind <C-v> nmode ignore 1 mode normal
+bind $ scrollto 100 x
+bind 0 scrollto 0 x
+bind ^ scrollto 0 x
+bind <C-6> tab #
+bind <C-^> tab #
+bind <C-o> jumpprev
+bind <C-i> jumpnext
+unbind d
+bind dd qall
+bind D composite tabprev; tabclose #
+bind gx0 tabclosealltoleft
+bind gx$ tabclosealltoright
+bind << tabmove -1
+bind >> tabmove +1
+bind u undo
+bind U undo window
+bind gi focusinput -l
+bind g? rot13
+bind g; changelistjump -1
+bind J tabprev
+bind K tabnext
+" bind gt tabnext_gt
+bind gt fillcmdline taball
+bind gT tabprev
+bind g^ tabfirst
+bind g0 tabfirst
+bind E tablast
+bind g$ tablast
+bind gr reader
+bind gu urlparent
+bind gU urlroot
+bind gf viewsource
+bind : fillcmdline_notrail
+bind S fillcmdline tabopen search
+bind M gobble 1 quickmark
+bind ZZ qall
+bind q qall
+bind gF hint -qb
+bind ;i hint -i
+bind ;b hint -b
+bind ;o hint
+bind ;I hint -I
+bind ;k hint -k
+bind ;y hint -y
+bind ;p hint -p
+bind ;h hint -h
+bind v hint -h
+bind ;P hint -P
+bind ;r hint -r
+bind ;s hint -s
+bind ;S hint -S
+bind ;a hint -a
+bind ;A hint -A
+bind ;; hint -; *
+bind ;# hint -#
+bind ;v hint -W mpvsafe
+bind ;w hint -w
+bind ;t hint -W tabopen
+bind ;O hint -W fillcmdline_notrail open
+bind ;W hint -W fillcmdline_notrail winopen
+bind ;T hint -W fillcmdline_notrail tabopen
+bind ;z hint -z
+bind ;m composite hint -pipe img src | js -p tri.excmds.open('images.google.com/searchbyimage?image_url=' + JS_ARG)
+bind ;M composite hint -pipe img src | jsb -p tri.excmds.tabopen('images.google.com/searchbyimage?image_url=' + JS_ARG)
+bind ;gi hint -qi
+bind ;gI hint -qI
+bind ;gk hint -qk
+bind ;gy hint -qy
+bind ;gp hint -qp
+bind ;gP hint -qP
+bind ;gr hint -qr
+bind ;gs hint -qs
+bind ;gS hint -qS
+bind ;ga hint -qa
+bind ;gA hint -qA
+bind ;g; hint -q;
+bind ;g# hint -q#
+bind ;gv hint -qW mpvsafe
+bind ;gw hint -qw
+bind ;gb hint -qb
+bind ;gF hint -qb
+bind ;gf hint -q
+bind <S-Insert> mode ignore
+bind <AC-Escape> mode ignore
+bind <AC-`> mode ignore
+bind <S-Escape> mode ignore
+bind <Escape> composite mode normal ; hidecmdline
+bind <C-[> composite mode normal ; hidecmdline
+bind a current_url bmark
+bind A bmark
+bind . repeat
+command fixamo_quiet jsb tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""'))
+command fixamo js tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""').then(tri.excmds.fillcmdline_tmp(3000, "Permissions added to user.js. Please restart Firefox to make them take affect.")))
+" fixamo_quiet
+" vi:ft=tridactyl

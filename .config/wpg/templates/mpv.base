@@ -51,8 +51,8 @@ vulkan-async-compute=yes
 vulkan-swap-mode=immediate
 
 gpu-api=vulkan
-gpu-context=x11vk
-# gpu-context=waylandvk
+# gpu-context=x11vk
+gpu-context=waylandvk
 # gpu-api=opengl
 
 # Specify high quality video rendering preset (for --vo=gpu only)
@@ -84,7 +84,7 @@ x11-bypass-compositor=no
 ## If performance or energy usage is an issue, forcing the vdpau or vaapi VOs
 ## may or may not help.
 # hwdec=vaapi
-hwdec=vaapi
+hwdec=vaapi-copy
 
 # Scaling
 # scale=ewa_lanczossharp
@@ -93,6 +93,8 @@ hwdec=vaapi
 # dither-depth=auto
 # correct-downscaling=yes
 # sigmoid-upscaling=yes
+
+profile=svp
 
 # deband=yes
 # deband-iterations=5
@@ -211,3 +213,8 @@ save-position-on-quit=no
 profile-desc="make the current video the background for your desktop"
 wid=0
 loop
+
+[svp]
+input-ipc-server=/tmp/mpvsocket
+hr-seek-framedrop=no
+resume-playback=no

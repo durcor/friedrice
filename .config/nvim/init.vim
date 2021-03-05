@@ -47,16 +47,15 @@ Plug 'morhetz/gruvbox'
 " Plug 'dylanaraps/wal.vim'
 " Plug 'richtan/pywal.vim'
 
-" Language serve
+" Language server
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jackguo380/vim-lsp-cxx-highlight'
-" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'gcmt/taboo.vim'
 
 " Plug 'yggdroot/indentline'
 
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'ARM9/arm-syntax-vim'
 
 " FZF
@@ -177,7 +176,7 @@ let g:airline#extensions#coc#enabled = 1
 let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 " let g:airline#extensions#cursormode#enabled = 1
 
-let g:coc_global_extensions = "coc-sh,coc-json,coc-tsserver,coc-cord,coc-clangd,coc-texlab"
+let g:coc_global_extensions = "coc-sh,coc-json,coc-tsserver,coc-clangd,coc-texlab"
 
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
@@ -317,6 +316,7 @@ autocmd BufRead,BufNewFile *.hex set filetype=c
 " Better systemd/config file syntax highlighting
 autocmd BufRead,BufNewFile *.conf,*.cfg,*.service*,*.timer* set filetype=dosini
 autocmd BufRead,BufNewFile *.css.* set filetype=css
+autocmd BufRead,BufNewFile *.log set filetype=log
 autocmd BufRead,BufNewFile *.*patch set filetype=gitsendemail
 
 " use ls syntax highlighting for vimv buffers
@@ -328,6 +328,7 @@ autocmd BufRead,BufNewFile /tmp/vimv.* set filetype=ls | normal $T/
 
 " spell checking for LaTeX, markdown, plaintext, and git commits
 autocmd FileType tex,markdown,gitcommit,text setlocal spell spelllang=en_us,es
+" set spell spelllang=en_us,es
 
 " Goyo's width will be the line limit in mutt.
 " autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
@@ -390,7 +391,7 @@ map <leader>h :Startify<cr>
 " Compiling within vim
 map <leader>ch :!pandoc % -o %.html<cr><cr>
 map <leader>ct :!pdflatex %<cr><cr>
-map <leader>cp :!pandoc % -o %.pdf<cr><cr>
+map <leader>cp :!pandoc --highlight-style=breezedark % -o %.pdf<cr><cr>
 map <leader>cm :!make<cr><cr>
 map <leader>cM :!./test*.sh<cr><cr>
 
@@ -399,6 +400,7 @@ autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 map <leader>l :Goyo<cr>
 map <leader>G :GrammarousCheck<cr>
+map <leader>e :CocCommand explorer<cr>
 
 " Git Integration
 map <leader>gg :G<cr>
@@ -425,12 +427,10 @@ highlight GitGutterChangeDeleteLineNr ctermbg=Yellow ctermfg=0
 
 " Remap q to \ so that q can be used for quitting
 noremap \ q
-" map q :bdelete!<cr>
-" map q :close<cr>
-map q :q<cr>
+map q :bdelete!<cr>
 " Replace the useless (sorry) ex-mode keybind
 " with quick file exiting
-map Q :wq<cr>
+map Q :q<cr>
 map <C-Q> :q!<cr>
 
 map ZW :w<cr>

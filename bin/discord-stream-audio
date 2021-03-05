@@ -1,8 +1,8 @@
 #!/bin/sh
 
-MIC=$(pactl list sources | awk '/alsa_input/{print$2}')
-DESKTOP_AUDIO="bluez_sink.38_18_4C_17_2E_97.a2dp_sink"
-DESKTOP_AUDIO=$(pactl list sources | grep -A1 IDLE | awk '/Name:/{print$2}')
+MIC=$(pactl list sources | awk '/Name: alsa_input/{print$2}' | head -1)
+DESKTOP_AUDIO="bluez_output.38_18_4C_17_2E_97.a2dp-sink"
+# DESKTOP_AUDIO=$(pactl list sources | grep -A1 IDLE | awk '/Name:/{print$2}')
 
 pactl load-module module-null-sink sink_name=Virtual1
 pactl load-module module-loopback source="$MIC" sink=Virtual1

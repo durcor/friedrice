@@ -1,4 +1,34 @@
 # vi:ft=dosini
+#                 ,;^^;::,'`        ``-'',,,,,,''-``        `',::;^^;,
+#                 ;rrrrrrrrr;:,-.,:;^rrrrrrrrrrrrrr^;:,.-,:;rrrrrrrrr;
+#                 ,rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr,
+#                  :rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr;`
+#                  `;rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr;`
+#                   `;rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr;-
+#          ``````    `:rrrrrrrrr\2kq6Zv>rrrrrrrrr7a6qkS/rrrrrrrrr:`    ``````
+#               ``````-rrrrrrrvB@@@@@@@QZrrrrrr2Q@@@@@@@Q1rrrrrrr'``````
+#     ```````````    `-~;rrrr|Q@@@QdQ@@@@urrrr{@@@@#H@@@@Q/rrrr;~-`    ```````````
+#              ```````-_':^rri@@@@#Xd@@@@errrrS@@@@qXQ@@@@vrr^:'_'```````
+#          ``````',_::~::::^rrX@@@Qq#@@@N|rrrr?8@@@gK@@@@9rr^::::~::_,'``````
+#      ``````-',:;;;;;;;::;^rrrzdQ@@@QgS*rrrrrr>jMQ@@@QD{rrr^;::;;;;;;;:,.```````
+#          .:;;;;;;;;;;;;;;;;^rrrr|/\>rrr\]jj]/rrr>\/|rrrr^;;;;;;;;;;;;;;;:,`
+#         `;;;;;;;;;;;;;;;;;;:''''''''''';????^'''''''''',:;;;;;;;;;;;;;;;;;;`
+#         `:;;;;;;;;;;;;;;;;:-                            -:;;;;;;;;;;;;;;;;:`
+#           .,,~,:;;;;;_'''`                                `'''_;;;;;:,~,,.
+#                 -','.                                          .','-
+#                             `
+#                            aQR*`
+#                            ;D@@g*`
+#                              ^D@@g*`
+#                                ^D@@g*`
+#                                  ^D@@g*`
+#                                   `9@@@r
+#                                 `\#@@O;
+#                               `\#@@O;
+#                             `\#@@O;
+#                            =#@@O;         zooooooooooooo2r
+#                            \6]'          `eOOOOOOOOOOOOOKc
+#
 include                 ~/.cache/wal/colors-kitty.conf
 selection_foreground    {color7}
 selection_background    {color8}
@@ -11,8 +41,8 @@ font_size               {def-font-size}
 bold_font               auto
 italic_font             auto
 bold_italic_font        auto
-scrollback_lines        100000
-scrollback_pager_history_size 100000
+scrollback_lines        0
+scrollback_pager_history_size 0
 # placement_strategy      center
 placement_strategy      top-left
 background_opacity      0.9
@@ -42,14 +72,8 @@ sync_to_monitor         yes
 
 # Tab Bar
 tab_bar_edge            top
-tab_bar_margin_width    0.0
 # fade, separator, hidden, powerline
-tab_bar_style           powerline
-# tab_bar_powerline_char  triangle
-tab_bar_min_tabs        0
-
-tab_separator           ""
-tab_fade 0.25 0.5 0.75 1
+tab_bar_style           hidden
 
 tab_title_template " {{title}} "
 
@@ -68,72 +92,10 @@ tab_bar_background      {color1}
 clear_all_shortcuts     yes
 # kitty_mod alt+ctrl
 
-map kitty_mod+equal     change_font_size all +0.5
-map kitty_mod+minus     change_font_size all -0.5
+map kitty_mod+equal     change_font_size all +0.1
+map kitty_mod+minus     change_font_size all -0.1
 map kitty_mod+backspace change_font_size all 0
 
 map ctrl+shift+v        paste_from_clipboard
 map alt+escape>p        paste_from_clipboard
 map alt+p               paste_from_clipboard
-
-# map alt+escape>h         previous_window
-# map alt+h                previous_window
-# map alt+escape>l         next_window
-# map alt+l                next_window
-
-map alt+h               neighboring_window left
-map alt+j               neighboring_window down
-map alt+k               neighboring_window up
-map alt+l               neighboring_window right
-
-map alt+ctrl+h          move_window left
-map alt+ctrl+j          move_window down
-map alt+ctrl+k          move_window up
-map alt+ctrl+l          move_window right
-
-map alt+escape>b         previous_tab
-map alt+b                previous_tab
-map alt+escape>w         next_tab
-map alt+w                next_tab
-
-map alt+escape>o         new_window_with_cwd
-map alt+o                new_window_with_cwd
-map alt+escape>shift+o   new_tab
-map alt+shift+o          new_tab
-
-map alt+escape>x         close_window
-map alt+x                close_window
-map alt+escape>d         close_tab
-map alt+d                close_tab
-
-map alt+escape>shift+w   move_tab_forward
-map alt+shift+w          move_tab_forward
-map alt+escape>shift+b   move_tab_backward
-map alt+shift+b          move_tab_backward
-
-map alt+escape>ctrl+b    scroll_page_up
-map alt+ctrl+b           scroll_page_up
-map alt+escape>ctrl+f    scroll_page_down
-map alt+ctrl+f           scroll_page_down
-map alt+ctrl+u           scroll_line_up
-map alt+ctrl+d           scroll_line_down
-
-map alt+escape>shift+h   resize_window narrower
-map alt+shift+h          resize_window narrower
-map alt+escape>shift+j   resize_window shorter
-map alt+shift+j          resize_window shorter
-map alt+escape>shift+k   resize_window taller
-map alt+shift+k          resize_window taller
-map alt+escape>shift+l   resize_window wider
-map alt+shift+l          resize_window wider
-
-map alt+escape>backslash launch --location=vsplit
-map alt+backslash        launch --location=vsplit
-map alt+escape>minus     launch --location=hsplit
-map alt+minus            launch --location=hsplit
-
-# Other good pagers: nvim, nvimpager
-map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting less --chop-long-lines +G -R
-map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting less --chop-long-lines +G -R
-# map alt+escape>v         launch --stdin-source=@screen_scrollback --stdin-add-formatting nvimpager +
-# map alt+v                launch --stdin-source=@screen_scrollback --stdin-add-formatting nvimpager +
