@@ -16,10 +16,10 @@ append_path () {
     esac
 }
 
-appendpath '/usr/local/sbin'
-appendpath '/usr/local/bin'
-appendpath '/usr/bin'
-unset appendpath
+append_path '/usr/local/sbin'
+append_path '/usr/local/bin'
+append_path '/usr/bin'
+unset append_path
 
 export PATH=$HOME/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
