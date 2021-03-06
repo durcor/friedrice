@@ -1,0 +1,12 @@
+TIMING:
+        TAP_MILLISEC: 200
+        DOUBLE_TAP_MILLISEC: 0
+
+MAPPINGS:
+        - KEY: KEY_LEFTALT
+          TAP: KEY_F12
+          HOLD: KEY_LEFTALT
+
+        - KEY: KEY_ESC
+          TAP: KEY_CAPSLOCK
+          HOLD: KEY_LEFTSHIFT
