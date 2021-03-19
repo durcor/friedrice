@@ -55,6 +55,7 @@ input * {{
 	xkb_layout "us,es"
 	xkb_options "grp:alt_space_toggle,caps:escape"
 	repeat_delay 135
+	touchpad tap enabled
 	repeat_rate 35
 }}
 
