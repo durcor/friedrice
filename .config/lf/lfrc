@@ -112,7 +112,7 @@ map U clear
 
 # map $
 
-map v :toggle; down
+map v :toggle
 map V invert
 
 map p paste

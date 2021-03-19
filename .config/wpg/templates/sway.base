@@ -28,11 +28,6 @@
 #
 set $mode-notif exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low
 
-set $terminal kitty -1
-set $browser firefox-nightly
-# set $browser firefox
-# set $browser qutebrowser
-
 # font for window titles+status bar
 font pango: {def-font} {def-font-size}
 
@@ -92,7 +87,7 @@ mode --pango_markup "$mode_manager" {{
     bindsym F6 exec mpc toggle
     # bindsym --release Print exec "maim -u -n 2 -s | xclip -se c -i"
 
-    bindsym Return exec $terminal
+    bindsym Return exec $TERMINAL
 
     # bindsym control+q exec "i3-nagbar -t warning -m 'exit i3?' -b 'yes' 'i3-msg exit'"
     bindsym q exec swaylock -c {color0}
@@ -101,10 +96,10 @@ mode --pango_markup "$mode_manager" {{
     bindsym XF86Sleep exec swaylock -c {color0} -f ; exec sudo systemctl suspend
     # bindsym u exec "xclip -t -se p | xclip -i -s c"
     # bindsym slash exec dmenual -i -p run
-    bindsym slash exec $terminal --class float -e fzfexec ; exec sway mode "$mode_window"
+    bindsym slash exec $TERMINAL --class float -e fzfexec ; exec sway mode "$mode_window"
     bindsym shift+slash exec sway mode "$mode_window" ; exec wofi --show run
-    # bindsym shift+f exec $terminal -e lf
-    bindsym shift+p exec "passmenu"
+    bindsym f exec $TERMINAL -e lf
+    bindsym shift+p exec passmenu
     # TODO: make pasting intelligent using the file extension and falling back to mpv
     # Alternatively, I could make ANOTHER MODE for pasting (ex: 'pv' opens the clipboard in mpv.
     bindsym p mode "$mode_paste" ; $mode-notif "PASTE MODE"
@@ -151,8 +146,8 @@ mode --pango_markup "$mode_manager" {{
     bindsym t layout tabbed
     bindsym e layout toggle split
 
-    bindsym shift+f focus parent
-    bindsym f focus child
+    bindsym less focus parent
+    bindsym greater focus child
 
     # toggle tiling / floating
     bindsym shift+space floating toggle
@@ -214,7 +209,7 @@ mode --pango_markup "$mode_window" {{
     bindsym XF86AudioPlay exec playerctl play-pause
     bindsym XF86AudioPause exec playerctl play-pause
     bindsym XF86Search exec dmenual
-    bindsym XF86Calculator exec $terminal -e bc -ql
+    bindsym XF86Calculator exec $TERMINAL -e bc -ql
     bindsym XF86HomePage exec dmenual
     bindsym XF86Tools exec dmenual
     # bindsym --release Print exec "maim -u -n 2 -s | xclip -se c -i"
@@ -293,7 +288,7 @@ mode --pango_markup "$mode_audio" {{
     bindsym j exec pamixer --allow-boost -d 5 ; exec pkill -RTMIN+13 i3blocks
     bindsym k exec pamixer --allow-boost -i 5 ; exec pkill -RTMIN+13 i3blocks
     bindsym shift+v exec notify-send -u low "Volume is at $(pamixer --get-volume)%"
-    bindsym v exec $terminal -e ncpamixer
+    bindsym v exec $TERMINAL -e ncpamixer
     bindsym space exec pamixer -t ; exec pkill -RTMIN+13 i3blocks
 
     bindsym Escape mode "$mode_manager" ; $mode-notif "MANAGER MODE"
@@ -301,14 +296,14 @@ mode --pango_markup "$mode_audio" {{
 
 # Launch programs
 mode --pango_markup "$mode_launch" {{
-    bindsym t exec $terminal
-    bindsym n exec $terminal -e newsboat
-    bindsym w exec $browser
-    bindsym g exec $terminal --class float -e gameman play ; exec i3 mode "$mode_window"
-    bindsym m exec $terminal -e neomutt
-    bindsym c exec $terminal -e ncmpcpp -s visualizer
-    bindsym v exec $terminal -e ytop
-    bindsym a exec $terminal -e ncpamixer
+    bindsym t exec $TERMINAL
+    bindsym n exec $TERMINAL -e newsboat
+    bindsym w exec $GUIBROWSER
+    bindsym g exec $TERMINAL --class float -e gameman play ; exec i3 mode "$mode_window"
+    bindsym m exec $TERMINAL -e $MAILREADER
+    bindsym c exec $TERMINAL -e $MUSICPLAYER -s visualizer
+    bindsym v exec $TERMINAL -e $TASKMAN
+    bindsym a exec $TERMINAL -e ncpamixer
 
     bindsym Escape mode "$mode_manager" ; $mode-notif "MANAGER MODE"
 }}
@@ -413,8 +408,8 @@ bar {{
 
 for_window [instance="float"] floating enable
 
-exec $terminal
-exec $browser
+exec $TERMINAL
+exec $GUIBROWSER
 exec nm-applet
 exec mako
 exec discord

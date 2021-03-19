@@ -1,3 +1,7 @@
 #!/bin/sh
 
-/bin/chromium --enable-features=UseOzonePlatform --ozone-platform=wayland
+if [ "$WAYLAND_DISPLAY" ]; then
+	/bin/chromium --enable-features="UseOzonePlatform,WebRTCPipeWireCapturer" --ozone-platform=wayland --enable-webrtc-pipewire-capturer
+else
+	/bin/chromium
+fi

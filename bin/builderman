@@ -45,7 +45,8 @@ updatepkgbuilds()
     done
 }
 
-rebuild_pkg(){
+rebuild_pkg()
+{
 	rm ./*.pkg.*
 	yes | makepkg -sif
 }

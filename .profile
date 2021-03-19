@@ -42,10 +42,11 @@ export XDG_DATA_HOME="$HOME/.local/share"
 ## Keep at current place or move to ~/var/log
 export XDG_STATE_HOME="$HOME/.local/state"
 
-# Gaming Environment
 ## Wine
 export WINEESYNC=1
 export WINEFSYNC=1
+export STAGING_SHARED_MEMORY=1
+export STAGING_WRITECOPY=1
 ## DXVK
 export DXVK_HUD="compiler"
 export DXVK_ASYNC=0
@@ -87,9 +88,9 @@ export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
 
 if [ "$disp" = "x" ]; then
 	# Set up multi-monitor FreeSync correctly
-	sway &
-	sleep 5
-	SWAYSOCK="/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock" sway exit
+	# sway &
+	# sleep 5
+	# SWAYSOCK="/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock" sway exit
 	startx
 elif [ "$disp" = "w" ]; then
 	export QT_QPA_PLATFORM=wayland

@@ -47,11 +47,6 @@ set $exa exec_always --no-startup-id
 
 set $mode-notif notify-send -h string:x-canonical-private-synchronous:i3mode -u low
 
-set $terminal alacritty
-set $browser firefox-nightly
-# set $browser firefox
-# set $browser qutebrowser
-
 # font for window titles+status bar
 font pango: {def-font} {def-font-size}
 
@@ -89,7 +84,7 @@ mode --pango_markup "$mode_manager" {{
     bindsym F6 $ex mpc toggle
     bindsym --release Print $ex "maim -u -n 2 -s | xclip -se c -i"
 
-    bindsym Return $ex $terminal
+    bindsym Return $ex $TERMINAL
 
     bindsym control+q $ex "i3-nagbar -t warning -m 'exit i3?' -b 'yes' 'i3-msg exit'"
     bindsym --release q $ex slock -m "$(cowsay -f tux "Locked at $(date +%H:%M)")"
@@ -98,9 +93,9 @@ mode --pango_markup "$mode_manager" {{
     bindsym --release XF86Sleep $ex sudo slock -m "$(cowsay -f tux "Locked at $(date '%H:%M')")" systemctl suspend
     bindsym u $ex "xclip -t -se p | xclip -i -s c"
     # bindsym slash $ex dmenual -i -p run
-    bindsym slash $ex $terminal --class float -e fzfexec ; $ex i3 mode "$mode_window"
+    bindsym slash $ex $TERMINAL --class float -e fzfexec ; $ex i3 mode "$mode_window"
     bindsym shift+slash $ex rofi -show run
-    bindsym shift+f $ex $terminal -e lf
+    bindsym shift+f $ex $TERMINAL -e $FILEMAN
     # TODO: make pasting intelligent using the file extension and falling back to mpv
     # Alternatively, I could make ANOTHER MODE for pasting (ex: 'pv' opens the clipboard in mpv.
     bindsym p mode "$mode_paste" ; $ex $mode-notif "PASTE MODE"
@@ -200,7 +195,7 @@ mode --pango_markup "$mode_manager" {{
 # Yank stuff to clipboard
 mode --pango_markup "$mode_yank" {{
     # bindsym p $ex passmenu -p pass ; $ex i3 mode "$mode_manager"
-    bindsym p $ex $terminal --class float -e fzfpw ; $ex i3 mode "$mode_window"
+    bindsym p $ex $TERMINAL --class float -e fzfpw ; $ex i3 mode "$mode_window"
     bindsym c $ex clipmenu ; $ex i3 mode "$mode_manager"
 
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
@@ -220,7 +215,7 @@ mode --pango_markup "$mode_notify" {{
 # Paste stuff to programs
 mode --pango_markup "$mode_paste" {{
     bindsym v $ex mpv $(xclip -se c -o) ; $ex i3 mode "$mode_manager"
-    bindsym t $ex $terminal -e nvim $(xclip -se c -i) ; $ex i3 mode "$mode_manager"
+    bindsym t $ex $TERMINAL -e nvim $(xclip -se c -i) ; $ex i3 mode "$mode_manager"
 
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }}
@@ -240,7 +235,7 @@ mode --pango_markup "$mode_window" {{
     bindsym XF86AudioPlay $ex playerctl play-pause
     bindsym XF86AudioPause $ex playerctl play-pause
     bindsym XF86Search $ex dmenual
-    bindsym XF86Calculator $ex $terminal -e bc -ql
+    bindsym XF86Calculator $ex $TERMINAL -e bc -ql
     bindsym XF86HomePage $ex dmenual
     bindsym XF86Tools $ex dmenual
     bindsym --release Print $ex "maim -u -n 2 -s | xclip -se c -i"
@@ -317,7 +312,7 @@ mode --pango_markup "$mode_audio" {{
     bindsym j $ex pamixer --allow-boost -d 5 ; $ex pkill -RTMIN+13 i3blocks
     bindsym k $ex pamixer --allow-boost -i 5 ; $ex pkill -RTMIN+13 i3blocks
     bindsym shift+v $ex notify-send -u low "Volume is at $(pamixer --get-volume)%"
-    bindsym v $ex $terminal -e ncpamixer
+    bindsym v $ex $TERMINAL -e ncpamixer
     bindsym space $ex pamixer -t ; $ex pkill -RTMIN+13 i3blocks
 
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
@@ -325,14 +320,14 @@ mode --pango_markup "$mode_audio" {{
 
 # Launch programs
 mode --pango_markup "$mode_launch" {{
-    bindsym t $ex $terminal
-    bindsym n $ex $terminal -e newsboat
-    bindsym w $ex $browser
-    bindsym g $ex $terminal --class float -e gameman play ; $ex i3 mode "$mode_window"
-    bindsym m $ex $terminal -e neomutt
-    bindsym c $ex $terminal -e ncmpcpp -s visualizer
-    bindsym v $ex $terminal -e ytop
-    bindsym a $ex $terminal -e ncpamixer
+    bindsym t $ex $TERMINAL
+    bindsym n $ex $TERMINAL -e $NEWSREADER
+    bindsym w $ex $GUIBROWSER
+    bindsym g $ex $TERMINAL --class float -e gameman play ; $ex i3 mode "$mode_window"
+    bindsym m $ex $TERMINAL -e $MAILREADER
+    bindsym c $ex $TERMINAL -e $MUSICPLAYER -s visualizer
+    bindsym v $ex $TERMINAL -e $TASKMAN
+    bindsym a $ex $TERMINAL -e ncpamixer
 
     bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 }}
@@ -432,14 +427,14 @@ for_window [instance="pop"] floating enable
 for_window [instance="pop"] resize set 900 600
 for_window [instance="pop"] move scratchpad
 for_window [instance="pop"] border pixel 10
-$ex $terminal --class pop
+$ex $TERMINAL --class pop
 
 for_window [instance="float"] floating enable
 
-$ex $terminal
-$ex $browser
+$ex $TERMINAL
+$ex $GUIBROWSER
 # $ex nm-applet
-# $ex $XDG_CONFIG_HOME/X11/layout/current
+$ex $XDG_CONFIG_HOME/X11/layout/current
 # $ex mullvad reconnect
 $exa picom --experimental-backends
 $exa dunst

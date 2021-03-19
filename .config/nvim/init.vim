@@ -278,7 +278,7 @@ set magic
 set noshowmode
 set showcmd
 set mouse=a
-" Tab Stop
+" Don't use spaces for tabs
 set noexpandtab
 set tabstop=4
 set shiftwidth=4

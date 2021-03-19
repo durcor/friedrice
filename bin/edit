@@ -4,7 +4,7 @@ if [ -z "$1" ]; then
     if [ ! "$VIMRUNTIME" ]; then
         nvim
     else
-        $EDITOR -c Startify
+        $EDITOR -c :terminal
     fi
 elif [ -O "$1" ] || [ ! -f "$1" ]; then
     $EDITOR "$1"

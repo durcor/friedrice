@@ -26,8 +26,9 @@ prepare_gamemode(){
     # command -v nvr >/dev/null 2>&1 &&
     #     NVIM_LISTEN_ADDRESS=$(ls /tmp/nvim*/0) nvr -cc "CocCommand rpc.disconnect"
     # setsid discord-overlay
+	# A compositor is necessary for multi-monitor FreeSync
     # systemctl --user stop picom
-    killall -9 picom
+    # killall -9 picom
     systemctl --user stop DiscordLastfm
 }
 
@@ -43,9 +44,10 @@ stop_gamemode(){
         sudo systemctl start boinc-client
     fi
 
-    [ -e /usr/share/vulkan/icd.d/amd_icd64.json ] &&
-        sudo mv /usr/share/vulkan/icd.d/down/radeon_icd.* /usr/share/vulkan/icd.d/ &&
+    [ -e /usr/share/vulkan/icd.d/amd_icd64.json ] && {
+        sudo mv /usr/share/vulkan/icd.d/down/radeon_icd.* /usr/share/vulkan/icd.d/
         sudo mv /usr/share/vulkan/icd.d/amd_icd* /usr/share/vulkan/icd.d/down/
+	}
 
     # command -v mullvad >/dev/null && mullvad connect
     # command -v nvr >/dev/null 2>&1 &&
@@ -53,7 +55,7 @@ stop_gamemode(){
     # if systemctl --user is-enabled picom; then
     #     systemctl --user start picom
     # fi
-    i3 restart
+    # i3 restart
     # killall -9 discord-overlay
     systemctl --user start DiscordLastfm
 }

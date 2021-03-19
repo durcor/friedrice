@@ -6,6 +6,11 @@
 @author         durcoke
 ==/UserStyle== */
 
+* {{
+  scrollbar-width: thin;
+  scrollbar-color: {color10} {color8};
+}}
+
 html * {{
   background: {color0} !important;
   color: {color15} !important;
