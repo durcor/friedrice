@@ -35,6 +35,10 @@ for f in "$@"; do
 				application/x-dosexec)
 					wine "$f"
 						;;
+
+				application/x-shockwave-flash)
+					flashplayer "$f"
+					;;
 				application/x-pie-executable)
 					"$f"
 						;;

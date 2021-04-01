@@ -71,7 +71,7 @@ case $1 in
         head -n$LINES "$1" | $PYGMENTIZE_CMD -l lsl
         ;;
     *)
-        case $(file --mime-type "$1" -bL) in
+        case "$(file --mime-type "$1" -bL)" in
             audio/*)
                 mediainfo "$1" | $PYGMENTIZE_CMD -l make
                 ;;
@@ -102,7 +102,7 @@ case $1 in
                 # zstdcat "$1" | head -n30
                 tar -tf "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl
                 ;;
-            inode/symlink)
+            inode/symlink|inode/chardevice)
                 file -b "$1"
                 ;;
             application/x-dosexec|inode/*)

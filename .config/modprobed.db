@@ -217,6 +217,7 @@ usbhid
 usbnet
 usb_storage
 uvcvideo
+v4l2loopback
 veth
 vfat
 vfio
@@ -228,6 +229,7 @@ videobuf2_memops
 videobuf2_v4l2
 videobuf2_vmalloc
 videodev
+winesync
 wireguard
 wmi
 wmi_bmof

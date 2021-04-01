@@ -416,6 +416,8 @@ exec mako
 exec discord
 # exec foot --server
 exec cfg rf
+exec /lib/xdg-desktop-portal -r
+exec /lib/xdg-desktop-portal-wlr -r -o DP-1
 exec flashfocus
 # exec workspace $ws1
 exec_always sway mode "$mode_window"

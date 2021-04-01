@@ -1,26 +1,70 @@
 #!/bin/sh
+# shellcheck disable=1090,2154
 
-bg="tput setab"
-fg="tput setaf"
-clear="tput sgr 0"
+[ -e "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors.sh" ] &&
+	. "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors.sh"
+
+bg() { tput setab "$1" ;}
+fg() { tput setaf "$1" ;}
+clear() { tput sgr 0 ;}
 
 echo "
-    $($bg 0) $($fg 15)  0  \
-$($bg 1) $($fg 0)  1  \
-$($bg 2) $($fg 0)  2  \
-$($bg 3) $($fg 0)  3  \
-$($bg 4) $($fg 0)  4  \
-$($bg 5) $($fg 0)  5  \
-$($bg 6) $($fg 0)  6  \
-$($bg 7) $($fg 0)  7  \
-$($clear)
-    $($bg 8) $($fg 15)  8  \
-$($bg 9) $($fg 0)  9  \
-$($bg 10) $($fg 0) 10  \
-$($bg 11) $($fg 0) 11  \
-$($bg 12) $($fg 0) 12  \
-$($bg 13) $($fg 0) 13  \
-$($bg 14) $($fg 0) 14  \
-$($bg 15) $($fg 0) 15  \
-$($clear)
+    $(bg 0) $(fg 15)  0  \
+$(bg 1) $(fg 0)  1  \
+$(bg 2) $(fg 0)  2  \
+$(bg 3) $(fg 0)  3  \
+$(bg 4) $(fg 0)  4  \
+$(bg 5) $(fg 0)  5  \
+$(bg 6) $(fg 0)  6  \
+$(bg 7) $(fg 0)  7  \
+$(clear)
+    $(bg 8) $(fg 15)  8  \
+$(bg 9) $(fg 0)  9  \
+$(bg 10) $(fg 0) 10  \
+$(bg 11) $(fg 0) 11  \
+$(bg 12) $(fg 0) 12  \
+$(bg 13) $(fg 0) 13  \
+$(bg 14) $(fg 0) 14  \
+$(bg 15) $(fg 0) 15  \
+$(clear)
+"
+
+echo "    $(bg 0)$(fg 15)  $color0  \
+$(bg 1)$(fg 0)  $color1  \
+$(bg 2)$(fg 0)  $color2  \
+$(bg 3)$(fg 0)  $color3  \
+$(bg 4)$(fg 0)  $color4  \
+$(bg 5)$(fg 0)  $color5  \
+$(bg 6)$(fg 0)  $color6  \
+$(bg 7)$(fg 0)  $color7  \
+$(clear)
+    $(bg 8)$(fg 15)  $color8  \
+$(bg 9)$(fg 0)  $color9  \
+$(bg 10)$(fg 0)  $color10  \
+$(bg 11)$(fg 0)  $color11  \
+$(bg 12)$(fg 0)  $color12  \
+$(bg 13)$(fg 0)  $color13  \
+$(bg 14)$(fg 0)  $color14  \
+$(bg 15)$(fg 0)  $color15  \
+$(clear)
+"
+
+echo "    $(bg 0) $(fg 15)      Black     \
+$(bg 1) $(fg 0)      Red       \
+$(bg 2) $(fg 0)     Green      \
+$(bg 3) $(fg 0)     Yellow     \
+$(bg 4) $(fg 0)      Blue      \
+$(bg 5) $(fg 0)     Magenta    \
+$(bg 6) $(fg 0)      Cyan      \
+$(bg 7) $(fg 0)     Gray       \
+$(clear)
+    $(bg 8) $(fg 15)    Dark Gray   \
+$(bg 9) $(fg 0)   Bright Red   \
+$(bg 10) $(fg 0)  Bright Green  \
+$(bg 11) $(fg 0) Bright Yellow  \
+$(bg 12) $(fg 0)  Bright Blue   \
+$(bg 13) $(fg 0) Bright Magenta \
+$(bg 14) $(fg 0)   Bright Cyan  \
+$(bg 15) $(fg 0)     White      \
+$(clear)
 "

@@ -71,18 +71,18 @@ refreshcfg()
     pgrep steam && {
 		killall -9 steam
 		sleep 5
-		setsid steam-native
+		setsid steam-native &
 	}
 
     # pgrep nm-applet && {
 		# killall -9 nm-applet
 		# sleep 5
-		# setsid nm-applet
+		# setsid nm-applet &
 	# }
 
     # Rice Firefox
 	! pgrep firefox &&
-		setsid firefox-nightly
+		setsid firefox-nightly &
     pywalfox update
     # Rice Zathura
     command -v zathura >/dev/null 2>&1 && {
@@ -100,7 +100,7 @@ refreshcfg()
     pywal-discord -t default
     pywal-discord -t abou
 	! pgrep Discord &&
-		setsid discord
+		setsid discord &
 
 	beautifuldiscord --css "${XDG_CONFIG_HOME-$HOME/.config}/BetterDiscord/themes/pywal-discord-default.theme.css"
 
