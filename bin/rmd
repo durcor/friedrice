@@ -1,6 +1,6 @@
 #!/bin/sh
 
 [ ! -d /usr/lib/R/library/rmarkdown ] &&
-	R -e 'install.packages(rmarkdown)'
+	sudo R -e 'install.packages("rmarkdown")'
 
 R -e 'library(rmarkdown)' -e "render('$1')"

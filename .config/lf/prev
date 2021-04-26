@@ -86,14 +86,17 @@ case $1 in
             text/x-asm)
                 $HIGHLIGHT_CMD --syntax asm "$1"
                 ;;
+			image/vnd.djvu)
+				djvutxt "$1"
+				;;
+            application/pdf)
+                pdftotext "$1" -
+                ;;
             image/*)
                 chafa -c 256 "$1"
                 # kitty +kitten icat --transfer-mode file --place 80x40@88x1 --silent "$1"
                 # ueberview "$1"
                 mediainfo "$1" | $PYGMENTIZE_CMD -l make
-                ;;
-            application/pdf)
-                pdftotext "$1" -
                 ;;
             application/zip)
                 zipinfo "$1" | head -n$LINES | $PYGMENTIZE_CMD -l lsl

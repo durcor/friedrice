@@ -105,3 +105,4 @@ fi
 
 # Added by Nix installer
 # if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
+if [ -e /home/ty/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ty/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

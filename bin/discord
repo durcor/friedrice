@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # if pgrep -x sway >/dev/null; then
-	/lib/discord-canary/Discord \
-		--enable-features="UseOzonePlatform,WebRTCPipeWireCapturer" \
-		--ozone-platform=wayland --enable-webrtc-pipewire-capturer \
-		/lib/discord-canary/resources/app.asar
+  /lib/discord-canary/Discord \
+  	--enable-features="UseOzonePlatform,WebRTCPipeWireCapturer" \
+  	--ozone-platform=wayland --enable-webrtc-pipewire-capturer \
+  	/lib/discord-canary/resources/app.asar
 # else
-	# /lib/discord-canary/Discord /lib/discord-canary/resources/app.asar
+  # /lib/discord-canary/Discord /lib/discord-canary/resources/app.asar
 # fi

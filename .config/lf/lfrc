@@ -83,10 +83,12 @@ cmd fzfcd ${{
 map gg top
 map gm cd ~/data/mus
 map gd cd ~/doc
+map gs cd ~/src
 map gv cd ~/data/vid
 map gp cd ~/pic
 map gP cd ~/prg
 map gw cd ~/pic/wal
+map gW cd ~/doc/wrk
 map gz cd ~/dl
 map gc cd ~/.config
 map gG cd ~/data/gam

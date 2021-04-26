@@ -1,4 +1,4 @@
-![rice](rice.png "rice")
+![rice](pic/rice.png)
 
 # My Dotfiles
 
@@ -6,7 +6,7 @@
 
 ## My Workflow
 ```sh 
-[ "$(awk -F"=" '/^NAME/ {print $2}' /etc/os-release | sed 's|"||g')" = "Arch Linux" ]
+[ "$(grep ^NAME /etc/os-release | cut -d= -f2 | sed 's|"||g')" = "Arch Linux" ]
 ```
 * WM
 : Xorg

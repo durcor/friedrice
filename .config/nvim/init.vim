@@ -278,8 +278,8 @@ set magic
 set noshowmode
 set showcmd
 set mouse=a
-" Don't use spaces for tabs
-set noexpandtab
+" Use spaces for tabs
+set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0

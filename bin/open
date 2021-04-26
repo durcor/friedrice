@@ -26,11 +26,11 @@ for f in "$@"; do
 				image/vnd.adobe.photoshop)
 					gimp "$f"
 					;;
+				application/pdf|image/vnd.djvu)
+					zathura "$f" &
+						;;
 				video/*|image/*|audio/*)
 					mpv "$f"
-						;;
-				application/pdf)
-					zathura "$f"
 						;;
 				application/x-dosexec)
 					wine "$f"

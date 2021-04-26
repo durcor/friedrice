@@ -98,7 +98,7 @@ mode --pango_markup "$mode_manager" {{
     # bindsym u exec "xclip -t -se p | xclip -i -s c"
     # bindsym slash exec dmenual -i -p run
     bindsym slash exec $TERMINAL --class float -e fzfexec ; exec sway mode "$mode_window"
-    bindsym shift+slash exec sway mode "$mode_window" ; exec wofi --show run
+    bindsym shift+slash exec sway mode "$mode_window" ; exec rofi -modi run -show run
     bindsym f exec $TERMINAL -e lf
     bindsym shift+p exec passmenu
     # TODO: make pasting intelligent using the file extension and falling back to mpv

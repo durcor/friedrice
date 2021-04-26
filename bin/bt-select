@@ -10,14 +10,12 @@
 # somehow? Only first line?
 
 selected_device=$(
-  # bluetoothctl emits other junk on stdout; grep for lines we want
-  echo "paired-devices" | bluetoothctl |
-    grep "Device " |
+  bluetoothctl paired-devices |
     while IFS= read -r device; do
       id=$(echo "$device" | awk '{ print $2 }')
       name=$(echo "$device" | cut -d " " -f 3-)
 
-      info=$(echo "info $id" | bluetoothctl)
+      info=$(bluetoothctl info "$id")
       connected=$(
         if [[ $(echo "$info" | grep "Connected: " | awk '{ print $2 }') == "yes" ]]; then
           echo " (Connected)"
@@ -34,7 +32,7 @@ if [[ -n $selected_device ]]; then
   selected_id=$(echo "$selected_device" | grep -oE '\[[^]]+\]' | tr -d '[]')
 
   if echo "$selected_device" | grep -q "(Connected)"; then
-    echo "disconnect $selected_id" | bluetoothctl
+    bluetoothctl disconnect "$selected_id"
     notify-send \
       --app-name=bt-select \
       --icon=/usr/share/icons/Adwaita/48x48/status/bluetooth-disabled-symbolic.symbolic.png \
@@ -42,7 +40,7 @@ if [[ -n $selected_device ]]; then
       "Disconnecting" \
       "Disconnecting from ${selected_name}"
   else
-    echo "connect $selected_id" | bluetoothctl
+    bluetoothctl connect "$selected_id"
     notify-send \
       --app-name=bt-select \
       --icon=/usr/share/icons/Adwaita/48x48/status/bluetooth-active-symbolic.symbolic.png \

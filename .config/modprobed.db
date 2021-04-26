@@ -78,6 +78,7 @@ hid_steam
 hwmon_vid
 i2c_algo_bit
 i2c_dev
+i2c_hid
 i2c_piix4
 i8042
 igb
@@ -181,6 +182,7 @@ snd_hrtimer
 snd_hwdep
 snd_intel_dspcfg
 snd_intel_nhlt
+snd_intel_sdw_acpi
 snd_pcm
 snd_pcm_dmaengine
 snd_rawmidi

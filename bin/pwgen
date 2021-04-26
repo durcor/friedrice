@@ -1,4 +1,4 @@
 #!/bin/sh
 characterlength=15
-cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c$characterlength
+tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c$characterlength
 # openssl rand -base64 $characterlength
