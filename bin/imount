@@ -1,25 +1,23 @@
 #!/bin/sh
 
-while true
-do
-        if [ ! -d "/mnt/ios/main/DCIM" ]
-        then
-                if [ -d "/mnt/ios" ]
-                then
+while true; do
+        if [ ! -d "/mnt/ios/main/DCIM" ]; then
+                if [ -d "/mnt/ios" ]; then
                         sudo umount /mnt/ios/*
                         sudo rmdir /mnt/ios/*
                         sudo rmdir /mnt/ios
                 fi
-                ps cax | grep usbmuxd
-                if [ $? -eq 0 ]
-                then
-                        sudo killall usbmuxd
-                        sudo usbmuxd -U usbmux
-                        sleep 0.5
-                else
-                        sudo usbmuxd -U usbmux
-                        sleep 0.5
-                fi
+                # TODO: Only restart usbmuxd when needed.
+                sudo systemctl restart usbmuxd
+                # ps cax | grep usbmuxd
+                # if [ $? -eq 0 ]; then
+                #         sudo killall usbmuxd
+                #         sudo usbmuxd -U usbmux
+                #         sleep 0.5
+                # else
+                #         sudo usbmuxd -U usbmux
+                #         sleep 0.5
+                # fi
                 sudo mkdir /mnt/ios
                 sudo chown $USER /mnt/ios
 

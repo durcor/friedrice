@@ -26,11 +26,10 @@
 # !rrrr>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>rrrr!
 #
 
-background_opacity: 1.0
-
 window:
   # Allow terminal applications to change Alacritty's window title.
   dynamic_title: true
+  opacity: 1.0
   padding:
     x: 0
     y: 0

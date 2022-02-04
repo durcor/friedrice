@@ -10,6 +10,7 @@ algif_skcipher
 amd_energy
 amdgpu
 apple_mfi_fastcharge
+asn1_encoder
 atkbd
 blake2b_generic
 blake2s_x86_64
@@ -82,6 +83,7 @@ i2c_hid
 i2c_piix4
 i8042
 igb
+inet_diag
 input_leds
 intel_rapl_common
 intel_rapl_msr
@@ -89,11 +91,14 @@ ip6table_filter
 ip6_tables
 ip6_udp_tunnel
 ipheth
+ipmi_devintf
+ipmi_msghandler
 iptable_filter
 iptable_mangle
 iptable_nat
 ip_tables
 irqbypass
+isofs
 iwlmvm
 iwlwifi
 jbd2
@@ -124,6 +129,7 @@ md4
 mii
 minix
 mousedev
+mptcp_diag
 mrp
 msdos
 msr
@@ -155,6 +161,7 @@ psmouse
 radeon
 raid6_pq
 rapl
+raw_diag
 razeraccessory
 razerkbd
 razermouse
@@ -206,15 +213,19 @@ stp
 syscopyarea
 sysfillrect
 sysimgblt
+tcp_diag
+tee
 tpm
 trusted
 ttm
 tun
 uas
 udf
+udp_diag
 udp_tunnel
 ufs
 uinput
+unix_diag
 usbhid
 usbnet
 usb_storage
@@ -225,6 +236,7 @@ vfat
 vfio
 vfio_iommu_type1
 vfio_pci
+vfio_pci_core
 vfio_virqfd
 videobuf2_common
 videobuf2_memops

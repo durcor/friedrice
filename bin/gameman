@@ -10,7 +10,8 @@
 
 export DISPLAY=:0
 
-prepare_gamemode(){
+prepare_gamemode()
+{
     notify-send \
         -h string:x-canonical-private-synchronous:gamemode \
         -i ~/.local/share/icons/flattrcolor/devices/64/input-gaming.svg \
@@ -26,13 +27,12 @@ prepare_gamemode(){
     # command -v nvr >/dev/null 2>&1 &&
     #     NVIM_LISTEN_ADDRESS=$(ls /tmp/nvim*/0) nvr -cc "CocCommand rpc.disconnect"
     # setsid discord-overlay
-	# A compositor is necessary for multi-monitor FreeSync
-    # systemctl --user stop picom
-    # killall -9 picom
-    systemctl --user stop DiscordLastfm
+	# TODO: A compositor is necessary for multi-monitor FreeSync
+    systemctl --user stop discordnp
 }
 
-stop_gamemode(){
+stop_gamemode()
+{
     notify-send \
         -h string:x-canonical-private-synchronous:gamemode \
         -i ~/.local/share/icons/flattrcolor/devices/64/input-gaming.svg \
@@ -52,33 +52,32 @@ stop_gamemode(){
     # command -v mullvad >/dev/null && mullvad connect
     # command -v nvr >/dev/null 2>&1 &&
     #     NVIM_LISTEN_ADDRESS=$(ls /tmp/nvim*/0) nvr -cc "CocCommand rpc.reconnect"
-    # if systemctl --user is-enabled picom; then
-    #     systemctl --user start picom
-    # fi
     # i3 restart
     # killall -9 discord-overlay
-    systemctl --user start DiscordLastfm
+    systemctl --user start discordnp
 }
 
-newprefix(){
+newprefix()
+{
     winecfg
     /usr/share/dxvk/setup_dxvk.sh install
 }
 
-playgame(){
+playgame()
+{
     cd ~/.local/bin/gam || exit
     devour "$(readlink -f "$(fzf)")"
 }
 
-killwine(){
-    for proc in $(ps aux | grep "[.]exe" | awk '{print $2}'); do
-        kill -9 "$proc"
-    done
+killwine()
+{
+    kill -9 $(ps aux | grep "[.]exe" | awk '{print $2}')
     killall -9 wineserver winedbg wineconsole winedevice.exe pressure-vessel-launcher
     echo "All wine-dependent services killed"
 }
 
-helpmsg(){
+helpmsg()
+{
     echo "$(tput bold)FOR ARCH-BASED DISTROS ONLY$(tput sgr0)
     Add chaotic-aur repo and install these packages:
         dxvk-mingw-git

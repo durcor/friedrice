@@ -1,4 +1,4 @@
-# vi:ft=dosini
+# vi:ft=kitty
 #                 ,;^^;::,'`        ``-'',,,,,,''-``        `',::;^^;,
 #                 ;rrrrrrrrr;:,-.,:;^rrrrrrrrrrrrrr^;:,.-,:;rrrrrrrrr;
 #                 ,rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr,
@@ -45,7 +45,7 @@ scrollback_lines        0
 scrollback_pager_history_size 0
 # placement_strategy      center
 placement_strategy      top-left
-background_opacity      0.9
+background_opacity      1.0
 window_padding_width    5
 allow_remote_control    true
 disable_ligatures       always

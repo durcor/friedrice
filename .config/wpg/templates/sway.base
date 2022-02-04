@@ -65,12 +65,13 @@ smart_borders off
 
 output * {{
 	adaptive_sync on
-	# max_render_time 1
+	max_render_time 1
 	bg /home/ty/.config/wpg/.current fill
 }}
 
 output HDMI-A-1 pos 0 360 res 1920x1080
 output DP-1 pos 1920 0 res 2560x1440
+output DP-2 disable
 
 # Manage the windows
 mode --pango_markup "$mode_manager" {{
@@ -213,7 +214,34 @@ mode --pango_markup "$mode_window" {{
     bindsym XF86Calculator exec $TERMINAL -e bc -ql
     bindsym XF86HomePage exec dmenual
     bindsym XF86Tools exec dmenual
-    # bindsym --release Print exec "maim -u -n 2 -s | xclip -se c -i"
+    # bindsym --release Print exec "grim $(slurp) | wl-copy"
+}}
+
+# Yank stuff to clipboard
+mode --pango_markup "$mode_yank" {{
+    # bindsym p exec passmenu -p pass ; exec sway mode "$mode_manager"
+    bindsym p exec $TERMINAL --class float -e fzfpw ; exec sway mode "$mode_window"
+    bindsym c exec clipmenu ; exec sway mode "$mode_manager"
+
+    bindsym Escape mode "$mode_manager" ; exec $mode-notif "MANAGER MODE"
+}}
+
+mode --pango_markup "$mode_notify" {{
+    bindsym x exec makoctl dismiss
+    bindsym u exec makoctl restore
+    bindsym d exec makoctl dismiss -a
+    bindsym v exec makoctl menu
+    bindsym shift+v exec makoctl invoke
+
+    bindsym Escape mode "$mode_manager" ; exec $mode-notif "MANAGER MODE"
+}}
+
+# Paste stuff to programs
+mode --pango_markup "$mode_paste" {{
+    bindsym v exec mpv "$(wl-paste)" ; exec sway mode "$mode_manager"
+    bindsym t exec $TERMINAL -e nvim "$(wl-paste)" ; exec sway mode "$mode_manager"
+
+    bindsym Escape mode "$mode_manager" ; exec $mode-notif "MANAGER MODE"
 }}
 
 bindsym Super_L mode "$mode_manager" ; $mode-notif "MANAGER MODE"
@@ -300,7 +328,7 @@ mode --pango_markup "$mode_launch" {{
     bindsym t exec $TERMINAL
     bindsym n exec $TERMINAL -e newsboat
     bindsym w exec $GUIBROWSER
-    bindsym g exec $TERMINAL --class float -e gameman play ; exec i3 mode "$mode_window"
+    bindsym g exec $TERMINAL --class float -e gameman play ; exec sway mode "$mode_window"
     bindsym m exec $TERMINAL -e $MAILREADER
     bindsym c exec $TERMINAL -e $MUSICPLAYER -s visualizer
     bindsym v exec $TERMINAL -e $TASKMAN
@@ -336,9 +364,9 @@ gaps outer 0
 default_border pixel 5
 for_window [class="^.*"] border pixel 5
 
-for_window [class="mpv"] floating enable
-for_window [class="Pavucontrol"] floating enable
-no_focus [class="mpv"]
+for_window [app_id="mpv"] floating enable
+for_window [app_id="Pavucontrol"] floating enable
+no_focus [app_id="mpv"]
 no_focus [class="discord"]
 # focus_on_window_activation urgent
 
@@ -349,8 +377,8 @@ set $ws1 1 
 set $ws2 2  
 assign [class="Steam"] $ws2
 assign [class="Lutris"] $ws2
-assign [instance="origin.exe"] $ws2
-for_window [instance="origin.exe"] floating enable
+assign [title="Origin"] $ws2
+for_window [title="Origin"] floating enable
 ## Photo-editing (GIMP)
 set $ws3 3  
 ## Chat (Discord)
@@ -411,13 +439,16 @@ for_window [instance="float"] floating enable
 
 exec $TERMINAL
 exec $GUIBROWSER
-exec nm-applet
+# exec nm-applet
 exec mako
 exec discord
+exec easyeffects
+# exec '/lib/discord-canary/Discord --enable-features=UseOzonePlatform --enable-vulkan --ozone-platform=wayland --enable-webrtc-pipewire-capturer /lib/discord-canary/resources/app.asar'
+# exec 'wl-paste --watch clipman store'
 # exec foot --server
-exec cfg rf
-exec /lib/xdg-desktop-portal -r
-exec /lib/xdg-desktop-portal-wlr -r -o DP-1
+exec 'cfg rf'
+exec '/lib/xdg-desktop-portal -r'
+exec '/lib/xdg-desktop-portal-wlr -r -o DP-1'
 exec flashfocus
 # exec workspace $ws1
 exec_always sway mode "$mode_window"

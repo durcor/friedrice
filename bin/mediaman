@@ -1,4 +1,6 @@
 #!/bin/sh
+# TODO: Make this a wrapper for playerctl which actually does what you want
+# from such a utility: if one thing is playing, pause that.
 
 for player in $(playerctl -l); do
     if [ "$(playerctl -p "$player" status)" = "Stopped" ]; then

@@ -2,63 +2,54 @@
 # The smartest file opener of all time :^)
 
 for f in "$@"; do
-	case $f in
-		*.exe)
-			wine "$f"
-			;;
-		*.dll)
-			edit "$f"
-			;;
-		*.love)
-			love "$f"
-			;;
-		*.bik)
-			mpv "$f"
-			;;
-		*.url)
-			$GUIBROWSER "$(cat "$f")"
-			;;
-		*)
-			case "$(file --mime-type "$f" -bL)" in
-				# text/*|application/json|inode/*|application/z*)
-				#     edit "$1"
-				#         ;;
-				image/vnd.adobe.photoshop)
-					gimp "$f"
-					;;
-				application/pdf|image/vnd.djvu)
-					zathura "$f" &
-						;;
-				video/*|image/*|audio/*)
-					mpv "$f"
-						;;
-				application/x-dosexec)
-					wine "$f"
-						;;
-
-				application/x-shockwave-flash)
-					flashplayer "$f"
-					;;
-				application/x-pie-executable)
-					"$f"
-						;;
-				application/vnd*)
-					libreoffice "$f"
-						;;
-				text/x-shellscript)
-					"$f" || (chmod +x "$f" && "$f") || (sudo chmod +x "$f" && "$f")
-						;;
-				text/html)
-					firefox-nightly "$f"
-						;;
-				application/x-iso9660-image)
-					# spin up a vm using this iso as a virtual disk
-					edit "$f"
-						;;
-				*)
-					edit "$f"
-						;;
-			esac
-			;;
-	esac
+    case $f in
+    *.love)
+        love "$f"
+        ;;
+    *.bik)
+        mpv "$f"
+        ;;
+    *.url)
+        $GUIBROWSER "$(cat "$f")"
+        ;;
+    *)
+        case "$(file --mime-type "$f" -bL)" in
+        image/vnd.adobe.photoshop)
+            gimp "$f"
+            ;;
+        application/pdf | image/vnd.djvu)
+            $READER "$f" &
+            ;;
+        video/* | image/* | audio/*)
+            mpv "$f"
+            ;;
+        application/x-*exec* | text/x-shellscript)
+            # TODO: This is kinda broken since lf gobbles up input.
+            # Need to use lf's cmdline probably.
+            echo "Are you absolutely sure you want to run $f? [y/N]"
+            read -r run
+            [ "$run" = "y" ] && {
+                [ -x "$f" ] || { chmod +x "$f" || sudo chmod +x "$f"; }
+                ./"$f"
+            }
+            ;;
+        application/x-shockwave-flash)
+            flashplayer "$f"
+            ;;
+        application/vnd* | application/msword)
+            libreoffice "$f"
+            ;;
+        text/html)
+            $GUIBROWSER "$f"
+            ;;
+        application/x-iso9660-image)
+            # TODO: spin up a vm using this iso as a virtual disk
+            echo "Need to implement"
+            ;;
+        *)
+            edit "$f"
+            ;;
+        esac
+        ;;
+    esac
 done

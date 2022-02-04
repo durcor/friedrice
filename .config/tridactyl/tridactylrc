@@ -37,6 +37,8 @@ bind yc clipboard yankcanon
 bind ym clipboard yankmd
 bind yt clipboard yanktitle
 bind yv hint -W mpvsafe
+"" Yank hint's URL
+bind yf hint -y
 "" Tab Movement
 bind w tabnext
 bind b tabprev
@@ -57,7 +59,7 @@ bind td tabdetach
 bind tx composite tabclose ; tabprev
 bind tl fillcmdline taball
 bind T hint -b
-bind f hint -b
+bind f hint -o
 bind F hint -b
 bind r current_url open
 bind R fillcmdline open

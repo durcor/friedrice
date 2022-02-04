@@ -4,17 +4,15 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  . "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+[[ -r "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh" ]] &&
+    source "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh"
 
 # [[ $- != *i* ]] && return
 
 # Source the global shell-agnostic script
-. ~/.shrc
+. $HOME/.shrc
 
 # autoload -U colors && colors
-#
 # Set up the prompt
 autoload -Uz promptinit
 promptinit
@@ -25,24 +23,19 @@ unsetopt nomatch
 # %F{13}-%F{14}-%F{9}%# '
 # RPROMPT=''
 
-export KEYTIMEOUT=1
-# Make zsh more like vim - no key timeouts
-# XXX: Breaks escaping into NORMAL mode by default
-# export KEYTIMEOUT=0
+# TODO: Figure out what to do with KEYTIMEOUT
+# KEYTIMEOUT=
 
-setopt \
-    histignorealldups \
-    sharehistory \
-    autocd
+setopt histignorealldups sharehistory autocd
 
 # Keep 100000 lines of history within the shell and save it to ~/.shhis
 HISTSIZE=100000
 SAVEHIST=100000
-HISTFILE=~/.shhis
+HISTFILE=$HOME/.shhis
 HISTCONTROL=ignoreboth
 
 # Use zinit as the zsh plugin manager
-. ~/.zinit/bin/zinit.zsh
+source $XDG_DATA_HOME/zinit/zinit.git/zinit.zsh
 
 setopt COMPLETE_ALIASES
 zstyle ':completion:*' menu select
@@ -55,26 +48,19 @@ autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
 
-# kitty + complete setup zsh | . /dev/stdin
-# pip zsh completion
-function _pip_completion {
-  local words cword
-  read -Ac words
-  read -cn cword
-  reply=( $( COMP_WORDS="$words[*]" \
-             COMP_CWORD=$(( cword-1 )) \
-             PIP_AUTO_COMPLETE=1 $words[1] 2>/dev/null ))
-}
-compctl -K _pip_completion pip
-
 # Plugin loading
-zinit for \
-    light-mode zdharma/fast-syntax-highlighting \
-    light-mode softmoth/zsh-vim-mode \
-    light-mode zsh-users/zsh-autosuggestions \
-    light-mode zsh-users/zsh-completions \
-    light-mode momo-lab/zsh-abbrev-alias \
-    light-mode romkatv/powerlevel10k
+zinit light-mode for \
+    zdharma-continuum/fast-syntax-highlighting \
+    zsh-users/zsh-autosuggestions \
+    zsh-users/zsh-completions \
+    jeffreytse/zsh-vi-mode \
+    romkatv/powerlevel10k \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+    # Load a few important annexes, without Turbo
+    # (this is currently required for annexes)
 
     # light-mode zdharma/history-search-multi-word \
     # light-mode mbenford/zsh-tmux-auto-title \
@@ -95,31 +81,30 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=5
 # export ZSH_TMUX_AUTO_TITLE_IDLE_TEXT="%last"
 export ZSH_TMUX_AUTO_TITLE_IDLE_TEXT="%pwd"
 
-export MODE_CURSOR_VIINS="white blinking bar"
+# export ZVM_INSERT_MODE_CURSOR="white blinking bar"
 # export MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS white"
 # export MODE_CURSOR_VICMD="white block"
-export MODE_CURSOR_SEARCH="#ff00ff steady underline"
-export MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
+# export ZVM_SEARCH_MODE_CURSOR="#ff00ff steady underline"
+# export ZVM_VISUAL_MODE_CURSOR="$MODE_CURSOR_VICMD steady bar"
 # export MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL white"
 
 export ZLE_RPROMPT_INDENT=0
 
-# Mode prompts on the right
-# export MODE_INDICATOR_VIINS='%B%F{10}%K{10}%F{0} INSERT %f%K{0}'
-# export MODE_INDICATOR_VICMD='%B%F{12}%K{12}%F{0} NORMAL %f%K{0}'
-# export MODE_INDICATOR_REPLACE='%B%F{13}%K{13}%F{1} REPLACE %f%K{0}'
-# export MODE_INDICATOR_SEARCH='%B%F{5}%K{5}%F{0} SEARCH %f%K{0}'
-# export MODE_INDICATOR_VISUAL='%B%F{9}%K{9}%F{0} VISUAL %f%K{0}'
-# export MODE_INDICATOR_VLINE='%B%F{9}%K{9}%F{0} V-LINE %f%K{0}'
+# Keybinds
+exit_shell() { exit; }
+lf_from_shell() { lfcd; }
+
+zvm_define_widget exit_shell
+zvm_define_widget lf_from_shell
+
+zvm_bindkey vicmd 'q' exit_shell
+zvm_bindkey vicmd 'Q' exit_shell
+zvm_bindkey vicmd 'z' lf_from_shell
+zvm_bindkey viins '^o' lf_from_shell
 
 # bindkey -M isearch " "  magic-space     # normal space during searches
 # bindkey -M vicmd '/' history-incremental-search-backward
 # bindkey -M vicmd '?' history-incremental-search-forward
-
-bindkey -M vicmd 'Q' exit-cmd
-bindkey -M vicmd 'q' exit-cmd
-bindkey -M vicmd 'z' 'lfcd\n'
-bindkey -s '^o' 'lfcd\n'
 
 # Disable all escape sequences in normal mode
 # bindkey -rpM viins '\e'
@@ -131,10 +116,13 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect '^[[Z' reverse-menu-complete
 
-. ~/.zshal
-
-# source /home/ty/.config/broot/launcher/bash/br
+zvm_after_init()
+{
+    zinit light momo-lab/zsh-abbrev-alias && source ~/.zshal
+}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-if [ -e /home/ty/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ty/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+source ~/.p10k.zsh
+
+# source /home/ty/.nix-profile/etc/profile.d/nix.sh
+# source /home/ty/.config/broot/launcher/bash/br

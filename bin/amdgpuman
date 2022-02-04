@@ -2,7 +2,7 @@
 # Grabs new commits from amd's amdgpu staging branch and turns them into patches for use in stable kernels
 # NOTE: Made for use with TK-Glitch's community-patches repo and his linux-tkg PKGBUILDs
 
-# TODO
+# TODO:
 # 	Move installed stuff to $XDG_DATA_HOME/amdgpuman
 # 	Use $(uname -r) as basis for commit to diff from for drivers/gpu/drm/amd
 

@@ -4,18 +4,13 @@ BACKLIGHTDEVICE=$(ls /sys/class/backlight/)
 
 BRIGHTNESS_INTERVAL=$2
 
-up()
-{
-    sudo sh -c "echo $((
-        $(cat /sys/class/backlight/BACKLIGHTDEVICE/brightness) + BRIGHTNESS_INTERVAL)) > /sys/class/backlight/$BACKLIGHTDEVICE/brightness"
+up() {
+    sudo sh -c "echo $((\
+    $(cat /sys/class/backlight/BACKLIGHTDEVICE/brightness) + BRIGHTNESS_INTERVAL)) > /sys/class/backlight/$BACKLIGHTDEVICE/brightness"
 }
 
-down()
-{
+down() {
     sudo sh -c "echo $(($(cat /sys/class/backlight/BACKLIGHTDEVICE/brightness) - BRIGHTNESS_INTERVAL)) > /sys/class/backlight/$BACKLIGHTDEVICE/brightness"
 }
 
-case $1 in
-    up) up ;;
-    down) down ;;
-esac
+$1

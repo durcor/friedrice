@@ -46,6 +46,8 @@ version             = 0
 ## Performance Metrics
 fps 				= 1
 frametime 			= 1
+vulkan_driver       = 1
+engine_version      = 1
 ## GPU
 gpu_stats           = 1
 gpu_temp            = 1
@@ -54,6 +56,9 @@ gpu_power           = 1
 gpu_load_change 	= 1
 gpu_load_color 		= {color10.strip},{color11.strip},{color9.strip}
 gpu_name            = 0
+## VRAM
+vram                = 1
+gpu_mem_clock       = 1
 ## CPU
 cpu_stats           = 1
 cpu_temp            = 1
@@ -62,24 +67,23 @@ cpu_load_change 	= 1
 cpu_load_color 		= {color10.strip},{color11.strip},{color9.strip}
 core_load           = 0
 cpu_power 			= 1
-## I/O
-io_read             = 1
-io_write            = 1
 ## RAM
-vram                = 1
-gpu_mem_clock       = 1
 ram                 = 1
 swap 				= 1
+## I/O
+io_stats            = 1
+io_read             = 1
+io_write            = 1
 ## Environment
-engine_version      = 1
 wine                = 1
-vulkan_driver       = 1
 time                = 0
 arch                = 0
-media_player        = 1
-## Graphs
 frame_timing        = 1
 histogram           = 0
+vkbasalt            = 1
+gamemode            = 1
+resolution          = 1
+media_player        = 1
 ##################### AESTHETICS
 position            = top-left
 font_size           = 20
@@ -90,7 +94,7 @@ table_columns 		= 3
 legacy_layout 		= 0
 # font_file         = /usr/share/fonts/nerd-fonts-complete/TTF/mononoki-Regular Nerd Font Complete.ttf
 cpu_text            = 3700X
-gpu_text            = 5700XT
+gpu_text            = 6600XT
 # custom_text_center = Gamer
 # custom_text 		= Gaming!
 # media_player_player = spotify

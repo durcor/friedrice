@@ -371,7 +371,7 @@ set $ws1 "1  "
 set $ws2 "2  "
 assign [class="Steam"] $ws2
 assign [class="Lutris"] $ws2
-assign [instance="origin.exe"] $ws2
+assign [title="Origin"] $ws2
 ## Photo-editing (GIMP)
 set $ws3 "3  "
 ## Chat (Discord)
@@ -393,7 +393,7 @@ set $ws9 "9  "
 ## Terminals (htop, nvim, misc)
 set $ws10 "10  "
 
-for_window [instance="origin.exe"] floating enable
+for_window [title="Origin"] floating enable
 
 # class                 border	backgr. text	indicator	child_border
 client.focused          $c1		$c1		$c1		$c1			$c1
@@ -439,7 +439,7 @@ $ex $XDG_CONFIG_HOME/X11/layout/current
 $exa picom --experimental-backends
 $exa dunst
 $exa ~/.fehbg
-$ex discord
+$ex /lib/discord-canary/Discord /lib/discord-canary/resources/app.asar
 # $ex cfg rf
 # $ex clipmenud
 $exa sleep 0.1 ; i3 mode "$mode_window"

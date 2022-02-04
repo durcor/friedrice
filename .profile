@@ -1,13 +1,14 @@
 #!/bin/sh
 # ~/.profile
 #
-# shellcheck disable=1090
+# shellcheck disable=1091
 #
 # Put stuff here that you only want sourced when
 # initializing login shells
 
 . "$HOME/.mancolors"
 . "$HOME/.config/lf/ico"
+. "$HOME/.secret"
 
 # Default Programs
 export EDITOR="nvr --remote -p"
@@ -15,7 +16,8 @@ export VISUAL="$EDITOR"
 export TERMINAL="kitty -1"
 export BROWSER="copytoclip"
 # export GUIBROWSER="qutebrowser"
-export GUIBROWSER="firefox-nightly"
+# export GUIBROWSER="firefox-nightly"
+export GUIBROWSER="firedragon"
 export PAGER="less"
 export FILEMAN="lf"
 export TASKMAN="ytop -p"
@@ -54,7 +56,9 @@ export DXVK_ASYNC=0
 export AMDVLK_ENABLE_DEVELOPING_EXT="all"
 export ENABLE_VKBASALT=0
 export mesa_glthread=true
-export RADV_PERFTEST="pswave32,gewave32,cswave32,tccompatcmask,sam"
+# export RADV_FORCE_VRS="2x2"
+# pswave32,gewave32,cswave32
+export RADV_PERFTEST="rt,sam,nv_ms"
 export VAAPI_MPEG4_ENABLED=true
 
 # Dev Environment
@@ -63,46 +67,43 @@ export CLASSPATH="$CLASSPATH:/usr/share/java/*"
 ## LaTeX plugins
 export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
 
-[ "$TERM" = "linux" ] && {
+[ "$TERM" = linux ] && {
     . "$XDG_CACHE_HOME/wal/colors-tty.sh"
     sudo -n kbdrate -r 35 -d 150 >/dev/null
 }
 
-[ ! "$SSH_TTY" ] && [ ! "$DISPLAY" ] && {
-	echo "How do you wish to log in?"
-	echo "Run $(tput bold)sway ($(tput setaf 2)w$(tput sgr0))"
-	echo "Run $(tput bold)i3 ($(tput setaf 5)x$(tput sgr0))"
-	echo "Stay in $(tput bold)tty ($(tput setaf 6)t$(tput sgr0))"
-	tput sgr0
+[ "$SSH_TTY" ] || [ "$TMUX" ] || [ "$DISPLAY" ] || {
+    echo "How do you wish to log in?"
+    echo "Run $(tput bold)sway ($(tput setaf 2)w$(tput sgr0))"
+    echo "Run $(tput bold)i3 ($(tput setaf 5)x$(tput sgr0))"
+    echo "Stay in $(tput bold)tty ($(tput setaf 6)t$(tput sgr0))"
+    tput sgr0
 
-	read -r disp
-	while [ "$disp" != "t" ] && [ "$disp" != "x" ] && [ "$disp" != "w" ]; do
-		tput setaf 1
-		echo "Invalid input. Please input w, x, or t"
-		tput sgr0
-		read -r disp
-	done
+    read -r disp
+    while [ "$disp" != t ] && [ "$disp" != x ] && [ "$disp" != w ]; do
+        tput setaf 1
+        echo "Invalid input. Please input w, x, or t"
+        tput sgr0
+        read -r disp
+    done
 }
 
 [ "$SSH_TTY" ] && disp=t
+[ "$TMUX" ] && disp=tmux
 
-if [ "$disp" = "x" ]; then
-	# Set up multi-monitor FreeSync correctly
-	# sway &
-	# sleep 5
-	# SWAYSOCK="/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock" sway exit
-	startx
-elif [ "$disp" = "w" ]; then
-	export QT_QPA_PLATFORM=wayland
-	export SDL_VIDEODRIVER=wayland
-	export XDG_CURRENT_DESKTOP=sway
-	export MOZ_ENABLE_WAYLAND=1
-	sway
-elif [ "$disp" = "t" ]; then
-	# clear
-	neofetch
+if [ $disp = x ]; then
+    # Set up multi-monitor FreeSync correctly
+    # sway &
+    # sleep 5
+    # SWAYSOCK="/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock" sway exit
+    startx
+elif [ $disp = w ]; then
+    # export WLR_RENDERER=vulkan
+    export QT_QPA_PLATFORM=wayland
+    export SDL_VIDEODRIVER=wayland
+    export XDG_CURRENT_DESKTOP=sway
+    export MOZ_ENABLE_WAYLAND=1
+    sway
+elif [ $disp = t ]; then
+    neofetch
 fi
-
-# Added by Nix installer
-# if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
-if [ -e /home/ty/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ty/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

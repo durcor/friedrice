@@ -51,8 +51,6 @@ vulkan-async-compute=yes
 vulkan-swap-mode=immediate
 
 gpu-api=vulkan
-# gpu-context=x11vk
-gpu-context=waylandvk
 # gpu-api=opengl
 
 # Specify high quality video rendering preset (for --vo=gpu only)

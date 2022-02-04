@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ping -q -c 1 1.1.1.1 || exit
+ping -q -c 1 1.1.1.1 || exit 1
 
 touch /tmp/calsync
 vdirsyncer -v ERROR discover

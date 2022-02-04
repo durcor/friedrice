@@ -1,10 +1,10 @@
 #!/bin/sh
 
-if [ -z "$1" ]; then
-    if [ ! "$VIMRUNTIME" ]; then
-        nvim
-    else
+if [ ! "$1" ]; then
+    if [ "$VIMRUNTIME" ]; then
         $EDITOR -c :terminal
+    else
+        nvim
     fi
 elif [ -O "$1" ] || [ ! -f "$1" ]; then
     $EDITOR "$1"

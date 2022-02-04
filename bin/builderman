@@ -21,11 +21,14 @@ GAME_DIRS="$HOME/gam $HOME/data/gam"
 
 # set -e
 
-if command -v fd >/dev/null; then
-	finder(){ fd -IHL '^.git$' . ;}
-else
-	finder(){ find . -type d -name '.git' ;}
-fi
+finder()
+{
+    if command -v fd >/dev/null; then
+        fd -IHL '^.git$' .
+    else
+        find . -type d -name '.git'
+    fi
+}
 
 updatepkgbuilds()
 {

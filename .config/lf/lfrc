@@ -1,7 +1,8 @@
 # https://godoc.org/github.com/gokcehan/lf
+# vi:ft=lf
 
 set preview
-set previewer ~/.config/lf/prev
+set previewer prev
 set hidden
 set ifs "\n"
 # set drawbox
@@ -99,12 +100,12 @@ map y
 map yy copy
 
 # Copy selected file's path
-map yp %readlink -f "$f" | xclip -se c -i
+map yp %readlink -f "$f" | clipper c
 # Copy selected file's name
-map yn %echo "$f" | xclip -se c -i
+map yn %echo "$f" | clipper c
 # Yank a file in its entirety with respect to its mime type to
 # the clipboard
-map yf %xclip -se c -i "$f" -t "$(file -b --mime-type "$f")"
+map yf %clipper c "$f"
 # Put the selected files in a temporary gtk window which allows them
 # to be dragged and dropped into different gui applications (such as web browsers and chat clients)
 map yv %dragon-drag-and-drop $fx

@@ -3,38 +3,39 @@
 # TODO:
 #       Fix editcfg() for cases when neovim-remote is used
 
-. "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors.sh"
+. "${XDG_CACHE_HOME:-$HOME/.cache}/wal/colors.sh"
 
-[ ! -f "${XDG_CONFIG_HOME-$HOME/.config}/cfg/al" ] && {
-    mkdir -p "${XDG_CONFIG_HOME-$HOME/.config}/cfg"
-    touch "${XDG_CONFIG_HOME-$HOME/.config}/cfg/al"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/cfg/al" ] || {
+    mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/cfg"
+    touch "${XDG_CONFIG_HOME:-$HOME/.config}/cfg/al"
 }
 
-refreshcfg()
-{
+refreshcfg() {
     connected_usb_devices=$(lsusb)
     wpg -s "$(wpg -c)"
 
     # Use OpenRGB's generic RGB peripheral interface to rice some hardware
-    # 0: Left RAM Stick
-    # 1: Right RAM Stick
-    # 2: X570 Taichi
-    # 3: NZXT Controller
-    # 4: AMD Wraith Prism
-    # 5: Razer Huntsman Elite
-    # 6: Razer DeathAdder Elite
-    # 7: Razer Goliathus Extended
+    # 0: RAM Stick 1
+    # 1: RAM Stick 2
+    # 2: RAM Stick 3
+    # 3: RAM Stick 4
+    # 4: NZXT Controller
+    # 5: AMD Wraith Prism
+    # 6: Keyboard
+    # 7: Razer DeathAdder Elite
     command -v openrgb >/dev/null &&
         openrgb \
-        -d 0 -c "${color14##\#}" -m Static \
-        -d 1 -c "${color9##\#}" -m Static \
-        -d 2 -c "${color9##\#}" -m Neon
+            -d 0 -c "${color14##\#}" -m Static \
+            -d 1 -c "${color9##\#}" -m Static \
+            -d 2 -c "${color12##\#}" -m Static \
+            -d 3 -c "${color11##\#}" -m Static
 
     # Coloring NZXT fans
     echo "$connected_usb_devices" | grep -q NZXT && {
         liquidctl initialize all
         for fan in fan1 fan2 fan3; do
-            liquidctl set $fan speed 25; done
+            liquidctl set $fan speed 25
+        done
         liquidctl --speed fastest set sync color fading \
             "${color13##\#}" "${color14##\#}" "${color11##\#}" "${color12##\#}"
     }
@@ -54,12 +55,15 @@ refreshcfg()
     # Rice any RGB keyboards using Microdia's microcontroller
     echo "$connected_usb_devices" | grep -q Microdia &&
         rgb_keyboard --custom-pattern \
-        "${XDG_CONFIG_HOME-$HOME/.config}/wpg/templates/gmmk"
+            "${XDG_CONFIG_HOME-$HOME/.config}/wpg/templates/gmmk"
 
     sleep 0.1
 
     # Refresh window manager in use
-    { [ "$WAYLAND_DISPLAY" ] && sway restart; } || { rfkb; i3 restart; }
+    if [ "$WAYLAND_DISPLAY" ]; then sway restart; else
+        rfkb
+        i3 restart
+    fi
 
     # Recompile all suckless utilities in use
     cd ~/src/st && sudo make clean install || exit 1
@@ -69,40 +73,48 @@ refreshcfg()
     # Rice and refresh Steam
     wal_steam -w
     pgrep steam && {
-		killall -9 steam
-		sleep 5
-		setsid steam-native &
-	}
+        killall -9 steam
+        sleep 5
+        setsid steam-native &
+    }
 
     # pgrep nm-applet && {
-		# killall -9 nm-applet
-		# sleep 5
-		# setsid nm-applet &
-	# }
+    # killall -9 nm-applet
+    # sleep 5
+    # setsid nm-applet &
+    # }
 
     # Rice Firefox
-	! pgrep firefox &&
-		setsid firefox-nightly &
+    ! pgrep "$GUIBROWSER" &&
+        setsid "$GUIBROWSER" &
     pywalfox update
     # Rice Zathura
     command -v zathura >/dev/null 2>&1 && {
         zathura_cfg_dir="${XDG_CONFIG_HOME-$HOME/.config}/zathura"
         if [ -e "$zathura_cfg_dir/myzathurarc" ]; then
-            cat "$zathura_cfg_dir/myzathurarc" > "$zathura_cfg_dir/zathurarc"
+            cat "$zathura_cfg_dir/myzathurarc" >"$zathura_cfg_dir/zathurarc"
         else
-            cat "$zathura_cfg_dir/zathurarc" > "$zathura_cfg_dir/myzathurarc"
+            cat "$zathura_cfg_dir/zathurarc" >"$zathura_cfg_dir/myzathurarc"
         fi
-        "$HOME/src/Zathura-Pywal/genzathurarc" >> "$zathura_cfg_dir/zathurarc"
+        "$HOME/src/Zathura-Pywal/genzathurarc" >>"$zathura_cfg_dir/zathurarc"
     }
     # Rice GTK/QT applications
     oomox-cli "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors-oomox"
     # Rice Discord
     pywal-discord -t default
     pywal-discord -t abou
-	! pgrep Discord &&
-		setsid discord &
+    ! pgrep Discord &&
+        setsid discord &
+    pgrep mako && (
+        killall -9 mako
+        setsid mako &
+    )
+    pgrep dunst && (
+        killall -9 dunst
+        setsid dunst &
+    )
 
-	beautifuldiscord --css "${XDG_CONFIG_HOME-$HOME/.config}/BetterDiscord/themes/pywal-discord-default.theme.css"
+    beautifuldiscord --css "${XDG_CONFIG_HOME-$HOME/.config}/BetterDiscord/themes/pywal-discord-default.theme.css"
 
     # Rice Spotify
     oomoxify-cli -f "mononoki Nerd Font" -s /opt/spotify/Apps "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors-oomox"
@@ -117,21 +129,18 @@ refreshcfg()
     # fi
 }
 
-
-addcfg()
-{
+addcfg() {
     if [ ! "$3" ]; then
         echo "You can't add a config without an alias/path!"
         exit
     fi
     cfgalias=$3
     newcfg=$(readlink -f "$2")
-    echo "$cfgalias $newcfg" >> "$XDG_CONFIG_HOME/cfg/al"
+    echo "$cfgalias $newcfg" >>"$XDG_CONFIG_HOME/cfg/al"
 }
 
-editcfg()
-{
-    if [ -z "$2"  ]; then
+editcfg() {
+    if [ -z "$2" ]; then
         # If the user quits out of fzf, exit cfg immediately
         cfgfileloc="$(sed "s|~|/home/$USER|" "$XDG_CONFIG_HOME/cfg/al" |
             awk '{print $2}' | fzf)" || exit 1
@@ -148,18 +157,15 @@ editcfg()
     # editing a file that is already open in another instance)
     edit "$cfgfileloc" &&
 
-    # updatecfg
-
-    [ -n "$cfgfilepostrun" ] && $SHELL -c "$cfgfilepostrun"
+        # updatecfg
+        [ -n "$cfgfilepostrun" ] && $SHELL -c "$cfgfilepostrun"
 }
 
-listcfg()
-{
+listcfg() {
     awk '{print $1 ; print $2}' "$XDG_CONFIG_HOME/cfg/al"
 }
 
-updatecfg()
-{
+updatecfg() {
     cp /etc/pacman.conf "$XDG_CONFIG_HOME/root/etc/" || exit 1
     cp /etc/makepkg.conf "$XDG_CONFIG_HOME/root/etc/" || exit 1
     cp /etc/pulse/default.pa "$XDG_CONFIG_HOME/root/etc/pulse/" || exit 1
@@ -167,43 +173,42 @@ updatecfg()
     cp /etc/bluetooth -r "$XDG_CONFIG_HOME/root/etc/" || exit 1
     cp /etc/locale.gen "$XDG_CONFIG_HOME/root/etc/" || exit 1
     sudo cp /etc/sudoers "$XDG_CONFIG_HOME/root/etc/" &&
-    sudo chown -R "$USER":users "$XDG_CONFIG_HOME/root" || exit 1
+        sudo chown -R "$USER":users "$XDG_CONFIG_HOME/root" || exit 1
     cp /etc/hostname "$XDG_CONFIG_HOME/root/etc/" || exit 1
     cp /etc/profile "$XDG_CONFIG_HOME/root/etc/" || exit 1
     git add -f "$XDG_CONFIG_HOME/root"
 
     git add -f ~/bin
     git add -f "$XDG_CONFIG_HOME/wpg/templates/*.base"
-    pacman -Qeq > "$XDG_CONFIG_HOME/pkgs"
+    pacman -Qeq >"$XDG_CONFIG_HOME/pkgs"
 }
 
-deletecfg()
-{
-    path_to_del="$(fzf < "${XDG_CONFIG_HOME-$HOME/.config}/cfg/al" | awk '{print $2}')"
+deletecfg() {
+    path_to_del="$(fzf <"${XDG_CONFIG_HOME-$HOME/.config}/cfg/al" | awk '{print $2}')"
     rm -i "$path_to_del" && sed -i "/$2/d"
 }
 
 case $1 in
-    r|rf|re|refresh)
-        refreshcfg
-        ;;
-    a|add)
-        addcfg "$@"
-        ;;
-    e|ed|edit)
-        editcfg "$@"
-        ;;
-    l|ls|list)
-        listcfg
-        ;;
-    u|up|update)
-        updatecfg
-        ;;
-    x|d|del|delete|rm)
-        deletecfg "$@"
-        ;;
-    *)
-        echo "\
+r | rf | re | refresh)
+    refreshcfg
+    ;;
+a | add)
+    addcfg "$@"
+    ;;
+e | ed | edit)
+    editcfg "$@"
+    ;;
+l | ls | list)
+    listcfg
+    ;;
+u | up | update)
+    updatecfg
+    ;;
+x | d | del | delete | rm)
+    deletecfg "$@"
+    ;;
+*)
+    echo "\
 cfg - the simple config controller
 
     r/rf/refresh - refresh all configs
@@ -231,5 +236,5 @@ cfg - the simple config controller
     - cfg x
         - calls fzf
 "
-        ;;
+    ;;
 esac

@@ -1,4 +1,8 @@
-#!/bin/zsh
+#!/bin/bash
 
 hex="$1"
-printf "%d %d %d\n" 0x${hex:0:2} 0x${hex:2:2} 0x${hex:4:2} | tr -d ' '
+rgb1=0x${hex:0:2}
+rgb2=0x${hex:2:2}
+rgb3=0x${hex:4:2}
+printf "%d %d %d\n" $rgb1 $rgb2 $rgb3
+printf "rgb(%d, %d, %d)\n" $rgb1 $rgb2 $rgb3
