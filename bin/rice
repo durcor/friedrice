@@ -1,0 +1,15 @@
+#!/bin/sh
+
+dotfile_git_url=https://github.com/durcor/friedrice
+
+dotfile_basename=friedrice
+
+dotfile_clone_path=$HOME/src/$dotfile_basename
+
+if [ -f "$dotfile_clone_path" ]; then
+	cd "$dotfile_clone_path" && git pull && cd - || exit 1
+else
+	git clone --recursive $dotfile_git_url "$dotfile_clone_path"
+fi
+rsync -a "$dotfile_clone_path" "$HOME"
+zinit update

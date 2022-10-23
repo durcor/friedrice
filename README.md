@@ -5,16 +5,16 @@
 *wpgtk templates are stored in .config/wpg/templates/*
 
 ## My Workflow
-```sh 
+```sh
 [ "$(grep ^NAME /etc/os-release | cut -d= -f2 | sed 's|"||g')" = "Arch Linux" ]
 ```
 * WM
 : Xorg
     - i3-gaps w/ i3blocks and picom
 : Wayland
-    - sway w/ waybar
+    - sway w/ i3blocks (+ personal [blocks](https://github.com/durcor/blocks))
 * $TERMINAL
-: alacritty + nvim :terminal
+: kitty + nvim :terminal
 * $SHELL
 : zsh (zinit)
     - [zsh expandable aliases](.zshal)
@@ -32,13 +32,12 @@
 : lf
 * $EDITOR
 : nvim (vim-plug)
-    - coc.nvim
 * MAIL READER
 : neomutt
 * MUSIC PLAYER
-: mpd (ncmpcpp[tui] + mpc[cli])
+: mpd (ncmpcpp[tui] + mpc[cli]) + spotfiyd (spotify-tui)
 * NOTIF DAEMON
-: dunst
+: dunst/mako
 * MEDIA VIEWER
 : mpv
 

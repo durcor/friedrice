@@ -1,24 +1,60 @@
 #!/bin/sh
-#
+
+SAVED_MEDIA_FILE=/tmp/media-info
+touch "$SAVED_MEDIA_FILE"
+
+SAVED_ART_FILE=/tmp/media-info-art
+
+# if command -v kitty >/dev/null 2>&1; then
+# 	TERM=xterm-kitty
+# 	img_viewer="kitty +kitten icat"
+# fi
+if command -v chafa >/dev/null 2>&1; then
+	TERM='xterm'
+	img_viewer="chafa"
+elif command -v mpv >/dev/null 2>&1; then
+	TERM='xterm-kitty'
+	img_viewer="mpv --vo=tct"
+else
+	img_viewer="Error: Please install a program that can display images on the terminal, such as chafa or mpv."
+fi
+
 for player in mpd spotifyd spotify mpv; do
 	[ "$(playerctl -p $player status)" = "Playing" ] && {
-		artist="$(playerctl -p $player metadata artist)"
-		album="$(playerctl -p $player metadata album)"
-		title="$(playerctl -p $player metadata title)"
+		metadata=$(playerctl -p $player metadata)
+		artist=$(echo "$metadata" | awk '/xesam:artist/{$1="";$2="";print}' | xargs)
+		art_url=$(echo "$metadata" | awk '/mpris:artUrl/{$1="";$2="";print}' | xargs)
+		album=$(echo "$metadata" | awk '/xesam:album/{$1="";$2="";print}' | xargs)
+		title=$(echo "$metadata" | awk '/xesam:title/{$1="";$2="";print}' | xargs)
+		url=$(echo "$metadata" | awk '/xesam:url/{$1="";$2="";print}' | xargs)
 		break
 	}
 done 2>/dev/null
 # Silence any errors if a player can't be found.
 
-# i3blocks doesn't seem to like ampersands
-echo "$artist" | grep -q '&' && artist=$(echo "$artist" | sed 's/&/and/g')
-echo "$album" | grep -q '&' && artist=$(echo "$album" | sed 's/&/and/g')
-echo "$title" | grep -q '&' && title=$(echo "$title" | sed 's/&/and/g')
-
-# If no artist is found in the metadata, the current media is not a song
-# or it is only generic media
-if [ -z "$artist" ]; then
-	printf " %s\n" "$title"
+if [ "$1" = "art" ]; then
+	# mpv --vo=tct "$SAVED_ART_FILE"
+	if [ "$(cat $SAVED_MEDIA_FILE)" != "$url" ]; then
+		curl --silent "$art_url" -o "$SAVED_ART_FILE"
+	fi
+	echo "$url" >"$SAVED_MEDIA_FILE"
+	clear
+	$img_viewer "$SAVED_ART_FILE"
+	if [ "$2" = "watch" ]; then
+		sleep 5
+		$0 art watch
+	fi
 else
-	printf " %s - %s - %s\n" "$artist" "$album" "$title"
+	# i3blocks doesn't seem to like ampersands
+	echo "$artist" | grep -q '&' && artist=$(echo "$artist" | sed 's/&/and/g')
+	echo "$album" | grep -q '&' && artist=$(echo "$album" | sed 's/&/and/g')
+	echo "$title" | grep -q '&' && title=$(echo "$title" | sed 's/&/and/g')
+
+	# If no artist is found in the metadata, the current media is not a song
+	# or it is only generic media
+	if [ -z "$artist" ]; then
+		printf " %s\n" "$title"
+	else
+		printf " %s - %s - %s\n" "$artist" "$album" "$title"
+	fi
 fi
