@@ -120,6 +120,7 @@ Plug 'dense-analysis/ale'
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
+            \ '*': ['trim_whitespace'],
             \ 'rust': ['rustfmt'],
             \ 'go': ['gofmt'],
             \ 'c': ['clang-format'],
@@ -214,6 +215,10 @@ let g:airline_theme='wpgtk_alternate'
 " set completeopt=menuone,noinsert,noselect
 " let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 lua << VIM_LUA
+
+local on_attach = function(client)
+  require'completion'.on_attach(client)
+end
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -248,11 +253,11 @@ local on_attach = function(client, bufnr)
 end
 
 -- bashls
-local S = {'clangd', 'pyright', 'sqls', 'texlab', 'erlangls'}
+local S = {'clangd', 'pyright', 'sqls', 'texlab', 'rust_analyzer', 'bashls'}
 for _, ls in ipairs(S) do require'lspconfig'[ls].setup{} end
 -- require'lspsaga'.init_lsp_saga()
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained",
+    ensure_installed = "all",
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = true
@@ -275,7 +280,7 @@ let g:indentLine_char = '-'
  let g:presence_enable_line_number  = 0
  let g:presence_blacklist           = []
  let g:presence_buttons             = 1
- 
+
  " Rich Presence text options
  let g:presence_editing_text        = "Editing %s"
  let g:presence_file_explorer_text  = "Browsing %s"
@@ -482,9 +487,10 @@ map <leader><C-w> :'<,'>w !wc -w<cr>
 map <leader>h :Startify<cr>
 
 " Compiling within vim
-map <leader>ch :!pandoc % -o %.html<cr><cr>
-map <leader>ct :!pdflatex %<cr><cr>
-map <leader>cp :!pandoc --highlight-style=breezedark % -o %.pdf<cr><cr>
+map <leader>ch :!pandoc % -o $(rev <<< % \| cut -d'.' -f2- \| rev).html<cr><cr>
+map <leader>cT :!pdflatex %<cr><cr>
+map <leader>ct :!pandoc % -o $(rev <<< % \| cut -d'.' -f2- \| rev).txt<cr><cr>
+map <leader>cp :!pandoc --highlight-style=breezedark % -o $(rev <<< % \| cut -d'.' -f2- \| rev).pdf<cr><cr>
 map <leader>cm :!make<cr><cr>
 map <leader>cM :!./test*.sh<cr><cr>
 

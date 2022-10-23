@@ -107,7 +107,7 @@ mode --pango_markup "$mode_manager" {{
     bindsym p mode "$mode_paste" ; $mode-notif "PASTE MODE"
     bindsym y mode "$mode_yank" ; $mode-notif "YANK MODE"
     bindsym n mode "$mode_notify" ; $mode-notif "NOTIFY MODE"
-    bindsym shift+n exec makoctl dismiss -a
+    bindsym shift+n exec makoctl dismiss
 
     bindsym Menu [instance="pop"] scratchpad show; [instance="pop"] move position center
 
@@ -372,33 +372,33 @@ no_focus [class="discord"]
 
 # Primary Display
 ## General
-set $ws1 1  
+set $ws1 1 
 ## Games (Steam, Lutris, games)
-set $ws2 2  
+set $ws2 2 
 assign [class="Steam"] $ws2
 assign [class="Lutris"] $ws2
 assign [title="Origin"] $ws2
 for_window [title="Origin"] floating enable
 ## Photo-editing (GIMP)
-set $ws3 3  
+set $ws3 3 
 ## Chat (Discord)
-set $ws4 4  
+set $ws4 4 
 ## Terminals (htop, nvim, misc)
-set $ws5 5  
+set $ws5 5 
 
 # Secondary Display
 ## General
-set $ws6 6  
+set $ws6 6 
 ## Game (Secondary)
-set $ws7 7  
+set $ws7 7 
 ## Music (Nicotine, vis, cava, ncmpcpp)
-set $ws8 8  
+set $ws8 8 
 assign [class="nicotine"] $ws8
 for_window [class="Spotify"] move to workspace $ws8
 ## Audio (ncpamixer)
-set $ws9 9  
+set $ws9 9 
 ## Terminals (htop, nvim, misc)
-set $ws10 10  
+set $ws10 10 
 
 # class                 border	    bg 			txt			indicator	child_border
 client.focused          {color1}	{color1}	{color1}	{color1}	{color1}
@@ -415,7 +415,7 @@ bar {{
     position top
     separator_symbol /
     strip_workspace_numbers yes
-    
+
     colors {{
         background {color0}
         statusline {color7}
@@ -441,7 +441,7 @@ exec $TERMINAL
 exec $GUIBROWSER
 # exec nm-applet
 exec mako
-exec discord
+exec discord-canary
 exec easyeffects
 # exec '/lib/discord-canary/Discord --enable-features=UseOzonePlatform --enable-vulkan --ozone-platform=wayland --enable-webrtc-pipewire-capturer /lib/discord-canary/resources/app.asar'
 # exec 'wl-paste --watch clipman store'
@@ -450,6 +450,8 @@ exec 'cfg rf'
 exec '/lib/xdg-desktop-portal -r'
 exec '/lib/xdg-desktop-portal-wlr -r -o DP-1'
 exec flashfocus
+exec 'spotifyd --no-daemon'
+exec 'swayidle -w timeout 300 "lockman" timeout 600 "swaymsg output * dpms off" resume "swaymsg output * dpms on" before-sleep "lockman"'
 # exec workspace $ws1
 exec_always sway mode "$mode_window"
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh

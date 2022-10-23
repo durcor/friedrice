@@ -1,0 +1,29 @@
+#!/bin/sh
+
+[ -d "$1" ] || {
+    echo "$1 is not a valid electron app sandbox directory."
+    exit 1
+}
+
+[ "$(id -u)" = 0 ] || {
+    echo "$0 must be run by root"
+    exit 1
+}
+
+ln -s /usr/lib/electron/libvulkan.so.1 "$1/libvulkan.so"
+ln -s /usr/lib/electron/libEGL.so "$1/libEGL.so"
+ln -s /usr/lib/electron/libGLESv2.so "$1/libGLESv2.so"
+ln -s /usr/lib/electron/chrome_100_percent.pak "$1/chrome_100_percent.pak"
+ln -s /usr/lib/electron/chrome_200_percent.pak "$1/chrome_200_percent.pak"
+ln -s /usr/lib/electron/chrome-sandbox "$1/chrome-sandbox"
+ln -s /usr/lib/electron/resources.pak "$1/resources.pak"
+ln -s /usr/lib/electron/snapshot_blob.bin "$1/snapshot_blob.bin"
+ln -s /usr/lib/electron/v8_context_snapshot.bin "$1/v8_context_snapshot.bin"
+rm -r /usr/lib/electron/swiftshader
+ln -s /usr/lib/electron/swiftshader "$1/swiftshader"
+rm -r /usr/lib/electron/locales
+ln -s /usr/lib/electron/locales "$1/locales"
+
+printf "Provide the executable name for the electron app: "
+read -r app_name
+ln -s /usr/lib/electron/electron "$1/$app_name"

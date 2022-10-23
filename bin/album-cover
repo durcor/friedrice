@@ -1,0 +1,11 @@
+#!/bin/sh
+
+while true; do
+    newurl=$(playerctl -p mpd metadata | awk '/artUrl/{$1="";$2="";print}' | xargs)
+    if [ "$newurl" != "$oldurl" ]; then
+        oldurl=$newurl
+        clear
+        chafa "$newurl"
+    fi
+    sleep 1
+done

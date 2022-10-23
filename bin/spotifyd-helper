@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+metadata=$(playerctl -p spotifyd metadata)
+
+cover_art_pic=$(mktemp)
+
+artist=$(echo "$metadata" | awk '/xesam:artist /{print $3}')
+album=$(echo "$metadata" | awk '/xesam:album /{print $3}')
+title=$(echo "$metadata" | awk '/xesam:title /{print $3}')
+art_url=$(echo "$metadata" | awk '/mpris:artUrl /{print $3}')
+
+curl "$art_url" -o "$cover_art_pic"
+
+notify-send -i "$cover_art_pic" "$title" "$artist - $album"
+
+rm "$cover_art_pic"

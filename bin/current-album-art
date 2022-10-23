@@ -1,0 +1,39 @@
+#!/bin/sh
+
+if tty -s; then
+    while true; do
+        new_num_cols="$(tput cols)"
+        new_num_rows="$(tput lines)"
+        new_art_url="$(playerctl -p mpd metadata |
+            awk '/artUrl/{$1="";$2="";print}' | xargs)"
+        { [ "$num_cols" != "$new_num_cols" ] ||
+            [ "$num_rows" != "$new_num_rows" ] ||
+            [ "$art_url" != "$new_art_url" ]; } && {
+            # [ "$new_art_url" ] || {
+            #     # TODO: Implement art fetching from Internet
+            # }
+            clear
+            art_url=$new_art_url
+            chafa -c 256 "$art_url"
+            num_cols=$new_num_cols
+            num_rows=$new_num_rows
+        }
+        sleep 1
+    done
+else
+    while true; do
+        new_art_url="$(playerctl -p mpd metadata |
+            awk '/artUrl/{$1="";$2="";print}' | xargs)"
+        [ "$art_url" != "$new_art_url" ] && {
+            # [ "$new_art_url" ] || {
+            #     # TODO: Implement art fetching from Internet
+            # }
+            art_url=$new_art_url
+            # TODO: Only spawn one mpv instance and update what is playing.
+            # pid property in mpv
+            kill $!
+            mpv "$art_url" &
+        }
+        sleep 1
+    done
+fi

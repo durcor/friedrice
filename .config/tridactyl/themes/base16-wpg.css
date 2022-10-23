@@ -2,22 +2,22 @@
  * vi:ft=css
  */
 :root {
-    --base00: #090208;
-    --base01: #9D959E;
-    --base02: #5A6B8F;
-    --base03: #F89C7D;
-    --base04: #434884;
-    --base05: #DF5E92;
-    --base06: #79849B;
-    --base07: #e3c3c0;
-    --base08: #35072e;
-    --base09: #dbade1;
-    --base0A: #6585c9;
-    --base0B: #ffbe8a;
-    --base0C: #4a52b8;
-    --base0D: #ff65b9;
-    --base0E: #8ba5db;
-    --base0F: #ffede9;
+    --base00: #251303;
+    --base01: #547559;
+    --base02: #558B70;
+    --base03: #608E6F;
+    --base04: #59AA95;
+    --base05: #5BA994;
+    --base06: #65BBAA;
+    --base07: #a6d7cc;
+    --base08: #542a05;
+    --base09: #60a56a;
+    --base0A: #5fc391;
+    --base0B: #6dc88a;
+    --base0C: #62edc9;
+    --base0D: #65ecc8;
+    --base0E: #70ffe8;
+    --base0F: #daffff;
 
     /* Prompt Text Color */
     --tridactyl-fg: var(--base0F);

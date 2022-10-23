@@ -10,42 +10,42 @@
 # somehow? Only first line?
 
 selected_device=$(
-  bluetoothctl paired-devices |
-    while IFS= read -r device; do
-      id=$(echo "$device" | awk '{ print $2 }')
-      name=$(echo "$device" | cut -d " " -f 3-)
+	bluetoothctl devices |
+		while IFS= read -r device; do
+			id=$(echo "$device" | awk '{ print $2 }')
+			name=$(echo "$device" | cut -d " " -f 3-)
 
-      info=$(bluetoothctl info "$id")
-      connected=$(
-        if [[ $(echo "$info" | grep "Connected: " | awk '{ print $2 }') == "yes" ]]; then
-          echo " (Connected)"
-        fi
-      )
+			info=$(bluetoothctl info "$id")
+			connected=$(
+				if [[ $(echo "$info" | grep "Connected: " | awk '{ print $2 }') == "yes" ]]; then
+					echo " (Connected)"
+				fi
+			)
 
-      echo "$name [$id]${connected}"
-    done |
-    rofi -dmenu -p "Select device" -i -no-custom
+			echo "$name [$id]${connected}"
+		done |
+		rofi -dmenu -p "Select device" -i -no-custom
 )
 
 if [[ -n $selected_device ]]; then
-  selected_name="${selected_device/ \[*}"
-  selected_id=$(echo "$selected_device" | grep -oE '\[[^]]+\]' | tr -d '[]')
+	selected_name="${selected_device/ \[*/}"
+	selected_id=$(echo "$selected_device" | grep -oE '\[[^]]+\]' | tr -d '[]')
 
-  if echo "$selected_device" | grep -q "(Connected)"; then
-    bluetoothctl disconnect "$selected_id"
-    notify-send \
-      --app-name=bt-select \
-      --icon=/usr/share/icons/Adwaita/48x48/status/bluetooth-disabled-symbolic.symbolic.png \
-      --category=device.removed \
-      "Disconnecting" \
-      "Disconnecting from ${selected_name}"
-  else
-    bluetoothctl connect "$selected_id"
-    notify-send \
-      --app-name=bt-select \
-      --icon=/usr/share/icons/Adwaita/48x48/status/bluetooth-active-symbolic.symbolic.png \
-      --category=device.added \
-      "Connecting" \
-      "Connecting to ${selected_name}"
-  fi
+	if echo "$selected_device" | grep -q "(Connected)"; then
+		bluetoothctl disconnect "$selected_id"
+		notify-send \
+			--app-name=bt-select \
+			--icon=/usr/share/icons/Adwaita/48x48/status/bluetooth-disabled-symbolic.symbolic.png \
+			--category=device.removed \
+			"Disconnecting" \
+			"Disconnecting from ${selected_name}"
+	else
+		bluetoothctl connect "$selected_id"
+		notify-send \
+			--app-name=bt-select \
+			--icon=/usr/share/icons/Adwaita/48x48/status/bluetooth-active-symbolic.symbolic.png \
+			--category=device.added \
+			"Connecting" \
+			"Connecting to ${selected_name}"
+	fi
 fi

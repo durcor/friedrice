@@ -20,6 +20,7 @@ bpf_preload
 bridge
 btbcm
 btintel
+btmtk
 btrfs
 btrtl
 btusb
@@ -28,7 +29,10 @@ ccm
 ccp
 cdc_acm
 cdc_ether
+cdc_mbim
+cdc_ncm
 cdc_subset
+cdc_wdm
 cdrom
 cec
 cfg80211
@@ -49,8 +53,11 @@ curve25519_x86_64
 dca
 dm_crypt
 dm_mod
+dm_multipath
 dns_resolver
 drm
+drm_buddy
+drm_display_helper
 drm_kms_helper
 drm_ttm_helper
 ebtable_filter
@@ -67,6 +74,7 @@ ff_memless
 fscache
 fuse
 garp
+gf128mul
 ghash_clmulni_intel
 glue_helper
 gpu_sched
@@ -99,6 +107,7 @@ iptable_nat
 ip_tables
 irqbypass
 isofs
+iwlmei
 iwlmvm
 iwlwifi
 jbd2
@@ -126,6 +135,7 @@ mac_hid
 mbcache
 mc
 md4
+mei
 mii
 minix
 mousedev
@@ -135,12 +145,14 @@ msdos
 msr
 mxm_wmi
 nct6775
+nct6775_core
 nf_conntrack
 nf_defrag_ipv4
 nf_defrag_ipv6
 nf_nat
 nfnetlink
 nfnetlink_log
+nfnetlink_queue
 nf_reject_ipv4
 nf_reject_ipv6
 nf_tables
@@ -153,11 +165,18 @@ nls_cp437
 nls_iso8859_1
 nls_utf8
 ntfs
+nvme
+nvme_common
+nvme_core
 nvram
+nzxt_smart2
 pcspkr
 pinctrl_amd
 poly1305_x86_64
+polyval_clmulni
+polyval_generic
 psmouse
+qrtr
 radeon
 raid6_pq
 rapl
@@ -172,6 +191,7 @@ rfkill
 rng_core
 ryzen_smu
 scsi_mod
+scull
 sd_mod
 serio
 serio_raw
@@ -196,6 +216,8 @@ snd_rawmidi
 snd_seq
 snd_seq_device
 snd_seq_dummy
+snd_seq_midi
+snd_seq_midi_event
 snd_soc_core
 snd_timer
 snd_usb_audio
@@ -216,6 +238,9 @@ sysimgblt
 tcp_diag
 tee
 tpm
+tpm_crb
+tpm_tis
+tpm_tis_core
 trusted
 ttm
 tun
@@ -227,6 +252,7 @@ ufs
 uinput
 unix_diag
 usbhid
+usblp
 usbnet
 usb_storage
 uvcvideo

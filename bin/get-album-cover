@@ -1,0 +1,68 @@
+#!/bin/sh
+
+FILENAME_FORMAT="$num - $name.$ext"
+
+set -e
+
+album_art()
+{
+    command -v googleimagesdownload >/dev/null 2>&1 || {
+        echo "googleimagesdownload required!"
+        echo "Download from https://github.com/Joeclinton1/google-images-download"
+    }
+
+    MUSIC_DIR=$(xdg-user-dir MUSIC || echo "$HOME/Music")
+    mkdir -p "$MUSIC_DIR"
+
+    cd "$MUSIC_DIR" || exit 1
+    for artist in *; do
+        for album in "$artist"/*; do
+            [ -d "$album" ] && {
+                cur_dir="./$album"
+                ls "$album"/cover.* >/dev/null 2>&1 || {
+                    keywords=$(echo "$album" | sed 's/,/ /g' | sed 's|/| - |')
+                    googleimagesdownload -k "$keywords" -l 1 -n
+                    pic=$(basename "downloads/"*)
+                    pic_ext=${pic#*.}
+                    # Convert any non-jpg/-png pictures and move the downloaded
+                    # picture to its corresponding directory.
+                    case $pic_ext in
+                        "png"|"jp"*"g")
+                            mv "downloads/$pic" "$cur_dir/cover.$pic_ext"
+                            ;;
+                        *)
+                            convert "downloads/$pic" "$cur_dir/cover.png"
+                            rm "downloads/$pic"
+                            ;;
+                    esac
+                    rmdir downloads
+                }
+            }
+        done
+    done
+}
+
+organize()
+{
+    cd "$MUSIC_DIR" || exit 1
+    for artist in *; do
+        for album in "$artist"/*; do
+            for song in "$album"/*; do
+                info=$(mediainfo "$song" | awk '/Track name/')
+                num=$(echo "$info" | tail -1 | awk '{print $4}')
+                name=$(echo "$info" | head -1 | awk '{print $4}')
+                mv $song "$FILENAME_FORMAT"
+                true
+            done
+        done
+    done
+}
+
+case $1 in
+    organize)
+        organize
+        ;;
+    album-art)
+        album_art
+        ;;
+esac

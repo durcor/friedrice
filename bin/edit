@@ -1,13 +1,27 @@
 #!/bin/sh
 
-if [ ! "$1" ]; then
-    if [ "$VIMRUNTIME" ]; then
-        $EDITOR -c :terminal
+# if [ "$VIMRUNTIME" ]; then
+#     if [ "$1" ]; then
+#         $EDITOR "$1"
+#     else
+#         $EDITOR -c :terminal
+#     fi
+# else
+#     if [ ! "$1" ]; then
+#         nvim
+#     elif [ -O "$1" ] || [ ! -f "$1" ]; then
+#         nvim "$1"
+#     else
+#         sudoedit "$1"
+#     fi
+# fi
+
+if [ "$NVIM" ]; then
+    if [ "$1" ]; then
+        nvr --remote -p "$@"
     else
-        nvim
+        nvr --remote -c ':terminal'
     fi
-elif [ -O "$1" ] || [ ! -f "$1" ]; then
-    $EDITOR "$1"
 else
-    sudoedit "$1"
+    NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim "$@"
 fi

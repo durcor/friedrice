@@ -1,0 +1,72 @@
+#!/bin/sh
+#
+# Dependencies:
+# - pandoc
+#
+# Optional Dependencies:
+# - Syntax highlighter (for coloring output)
+#   - highlight
+#   - pygmentize
+
+while getopts psh c; do
+    case $c in
+    p)
+        pdf_flag=1
+        ;;
+    s)
+        stdout_flag=1
+        ;;
+    h)
+        echo "Usage: $0"
+        ;;
+    *)
+        echo "Invalid flag '-$c'"
+        exit 1
+        ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+colorizer() {
+    if command -v highlight >/dev/null 2>&1; then
+        highlight -O ansi --syntax md
+    elif command -v pygmentize >/dev/null 2>&1; then
+        pygmentize -f terminal -l md
+    else
+        echo
+    fi
+}
+
+search_query=$(echo "$@" | xargs)
+
+matches=$(curl -s https://based.cooking |
+    pandoc --wrap=preserve -f html -t markdown | sed -n '/Recipes/,/About/p' |
+    grep -i "$search_query" | grep '^-')
+
+match_count=$(echo "$matches" | wc -l)
+
+if [ ! "$matches" ]; then
+    echo "No recipe found containing '$search_query'"
+    exit 1
+elif [ "$match_count" -gt 1 ]; then
+    echo "Which recipe do you want?"
+    IFS=$(printf "\n\b")
+    num=1
+    for recipe in $matches; do
+        echo "$num. $(echo "$recipe" | cut -d'[' -f 2 | cut -d']' -f1)"
+        num=$((num + 1))
+    done | colorizer
+    read -r match_num
+    matches=$(echo "$matches" | sed "$match_num!d")
+fi
+
+recipe=$(curl -s "https://based.cooking/$(echo "$matches" | cut -d'(' -f 2 | cut -d')' -f 1)")
+# TODO: Improve styling of PDF (add images, emojis)
+if [ "$pdf_flag" ]; then
+    echo "$recipe" | pandoc -f html -t pdf --pdf-engine=xelatex | zathura -
+elif [ "$stdout_flag" ]; then
+    echo "$recipe" | pandoc -f html -t markdown | grep -v ':::'
+else
+    echo "$recipe" | pandoc -f html -t markdown | colorizer |
+        grep -v ':::\|Powered by\|homepage' | less
+fi

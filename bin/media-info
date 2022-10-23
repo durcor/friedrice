@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+for player in mpd spotifyd spotify mpv; do
+	[ "$(playerctl -p $player status)" = "Playing" ] && {
+		artist="$(playerctl -p $player metadata artist)"
+		album="$(playerctl -p $player metadata album)"
+		title="$(playerctl -p $player metadata title)"
+		break
+	}
+done 2>/dev/null
+# Silence any errors if a player can't be found.
+
+# i3blocks doesn't seem to like ampersands
+echo "$artist" | grep -q '&' && artist=$(echo "$artist" | sed 's/&/and/g')
+echo "$album" | grep -q '&' && artist=$(echo "$album" | sed 's/&/and/g')
+echo "$title" | grep -q '&' && title=$(echo "$title" | sed 's/&/and/g')
+
+# If no artist is found in the metadata, the current media is not a song
+# or it is only generic media
+if [ -z "$artist" ]; then
+	printf " %s\n" "$title"
+else
+	printf " %s - %s - %s\n" "$artist" "$album" "$title"
+fi

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+clean() {
+	sed /dev/stdin \
+		-e 's/ 8-Core//g' -e 's/ Processor//g' -e 's/AMD //g' -e 's/Intel //g' |
+		xargs
+}
+
+cpu=$(lscpu | awk -F: '/name/{print $2}' | clean)
+host=$(hostname)
+gpu=$(lspci | awk -F'[' '/VGA/{print $3}' | awk -F']' '{print $1}')
+
+echo
+echo "[$host] $cpu/$gpu"
+
+echo ""
+df -hT -x tmpfs -x squashfs -x devtmpfs
