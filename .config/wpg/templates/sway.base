@@ -441,7 +441,7 @@ exec $TERMINAL
 exec $GUIBROWSER
 # exec nm-applet
 exec mako
-exec discord-canary
+exec discord
 exec easyeffects
 # exec '/lib/discord-canary/Discord --enable-features=UseOzonePlatform --enable-vulkan --ozone-platform=wayland --enable-webrtc-pipewire-capturer /lib/discord-canary/resources/app.asar'
 # exec 'wl-paste --watch clipman store'
@@ -449,7 +449,7 @@ exec easyeffects
 exec 'cfg rf'
 exec '/lib/xdg-desktop-portal -r'
 exec '/lib/xdg-desktop-portal-wlr -r -o DP-1'
-exec flashfocus
+exec 'killall -9 flashfocus; flashfocus'
 exec 'spotifyd --no-daemon'
 exec 'swayidle -w timeout 300 "lockman" timeout 600 "swaymsg output * dpms off" resume "swaymsg output * dpms on" before-sleep "lockman"'
 # exec workspace $ws1

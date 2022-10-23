@@ -18,8 +18,8 @@ export TERMINAL="kitty -1"
 # export TERM=xterm-kitty
 export BROWSER="copytoclip"
 # export GUIBROWSER="qutebrowser"
-# export GUIBROWSER="firefox-nightly"
-export GUIBROWSER="firedragon"
+export GUIBROWSER="firefox-nightly"
+# export GUIBROWSER="firedragon"
 export PAGER="nvimpager -p"
 export FILEMAN="lf"
 export TASKMAN="ytop -p"
@@ -49,8 +49,8 @@ export XDG_STATE_HOME="$HOME/.local/state"
 ## Wine
 export WINEESYNC=1
 export WINEFSYNC=1
-export STAGING_SHARED_MEMORY=1
-export STAGING_WRITECOPY=1
+# export STAGING_SHARED_MEMORY=1
+# export STAGING_WRITECOPY=1
 ## DXVK
 export DXVK_HUD="compiler"
 export DXVK_ASYNC=0
@@ -72,6 +72,7 @@ export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
 [ "$TERM" = linux ] && {
 	. "$XDG_CACHE_HOME/wal/colors-tty.sh"
 	sudo -n kbdrate -r 35 -d 150 >/dev/null
+	# TODO: Remap caps lock and escape in the TTY (using interception?)
 }
 
 if [ "$SSH_TTY" ]; then
@@ -94,7 +95,7 @@ fi
 
 case $disp in
 x)
-	# Set up multi-monitor FreeSync correctly
+	# Set up multi-monitor FreeSync correctly by piggy-backing off wayland's better FreeSync support
 	# sway &
 	# sleep 5
 	# SWAYSOCK="/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock" sway exit

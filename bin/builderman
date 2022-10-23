@@ -21,51 +21,49 @@ GAME_DIRS="$HOME/gam $HOME/data/gam"
 
 # set -e
 
-finder()
-{
-    if command -v fd >/dev/null; then
-        fd -IHL '^.git$' .
-    else
-        find . -type d -name '.git'
-    fi
+finder() {
+	if command -v fd >/dev/null; then
+		fd -IHL '^.git$' .
+	else
+		find . -type d -name '.git'
+	fi
 }
 
-updatepkgbuilds()
-{
+updatepkgbuilds() {
 	cd "$PKGBUILD_DIR" || exit 1
 
 	for d in $(finder | grep -v 'subprojects\|src' | sed 's|/.git||'); do
-        cd "$d" || exit 1
+		cd "$d" || exit 1
 		! ls Makefile* >/dev/null 2>&1 && ! ls BUILD* >/dev/null 2>&1 && {
 			if pull_status=$(git pull --recurse-submodules 2>&1); then
-			    pull_status="$(tput setaf 10)$pull_status$(tput sgr0)"
+				pull_status="$(tput setaf 10)$pull_status$(tput sgr0)"
 			else
-			    pull_status="$(tput setaf 9)$pull_status$(tput sgr0)"
+				pull_status="$(tput setaf 9)$pull_status$(tput sgr0)"
 			fi
-			echo "$(tput bold; tput setaf 12)$d$(tput sgr0): $pull_status"
+			echo "$(
+				tput bold
+				tput setaf 12
+			)$d$(tput sgr0): $pull_status"
 		}
 		cd "$PKGBUILD_DIR" || exit 1
-    done
+	done
 }
 
-rebuild_pkg()
-{
+rebuild_pkg() {
 	rm ./*.pkg.*
 	yes | makepkg -sif
 }
 
-updategfx()
-{
+updategfx() {
 	builderman i mesa
 	cd "$PKGBUILD_DIR/wine/dxvk-tools"
 	./updxvk build
 	./upvkd3d-proton build
 }
 
-updatewine()
-{
-    # TODO:
-    # Add support for building DXVK with LTO
+updatewine() {
+	# TODO:
+	# Add support for building DXVK with LTO
 	cd "$PKGBUILD_DIR"/wine/dxvk-tools
 	./updxvk build
 	./updxvk proton-dist
@@ -89,32 +87,32 @@ updatewine()
 }
 
 case $1 in
-	sync|s)
-		updatepkgbuilds
+sync | s)
+	updatepkgbuilds
+	;;
+install | i)
+	case $2 in
+	wine)
+		updatewine
 		;;
-	install|i)
-		case $2 in
-			wine)
-                updatewine
-                ;;
-			gfx)
-                updategfx
-                ;;
-            *)
-                cd "$PKGBUILD_DIR" || exit
-                if [ -z "$2" ]; then
-                    collector_program="fzf"
-                else
-                    collector_program="grep $2$"
-                fi
-                pkg_to_rebuild=$(finder | sed 's|/.git||' | $collector_program)
-                [ -z "$pkg_to_rebuild" ] && exit 1
-                cd "$pkg_to_rebuild" || exit 1
-                rebuild_pkg
-                ;;
-        esac
-        ;;
-    *)
-        echo "Only valid options are sync and install" && exit 1
-        ;;
+	gfx)
+		updategfx
+		;;
+	*)
+		cd "$PKGBUILD_DIR" || exit
+		if [ -z "$2" ]; then
+			collector_program="fzf"
+		else
+			collector_program="grep $2/$"
+		fi
+		pkg_to_rebuild=$(finder | sed 's|/.git||' | $collector_program)
+		[ -z "$pkg_to_rebuild" ] && exit 1
+		cd "$pkg_to_rebuild" || exit 1
+		rebuild_pkg
+		;;
+	esac
+	;;
+*)
+	echo "Only valid options are sync and install" && exit 1
+	;;
 esac

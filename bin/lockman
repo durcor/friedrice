@@ -1,40 +1,39 @@
 #!/bin/sh
 
-. "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors.sh"
-
-image_file="/tmp/lock.png"
-
-resolution=$(xdpyinfo | grep dimensions | awk '{print $2}')
-
-# filters='noise=alls=10,scale=iw*.05:-1,scale=iw*20:-1:flags=neighbor'
-filters='boxblur=10'
+# shellcheck disable=1091
+. "${XDG_CACHE_HOME:-$HOME/.cache}/wal/colors.sh"
 
 if [ "$WAYLAND_DISPLAY" ]; then
-    ffmpeg -y -loglevel 0 \
-        -i "${XDG_CONFIG_HOME-$HOME/.config}/wpg/.current" \
-        -vf "$filters" \
-        "$image_file"
-    # SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock swaymsg 'output * dpms off'
-    swaylock $color0 -r -n -K --font "mononoki Nerd Font" --font-size 30 --indicator-idle-visible \
-        --indicator-radius 100 --indicator-thickness 10 \
-        --separator-color $color8 \
-        --text-color $color10 --text-ver-color $color10 --text-clear-color $color11 --text-wrong-color $color9 \
-        --ring-color $color12 --ring-clear-color $color12 --ring-ver-color $color12 --ring-wrong-color $color12 \
-        --inside-color $color13 --inside-clear-color $color14 --inside-ver-color $color14 --inside-wrong-color $color14 \
-        --layout-bg-color $color10 --layout-border-color $color10 --layout-text-color $color10 \
-        --line-color $color11 --line-clear-color $color11 --line-ver-color $color11 --line-wrong-color $color11 \
-        --key-hl-color $color12 --bs-hl-color $color11 \
-        -i "$image_file"
-    # SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock swaymsg 'output * dpms on'
+	image_file=${XDG_CONFIG_HOME-$HOME/.config}/wpg/.current
+	# SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock swaymsg 'output * dpms off'
+	# shellcheck disable=2154
+	# swaylock-effects arch pkg
+	swaylock -K --screenshots -i "$image_file" --effect-blur 4x4 \
+		--clock --timestr '%T' --datestr '%F' \
+		--font "mononoki Nerd Font" --font-size 30 --indicator-idle-visible \
+		--indicator --indicator-radius 100 --indicator-thickness 10 \
+		--ring-color "$color13" \
+		--text-color "$color15" \
+		--key-hl-color "$color12" \
+		--line-color "$color8" \
+		--inside-color "$color8" \
+		--separator-color "$color0" \
+		--inside-clear-color "$color11" --line-clear-color "$color12" --ring-clear-color "$color13"
+	# SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock swaymsg 'output * dpms on'
 else
-    ffmpeg \
-        -y -loglevel 0 \
-        -s "$resolution" \
-        -f x11grab \
-        -i "$DISPLAY" \
-        -vframes 1 \
-        -vf "$filters" \
-        "$image_file"
+	resolution=$(xdpyinfo | grep dimensions | awk '{print $2}')
+	# filters='noise=alls=10,scale=iw*.05:-1,scale=iw*20:-1:flags=neighbor'
+	filters='boxblur=10'
 
-    i3lock -e -i "$image_file"
+	image_file=/tmp/lock.png
+	ffmpeg \
+		-y -loglevel 0 \
+		-s "$resolution" \
+		-f x11grab \
+		-i "$DISPLAY" \
+		-vframes 1 \
+		-vf "$filters" \
+		"$image_file"
+
+	i3lock -e -i "$image_file"
 fi

@@ -6,7 +6,7 @@
 
 ## My Workflow
 ```sh
-[ "$(grep ^NAME /etc/os-release | cut -d= -f2 | sed 's|"||g')" = "Arch Linux" ]
+[ "$(lsb_release -ds | sed 's|"||g')" = "Arch Linux" ]
 ```
 * WM
 : Xorg

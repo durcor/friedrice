@@ -1,15 +1,40 @@
 #!/bin/sh
+set -e
 
 dotfile_git_url=https://github.com/durcor/friedrice
-
+# Name of temporary cloned dotfiles folder
 dotfile_basename=friedrice
-
 dotfile_clone_path=$HOME/src/$dotfile_basename
 
-if [ -f "$dotfile_clone_path" ]; then
+# IP of remote
+remote_ip=
+
+echo "Make sure to copy your secret files/folders over to this machine via SSH/USB/Bluetooth"
+
+rsync -a "$remote_ip:$HOME/.secret" "$HOME/.secret"
+source ~/.secret
+
+for f in $SECRET_FOLDERS; do rsync -a "$f" $f; done
+for f in $SECRET_FILES; do rsync -a "$f" $f; done
+
+if [ -d "$dotfile_clone_path" ]; then
 	cd "$dotfile_clone_path" && git pull && cd - || exit 1
 else
+	new_clone=1
+	mkdir -p "$dotfile_clone_path"
 	git clone --recursive $dotfile_git_url "$dotfile_clone_path"
 fi
-rsync -a "$dotfile_clone_path" "$HOME"
+
+# NOTE: To add 1 directory's contents to another with rsync, you must do `rsync -a DIR1/ DIR2`
+# Notice the / after DIR1's path.
+
+rsync -a "$dotfile_clone_path/" "$HOME"
+sudo rsync -a "$dotfile_clone_path/.config/root/" /
+
+[ $new_clone ] && rm -r "$dotfile_clone_path"
+
+# TODO: Need to install zinit first
 zinit update
+
+. "$HOME/.profile"
+cfg rf
