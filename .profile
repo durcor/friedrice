@@ -13,7 +13,8 @@
 # Default Programs
 export EDITOR="edit"
 export VISUAL="$EDITOR"
-export TERMINAL="kitty -1"
+# export TERMINAL="kitty -1"
+export TERMINAL="wezterm"
 export BROWSER="copytoclip"
 # export GUIBROWSER="qutebrowser"
 # export GUIBROWSER="firefox-nightly"
