@@ -124,14 +124,14 @@ map x $trash $fx
 map d
 map dd cut
 map df delete
-map dG $rm -rf ~/data/.garb/* ; rm -rf ~/data/.garb/.*
+map dG $trash-empty
 
 map o extract
 map O mkdir
 
 map c
-map cw $vimv $fx
-map ce $vimv $fx
+map cw $EDITOR='nvr --remote-tab-wait' vimv $fx
+map ce $EDITOR='nvr --remote-tab-wait' vimv $fx
 map cv set ratios 1:2
 map cV set ratios 1:2:3
 # Interactively cd to a new directory inside of lf with
@@ -139,7 +139,7 @@ map cV set ratios 1:2:3
 map cd push :cd<space>
 map cD
 
-map A $vimv $fx
+map A $EDITOR='nvr --remote-tab-wait' vimv $fx
 
 map q quit
 map Q quit
