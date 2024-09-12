@@ -58,3 +58,6 @@
 
 ## Some Usage Information
 - wpg templates need to be symlinked upon cloning/pulling if the symlink isn't there already
+
+# TODO
+- move from i3blocks to top+bottom waybar/polybar

@@ -108,7 +108,7 @@ map yn %echo "$f" | clipper c
 map yf %clipper c "$f"
 # Put the selected files in a temporary gtk window which allows them
 # to be dragged and dropped into different gui applications (such as web browsers and chat clients)
-map yv %dragon-drag-and-drop $fx
+map yv %dragon-drop $fx
 
 map u unselect
 map U clear

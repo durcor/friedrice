@@ -64,13 +64,15 @@ refreshcfg() {
 	wpg -s "$(wpg -c)"
 
 	# Use OpenRGB's generic RGB peripheral interface to rice some hardware
+	# NOTE: This is hard-coded for my setup, so your command parameters WILL
+	# vary, provided that you have openrgb installed
 	# 0: RAM Stick 1
 	# 1: RAM Stick 2
 	# 2: RAM Stick 3
 	# 3: RAM Stick 4
 	# 4: NZXT Controller
-	# 5: AMD Wraith Prism
-	# 6: Keyboard
+	# 5: Keyboard
+	# 6: AMD Wraith Prism
 	# 7: Razer DeathAdder Elite
 	command -v openrgb >/dev/null 2>&1 &&
 		openrgb \
@@ -239,7 +241,7 @@ updatecfg() {
 }
 
 deletecfg() {
-	path_to_del="$(fzf <"${XDG_CONFIG_HOME-$HOME/.config}/cfg/al" | awk '{print $2}')"
+	path_to_del="$(fzf <"${XDG_CONFIG_HOME:-$HOME/.config}/cfg/al" | awk '{print $2}')"
 	rm -i "$path_to_del" && sed -i "/$2/d"
 }
 
@@ -280,9 +282,6 @@ cfg - the simple config controller
             - calls fzf
             OR
         - cfg e (CONFIG ALIAS)
-
-    l/ls/list - list existing config aliases
-        - cfg l
 
     l/ls/list - list existing config aliases
         - cfg l
