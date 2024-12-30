@@ -226,9 +226,9 @@ bindsym Super_L mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 mode --pango_markup "$mode_window" {{
     bindsym Super_L mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
 
-    bindsym XF86AudioRaiseVolume $ex pamixer --allow-boost -i 5 ; $ex pkill -RTMIN+13 i3blocks
-    bindsym XF86AudioLowerVolume $ex pamixer --allow-boost -d 5 ; $ex pkill -RTMIN+13 i3blocks
-    bindsym XF86AudioMute $ex pamixer -t ; $ex pkill -RTMIN+13 i3blocks
+    bindsym XF86AudioRaiseVolume $ex pactl set-sink-volume @DEFAULT_SINK@ +5% ; $ex pkill -RTMIN+13 i3blocks
+    bindsym XF86AudioLowerVolume $ex pactl set-sink-volume @DEFAULT_SINK@ -5% ; $ex pkill -RTMIN+13 i3blocks
+    bindsym XF86AudioMute $ex pactl set-sink-mute @DEFAULT_SINK@ toggle ; $ex pkill -RTMIN+13 i3blocks
     bindsym XF86AudioStop $ex playerctl stop
     bindsym XF86AudioPrev $ex playerctl previous
     bindsym XF86AudioNext $ex playerctl next
@@ -430,6 +430,7 @@ for_window [instance="pop"] border pixel 10
 $ex $TERMINAL --class pop
 
 for_window [instance="float"] floating enable
+for_window [instance="float"] resize set 1200 800
 
 $ex $TERMINAL
 $ex $GUIBROWSER

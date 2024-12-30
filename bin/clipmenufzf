@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 : "${CM_LAUNCHER=fzf}"
 : "${CM_DIR="${XDG_RUNTIME_DIR-"${TMPDIR-/tmp}"}"}"

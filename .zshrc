@@ -93,14 +93,18 @@ export ZLE_RPROMPT_INDENT=0
 # Keybinds
 exit_shell() { exit; }
 lf_from_shell() { lfcd; }
+yazi_from_shell() { yazicd; }
 
 zvm_define_widget exit_shell
 zvm_define_widget lf_from_shell
+zvm_define_widget yazi_from_shell
 
 zvm_bindkey vicmd 'q' exit_shell
 zvm_bindkey vicmd 'Q' exit_shell
-zvm_bindkey vicmd 'z' lf_from_shell
-zvm_bindkey viins '^o' lf_from_shell
+# zvm_bindkey vicmd 'z' lf_from_shell
+# zvm_bindkey viins '^o' lf_from_shell
+zvm_bindkey vicmd 'z' yazi_from_shell
+zvm_bindkey viins '^o' yazi_from_shell
 
 # bindkey -M isearch " "  magic-space     # normal space during searches
 # bindkey -M vicmd '/' history-incremental-search-backward

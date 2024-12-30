@@ -85,7 +85,7 @@ fzfcd() { cd "$(fd -H -t d . 2>/dev/null | fzf)" || exit 1; }
 
 # List files
 abbrev-alias ls="ls --color=auto"
-abbrev-alias ll="ls -alF"
+abbrev-alias ll="ls -alFh"
 abbrev-alias la="ls -A"
 abbrev-alias l="ls -CF"
 
