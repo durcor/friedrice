@@ -47,8 +47,8 @@ call plug#begin('$XDG_DATA_HOME/nvim/plug')
 Plug 'deviantfero/wpgtk.vim'
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'morhetz/gruvbox'
-" Plug 'dylanaraps/wal.vim'
-" Plug 'richtan/pywal.vim'
+Plug 'dylanaraps/wal.vim'
+Plug 'richtan/pywal.vim'
 
 Plug 'github/copilot.vim'
 
@@ -67,6 +67,7 @@ Plug 'gcmt/taboo.vim'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 " FZF
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
@@ -197,17 +198,19 @@ let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#par
 " let g:airline#extensions#cursormode#enabled = 1
 "
 " set termguicolors " truecolor support - breaks some colorschemes (pywal-related) ones :(
-colo wpgtk
+" colo wpgtk
+" colorscheme wal
 " colorscheme moonfly
 " let g:moonflyTerminalColors = 1
-" colorscheme gruvbox
-" let g:gruvbox_termcolors = '16'
+colorscheme gruvbox
+let g:gruvbox_termcolors = '16'
 
 " Limelight
 let g:limelight_conceal_ctermfg = '8'
-let g:airline_theme='wpgtk_alternate'
+" let g:airline_theme='wpgtk_alternate'
+" let g:airline_theme='wal'
 " let g:airline_theme='moonfly'
-" let g:airline_theme='gruvbox'
+let g:airline_theme='gruvbox'
 
 
 " Language server
