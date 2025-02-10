@@ -412,7 +412,6 @@ au BufRead,BufNewFile CMakeLists.txt se ft=cmake
 au BufRead,BufNewFile README,LICENSE,TODO,NEWS,FAQ,LEGACY se ft=markdown
 au BufRead,BufNewFile *.*patch,*.diff se ft=gitsendemail
 au BufRead,BufNewFile .gitattributes se ft=gitignore
-au BufRead,BufNewFile *.rasi se ft=yaml
 au BufRead,BufNewFile *.fut se ft=ocaml
 au BufRead,BufNewFile *.python* se ft=python
 au BufRead,BufNewFile *.reg se ft=registry
@@ -538,6 +537,9 @@ map Q :q<cr>
 map <C-Q> :q!<cr>
 
 map ZW :w<cr>
+
+" Ctrl+s -> search and replace
+map <C-s> :%s/
 
 map cd :call TermOpenRanger('lf')<cr>
 
