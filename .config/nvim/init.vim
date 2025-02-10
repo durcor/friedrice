@@ -460,7 +460,9 @@ map <F12>w :tabnext<cr><F12>
 map <F12>b :tabprevious<cr><F12>
 map <F12>$ :tablast<cr><F12>
 map <F12>- :call TermOpen()<cr><F12><F12>
+map <F12>_ :call TermOpen('lf')<cr><F12><F12>
 map <F12>\ :call TermOpen(&shell,'v')<cr><F12><F12>
+map <F12>\| :call TermOpen('lf','v')<cr><F12><F12>
 map <F12>x :bdelete!<cr><F12>
 map <F12>i <Esc>
 map gb :Buffers<cr>
