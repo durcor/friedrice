@@ -1,6 +1,8 @@
 # ~/.zshrc
 # vi:ft=zsh
 
+fastfetch
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -93,6 +95,15 @@ export ZLE_RPROMPT_INDENT=0
 # Keybinds
 exit_shell() { exit; }
 lf_from_shell() { lfcd; }
+
+yazicd() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
 yazi_from_shell() { yazicd; }
 
 zvm_define_widget exit_shell

@@ -1,4 +1,5 @@
 // ~/.config/rofi/config.rasi
+// vi:ft=jsonc
 
 // rofi.width: 50
 // rofi.columns: 5

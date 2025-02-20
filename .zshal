@@ -1,6 +1,8 @@
 #!/bin/sh
 # ~/.zshal
 
+# NOTE: the -g flag to abbrev-alias causes the alias to expand anywhere in a shell command
+
 # Shorter commands
 abbrev-alias s="sudo"
 abbrev-alias mk="make"
@@ -20,11 +22,13 @@ abbrev-alias ed="edit"
 abbrev-alias cmatrix="\cmatrix -rfab"
 abbrev-alias re="$READER"
 abbrev-alias fm="$FILEMAN"
+abbrev-alias y="yazicd"
 abbrev-alias val="colour-valgrind -s --leak-check=full --show-leak-kinds=all --track-fds=all"
 abbrev-alias tm="$TASKMAN"
 abbrev-alias e="echo"
 abbrev-alias rm="trash-put"
 abbrev-alias c="cat"
+abbrev-alias bat="batcat --paging=never"
 abbrev-alias icat="kitty +kitten icat"
 abbrev-alias gdb="\gdb --quiet"
 abbrev-alias diff="\diff --color=auto"
@@ -73,12 +77,12 @@ abbrev-alias dd="dd conv=noerror,sync status=progress bs=64K"
 abbrev-alias whatsbig="du -hs * | sort -h"
 
 arm() {
-    aarch64-linux-gnu-as "$@" -o aarch64-tmp.o &&
-        aarch64-linux-gnu-ld -lc aarch64-tmp.o -o aarch64-tmp &&
-        qemu-aarch64 -L /usr/aarch64-linux-gnu aarch64-tmp
-    exit_status=$?
-    rm aarch64-tmp.o aarch64-tmp qemu_aarch64-tmp_*.core 2>/dev/null
-    return $exit_status
+  aarch64-linux-gnu-as "$@" -o aarch64-tmp.o &&
+    aarch64-linux-gnu-ld -lc aarch64-tmp.o -o aarch64-tmp &&
+    qemu-aarch64 -L /usr/aarch64-linux-gnu aarch64-tmp
+  exit_status=$?
+  rm aarch64-tmp.o aarch64-tmp qemu_aarch64-tmp_*.core 2>/dev/null
+  return $exit_status
 }
 
 fzfcd() { cd "$(fd -H -t d . 2>/dev/null | fzf)" || exit 1; }
@@ -90,8 +94,8 @@ abbrev-alias la="ls -A"
 abbrev-alias l="ls -CF"
 
 cl() {
-    cd "$@" || exit
-    ls --color=auto
+  cd "$@" || exit
+  ls --color=auto
 }
 
 abbrev-alias rn="tty-clock -csb -C 7"
@@ -111,8 +115,10 @@ abbrev-alias t="tmux"
 abbrev-alias ki="kitty"
 abbrev-alias g="git"
 abbrev-alias -g nf="neofetch"
+abbrev-alias -g ff="fastfetch"
 abbrev-alias nb="newsboat"
 abbrev-alias qb="qutebrowser"
+abbrev-alias scratchpad="edit $(mktemp)"
 
 abbrev-alias -g ytdl="youtube-dl"
 abbrev-alias -g ytdl-mus="youtube-dl -icw -f bestaudio --embed-thumbnail --add-metadata --write-thumbnail"
