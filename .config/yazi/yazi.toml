@@ -1,5 +1,9 @@
 [manager]
 show_hidden = true
+sort_by = "mtime"
+sort_reverse = true
+scrolloff = 200
+ratio = [1, 2, 3]
 
 [plugin]
 # prepend_previewers = [
