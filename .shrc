@@ -59,11 +59,9 @@ cf() {
 
   file="$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)"
 
-  if [[ -n $file ]]
-  then
-     if [[ -d $file ]]
-     then
-        cd -- $file
+  if [ -n "$file" ]; then
+     if [ -d "$file" ]; then
+        cd -- "$file" || exit 1
      else
         cd -- ${file:h}
      fi
