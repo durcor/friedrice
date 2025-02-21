@@ -4,3 +4,92 @@ sort_by = "mtime"
 sort_reverse = true
 scrolloff = 200
 ratio = [1, 2, 3]
+
+[plugin]
+# prepend_previewers = [
+# 	{ mime = "image/*", run = "chafa" },
+# ]
+
+append_previewers = [
+	# My fallback previewer
+	{ name = "*" , run = "binary" },
+]
+
+# set preview
+# set previewer prev
+# set ifs "\n"
+# # set drawbox
+# set icons
+# set shell sh
+# # Keep cursor centered
+# set scrolloff 1000
+# set shellopts '-eu'
+# set ignorecase
+# set number
+# set relativenumber
+# # set tabstop
+# # atime: last time read
+# # ctime: last time metadata changed (file permissions)
+# # natural:
+# set sortby time
+# set reverse
+# set info size
+# set period 1
+# set ratios 1:2:3
+# # set ratios 1:2:3:4:6
+# # set ratios 100:1
+# set dircounts
+# # 38 is fg
+# # 48 is bg
+# # the # before the m is the terminal color (0-255)
+# set promptfmt "
+# \033[38;5;9m
+# \033[48;5;8m
+#  %u
+# \033[38;5;13m
+# @
+# \033[38;5;12m
+# \033[48;5;8m
+# %h
+# \033[38;5;8m
+# \033[48;5;10m
+# 
+# \033[38;5;8m
+# \033[48;5;10m
+#  %w/
+# \033[38;5;8m
+# \033[48;5;10m
+# \033[1m
+# %f
+# \033[38;5;10m
+# \033[48;5;0m
+# 
+# "
+
+# set noanchorfind
+# set findlen 0
+
+# cmd open $open $fx
+# cmd extract $extract $fx
+
+# cmd mkdir ${{
+#     printf "Directory Name: "
+#     read name
+#     mkdir $name
+# }}
+
+# cmd touch ${{
+#     printf "File Name: "
+#     read name
+#     $EDITOR $name
+# }}
+
+# cmd chmod ${{
+#     for file in $fx; do
+#         chmod +x $file
+#     done
+# }}
+
+# cmd fzfcd ${{
+#     find / -type d 2>/dev/null | fzf
+# }}
