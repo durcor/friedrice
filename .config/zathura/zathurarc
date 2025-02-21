@@ -1,4 +1,4 @@
-# vi:ft=python
+# vi:ft=zathurarc
 set selection-clipboard clipboard
 set window-title-home-tilde false
 set statusbar-home-tilde false

@@ -1,7 +1,7 @@
 #!/bin/sh
 # ~/.profile
 #
-# shellcheck disable=1091
+# do the shellcheck y stuff disable=1091
 #
 # Put stuff here that you only want sourced when
 # initializing login shells
@@ -9,6 +9,13 @@
 . "$HOME/.mancolors"
 . "$HOME/.config/lf/ico"
 . "$HOME/.secret"
+
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/share/go/bin:$PATH"
+# export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+
+export PATH
 
 # Default Programs
 export EDITOR="edit"
@@ -18,7 +25,8 @@ export TERMINAL="kitty -1"
 # export TERM=xterm-kitty
 export BROWSER="copytoclip"
 # export GUIBROWSER="qutebrowser"
-export GUIBROWSER="firefox-nightly"
+# export GUIBROWSER="firefox-nightly"
+export GUIBROWSER="firefox"
 # export GUIBROWSER="firedragon"
 export PAGER="nvimpager -p"
 export FILEMAN="lf"
@@ -70,46 +78,41 @@ export CLASSPATH="$CLASSPATH:/usr/share/java/*"
 export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
 
 [ "$TERM" = linux ] && {
-	. "$XDG_CACHE_HOME/wal/colors-tty.sh"
-	sudo -n kbdrate -r 35 -d 150 >/dev/null
-	# TODO: Remap caps lock and escape in the TTY (using interception?)
+  [ -f "$XDG_CACHE_HOME/wal/colors-tty.sh" ] && . "$XDG_CACHE_HOME/wal/colors-tty.sh"
+  sudo -n kbdrate -r 35 -d 150 >/dev/null
+  # TODO: Remap caps lock and escape in the TTY (using interception?)
 }
 
-if [ "$SSH_TTY" ]; then
-	disp=t
-elif [ ! "$TMUX" ] && [ ! "$DISPLAY" ]; then
-	echo "How do you wish to log in?"
-	echo "Run $(tput bold)sway ($(tput setaf 2)w$(tput sgr0))"
-	echo "Run $(tput bold)i3 ($(tput setaf 5)x$(tput sgr0))"
-	echo "Stay in $(tput bold)tty ($(tput setaf 6)t$(tput sgr0))"
-	tput sgr0
+login_options=$(
+  cat <<EOF
+sway
+xorg
+hyprland
+EOF
+)
 
-	read -r disp
-	while [ "$disp" != t ] && [ "$disp" != x ] && [ "$disp" != w ]; do
-		tput setaf 1
-		echo "Invalid input. Please input w, x, or t"
-		tput sgr0
-		read -r disp
-	done
-fi
+[ "$SSH_TTY" ] || [ "$DISPLAY" ] || [ "$TMUX" ] || {
+  header="How do you wish to log in? (Press <Esc>, <Ctrl+[>, or <Ctrl+C> to stay in the tty)"
+  disp=$(echo "$login_options" | fzf --header "$header" --header-first)
+}
 
 case $disp in
-x)
-	# Set up multi-monitor FreeSync correctly by piggy-backing off wayland's better FreeSync support
-	# sway &
-	# sleep 5
-	# SWAYSOCK="/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock" sway exit
-	startx
-	;;
-w)
-	# export WLR_RENDERER=vulkan
-	export QT_QPA_PLATFORM=wayland
-	export SDL_VIDEODRIVER=wayland
-	export XDG_CURRENT_DESKTOP=sway
-	export MOZ_ENABLE_WAYLAND=1
-	sway
-	;;
-t)
-	neofetch
-	;;
+xorg)
+  # Set up multi-monitor FreeSync correctly by piggy-backing off wayland's better FreeSync support
+  # sway &
+  # sleep 5
+  # SWAYSOCK="/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock" sway exit
+  startx
+  ;;
+sway | hyprland)
+  # export WLR_RENDERER=vulkan
+  export QT_QPA_PLATFORM=wayland
+  export SDL_VIDEODRIVER=wayland
+  export XDG_CURRENT_DESKTOP="$disp"
+  export MOZ_ENABLE_WAYLAND=1
+  $disp --unsupported-gpu
+  ;;
 esac
+
+[ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ] && . "$HOME/.nix-profile/etc/profile.d/nix.sh" # added by Nix installer
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
