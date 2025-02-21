@@ -263,8 +263,9 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = "all",
     highlight = {
         enable = true,
+        disable = { "dockerfile" },
         additional_vim_regex_highlighting = true
-     }
+    }
 }
 VIM_LUA
 " au BufEnter * lua require'completion'.on_attach()
@@ -442,37 +443,42 @@ au FileType tex,markdown,gitcommit,vimwiki,text setlocal spell spelllang=en_us,e
 
 tnoremap <F12> <C-\><C-N>
 
-" Adding tmux-like functionality to nvim
-map <F12>o :call TermOpen(&shell,'t')<cr><F12><F12>
+" Adding tmux-like functionality to nvim (with vim-like bindings)
 map <F12>h <C-w>h<F12>
 map <F12>j <C-w>j<F12>
 map <F12>k <C-w>k<F12>
 map <F12>l <C-w>l<F12>
-
+" resizing
 map <F12>H :vertical resize +1<cr><F12>
 map <F12>L :vertical resize -1<cr><F12>
 map <F12>J :resize -1<cr><F12>
 map <F12>K :resize +1<cr><F12>
-
+" moving between tabs
 map <F12>0 :tabfirst<cr><F12>
 map <F12>w :tabnext<cr><F12>
 map <F12>b :tabprevious<cr><F12>
 map <F12>$ :tablast<cr><F12>
-map <F12>- :call TermOpen()<cr><F12><F12>
-map <F12>_ :call TermOpen('lf')<cr><F12><F12>
-map <F12>\ :call TermOpen(&shell,'v')<cr><F12><F12>
-map <F12>\| :call TermOpen('lf','v')<cr><F12><F12>
+" opening new terminals
+map <F12>o :call TermOpen(&shell,'t')<cr>
+map <F12>- :call TermOpen()<cr>
+map <F12>_ :call TermOpen('lf')<cr>
+map <F12>\ :call TermOpen(&shell,'v')<cr>
+map <F12>\| :call TermOpen('lf','v')<cr>
+
 map <F12>x :bdelete!<cr><F12>
 map <F12>i <Esc>
+
 map gb :Buffers<cr>
 
-map <leader>u :!urlscan %<cr>
 map <leader><leader> :w<cr>
+" NOTE: not needed in lazy-vim
+map <leader>/ :noh<cr>
+
+map <leader>u :!urlscan %<cr>
 map <leader>s :setlocal spell! spelllang=en_us,es<cr>
 map <leader>f :Files<cr>
 map <leader>F :call TermOpenRanger('lf')<cr>
 map <leader>k :r!pwgen<cr>
-map <leader>/ :noh<cr>
 
 " Plugin manager bindings
 map <leader>pu :PlugUpdate<cr>
@@ -532,7 +538,7 @@ highlight GitGutterChangeDeleteLineNr ctermbg=Yellow ctermfg=0
 noremap \ q
 map q :bdelete!<cr>
 " Replace the useless (sorry) ex-mode keybind
-" with quick file exiting
+" with quick window exiting
 map Q :q<cr>
 map <C-Q> :q!<cr>
 

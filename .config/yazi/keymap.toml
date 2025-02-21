@@ -1,0 +1,93 @@
+[manager]
+prepend_keymap = [
+    { on = ["g", "g"], run = "arrow top" },
+    { on = ["G"], run = "arrow bot" },
+
+    { on = ["g", "m"], run = "cd ~/data/mus" },
+    { on = ["g", "d"], run = "cd ~/doc" },
+    { on = ["g", "s"], run = "cd ~/src" },
+    { on = ["g", "v"], run = "cd ~/data/vid" },
+    { on = ["g", "p"], run = "cd ~/pic" },
+    { on = ["g", "o"], run = "cd /opt" },
+    { on = ["g", "w"], run = "cd ~/pic/wal" },
+    { on = ["g", "W"], run = "cd ~/doc/wrk" },
+    { on = ["g", "z"], run = "cd ~/dl" },
+    { on = ["g", "c"], run = "cd ~/.config" },
+    { on = ["g", "G"], run = "cd ~/data/gam" },
+    { on = ["g", "e"], run = "cd /etc" },
+    { on = ["g", "t"], run = "cd ~/.local/share/Trash" },
+
+    { on = ["x"], run = "remove" },
+    { on = ["X"], run = "yank --cut" },
+    # { on = ["<Esc>"], run = "unyank" },
+
+    { on = ["c", "d"], run = "cd --interactive" },
+
+    # map i $edit "$f"
+    # map I $nvr -cc call TermOpen(&shell,'v')
+]
+
+# map y
+# map yy copy
+
+# # Copy selected file's path
+# map yp %readlink -f "$f" | clipper c
+# # Copy selected file's name
+# map yn %echo "$f" | clipper c
+# # Yank a file in its entirety with respect to its mime type to
+# # the clipboard
+# map yf %clipper c "$f"
+# # Put the selected files in a temporary gtk window which allows them
+# # to be dragged and dropped into different gui applications (such as web browsers and chat clients)
+# map yv %dragon-drag-and-drop $fx
+
+# map u unselect
+# map U clear
+
+# # map $
+
+# map v :toggle
+# map V invert
+
+# map p paste
+
+# map d
+# map dd cut
+# map df delete
+# map dG $trash-empty
+
+# map o extract
+# map O mkdir
+
+# map c
+# map cw $EDITOR='nvr --remote-tab-wait' vimv $fx
+# map ce $EDITOR='nvr --remote-tab-wait' vimv $fx
+# map cv set ratios 1:2
+# map cV set ratios 1:2:3
+# map cD
+
+# map A $EDITOR='nvr --remote-tab-wait' vimv $fx
+
+# map q quit
+# map Q quit
+
+# map e
+# map E
+
+# map w
+# map wa %walman add "$f"
+# map ws %walman set "$f"
+# map wz %walman shuf
+# map wg %autoglitch "$f"
+
+# map z
+# map za
+# map zt
+
+# map S $$SHELL
+
+# map <space>
+# map <space>r source ~/.config/lf/lfrc
+# map <space>R set reverse!
+# map <space>st set sortby time
+# map <space>ss set sortby size
