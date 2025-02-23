@@ -1,12 +1,12 @@
 #!/bin/sh
 # shellcheck disable=1090,2154
 
-[ -e "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors.sh" ] &&
-	. "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors.sh"
+[ $XDG_CACHE_HOME ] || XDG_CACHE_HOME=$HOME/.cache
+[ -e "$XDG_CACHE_HOME/wal/colors.sh" ] && . "$XDG_CACHE_HOME/wal/colors.sh"
 
-bg() { tput setab "$1" ;}
-fg() { tput setaf "$1" ;}
-clear() { tput sgr 0 ;}
+bg() { tput setab "$1"; }
+fg() { tput setaf "$1"; }
+clear() { tput sgr 0; }
 
 echo "
     $(bg 0) $(fg 15)  0  \
@@ -54,17 +54,17 @@ $(bg 1) $(fg 0)      Red       \
 $(bg 2) $(fg 0)     Green      \
 $(bg 3) $(fg 0)     Yellow     \
 $(bg 4) $(fg 0)      Blue      \
-$(bg 5) $(fg 0)     Magenta    \
-$(bg 6) $(fg 0)      Cyan      \
-$(bg 7) $(fg 0)     Gray       \
+$(bg 5) $(fg 0)    Purple     \
+$(bg 6) $(fg 0)      Teal      \
+$(bg 7) $(fg 0)      Gray      \
 $(clear)
     $(bg 8) $(fg 15)    Dark Gray   \
 $(bg 9) $(fg 0)   Bright Red   \
 $(bg 10) $(fg 0)  Bright Green  \
 $(bg 11) $(fg 0) Bright Yellow  \
 $(bg 12) $(fg 0)  Bright Blue   \
-$(bg 13) $(fg 0) Bright Magenta \
-$(bg 14) $(fg 0)   Bright Cyan  \
-$(bg 15) $(fg 0)     White      \
+$(bg 13) $(fg 0)    Magenta    \
+$(bg 14) $(fg 0)      Cyan      \
+$(bg 15) $(fg 0)      White     \
 $(clear)
 "
