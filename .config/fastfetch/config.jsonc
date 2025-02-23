@@ -14,7 +14,7 @@
       "type": "os",
       // "{sysname} {name} {pretty-name} {id} {id-like} {variant} {variant-id} {version} {version-id} {codename} {build-id} {arch}"
       // short: "{id} {codename} {arch}"
-      "format": "{name} {sysname} {version} [{arch}]"
+      "format": "{name} [{arch}]"
     },
     "host",
     "kernel",
@@ -39,10 +39,10 @@
       // BUG: {core-count} doesn't work on enterprise nvidia cards and intel igpus
       // BUG: memory stuff doesn't work on enterprise nvidia cards and intel igpus
       // BUG: temperature stuff doesn't work on enterprise nvidia cards and intel igpus
-      "format": "{vendor} {name}/{driver}"
+      "format": "{name}/{driver}"
     },
     "memory",
-    "swap",
+    // "swap",
     "disk",
     "localip",
     "battery",

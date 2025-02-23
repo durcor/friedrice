@@ -1,7 +1,6 @@
-# lynx.cfg file.
-# The default placement for this file is /usr/local/lib/lynx.cfg (Unix)
-#                                     or Lynx_Dir:lynx.cfg (VMS)
+# vi:ft=lynx
 #
+# ~/.lynxrc
 #
 # Definition pairs are of the form  VARIABLE:DEFINITION
 # NO spaces are allowed between the pair items.
@@ -820,7 +819,7 @@ SHOW_CURSOR:TRUE
 # The default is defined in userdefs.h and can be overridden here,
 # and/or toggled via the -accept_all_cookies command line switch.
 #
-#ACCEPT_ALL_COOKIES:FALSE
+ACCEPT_ALL_COOKIES:TRUE
 
 # COOKIE_ACCEPT_DOMAINS and COOKIE_REJECT_DOMAINS are comma-delimited lists of
 # domains (with a leading '.') to automatically accept or reject all cookies
@@ -1507,17 +1506,19 @@ MINIMAL_COMMENTS:TRUE
 # vt100 Remove Key: 0x10D
 #  (0x00) NULL KEY: 0x10E (DO_NOTHING)
 #
+KEYMAP:q:ABORT		# Quit without verification
+KEYMAP:^U:UP_TWO	# Move display up two lines
+KEYMAP:^D:DOWN_TWO	# Move display down two lines
+KEYMAP:g:HOME		# Go to top of current document
+KEYMAP:G:END		# Go to bottom of current document
 
 #KEYMAP:0x2F:SOURCE	# Toggle source viewing mode (show HTML source)
 #KEYMAP:^R:RELOAD	# Reload the current document and redisplay
 #KEYMAP:q:QUIT		# Ask the user to quit
-KEYMAP:q:ABORT		# Quit without verification
 #KEYMAP:Q:ABORT		# Quit without verification
 #KEYMAP:0x20:NEXT_PAGE	# Move down to next page
 #KEYMAP:-:PREV_PAGE	# Move up to previous page
-KEYMAP:^U:UP_TWO	# Move display up two lines
 #KEYMAP:0x10C:UP_TWO	# Function key Insert - Move display up two lines
-KEYMAP:^D:DOWN_TWO	# Move display down two lines
 #KEYMAP:0x10D:DOWN_TWO	# Function key Remove - Move display down two lines
 #KEYMAP:(:UP_HALF	# Move display up half a page
 #KEYMAP:):DOWN_HALF	# Move display down half a page

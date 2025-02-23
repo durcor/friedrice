@@ -1,0 +1,11 @@
+#!/bin/bash
+
+config_dir=$HOME/.config/waybar
+
+trap "killall waybar" EXIT
+
+while true; do
+	waybar &
+	inotifywait -e create,modify "$config_dir/config.jsonc" "$config_dir/style.css"
+	killall waybar
+done
