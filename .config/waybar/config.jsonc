@@ -10,59 +10,54 @@
       "hyprland/window"
     ],
   
+  	// "custom/distcompute",
+  	// "custom/amdgpu",
+  	// "custom/dsk",
+  	// "custom/vpn",
     "modules-right": [
-      "custom/arrow5f", "pulseaudio", "custom/arrow5b",
-      "custom/arrow4f", "bluetooth", "custom/arrow4b",
-      "custom/purplef", "network", "custom/purpleb",
-      "custom/arrow6f", "memory", "custom/arrow6b",
-      "custom/arrow6f", "cpu", "temperature", "custom/arrow6b",
+  	  // "custom/vol",
+      "custom/magentaf", "pulseaudio", "custom/magentab",
+  	  // "custom/bt",
+      "custom/bluef", "bluetooth", "custom/blueb",
+      "custom/magentaf", "network", "custom/magentab",
+  	  // "custom/mem",
+      "custom/cyanf", "memory", "custom/cyanb",
+  	  // "custom/cpu",
+      "custom/cyanf", "cpu", "temperature", "custom/cyanb",
+  	  // "custom/bat",
       // "custom/arrow4f", "battery", "custom/arrow4b"
-      "custom/arrow3f", "hyprland/language", "custom/arrow3b",
-      "custom/arrow8f", "custom/weather", "custom/arrow8b",
+  	  // "custom/kb",
+      "custom/brightyellowf", "hyprland/language", "custom/brightyellowb",
+  	  // 	"custom/accuweather",
+      "custom/darkgrayf", "custom/weather", "custom/darkgrayb",
       "custom/blackf", "tray", "clock#date", "custom/blackb",
-      "custom/arrow7f", "clock#time"
+  	  // "custom/time",
+      "custom/grayf", "clock#time"
     ],
-  
-  	// "modules-right": [
-  	// 	"custom/mus",
-  	// 	"custom/distcompute",
-  	// 	"custom/cpu",
-  	// 	"custom/amdgpu",
-  	// 	"custom/mem",
-  	// 	"custom/dsk",
-  	// 	"custom/vpn",
-  	// 	"custom/kb",
-  	// 	"custom/vol",
-  	// 	"custom/bt",
-  	// 	"custom/bat",
-  	// 	"custom/accuweather",
-  	// 	"tray",
-  	//  "custom/time",
-  	// ],
   
   	// Modules
   
-  	// "battery": {
-  	// 	"interval": 10,
-  	// 	"states": {
-  	// 		"warning": 30,
-  	// 		"critical": 15
-  	// 	},
-  	// 	"format-time": "{H}:{M:02}",
-  	// 	"format": "{icon} {capacity}% ({time})",
-  	// 	"format-charging": " {capacity}% ({time})",
-  	// 	"format-charging-full": " {capacity}%",
-  	// 	"format-full": "{icon} {capacity}%",
-  	// 	"format-alt": "{icon} {power}W",
-  	// 	"format-icons": [
-  	// 		"",
-  	// 		"",
-  	// 		"",
-  	// 		"",
-  	// 		""
-  	// 	],
-  	// 	"tooltip": false
-  	// },
+  	"battery": {
+  		"interval": 10,
+  		"states": {
+  			"warning": 30,
+  			"critical": 15
+  		},
+  		"format-time": "{H}:{M:02}",
+  		"format": "{icon} {capacity}% ({time})",
+  		"format-charging": " {capacity}% ({time})",
+  		"format-charging-full": " {capacity}%",
+  		"format-full": "{icon} {capacity}%",
+  		"format-alt": "{icon} {power}W",
+  		"format-icons": [
+  			"",
+  			"",
+  			"",
+  			"",
+  			""
+  		],
+  		"tooltip": false
+  	},
   
   	"clock#time": {
   		"interval": 1,
@@ -74,7 +69,7 @@
   		"interval": 20,
   		"format": "{:%e %b %Y}",
   		"tooltip": false
-  		//"tooltip-format": "{:%e %B %Y}"
+  		// "tooltip-format": "{:%e %B %Y}"
   	},
   
   	"cpu": {
@@ -167,8 +162,8 @@
   
     // TODO: Support accuweather backend
     "custom/weather": {
-        "exec": "wttrbar --nerd --fahrenheit --mph",
-        "format": "{}F",
+        "exec": "wttrbar --nerd --fahrenheit --mph --custom-indicator '{ICON} {temp_F}F {areaName}'",
+        "format": "{}",
         // "exec": "wttrbar --nerd",
         // "format": "{}C",
         "tooltip": true,
@@ -177,27 +172,23 @@
     },
   
     // Seperators
-    "custom/arrow0f": { "format": "", "tooltip": false },
-    "custom/arrow1f": { "format": "", "tooltip": false },
-    "custom/arrow2f": { "format": "", "tooltip": false },
-    "custom/arrow3f": { "format": "", "tooltip": false },
-    "custom/arrow4f": { "format": "", "tooltip": false },
-    "custom/arrow5f": { "format": "", "tooltip": false },
-    "custom/arrow6f": { "format": "", "tooltip": false },
-    "custom/arrow7f": { "format": "", "tooltip": false },
-    "custom/arrow8f": { "format": "", "tooltip": false },
-    "custom/purplef": { "format": "", "tooltip": false },
-  
-    "custom/arrow0b": { "format": "", "tooltip": false },
-    "custom/arrow1b": { "format": "", "tooltip": false },
-    "custom/arrow2b": { "format": "", "tooltip": false },
-    "custom/arrow3b": { "format": "", "tooltip": false },
-    "custom/arrow4b": { "format": "", "tooltip": false },
-    "custom/arrow5b": { "format": "", "tooltip": false },
-    "custom/arrow6b": { "format": "", "tooltip": false },
-    "custom/arrow7b": { "format": "", "tooltip": false },
-    "custom/arrow8b": { "format": "", "tooltip": false },
-    "custom/purpleb": { "format": "", "tooltip": false },
+    "custom/blackf": { "format": "", "tooltip": false }, "custom/blackb": { "format": "", "tooltip": false },
+    "custom/redf": { "format": "", "tooltip": false }, "custom/redb": { "format": "", "tooltip": false },
+    "custom/greenf": { "format": "", "tooltip": false }, "custom/greenb": { "format": "", "tooltip": false },
+    "custom/yellowf": { "format": "", "tooltip": false }, "custom/yellowb": { "format": "", "tooltip": false },
+    "custom/bluef": { "format": "", "tooltip": false }, "custom/blueb": { "format": "", "tooltip": false },
+    "custom/purplef": { "format": "", "tooltip": false }, "custom/purpleb": { "format": "", "tooltip": false },
+    "custom/tealf": { "format": "", "tooltip": false }, "custom/tealb": { "format": "", "tooltip": false },
+    "custom/grayf": { "format": "", "tooltip": false }, "custom/grayb": { "format": "", "tooltip": false },
+
+    "custom/darkgrayf": { "format": "", "tooltip": false }, "custom/darkgrayb": { "format": "", "tooltip": false },
+    "custom/brightredf": { "format": "", "tooltip": false }, "custom/brightredb": { "format": "", "tooltip": false },
+    "custom/brightgreenf": { "format": "", "tooltip": false }, "custom/brightgreenb": { "format": "", "tooltip": false },
+    "custom/brightyellowf": { "format": "", "tooltip": false }, "custom/brightyellowb": { "format": "", "tooltip": false },
+    "custom/brightbluef": { "format": "", "tooltip": false }, "custom/brightbluef": { "format": "", "tooltip": false },
+    "custom/magentaf": { "format": "", "tooltip": false }, "custom/magentab": { "format": "", "tooltip": false },
+    "custom/cyanf": { "format": "", "tooltip": false }, "custom/cyanb": { "format": "", "tooltip": false },
+    "custom/whitef": { "format": "", "tooltip": false }, "custom/whiteb": { "format": "", "tooltip": false },
   
     // signal=2
     "custom/mus": { "exec": "~/.local/bin/i3blocks/mus", "interval": "5", },
@@ -230,6 +221,7 @@
   	],
   
   	"modules-right": [
+  	  // "custom/mus",
   		"custom/arrow8f", "mpris", "custom/arrow8b",
   		"custom/blackf", "tray", "clock#date", "custom/blackb",
   	  "custom/arrow7f", "clock#time"

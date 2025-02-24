@@ -26,7 +26,11 @@
 #                  ';\u6OOOOOOKez>:`
 #                       .:?i^,`
 #
+include $HOME/.cache/wal/colors-sway
 include $HOME/.config/wpg/templates/sway
+
+# font for window titles+status bar
+font pango: "mononoki Nerd Font Mono" 11
 
 set $mode-notif exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low
 
@@ -61,7 +65,7 @@ output eDP-1 pos 1000 1600 res 1920x1200
 output DP-2 pos 0 0 res 3840x1600
 
 # Manage the windows
-mode --pango_markup "$mode_manager" {
+mode manager {
     bindsym XF86AudioRaiseVolume exec pamixer --allow-boost -i 5
     bindsym F3 exec pamixer --allow-boost -i 5
     bindsym XF86AudioLowerVolume exec pamixer --allow-boost -d 5
@@ -79,21 +83,21 @@ mode --pango_markup "$mode_manager" {
     bindsym Return exec $TERMINAL
 
     # bindsym control+q exec "i3-nagbar -t warning -m 'exit i3?' -b 'yes' 'i3-msg exit'"
-    bindsym --release q exec swaylock -f -c $lock_screen_bg
-    bindsym shift+q exec swaylock -f -c $lock_screen_bg; exec sway output * dpms off
-    bindsym control+q exec swaylock -f -c $lock_screen_bg; exec sudo systemctl suspend
-    bindsym XF86Sleep exec swaylock -f -c $lock_screen_bg; exec sudo systemctl suspend
+    bindsym --release q exec swaylock -f -c $color8
+    bindsym shift+q exec swaylock -f -c $color8; exec sway output * dpms off
+    bindsym control+q exec swaylock -f -c $color8; exec sudo systemctl suspend
+    bindsym XF86Sleep exec swaylock -f -c $color8; exec sudo systemctl suspend
     # bindsym u exec "xclip -t -se p | xclip -i -s c"
     # bindsym slash exec dmenual -i -p run
-    bindsym slash exec $TERMINAL --class float -e fzfexec; exec sway mode "$mode_window"
-    bindsym shift+slash exec sway mode "$mode_window"; exec rofi -modi run -show run
+    bindsym slash exec $TERMINAL --class float -e fzfexec; exec sway mode window
+    bindsym shift+slash exec sway mode window; exec rofi -modi run -show run
     bindsym f exec $TERMINAL -e lf
     bindsym shift+p exec passmenu
     # TODO: make pasting intelligent using the file extension and falling back to mpv
     # Alternatively, I could make ANOTHER MODE for pasting (ex: 'pv' opens the clipboard in mpv.
-    bindsym p mode "$mode_paste"; $mode-notif "PASTE MODE"
-    bindsym y mode "$mode_yank"; $mode-notif "YANK MODE"
-    bindsym n mode "$mode_notify"; $mode-notif "NOTIFY MODE"
+    bindsym p mode paste; $mode-notif "PASTE MODE"
+    bindsym y mode yank; $mode-notif "YANK MODE"
+    bindsym n mode notify; $mode-notif "NOTIFY MODE"
     bindsym shift+n exec makoctl dismiss
 
     bindsym Menu [instance="pop"] scratchpad show; [instance="pop"] move position center
@@ -169,25 +173,25 @@ mode --pango_markup "$mode_manager" {
     bindsym shift+c reload
     bindsym control+r reload
 
-    bindsym i mode "$mode_window"; $mode-notif "WINDOW MODE"
-    bindsym a mode "$mode_window"; $mode-notif "WINDOW MODE"
-    bindsym shift+a mode "$mode_window"; $mode-notif "WINDOW MODE"
-    bindsym shift+i mode "$mode_window"; $mode-notif "WINDOW MODE"
+    bindsym i mode window; $mode-notif "WINDOW MODE"
+    bindsym a mode window $mode-notif "WINDOW MODE"
+    bindsym shift+a mode window; $mode-notif "WINDOW MODE"
+    bindsym shift+i mode window; $mode-notif "WINDOW MODE"
 
-    bindsym o mode "$mode_launch"; $mode-notif "LAUNCH MODE"
-    bindsym g mode "$mode_gaps"; $mode-notif "GAPS MODE"
-    bindsym m mode "$mode_music"; $mode-notif "MUSIC MODE"
-    bindsym z mode "$mode_audio"; $mode-notif "AUDIO MODE"
-    bindsym shift+colon [instance="pop"] mode "$mode_window"; scratchpad show; [instance="pop"] move position center
-    bindsym r mode "$mode_resize"; $mode-notif "RESIZE MODE"
-    bindsym v mode "$mode_visual"; $mode-notif "VISUAL MODE"
+    bindsym o mode launch; $mode-notif "LAUNCH MODE"
+    bindsym g mode gaps; $mode-notif "GAPS MODE"
+    bindsym m mode music; $mode-notif "MUSIC MODE"
+    bindsym z mode audio; $mode-notif "AUDIO MODE"
+    bindsym shift+colon [instance="pop"] mode window; scratchpad show; [instance="pop"] move position center
+    bindsym r mode resize; $mode-notif "RESIZE MODE"
+    bindsym v mode visual; $mode-notif "VISUAL MODE"
     bindsym shift+v exec grim > /tmp/grim.png
-    bindsym c mode "$mode_brightness"; $mode-notif "BRIGHTNESS MODE"
+    bindsym c mode brightness; $mode-notif "BRIGHTNESS MODE"
 }
 
 # Interact with the highlighted window
-mode --pango_markup "$mode_window" {
-    bindsym Super_L mode "$mode_manager"; $mode-notif "MANAGER MODE"
+mode window {
+    bindsym Super_L mode manager; $mode-notif "MANAGER MODE"
 
     bindsym XF86AudioRaiseVolume exec pamixer --allow-boost -i 5; exec pkill -RTMIN+13 i3blocks
     bindsym XF86AudioLowerVolume exec pamixer --allow-boost -d 5; exec pkill -RTMIN+13 i3blocks
@@ -205,37 +209,37 @@ mode --pango_markup "$mode_window" {
 }
 
 # Yank stuff to clipboard
-mode --pango_markup "$mode_yank" {
-    # bindsym p exec passmenu -p pass ; exec sway mode "$mode_manager"
-    bindsym p exec $TERMINAL --class float -e fzfpw; exec sway mode "$mode_window"
-    bindsym c exec clipmenu; exec sway mode "$mode_manager"
+mode yank {
+    # bindsym p exec passmenu -p pass ; exec sway mode manager
+    bindsym p exec $TERMINAL --class float -e fzfpw; exec sway mode window
+    bindsym c exec clipmenu; exec sway mode manager
 
-    bindsym Escape mode "$mode_manager"; exec $mode-notif "MANAGER MODE"
+    bindsym Escape mode manager; exec $mode-notif "MANAGER MODE"
 }
 
-mode --pango_markup "$mode_notify" {
+mode notify {
     bindsym x exec makoctl dismiss
     bindsym u exec makoctl restore
     bindsym d exec makoctl dismiss -a
     bindsym v exec makoctl menu
     bindsym shift+v exec makoctl invoke
 
-    bindsym Escape mode "$mode_manager"; exec $mode-notif "MANAGER MODE"
+    bindsym Escape mode manager; exec $mode-notif "MANAGER MODE"
 }
 
 # Paste stuff to programs
-mode --pango_markup "$mode_paste" {
-    bindsym v exec mpv "$(wl-paste)"; exec sway mode "$mode_manager"
-    bindsym t exec $TERMINAL -e nvim "$(wl-paste)"; exec sway mode "$mode_manager"
+mode paste {
+    bindsym v exec mpv "$(wl-paste)"; exec sway mode manager
+    bindsym t exec $TERMINAL -e nvim "$(wl-paste)"; exec sway mode manager
 
-    bindsym Escape mode "$mode_manager"; exec $mode-notif "MANAGER MODE"
+    bindsym Escape mode manager; exec $mode-notif "MANAGER MODE"
 }
 
-bindsym Super_L mode "$mode_manager"; $mode-notif "MANAGER MODE"
+bindsym Super_L mode manager; $mode-notif "MANAGER MODE"
 
 # Resize the current window
 # Relies on ~/bin/i3resize for intelligent resizing
-mode --pango_markup "$mode_resize" {
+mode resize {
     bindsym h resize grow left 5
     bindsym j resize grow down 5
     bindsym k resize grow up 5
@@ -256,21 +260,21 @@ mode --pango_markup "$mode_resize" {
     # bindsym mod1+k resize up 10
     # bindsym mod1+l resize right 10
 
-    bindsym Escape mode "$mode_manager"; $mode-notif "MANAGER MODE"
+    bindsym Escape mode manager; $mode-notif "MANAGER MODE"
 }
 
 # Change the gaps of all windows
-mode --pango_markup "$mode_gaps" {
+mode gaps {
     bindsym h gaps inner current minus 5
     bindsym l gaps inner current plus 5
     bindsym j gaps outer current minus 5
     bindsym k gaps outer current plus 5
 
-    bindsym Escape mode "$mode_manager"; $mode-notif "MANAGER MODE"
+    bindsym Escape mode manager; $mode-notif "MANAGER MODE"
 }
 
 # Interact with mpris
-mode --pango_markup "$mode_music" {
+mode music {
     bindsym h exec playerctl previous
     bindsym l exec playerctl next
     bindsym j exec playerctl position 5-
@@ -278,13 +282,13 @@ mode --pango_markup "$mode_music" {
     bindsym v exec mpdmenu
     bindsym z exec playerctl shuffle "On"
     bindsym space exec playerctl play-pause
-    bindsym m mode "$mode_mpd"; $mode-notif "MPD MODE"
+    bindsym m mode mpd; $mode-notif "MPD MODE"
 
-    bindsym Escape mode "$mode_manager"; $mode-notif "MANAGER MODE"
+    bindsym Escape mode manager; $mode-notif "MANAGER MODE"
 }
 
 # Interact with mpd
-mode --pango_markup "$mode_mpd" {
+mode mpd {
     bindsym h exec mpc prev
     bindsym l exec mpc next
     bindsym j exec mpc seek -5
@@ -294,11 +298,11 @@ mode --pango_markup "$mode_mpd" {
     bindsym z exec mpc random ; exec notify-send -h string:x-canonical-private-synchronous:i3mpd -u low "$(mpc)"
     bindsym space exec mpc toggle
 
-    bindsym Escape mode "$mode_manager"; exec $mode-notif "MANAGER MODE"
+    bindsym Escape mode manager; exec $mode-notif "MANAGER MODE"
 }
 
 # Interact with pulseaudio
-mode --pango_markup "$mode_audio" {
+mode audio {
     bindsym h $ex pactl set-sink-volume @DEFAULT_SINK@ -1% ; $ex pkill -RTMIN+13 i3blocks
     bindsym l $ex pactl set-sink-volume @DEFAULT_SINK@ +1% ; $ex pkill -RTMIN+13 i3blocks
     bindsym j $ex pactl set-sink-volume @DEFAULT_SINK@ -5% ; $ex pkill -RTMIN+13 i3blocks
@@ -307,41 +311,41 @@ mode --pango_markup "$mode_audio" {
     bindsym v $ex $TERMINAL -e ncpamixer
     bindsym space $ex pactl set-sink-mute @DEFAULT_SINK@ toggle ; $ex pkill -RTMIN+13 i3blocks
 
-    bindsym Escape mode "$mode_manager" ; $ex $mode-notif "MANAGER MODE"
+    bindsym Escape mode manager; $ex $mode-notif "MANAGER MODE"
 }
 
 # Launch programs
-mode --pango_markup "$mode_launch" {
+mode launch {
     bindsym t exec $TERMINAL
     bindsym n exec $TERMINAL -e newsboat
     bindsym w exec $GUIBROWSER
-    bindsym g exec $TERMINAL --class float -e gameman play ; exec sway mode "$mode_window"
+    bindsym g exec $TERMINAL --class float -e gameman play; exec sway mode window
     bindsym m exec $TERMINAL -e $MAILREADER
     bindsym c exec $TERMINAL -e $MUSICPLAYER -s visualizer
     bindsym v exec $TERMINAL -e $TASKMAN
     bindsym a exec $TERMINAL -e ncpamixer
 
-    bindsym Escape mode "$mode_manager" ; $mode-notif "MANAGER MODE"
+    bindsym Escape mode manager; $mode-notif "MANAGER MODE"
 }
 
 # Select an area of the screen and convert it to an image
-mode --pango_markup "$mode_visual" {
+mode visual {
     bindsym s exec scrman
     bindsym c exec scrman cp
     bindsym u exec scrman up
     bindsym d exec scrman cp d 5
 
-    bindsym Escape mode "$mode_manager" ; $mode-notif "MANAGER MODE"
+    bindsym Escape mode manager; $mode-notif "MANAGER MODE"
 }
 
 # Change the brightness of the screen
-mode --pango_markup "$mode_brightness" {
+mode brightness {
     bindsym h exec backlightctl down 1
     bindsym l exec backlightctl up 1
     bindsym j exec backlightctl down 10
     bindsym k exec backlightctl up 10
 
-    bindsym Escape mode "$mode_manager" ; $mode-notif "MANAGER MODE"
+    bindsym Escape mode manager ; $mode-notif "MANAGER MODE"
 }
 
 gaps inner 10
@@ -395,6 +399,35 @@ set $ws10 10 
 
 for_window [instance="float"] floating enable
 
+# class                 border  bg      txt     indicator child_border
+client.focused          $color1	$color1	$color1	$color1	  $color1
+client.focused_inactive $color0	$color2	$color7	$color2	  $color2
+client.unfocused        $color0	$color6	$color6	$color6	  $color6
+client.urgent           $color0	$color2	$color8	$color2	  $color2
+client.placeholder      $color0	$color2	$color7	$color2	  $color2
+
+client.background       $color0
+
+bar {
+    status_command waybar
+
+    # status_command i3blocks
+    # position top
+    # separator_symbol /
+    # strip_workspace_numbers yes
+    # colors {
+    #     background $color0
+    #     statusline $color7
+    #     separator  $color1
+    #     # class             border  bg      txt
+    #     focused_workspace   $color0 $color0 $color9
+    #     active_workspace    $color0 $color0 $color10
+    #     inactive_workspace  $color0 $color0 $color7
+    #     urgent_workspace    $color0 $color8 $color15
+    #     binding_mode        $color0 $color0 $color0
+    # }
+}
+
 exec $TERMINAL
 exec $GUIBROWSER
 exec librewolf
@@ -411,7 +444,7 @@ exec '/lib/xdg-desktop-portal-wlr -r -o DP-1'
 exec 'killall -9 flashfocus; flashfocus'
 exec 'spotifyd --no-daemon'
 exec 'swayidle -w timeout 300 "lockman" timeout 600 "swaymsg output * dpms off" resume "swaymsg output * dpms on" before-sleep "lockman"'
-# exec workspace $ws1
-exec_always sway mode "$mode_window"
+# exec workspace 1
+exec_always sway mode window
 exec dbus-update-activation-environment --systemd DISPLAY
 # exec_always waybar

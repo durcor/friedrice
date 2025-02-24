@@ -17,21 +17,22 @@
 @define-color yellow	@color3;
 @define-color blue	@color4;
 @define-color purple	@color5;
-@define-color aqua	@color6;
+@define-color teal	@color6;
 @define-color gray	@color7;
-@define-color brgray	@color8;
-@define-color brred	@color9;
-@define-color brgreen	@color10;
-@define-color bryellow	@color11;
-@define-color brblue	@color12;
-@define-color brpurple	@color13;
-@define-color braqua	@color14;
+
+@define-color darkgray	@color8;
+@define-color brightred	@color9;
+@define-color brightgreen	@color10;
+@define-color brightyellow	@color11;
+@define-color brightblue	@color12;
+@define-color magenta	@color13;
+@define-color cyan	@color14;
 @define-color white	@color15;
 
-@define-color warning 	@bryellow;
+@define-color warning 	@brightyellow;
 @define-color critical	@red;
-@define-color unfocused	@brgray;
-@define-color focused	@braqua;
+@define-color unfocused	@darkgray;
+@define-color focused	@cyan;
 @define-color inactive	@purple;
 
 /* Reset all styles */
@@ -48,7 +49,7 @@
 
 /* The whole bar */
 #waybar {
-	background: @color0;
+	background: @black;
 	color: @white;
 	font-family: Mononoki Nerd Font Mono;
 	/* font-family: FantasqueSansM Nerd Font Mono; */
@@ -81,8 +82,8 @@
 #disk,
 #user,
 #mpris {
-	padding-left: 8pt;
-	padding-right: 8pt;
+	padding-left: 5pt;
+	padding-right: 5pt;
 }
 
 /* Each critical module */
@@ -105,14 +106,6 @@
 #temperature.warning,
 #battery.warning.discharging {
 	color: @warning;
-}
-
-/* And now modules themselves in their respective order */
-
-/* Current sway mode (resize etc) */
-#mode {
-	color: @white;
-	background: @black;
 }
 
 /* Workspaces stuff */
@@ -153,102 +146,89 @@
 	margin-left: 35pt;
 }
 
-#submap {
+/* Mode/Submap styling */
+/* FIXME: Add slant nerd font char */
+
+#submap, #mode {
 	font-size: 11pt;
-	color: @color15;
-	background: @color8;
-}
-
-#pulseaudio {
-	background: @brpurple;
-	color: @black;
-}
-
-#network {
-	background: @purple;
 	color: @white;
+	background: @darkgray;
+  font-weight: bold;
+  /* text-transform: uppercase; */
 }
 
-#memory {
-	background: @braqua;
-	color: @black;
-}
+#submap.manager, #mode.manager       { background: @color12; }
+#submap.window, #mode.window         { background: @color10; }
+#submap.launch, #mode.launch         { background: @color6;  }
+#submap.audio, #mode.audio           { background: @color11; }
+#submap.music, #mode.music           { background: @color1;  }
+#submap.resize, #mode.resize         { background: @color1;  }
+#submap.mpd, #mode.mpd               { background: @color14; }
+#submap.visual, #mode.visual         { background: @color9;  }
+#submap.gaps, #mode.gaps             { background: @color15; }
+#submap.brightness, #mode.brightness { background: @color13; }
+#submap.paste, #mode.paste           { background: @color3;  }
+#submap.yank, #mode.yank             { background: @color4;  }
+#submap.notify, #mode.notify         { background: @color2;  }
 
-#cpu {
-	background: @green;
-	color: @white;
-}
+/* Module styling */
+#pulseaudio     { background: @magenta; color: @black; }
+#network        { background: @magenta; color: @white; }
+#memory         { background: @cyan; color: @black; }
+#cpu            { background: @green; color: @black; }
+#temperature    { background: @green; color: @black; }
+#language       { background: @brightyellow; color: @black; }
+#custom-weather { background: @darkgray; color: @white; }
+#mpris          { background: @darkgray; color: @white; }
+#battery        { background: @teal; color: @white; }
+#bluetooth      { background: @blue; color: @gray; }
+#tray           { background: @black; }
 
-#temperature {
-	background: @green;
-	color: @black;
-}
+#clock.date { background: @black; color: @gray; }
+#clock.time { background: @gray; color: @black; }
 
-#language {
-	background: @bryellow;
-	color: @black;
-}
+/* Separator styling */
+#custom-blackf { color: @black; background: @black; }
+#custom-blackb { color: @black; background: @black; }
 
-#custom-weather {
-	background: @brgray;
-	color: @white;
-}
+#custom-redf { color: @red; background: @black; }
+#custom-redb { color: @black; background: @red; }
 
-#mpris {
-	background: @brgray;
-	color: @white;
-}
+#custom-brightredf { color: @brightred; background: @black; }
+#custom-brightredb { color: @black; background: @brightred; }
 
-#battery {
-	background: @aqua;
-	color: @white;
-}
+#custom-greenf { color: @green; background: @black; }
+#custom-greenb { color: @black; background: @green; }
 
-#bluetooth {
-	background: @blue;
-	color: @gray;
-}
+#custom-brightgreenf { color: @brightgreen; background: @black; }
+#custom-brightgreenb { color: @black; background: @brightgreen; }
 
-#tray {
-	background: @color0;
-}
+#custom-yellowf { color: @yellow; background: @black; }
+#custom-yellowb { color: @black; background: @yellow; }
 
-#clock.date {
-	background: @color0;
-	color: @gray;
-}
+#custom-brightyellowf { color: @brightyellow; background: @black; }
+#custom-brightyellowb { color: @black; background: @brightyellow; }
 
-#clock.time {
-	background: @gray;
-	color: @black;
-}
+#custom-bluef { color: @blue; background: @black; }
+#custom-blueb { color: @black; background: @blue; }
 
-#custom-blackf { color: @color0; background: @black; }
-#custom-blackb { color: @black; background: @color0; }
+#custom-brightbluef { color: @brightblue; background: @black; }
+#custom-brightblueb { color: @black; background: @brightblue; }
 
-#custom-arrow1f { color: @color9; background: @black; }
-#custom-arrow1b { color: @black; background: @color9; }
+#custom-magentaf { color: @purple; background: @black; }
+#custom-magentab { color: @black; background: @purple; }
 
-#custom-arrow2f { color: @color10; background: @black; }
-#custom-arrow2b { color: @color2; background: @color10; }
+#custom-magentaf { color: @magenta; background: @black; }
+#custom-magentab { color: @black; background: @magenta; }
 
-#custom-arrow3f { color: @bryellow; background: @black; }
-#custom-arrow3b { color: @black; background: @bryellow; }
+#custom-tealf { color: @teal; background: @black; }
+#custom-tealb { color: @black; background: @teal; }
 
-#custom-arrow4f { color: @color12; background: @black; }
-#custom-arrow4b { color: @black; background: @color12; }
+#custom-cyanf { color: @cyan; background: @black; }
+#custom-cyanb { color: @black; background: @cyan; }
 
-#custom-arrow5f { color: @color13; background: @black; }
-#custom-arrow5b { color: @black; background: @color13; }
+#custom-grayf { color: @gray; background: @black; }
+#custom-grayb { color: @black; background: @gray; }
 
-#custom-purplef { color: @purple; background: @black; }
-#custom-purpleb { color: @black; background: @purple; }
-
-#custom-arrow6f { color: @color14; background: @black; }
-#custom-arrow6b { color: @black; background: @color14; }
-
-#custom-arrow7f { color: @color7; background: @black; }
-#custom-arrow7b { color: @black; background: @color7; }
-
-#custom-arrow8f { color: @color8; background: @black; }
-#custom-arrow8b { color: @black; background: @color8; }
+#custom-darkgrayf { color: @darkgray; background: @black; }
+#custom-darkgrayb { color: @black; background: @darkgray; }
