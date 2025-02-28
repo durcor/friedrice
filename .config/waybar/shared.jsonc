@@ -35,12 +35,12 @@
   },
 
   "hyprland/language": {
-    "format": " {shortDescription} ({short})",
-    "min-length": 9,
+    "format": "  {flag}",
+    "min-length": 6,
     "on-click": "swaymsg 'input * xkb_switch_layout next'",
     "tooltip": false
   },
-  
+
   "sway/language": {
     "format": "  {flag}",
     "min-length": 6,
@@ -97,10 +97,11 @@
     "icon-size": 15,
     "spacing": 10
   },
-  
+
+  // FIXME: Show icon/battery level per device connected
   "bluetooth": {
     "format": " {num_connections}",
-    "format-connected": " {device_alias}",
+    // "format-connected": " {device_alias}",
     "format-connected-battery": " {num_connections}: {icon} ({device_battery_percentage}%)",
     // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
     "format-icons": {
@@ -118,7 +119,15 @@
     "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
     "on-click": "bt-select"
   },
-  
+
+  // "exec": "~/.local/bin/i3blocks/amdgpu"
+  "custom/gpu": {
+    "exec": "cat /sys/class/hwmon/hwmon1/device/gpu_busy_percent",
+    "format": " {}%",
+    "return-type": "",
+    "interval": 5
+  },
+
   "cpu": {
     "interval": 5,
     "tooltip": false,
@@ -129,9 +138,26 @@
       "critical": 90
     }
   },
-  
-  "temperature": {
+
+  "temperature#cpu": {
     "critical-threshold": 90,
+    "interval": 5,
+    "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "tooltip": false
+  },
+
+  "temperature#gpu": {
+    "critical-threshold": 90,
+    "hwmon-path": "hwmon1",
+    "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
     "interval": 5,
     "format": "{icon} {temperatureC}°C",
     "format-icons": [
@@ -191,7 +217,6 @@
   "custom/accuweather": { "exec": "~/.local/bin/i3blocks/accuweather", "interval": "1800", },
   "custom/distcompute": { "exec": "~/.local/bin/i3blocks/distcompute", "interval": "15", },
   "custom/cpu": { "exec": "~/.local/bin/i3blocks/cpu", "interval": "5", },
-  "custom/amdgpu": { "exec": "~/.local/bin/i3blocks/amdgpu", "interval": "5", },
   "custom/dsk": { "exec": "~/.local/bin/i3blocks/dsk", "interval": "30", },
   "custom/vpn": { "exec": "~/.local/bin/i3blocks/vpn", "interval": "30", },
   // "custom/kb": { "exec": "~/.local/bin/i3blocks/kb", "interval": "100000000000", },

@@ -1,73 +1,10 @@
-# vi:ft=zathurarc
-set selection-clipboard clipboard
-set window-title-home-tilde false
+include colors-zathura
+
+# set window-title-home-tilde false # true
+# set statusbar-basename true
+# set selection-clipboard clipboard
+# set recolor "true"
 set statusbar-home-tilde false
 set show-hidden true
 set adjust-open width
-# set font 'Fantasque Sans Mono Nerd Font' normal 9
-set recolor "true"
-
-set completion-bg "#17120a"
-set completion-fg "#ffffe7"
-set completion-group-bg "#17120a"
-set completion-group-fg "#9B8655"
-set completion-highlight-bg "#ffffe7"
-set completion-highlight-fg "#17120a"
-
-set recolor-lightcolor "#17120a"
-set recolor-darkcolor "#ffffe7"
-set default-bg "#17120a"
-
-set inputbar-bg "#17120a"
-set inputbar-fg "#ffffe7"
-set notification-bg "#17120a"
-set notification-fg "#ffffe7"
-set notification-error-bg "#885F41"
-set notification-error-fg "#ffffe7"
-set notification-warning-bg "#885F41"
-set notification-warning-fg "#ffffe7"
-set statusbar-bg "#17120a"
-set statusbar-fg "#ffffe7"
-set index-bg "#17120a"
-set index-fg "#ffffe7"
-set index-active-bg "#ffffe7"
-set index-active-fg "#17120a"
-set render-loading-bg "#17120a"
-set render-loading-fg "#ffffe7"
-
-set window-title-home-tilde true
-set statusbar-basename true
-set selection-clipboard clipboard
-set recolor "true"
-
-set completion-bg "#05060C"
-set completion-fg "#e2ffff"
-set completion-group-bg "#05060C"
-set completion-group-fg "#398CFC"
-set completion-highlight-bg "#e2ffff"
-set completion-highlight-fg "#05060C"
-
-set recolor-lightcolor "#05060C"
-set recolor-darkcolor "#e2ffff"
-set default-bg "#05060C"
-
-set inputbar-bg "#05060C"
-set inputbar-fg "#e2ffff"
-set notification-bg "#05060C"
-set notification-fg "#e2ffff"
-set notification-error-bg "#4E6BE8"
-set notification-error-fg "#e2ffff"
-set notification-warning-bg "#4E6BE8"
-set notification-warning-fg "#e2ffff"
-set statusbar-bg "#05060C"
-set statusbar-fg "#e2ffff"
-set index-bg "#05060C"
-set index-fg "#e2ffff"
-set index-active-bg "#e2ffff"
-set index-active-fg "#05060C"
-set render-loading-bg "#05060C"
-set render-loading-fg "#e2ffff"
-
-set window-title-home-tilde true
-set statusbar-basename true
-set selection-clipboard clipboard
+set font 'Mononoki Nerd Font' normal 9

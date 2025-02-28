@@ -34,8 +34,9 @@
 
       "custom/yellowf",
       "cpu", // "custom/cpu",
-      // "custom/amdgpu",
-      "temperature",
+      "temperature#cpu",
+      "custom/gpu", // "custom/amdgpu",
+      "temperature#gpu",
       "custom/yellowb",
 
       // "custom/distcompute",
@@ -75,10 +76,14 @@
       "mpris",
       "custom/darkgrayb",
 
-      "custom/blackf",
+      "custom/darkgrayf",
+      "sway/language", "hyprland/language",
+      "custom/darkgrayb",
+
+      "custom/darkgrayf",
       "tray",
       "clock#date",
-      "custom/blackb",
+      "custom/darkgrayb",
 
       "custom/grayf",
       "clock#time"
@@ -88,7 +93,7 @@
     "include": ["$HOME/.config/waybar/shared.jsonc"],
   },
   {
-    "output": "eDP-1", // "HDMI-A-1"
+    "output": ["eDP-1"], // , "HDMI-A-1"],
     "position": "bottom",
 
     "modules-left": [
@@ -107,7 +112,7 @@
       "custom/blackb",
 
       "custom/darkgrayf",
-      "sway/language", // "hyprland/language"
+      "sway/language", "hyprland/language",
       "custom/darkgrayb",
 
       "custom/redf",

@@ -51,14 +51,15 @@ smart_borders off
 # xwayland disable
 
 output * {
-  adaptive_sync on
-  max_render_time 1
+  # max_render_time 1
   bg $wallpaper fill
 }
 
-# output HDMI-A-1 pos 0 360 res 1920x1080
-# output DP-1 pos 1920 0 res 2560x1440
-# output DP-2 disable
+output HDMI-A-1 pos 0 360 res 1920x1080
+output HDMI-A-1 adaptive_sync off
+
+output DP-3 pos 1920 0 res 2560x1440
+output HDMI-A-1 adaptive_sync on
 
 output eDP-1 pos 1000 1600 res 1920x1200
 output DP-2 pos 0 0 res 3840x1600

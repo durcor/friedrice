@@ -65,12 +65,12 @@ opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true -- Enable highlighting of the current line
 opt.expandtab = true -- Use spaces instead of tabs
 opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
+	foldopen = "",
+	foldclose = "",
+	fold = " ",
+	foldsep = " ",
+	diff = "╱",
+	eob = " ",
 }
 opt.foldlevel = 99
 opt.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
@@ -118,23 +118,23 @@ opt.wrap = false -- Disable line wrap
 opt.autochdir = true
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  pattern = "github.com_*.txt",
-  command = "set filetype=markdown",
+	pattern = "github.com_*.txt",
+	command = "set filetype=markdown",
 })
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  pattern = "grafana.*.txt",
-  command = "set filetype=promql",
+	pattern = "grafana.*.txt",
+	command = "set filetype=promql",
 })
 
 if vim.fn.has("nvim-0.10") == 1 then
-  opt.smoothscroll = true
-  opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
-  opt.foldmethod = "expr"
-  opt.foldtext = ""
+	opt.smoothscroll = true
+	opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+	opt.foldmethod = "expr"
+	opt.foldtext = ""
 else
-  opt.foldmethod = "indent"
-  opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
+	opt.foldmethod = "indent"
+	opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
 end
 
 -- Fix markdown indentation settings
