@@ -209,11 +209,23 @@
 local map = vim.keymap.set
 
 map("n", "<leader>F", function()
-  Snacks.picker.files({ cwd = "/home/tyler" })
-end)
+	Snacks.picker.files({ cwd = "~", hidden = true, ignored = true })
+end, { desc = "Find Files (All under ~)" })
+
+map("n", "<leader>ff", function()
+	Snacks.picker.files({ cwd = "~", hidden = true, ignored = false })
+end, { desc = "Find Files (All non-ignored under ~)" })
+
+map("n", "<leader>fs", function()
+	Snacks.picker.smart()
+end, { desc = "Find Files Smartly" })
+
+map("n", "<leader>B", function()
+	Snacks.picker.buffers()
+end, { desc = "Pick buffer" })
 
 map("n", "<leader>p", function()
-  Snacks.picker()
+	Snacks.picker()
 end)
 
 map("n", "<leader><leader>", "<cmd>w<cr>")
@@ -226,16 +238,22 @@ map("n", "<C-Q>", "<cmd>q!<cr>")
 map("n", "<leader>gg", "<cmd>:G<cr>", { desc = "fugitive" })
 
 map("n", "<leader>G", function()
-  Snacks.lazygit({ cwd = LazyVim.root.git() })
+	Snacks.lazygit({ cwd = LazyVim.root.git() })
 end, { desc = "Lazygit (Root Dir)" })
 
 map("n", "<leader>gG", function()
-  Snacks.lazygit()
+	Snacks.lazygit()
 end, { desc = "Lazygit (cwd)" })
 --
 
+-- terminal
+map("n", "<leader>t", function()
+	Snacks.terminal.toggle()
+end)
+
 -- getting out of the CLI
 map("t", "<F12>", "<C-\\><C-N>")
+map("t", "<S-Escape>", "<C-\\><C-N>")
 -- window creation
 local make_terminal = "terminal<cr><cmd>setlocal nonumber | setlocal norelativenumber | setlocal signcolumn=no<cr>i"
 map("n", "<F12>o", "<cmd>tab " .. make_terminal)
