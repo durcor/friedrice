@@ -59,19 +59,6 @@
   		"tooltip": false
   	},
   
-  	"clock#time": {
-  		"interval": 1,
-  		"format": "{:%H:%M/%S}",
-  		"tooltip": false
-  	},
-  
-  	"clock#date": {
-  		"interval": 20,
-  		"format": "{:%e %b %Y}",
-  		"tooltip": false
-  		// "tooltip-format": "{:%e %B %Y}"
-  	},
-  
   	"cpu": {
   		"interval": 5,
   		"tooltip": false,
@@ -127,8 +114,8 @@
   
     // FIXME: Add BT codec
   	"pulseaudio": {
-  		"format": "{icon} {volume}%",
-  		"format-bluetooth": "{icon} {volume}%",
+  		"format": "{icon} {desc} {volume}%",
+  		// "format-bluetooth": "{icon} {volume}%",
   		"format-muted": "",
   		"format-icons": {
   			"headphone": "",
@@ -147,22 +134,32 @@
     "bluetooth": {
     	"format": " {status}",
     	"format-connected": " {device_alias}",
-    	"format-connected-battery": " {device_alias} ({device_battery_percentage}%)",
+    	"format-connected-battery": " {num_connections}: {icon} ({device_battery_percentage}%)",
     	// "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+  		"format-icons": {
+  		  "headphone": "",
+  		  "hands-free": "",
+  		  "headset": "",
+  		  "phone": "",
+  		  "portable": "",
+  		  "car": "",
+  		  "default": ""
+  		},
     	"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
     	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
     	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+    	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+  		"on-click": "bt-select"
     },
   
   	"tray": {
-  		"icon-size": 18,
-  		"spacing": 10
+  	  "icon-size": 18,
+  	  "spacing": 10
   	},
   
     // TODO: Support accuweather backend
     "custom/weather": {
-        "exec": "wttrbar --nerd --fahrenheit --mph --custom-indicator '{ICON} {temp_F}F {areaName}'",
+        "exec": "wttrbar --nerd --fahrenheit --mph --location 'San Diego' --custom-indicator  '{ICON} {temp_F}F {areaName}'",
         "format": "{}",
         // "exec": "wttrbar --nerd",
         // "format": "{}C",
@@ -171,25 +168,6 @@
         "return-type": "json"
     },
   
-    // Seperators
-    "custom/blackf": { "format": "", "tooltip": false }, "custom/blackb": { "format": "", "tooltip": false },
-    "custom/redf": { "format": "", "tooltip": false }, "custom/redb": { "format": "", "tooltip": false },
-    "custom/greenf": { "format": "", "tooltip": false }, "custom/greenb": { "format": "", "tooltip": false },
-    "custom/yellowf": { "format": "", "tooltip": false }, "custom/yellowb": { "format": "", "tooltip": false },
-    "custom/bluef": { "format": "", "tooltip": false }, "custom/blueb": { "format": "", "tooltip": false },
-    "custom/purplef": { "format": "", "tooltip": false }, "custom/purpleb": { "format": "", "tooltip": false },
-    "custom/tealf": { "format": "", "tooltip": false }, "custom/tealb": { "format": "", "tooltip": false },
-    "custom/grayf": { "format": "", "tooltip": false }, "custom/grayb": { "format": "", "tooltip": false },
-
-    "custom/darkgrayf": { "format": "", "tooltip": false }, "custom/darkgrayb": { "format": "", "tooltip": false },
-    "custom/brightredf": { "format": "", "tooltip": false }, "custom/brightredb": { "format": "", "tooltip": false },
-    "custom/brightgreenf": { "format": "", "tooltip": false }, "custom/brightgreenb": { "format": "", "tooltip": false },
-    "custom/brightyellowf": { "format": "", "tooltip": false }, "custom/brightyellowb": { "format": "", "tooltip": false },
-    "custom/brightbluef": { "format": "", "tooltip": false }, "custom/brightbluef": { "format": "", "tooltip": false },
-    "custom/magentaf": { "format": "", "tooltip": false }, "custom/magentab": { "format": "", "tooltip": false },
-    "custom/cyanf": { "format": "", "tooltip": false }, "custom/cyanb": { "format": "", "tooltip": false },
-    "custom/whitef": { "format": "", "tooltip": false }, "custom/whiteb": { "format": "", "tooltip": false },
-  
     // signal=2
     "custom/mus": { "exec": "~/.local/bin/i3blocks/mus", "interval": "5", },
   
@@ -197,10 +175,9 @@
     "custom/distcompute": { "exec": "~/.local/bin/i3blocks/distcompute", "interval": "15", },
     "custom/cpu": { "exec": "~/.local/bin/i3blocks/cpu", "interval": "5", },
     "custom/amdgpu": { "exec": "~/.local/bin/i3blocks/amdgpu", "interval": "5", },
-    "custom/mem": { "exec": "~/.local/bin/i3blocks/mem", "interval": "5", },
     "custom/dsk": { "exec": "~/.local/bin/i3blocks/dsk", "interval": "30", },
     "custom/vpn": { "exec": "~/.local/bin/i3blocks/vpn", "interval": "30", },
-    "custom/kb": { "exec": "~/.local/bin/i3blocks/kb", "interval": "100000000000", },
+    // "custom/kb": { "exec": "~/.local/bin/i3blocks/kb", "interval": "100000000000", },
   
     // signal=13 
     "custom/vol": { "exec": "~/.local/bin/i3blocks/vol", "interval": "10", },
@@ -213,6 +190,8 @@
   	"layer": "top",
     "output": "HDMI-A-1",
   	"position": "top",
+
+    "include": ["$HOME/.config/waybar/shared.jsonc"],
   
   	"modules-left": [
   		"hyprland/submap",
@@ -221,10 +200,9 @@
   	],
   
   	"modules-right": [
-  	  // "custom/mus",
-  		"custom/arrow8f", "mpris", "custom/arrow8b",
-  		"custom/blackf", "tray", "clock#date", "custom/blackb",
-  	  "custom/arrow7f", "clock#time"
+      "custom/darkgrayf", "mpris", "custom/darkgrayb",
+      "custom/blackf", "tray", "clock#date", "custom/blackb",
+      "custom/grayf", "clock#time"
   	],
   
   	"hyprland/submap": {

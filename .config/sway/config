@@ -27,7 +27,6 @@
 #                       .:?i^,`
 #
 include $HOME/.cache/wal/colors-sway
-include $HOME/.config/wpg/templates/sway
 
 # font for window titles+status bar
 font pango: "mononoki Nerd Font Mono" 11
@@ -38,13 +37,13 @@ set $mode-notif exec notify-send -h string:x-canonical-private-synchronous:i3mod
 floating_modifier Mod1
 
 input * {
-	xkb_capslock disable
-	xkb_numlock disable
-	xkb_layout "us,es"
-	xkb_options "grp:alt_space_toggle,caps:escape"
-	repeat_delay 135
-	tap enabled
-	repeat_rate 35
+  xkb_capslock disable
+  xkb_numlock disable
+  xkb_layout "us,es"
+  xkb_options "grp:alt_space_toggle,caps:escape"
+  repeat_delay 135
+  tap enabled
+  repeat_rate 35
 }
 
 smart_borders off
@@ -52,9 +51,9 @@ smart_borders off
 # xwayland disable
 
 output * {
-	adaptive_sync on
-	max_render_time 1
-	bg ~/.config/wpg/.current fill
+  adaptive_sync on
+  max_render_time 1
+  bg $wallpaper fill
 }
 
 # output HDMI-A-1 pos 0 360 res 1920x1080

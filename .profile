@@ -45,13 +45,13 @@ export LYNX_CFG="$HOME/.lynxrc"
 export PULSE_COOKIE="$HOME/.pulse-cookie"
 
 # XDG AppDirs
-## TODO: Move to ~/.local/etc or ~/etc
+## NOTE: symlinked to ~/.local/etc and ~/etc
 export XDG_CONFIG_HOME="$HOME/.config"
-## TODO: Move to ~/.local/cache or ~/cache or ~/var/cache
+## TODO: symlink to ~/.local/cache or ~/cache or ~/var/cache?
 export XDG_CACHE_HOME="$HOME/.cache"
-## TODO: Keep at current place or move to ~/share
+## TODO: symlink to ~/share?
 export XDG_DATA_HOME="$HOME/.local/share"
-## TODO: Keep at current place or move to ~/var/log
+## TODO: symlink to ~/var/log?
 export XDG_STATE_HOME="$HOME/.local/state"
 
 ## Wine
@@ -110,7 +110,7 @@ sway | hyprland)
   export SDL_VIDEODRIVER=wayland
   export XDG_CURRENT_DESKTOP="$disp"
   export MOZ_ENABLE_WAYLAND=1
-  $disp --unsupported-gpu
+  $disp
   ;;
 esac
 
