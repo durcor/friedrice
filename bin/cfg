@@ -23,24 +23,24 @@ chk_cmd() {
 
 initial_setup() {
 	set -e
-	case $(lsb_release -is) in
-	"Arch")
-		chk_cmd paru "AUR"
-		paru -S "$(cat ~/.config/pkgs)"
-		;;
-	"Debian" | "Ubuntu") # FIXME: This probably fails horribly
-		sudo apt install "$(cat ~/.config/pkgs)"
-		;;
-	*)
-		echo >&2 "Error: Unsupported distribution. Please file an issue at https://github.com/durcor/friedrice. Thank you!"
-		;;
-	esac
+	# case $(lsb_release -is) in
+	# "Arch")
+	# 	chk_cmd paru "AUR"
+	# 	paru -S "$(cat ~/.config/pkgs)"
+	# 	;;
+	# "Debian" | "Ubuntu") # FIXME: This probably fails horribly
+	# 	sudo apt install "$(cat ~/.config/pkgs)"
+	# 	;;
+	# *)
+	# 	echo >&2 "Error: Unsupported distribution. Please file an issue at https://github.com/durcor/friedrice. Thank you!"
+	# 	;;
+	# esac
 
 	cfg_dir=${XDG_CONFIG_HOME-$HOME/.config}
 	template_dir=$cfg_dir/wpg/templates
 
-	ln -s "$template_dir/alacritty" "$cfg_dir/alacritty/alacritty.yml"
-	ln -s "$template_dir/dmenu" "$HOME/src/dmenu/config.h"
+	# ln -s "$template_dir/alacritty" "$cfg_dir/alacritty/alacritty.yml"
+	# ln -s "$template_dir/dmenu" "$HOME/src/dmenu/config.h"
 	ln -s "$template_dir/dunst" "$cfg_dir/dunst/dunstrc"
 	ln -s "$template_dir/foot" "$cfg_dir/foot/foot.ini"
 	ln -s "$template_dir/i3" "$cfg_dir/i3/config"
@@ -51,8 +51,8 @@ initial_setup() {
 	ln -s "$template_dir/mpv" "$cfg_dir/mpv/mpv.conf"
 	ln -s "$template_dir/qutebrowser" "$cfg_dir/qutebrowser/appearance.py"
 	ln -s "$template_dir/rofi" "$cfg_dir/rofi/config"
-	ln -s "$template_dir/slock" "$HOME/src/slock/config.h"
-	ln -s "$template_dir/st" "$HOME/src/st/config.h"
+	# ln -s "$template_dir/slock" "$HOME/src/slock/config.h"
+	# ln -s "$template_dir/st" "$HOME/src/st/config.h"
 	ln -s "$template_dir/sway" "$cfg_dir/sway/config"
 	ln -s "$template_dir/tridactyl" "$cfg_dir/tridactyl/tridactylrc"
 	ln -s "$template_dir/wayst" "$cfg_dir/wayst/config"
@@ -106,9 +106,9 @@ refreshcfg() {
 	pgrep qutebrowser && qutebrowser :config-source
 
 	# Rice any RGB keyboards using Microdia's microcontroller
-	echo "$connected_usb_devices" | grep -q Microdia &&
-		rgb_keyboard --custom-pattern \
-			"${XDG_CONFIG_HOME-$HOME/.config}/wpg/templates/gmmk"
+	# echo "$connected_usb_devices" | grep -q Microdia &&
+	# 	rgb_keyboard --custom-pattern \
+	# 		"${XDG_CONFIG_HOME-$HOME/.config}/wpg/templates/gmmk"
 
 	sleep 0.1
 
@@ -121,18 +121,18 @@ refreshcfg() {
 	fi
 
 	# Recompile all suckless utilities in use
-	cd ~/src/st && sudo make clean install || exit 1
+	# cd ~/src/st && sudo make clean install || exit 1
 	# cd ~/src/dmenu && sudo make clean install || exit 1
-	cd ~/src/slock && sudo make clean install || exit 1
+	# cd ~/src/slock && sudo make clean install || exit 1
 
 	# Rice and refresh Steam
-	chk_cmd wal_steam "Steam color scheme configuration"
-	wal_steam -w
-	pgrep steam && {
-		killall -9 steam
-		sleep 5
-		fork_exec steam-native
-	}
+	# chk_cmd wal_steam "Steam color scheme configuration"
+	# wal_steam -w
+	# pgrep steam && {
+	# 	killall -9 steam
+	# 	sleep 5
+	# 	fork_exec steam-native
+	# }
 
 	# pgrep nm-applet && {
 	# killall -9 nm-applet
@@ -141,9 +141,9 @@ refreshcfg() {
 	# }
 
 	# Rice Firefox
-	pgrep "$GUIBROWSER" || fork_exec "$GUIBROWSER"
-	chk_cmd pywalfox "Firefox color scheme configuration"
-	pywalfox update
+	# pgrep "$GUIBROWSER" || fork_exec "$GUIBROWSER"
+	# chk_cmd pywalfox "Firefox color scheme configuration"
+	# pywalfox update
 	# Rice Zathura
 	command -v zathura >/dev/null 2>&1 && {
 		zathura_cfg_dir="${XDG_CONFIG_HOME-$HOME/.config}/zathura"
@@ -152,15 +152,15 @@ refreshcfg() {
 		else
 			cat "$zathura_cfg_dir/zathurarc" >"$zathura_cfg_dir/myzathurarc"
 		fi
-		"$HOME/src/Zathura-Pywal/genzathurarc" >>"$zathura_cfg_dir/zathurarc"
+		sh "$HOME/src/zathura-pywal/zathura-pywal" >>"$zathura_cfg_dir/zathurarc"
 	}
 	# Rice GTK/QT applications
-	oomox-cli "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors-oomox"
+	# oomox-cli "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors-oomox"
 	# Rice Discord
-	chk_cmd pywal-discord "Discord color scheme configuration"
-	pywal-discord -t default
-	pywal-discord -t abou
-	pgrep Discord || fork_exec discord
+	# chk_cmd pywal-discord "Discord color scheme configuration"
+	# pywal-discord -t default
+	# pywal-discord -t abou
+	# pgrep Discord || fork_exec discord
 	pgrep mako && (
 		killall -9 mako
 		fork_exec mako
@@ -170,10 +170,10 @@ refreshcfg() {
 		fork_exec dunst
 	)
 
-	beautifuldiscord --css "${XDG_CONFIG_HOME-$HOME/.config}/BetterDiscord/themes/pywal-discord-default.theme.css"
+	# beautifuldiscord --css "${XDG_CONFIG_HOME-$HOME/.config}/BetterDiscord/themes/pywal-discord-default.theme.css"
 
 	# Rice Spotify
-	oomoxify-cli -f "mononoki Nerd Font" -s /opt/spotify/Apps "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors-oomox"
+	# oomoxify-cli -f "mononoki Nerd Font" -s /opt/spotify/Apps "${XDG_CACHE_HOME-$HOME/.cache}/wal/colors-oomox"
 	# if pgrep spotify; then
 	#     spicetify apply
 	#     sleep 1
