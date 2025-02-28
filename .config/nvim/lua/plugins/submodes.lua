@@ -1,3 +1,3 @@
 return {
-  "https://github.com/kana/vim-submode",
+  "kana/vim-submode",
 }

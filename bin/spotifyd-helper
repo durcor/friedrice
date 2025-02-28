@@ -1,5 +1,5 @@
 #!/bin/sh
-#
+
 metadata=$(playerctl -p spotifyd metadata)
 
 cover_art_pic=$(mktemp)

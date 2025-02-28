@@ -27,7 +27,6 @@
 #                       .:?i^,`
 #
 include $HOME/.cache/wal/colors-sway
-include $HOME/.config/wpg/templates/sway
 
 # font for window titles+status bar
 font pango: "mononoki Nerd Font Mono" 11
@@ -83,14 +82,14 @@ mode manager {
     bindsym Return exec $TERMINAL
 
     # bindsym control+q exec "i3-nagbar -t warning -m 'exit i3?' -b 'yes' 'i3-msg exit'"
-    bindsym --release q exec swaylock -f -c $color8
-    bindsym shift+q exec swaylock -f -c $color8; exec sway output * dpms off
-    bindsym control+q exec swaylock -f -c $color8; exec sudo systemctl suspend
-    bindsym XF86Sleep exec swaylock -f -c $color8; exec sudo systemctl suspend
+    bindsym q exec lockman
+    bindsym shift+q exec lockman; exec sway output * dpms off
+    bindsym control+q exec lockman; exec sudo systemctl suspend
+    bindsym XF86Sleep exec lockman; exec sudo systemctl suspend
     # bindsym u exec "xclip -t -se p | xclip -i -s c"
     # bindsym slash exec dmenual -i -p run
     bindsym slash exec $TERMINAL --class float -e fzfexec; exec sway mode window
-    bindsym shift+slash exec sway mode window; exec rofi -modi run -show run
+    bindsym shift+slash exec sway mode window; exec wofi -S run
     bindsym f exec $TERMINAL -e lf
     bindsym shift+p exec passmenu
     # TODO: make pasting intelligent using the file extension and falling back to mpv
@@ -132,6 +131,9 @@ mode manager {
     bindsym b workspace prev
     bindsym w workspace next
 
+    bindsym shift+b move container to workspace prev
+    bindsym shift+w move container to workspace prev
+
     bindsym shift+equal fullscreen toggle
 
     # change container layout (stacked, tabbed, toggle split)
@@ -148,27 +150,27 @@ mode manager {
     # change focus between tiling / floating windows
     bindsym space focus mode_toggle
 
-    bindsym 1 workspace $ws1
-    bindsym 2 workspace $ws2
-    bindsym 3 workspace $ws3
-    bindsym 4 workspace $ws4
-    bindsym 5 workspace $ws5
-    bindsym 6 workspace $ws6
-    bindsym 7 workspace $ws7
-    bindsym 8 workspace $ws8
-    bindsym 9 workspace $ws9
-    bindsym 0 workspace $ws10
+    bindsym 1 workspace 1
+    bindsym 2 workspace 2
+    bindsym 3 workspace 3
+    bindsym 4 workspace 4
+    bindsym 5 workspace 5
+    bindsym 6 workspace 6
+    bindsym 7 workspace 7
+    bindsym 8 workspace 8
+    bindsym 9 workspace 9
+    bindsym 0 workspace 10
 
-    bindsym shift+1 move container to workspace $ws1
-    bindsym shift+2 move container to workspace $ws2
-    bindsym shift+3 move container to workspace $ws3
-    bindsym shift+4 move container to workspace $ws4
-    bindsym shift+5 move container to workspace $ws5
-    bindsym shift+6 move container to workspace $ws6
-    bindsym shift+7 move container to workspace $ws7
-    bindsym shift+8 move container to workspace $ws8
-    bindsym shift+9 move container to workspace $ws9
-    bindsym shift+0 move container to workspace $ws10
+    bindsym shift+1 move container to workspace 1
+    bindsym shift+2 move container to workspace 2
+    bindsym shift+3 move container to workspace 3
+    bindsym shift+4 move container to workspace 4
+    bindsym shift+5 move container to workspace 5
+    bindsym shift+6 move container to workspace 6
+    bindsym shift+7 move container to workspace 7
+    bindsym shift+8 move container to workspace 8
+    bindsym shift+9 move container to workspace 9
+    bindsym shift+0 move container to workspace 10
 
     bindsym shift+c reload
     bindsym control+r reload
@@ -193,9 +195,9 @@ mode manager {
 mode window {
     bindsym Super_L mode manager; $mode-notif "MANAGER MODE"
 
-    bindsym XF86AudioRaiseVolume exec pamixer --allow-boost -i 5; exec pkill -RTMIN+13 i3blocks
-    bindsym XF86AudioLowerVolume exec pamixer --allow-boost -d 5; exec pkill -RTMIN+13 i3blocks
-    bindsym XF86AudioMute exec pamixer -t; exec pkill -RTMIN+13 i3blocks
+    bindsym XF86AudioRaiseVolume exec pamixer --allow-boost -i 5; exec pkill -RTMIN+13 waybar
+    bindsym XF86AudioLowerVolume exec pamixer --allow-boost -d 5; exec pkill -RTMIN+13 waybar
+    bindsym XF86AudioMute exec pamixer -t; exec pkill -RTMIN+13 waybar
     bindsym XF86AudioStop exec playerctl stop
     bindsym XF86AudioPrev exec playerctl previous
     bindsym XF86AudioNext exec playerctl next
@@ -240,25 +242,25 @@ bindsym Super_L mode manager; $mode-notif "MANAGER MODE"
 # Resize the current window
 # Relies on ~/bin/i3resize for intelligent resizing
 mode resize {
-    bindsym h resize grow left 5
-    bindsym j resize grow down 5
-    bindsym k resize grow up 5
-    bindsym l resize grow right 5
+    bindsym h exec i3resize left 20
+    bindsym j exec i3resize down 20
+    bindsym k exec i3resize up 20
+    bindsym l exec i3resize right 20
 
-    bindsym shift+h resize shrink right 5
-    bindsym shift+j resize shrink up 5
-    bindsym shift+k resize shrink down 5
-    bindsym shift+l resize shrink left 5
+    bindsym mod1+h exec i3resize left 10
+    bindsym mod1+j exec i3resize down 10
+    bindsym mod1+k exec i3resize up 10
+    bindsym mod1+l exec i3resize right 10
 
-    # bindsym control+h resize left 1
-    # bindsym control+j resize down 1
-    # bindsym control+k resize up 1
-    # bindsym control+l resize right 1
+    bindsym control+h exec i3resize left 1
+    bindsym control+j exec i3resize down 1
+    bindsym control+k exec i3resize up 1
+    bindsym control+l exec i3resize right 1
 
-    # bindsym mod1+h resize left 10
-    # bindsym mod1+j resize down 10
-    # bindsym mod1+k resize up 10
-    # bindsym mod1+l resize right 10
+    bindsym shift+h exec i3resize left 40
+    bindsym shift+j exec i3resize down 40
+    bindsym shift+k exec i3resize up 40
+    bindsym shift+l exec i3resize right 40
 
     bindsym Escape mode manager; $mode-notif "MANAGER MODE"
 }
@@ -295,7 +297,7 @@ mode mpd {
     bindsym k exec mpc seek +5
 
     bindsym v exec notify-send "$(mpc)"
-    bindsym z exec mpc random ; exec notify-send -h string:x-canonical-private-synchronous:i3mpd -u low "$(mpc)"
+    bindsym z exec mpc random; exec notify-send -h string:x-canonical-private-synchronous:i3mpd -u low "$(mpc)"
     bindsym space exec mpc toggle
 
     bindsym Escape mode manager; exec $mode-notif "MANAGER MODE"
@@ -303,13 +305,13 @@ mode mpd {
 
 # Interact with pulseaudio
 mode audio {
-    bindsym h $ex pactl set-sink-volume @DEFAULT_SINK@ -1% ; $ex pkill -RTMIN+13 i3blocks
-    bindsym l $ex pactl set-sink-volume @DEFAULT_SINK@ +1% ; $ex pkill -RTMIN+13 i3blocks
-    bindsym j $ex pactl set-sink-volume @DEFAULT_SINK@ -5% ; $ex pkill -RTMIN+13 i3blocks
-    bindsym k $ex pactl set-sink-volume @DEFAULT_SINK@ +5% ; $ex pkill -RTMIN+13 i3blocks
+    bindsym h $ex pactl set-sink-volume @DEFAULT_SINK@ -1%; $ex pkill -RTMIN+13 waybar
+    bindsym l $ex pactl set-sink-volume @DEFAULT_SINK@ +1%; $ex pkill -RTMIN+13 waybar
+    bindsym j $ex pactl set-sink-volume @DEFAULT_SINK@ -5%; $ex pkill -RTMIN+13 waybar
+    bindsym k $ex pactl set-sink-volume @DEFAULT_SINK@ +5%; $ex pkill -RTMIN+13 waybar
     bindsym shift+v $ex notify-send -u low "Volume is at $(pamixer --get-volume)%"
     bindsym v $ex $TERMINAL -e ncpamixer
-    bindsym space $ex pactl set-sink-mute @DEFAULT_SINK@ toggle ; $ex pkill -RTMIN+13 i3blocks
+    bindsym space $ex pactl set-sink-mute @DEFAULT_SINK@ toggle; $ex pkill -RTMIN+13 waybar
 
     bindsym Escape mode manager; $ex $mode-notif "MANAGER MODE"
 }
@@ -363,33 +365,33 @@ no_focus [class="discord"]
 
 # Primary Display
 ## General
-set $ws1 1 
+# set $ws1 1 
 ## Games (Steam, Lutris, games)
-set $ws2 2 
-assign [class="Steam"] $ws2
-assign [class="Lutris"] $ws2
-assign [title="Origin"] $ws2
+# set $ws2 2 
+assign [class="Steam"] 2
+assign [class="Lutris"] 2
+assign [title="Origin"] 2
 for_window [title="Origin"] floating enable
 ## Photo-editing (GIMP)
-set $ws3 3 
+# set $ws3 3 
 ## Chat (Discord)
-set $ws4 4 
+# set $ws4 4 
 ## Terminals (htop, nvim, misc)
-set $ws5 5 
+# set $ws5 5 
 
 # Secondary Display
 ## General
-set $ws6 6 
+# set $ws6 6 
 ## Game (Secondary)
-set $ws7 7 
+# set $ws7 7 
 ## Music (Nicotine, vis, cava, ncmpcpp)
-set $ws8 8 
-assign [class="nicotine"] $ws8
-for_window [class="Spotify"] move to workspace $ws8
+# set $ws8 8 
+assign [class="nicotine"] 8
+for_window [class="Spotify"] move to workspace 8
 ## Audio (ncpamixer)
-set $ws9 9 
+# set $ws9 9 
 ## Terminals (htop, nvim, misc)
-set $ws10 10 
+# set $ws10 10 
 
 # for_window [instance="pop"] floating enable
 # for_window [instance="pop"] resize set 900 600
@@ -400,51 +402,36 @@ set $ws10 10 
 for_window [instance="float"] floating enable
 
 # class                 border  bg      txt     indicator child_border
-client.focused          $color1	$color1	$color1	$color1	  $color1
-client.focused_inactive $color0	$color2	$color7	$color2	  $color2
-client.unfocused        $color0	$color6	$color6	$color6	  $color6
-client.urgent           $color0	$color2	$color8	$color2	  $color2
-client.placeholder      $color0	$color2	$color7	$color2	  $color2
+client.focused          $color1 $color1 $color1 $color1   $color1
+client.focused_inactive $color0 $color2 $color7 $color2   $color2
+client.unfocused        $color0 $color6 $color6 $color6   $color6
+client.urgent           $color0 $color2 $color8 $color2   $color2
+client.placeholder      $color0 $color2 $color7 $color2   $color2
 
 client.background       $color0
 
 bar {
-    status_command waybar
-
-    # status_command i3blocks
-    # position top
-    # separator_symbol /
-    # strip_workspace_numbers yes
-    # colors {
-    #     background $color0
-    #     statusline $color7
-    #     separator  $color1
-    #     # class             border  bg      txt
-    #     focused_workspace   $color0 $color0 $color9
-    #     active_workspace    $color0 $color0 $color10
-    #     inactive_workspace  $color0 $color0 $color7
-    #     urgent_workspace    $color0 $color8 $color15
-    #     binding_mode        $color0 $color0 $color0
-    # }
+    swaybar_command waybar
 }
 
 exec $TERMINAL
 exec $GUIBROWSER
 exec librewolf
-exec nm-applet
-exec mako
 exec vesktop
+
+exec nm-applet
 # exec easyeffects
-# exec '/lib/discord-canary/Discord --enable-features=UseOzonePlatform --enable-vulkan --ozone-platform=wayland --enable-webrtc-pipewire-capturer /lib/discord-canary/resources/app.asar'
 # exec 'wl-paste --watch clipman store'
 # exec foot --server
 exec 'cfg rf'
-exec '/lib/xdg-desktop-portal -r'
-exec '/lib/xdg-desktop-portal-wlr -r -o DP-1'
+
+exec mako
+exec_always '/usr/libexec/xdg-desktop-portal -r'
+exec_always '/usr/libexec/xdg-desktop-portal-wlr -r'
+
 exec 'killall -9 flashfocus; flashfocus'
 exec 'spotifyd --no-daemon'
-exec 'swayidle -w timeout 300 "lockman" timeout 600 "swaymsg output * dpms off" resume "swaymsg output * dpms on" before-sleep "lockman"'
-# exec workspace 1
-exec_always sway mode window
-exec dbus-update-activation-environment --systemd DISPLAY
-# exec_always waybar
+exec 'swayidle -w timeout 900 "lockman" timeout 900 "swaymsg output * dpms off" resume "swaymsg output * dpms on" before-sleep "lockman"'
+exec_always sleep 3 & wait && setsid sway mode window
+
+exec_always dbus-update-activation-environment --systemd DISPLAY

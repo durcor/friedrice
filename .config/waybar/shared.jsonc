@@ -3,17 +3,171 @@
     "format": " {} ",
     "tooltip": false
   },
-  
   "hyprland/window": {
     "format": "{}",
     "max-length": 30,
     "tooltip": false
   },
-  
   "hyprland/workspaces": {
     "disable-scroll-wraparound": true,
     "smooth-scrolling-threshold": 4,
     "enable-bar-scroll": true,
     "format": "{name}"
   },
+  "clock#time": {
+    "interval": 1,
+    "format": "{:%H:%M/%S}",
+    "tooltip": false
+  },
+  "clock#date": {
+    "interval": 20,
+    "format": "{:%e %b %Y}",
+    "tooltip": false
+    // "tooltip-format": "{:%e %B %Y}"
+  },
+  "hyprland/language": {
+    "format": " {shortDescription} ({short})",
+    "min-length": 9,
+    "on-click": "swaymsg 'input * xkb_switch_layout next'",
+    "tooltip": false
+  },
+  "sway/language": {
+    "format": "  {flag}",
+    "min-length": 6,
+    "on-click": "swaymsg 'input * xkb_switch_layout next'",
+    "tooltip": false
+  },
+  "tray": {
+    "icon-size": 15,
+    "spacing": 10
+  },
+  // Seperators
+  "custom/blackf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/blackb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/redf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/redb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/greenf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/greenb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/yellowf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/yellowb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/bluef": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/blueb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/purplef": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/purpleb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/tealf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/tealb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/grayf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/grayb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/darkgrayf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/darkgrayb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightredf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightredb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightgreenf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightgreenb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightyellowf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightyellowb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightbluef": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightblueb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/magentaf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/magentab": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/cyanf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/cyanb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/whitef": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/whiteb": {
+    "format": "",
+    "tooltip": false
+  }
 }

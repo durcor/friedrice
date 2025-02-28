@@ -35,23 +35,23 @@ export MUSICPLAYER="ncmpcpp"
 export NEWSREADER="newsboat"
 export READER="zathura"
 export MAILREADER="neomutt"
-export STATUSBAR="i3blocks"
+export STATUSBAR="waybar"
 
 # Program Configuration
-export GTK_THEME="oomox-colors-oomox"
+export GTK_THEME="oomox-colors"
 export QT_QPA_PLATFORMTHEME="gtk2"
 export LYNX_CFG="$HOME/.lynxrc"
 # Because some programs can't find the pulse cookie on their own I guess
 export PULSE_COOKIE="$HOME/.pulse-cookie"
 
 # XDG AppDirs
-## TODO: Move to ~/.local/etc or ~/etc
+## TODO: symlink to ~/.local/etc or ~/etc
 export XDG_CONFIG_HOME="$HOME/.config"
-## TODO: Move to ~/.local/cache or ~/cache or ~/var/cache
+## TODO: symlink to ~/.local/cache or ~/cache or ~/var/cache
 export XDG_CACHE_HOME="$HOME/.cache"
-## TODO: Keep at current place or move to ~/share
+## TODO: symlink to ~/share
 export XDG_DATA_HOME="$HOME/.local/share"
-## TODO: Keep at current place or move to ~/var/log
+## TODO: symlink to ~/var/log
 export XDG_STATE_HOME="$HOME/.local/state"
 
 ## Wine
@@ -81,6 +81,12 @@ export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
   [ -f "$XDG_CACHE_HOME/wal/colors-tty.sh" ] && . "$XDG_CACHE_HOME/wal/colors-tty.sh"
   sudo -n kbdrate -r 35 -d 150 >/dev/null
   # TODO: Remap caps lock and escape in the TTY (using interception?)
+  sudo setupcon
+}
+
+[ -d "$HOME/.themes/$GTK_THEME" ] || {
+  echo >&2 "Error: $GTK_THEME is not installed."
+  echo "Fix this right now!"
 }
 
 login_options=$(
@@ -91,7 +97,7 @@ hyprland
 EOF
 )
 
-[ "$SSH_TTY" ] || [ "$DISPLAY" ] || [ "$TMUX" ] || {
+[ "$SSH_TTY" ] || [ "$WAYLAND_DISPLAY" ] || [ "$DISPLAY" ] || [ "$TMUX" ] || {
   header="How do you wish to log in? (Press <Esc>, <Ctrl+[>, or <Ctrl+C> to stay in the tty)"
   disp=$(echo "$login_options" | fzf --header "$header" --header-first)
 }
@@ -114,5 +120,5 @@ sway | hyprland)
   ;;
 esac
 
-[ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ] && . "$HOME/.nix-profile/etc/profile.d/nix.sh" # added by Nix installer
+# [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ] && . "$HOME/.nix-profile/etc/profile.d/nix.sh" # added by Nix installer
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
