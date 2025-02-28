@@ -1,51 +1,66 @@
 #!/usr/bin/env bash
 
 # TODO: Also select active rows.
-# TODO: Nice font-icons in the menu.
-# TODO: Improve display of entries.
 
 # Bash seems to be a huge limitation now on how to mark rows as active because
 # we cannot set state in the loop and then use it after the loop has finished
 # (at least not in a good way). Port to Ruby? Did Rofi accept options in STDIN
 # somehow? Only first line?
 
+bt_str_to_ico() {
+  case $1 in
+  "audio-headset" | "audio-headphones") echo  ;;
+  "input-gaming") echo  ;;
+  "phone") echo  ;;
+  "audio-card") echo  ;;
+  "input-keyboard") echo  ;;
+  "computer") echo  ;;
+  *) echo  ;;
+  esac
+}
+
 selected_device=$(
-	bluetoothctl devices |
-		while IFS= read -r device; do
-			id=$(echo "$device" | awk '{ print $2 }')
-			name=$(echo "$device" | cut -d " " -f 3-)
+  bluetoothctl devices |
+    while IFS= read -r device; do
+      id=$(echo "$device" | awk '{ print $2 }')
+      name=$(echo "$device" | cut -d " " -f 3-)
 
-			info=$(bluetoothctl info "$id")
-			connected=$(
-				if [[ $(echo "$info" | grep "Connected: " | awk '{ print $2 }') == "yes" ]]; then
-					echo " (Connected)"
-				fi
-			)
+      info=$(bluetoothctl info "$id")
+      icon=$(echo "$info" | awk '/Icon: /{print $2}')
+      connected=$(
+        if [[ $(echo "$info" | grep "Connected: " | awk '{ print $2 }') == "yes" ]]; then
+          echo " (Connected)"
+        fi
+      )
 
-			echo "$name [$id]${connected}"
-		done |
-		rofi -dmenu -p "Select device" -i -no-custom
+      echo "$(bt_str_to_ico $icon) $name [$id]${connected}"
+    done |
+    if [ $WAYLAND_DISPLAY ]; then
+      wofi --dmenu -p "Select device" -i -no-custom
+    else
+      rofi -dmenu -p "Select device" -i -no-custom
+    fi
 )
 
 if [[ -n $selected_device ]]; then
-	selected_name="${selected_device/ \[*/}"
-	selected_id=$(echo "$selected_device" | grep -oE '\[[^]]+\]' | tr -d '[]')
+  selected_name="${selected_device/ \[*/}"
+  selected_id=$(echo "$selected_device" | grep -oE '\[[^]]+\]' | tr -d '[]')
 
-	if echo "$selected_device" | grep -q "(Connected)"; then
-		bluetoothctl disconnect "$selected_id"
-		notify-send \
-			--app-name=bt-select \
-			--icon=/usr/share/icons/Adwaita/48x48/status/bluetooth-disabled-symbolic.symbolic.png \
-			--category=device.removed \
-			"Disconnecting" \
-			"Disconnecting from ${selected_name}"
-	else
-		bluetoothctl connect "$selected_id"
-		notify-send \
-			--app-name=bt-select \
-			--icon=/usr/share/icons/Adwaita/48x48/status/bluetooth-active-symbolic.symbolic.png \
-			--category=device.added \
-			"Connecting" \
-			"Connecting to ${selected_name}"
-	fi
+  if echo "$selected_device" | grep -q "(Connected)"; then
+    bluetoothctl disconnect "$selected_id"
+    notify-send \
+      --app-name=bt-select \
+      --icon=/usr/share/icons/Adwaita/48x48/status/bluetooth-disabled-symbolic.symbolic.png \
+      --category=device.removed \
+      "Disconnecting" \
+      "Disconnecting from ${selected_name}"
+  else
+    bluetoothctl connect "$selected_id"
+    notify-send \
+      --app-name=bt-select \
+      --icon=/usr/share/icons/Adwaita/48x48/status/bluetooth-active-symbolic.symbolic.png \
+      --category=device.added \
+      "Connecting" \
+      "Connecting to ${selected_name}"
+  fi
 fi

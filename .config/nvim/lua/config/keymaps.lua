@@ -34,10 +34,6 @@
 -- map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 --
 -- -- buffers
--- map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
--- map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
--- map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
--- map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 -- map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 -- map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 -- map("n", "<leader>bd", function()
@@ -212,7 +208,14 @@
 
 local map = vim.keymap.set
 
--- FIXME: map file picker to leader+F
+map("n", "<leader>F", function()
+  Snacks.picker.files({ cwd = "/home/tyler" })
+end)
+
+map("n", "<leader>p", function()
+  Snacks.picker()
+end)
+
 map("n", "<leader><leader>", "<cmd>w<cr>")
 
 map("n", "q", "<cmd>bdelete<cr>")
@@ -240,6 +243,11 @@ map("n", "<F12>-", "<cmd>split | " .. make_terminal)
 map("n", "<F12>_", "<cmd>split | " .. make_terminal)
 map("n", "<F12>\\", "<cmd>vsplit | " .. make_terminal)
 map("n", "<F12>|", "<cmd>vsplit | " .. make_terminal)
+-- buffer navigation
+map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
+map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
+map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 -- window navigation
 map("n", "<F12>h", "<C-w>h<F12>")
 map("n", "<F12>j", "<C-w>j<F12>")

@@ -1,225 +1,128 @@
 [
   {
-    "layer": "top",
-    "output": "DP-3",
+    "output": ["eDP-1", "DP-2", "DP-3"],
     "position": "top",
-  
+
     "modules-left": [
       "hyprland/submap",
       "hyprland/workspaces",
-      "hyprland/window"
+      "hyprland/window",
+
+      "sway/mode",
+      "sway/workspaces",
+      "sway/window"
     ],
-  
-  	// "custom/distcompute",
-  	// "custom/amdgpu",
-  	// "custom/dsk",
-  	// "custom/vpn",
+
     "modules-right": [
-  	  // "custom/vol",
-      "custom/magentaf", "pulseaudio", "custom/magentab",
-  	  // "custom/bt",
-      "custom/bluef", "bluetooth", "custom/blueb",
-      "custom/magentaf", "network", "custom/magentab",
-  	  // "custom/mem",
-      "custom/cyanf", "memory", "custom/cyanb",
-  	  // "custom/cpu",
-      "custom/cyanf", "cpu", "temperature", "custom/cyanb",
-  	  // "custom/bat",
-      // "custom/arrow4f", "battery", "custom/arrow4b"
-  	  // "custom/kb",
-      "custom/brightyellowf", "hyprland/language", "custom/brightyellowb",
-  	  // 	"custom/accuweather",
-      "custom/darkgrayf", "custom/weather", "custom/darkgrayb",
-      "custom/blackf", "tray", "clock#date", "custom/blackb",
-  	  // "custom/time",
-      "custom/grayf", "clock#time"
+      "custom/magentaf",
+      "pulseaudio",
+      "custom/magentab",
+
+      "custom/bluef",
+      "bluetooth", // "custom/bt",
+      "custom/blueb",
+
+      "custom/magentaf",
+      "network",
+      // "custom/vpn",
+      "custom/magentab",
+
+      "custom/cyanf",
+      "memory", // "custom/mem",
+      // "custom/dsk",
+      "custom/cyanb",
+
+      "custom/yellowf",
+      "cpu", // "custom/cpu",
+      // "custom/amdgpu",
+      "temperature",
+      "custom/yellowb",
+
+      // "custom/distcompute",
+
+      "custom/darkgrayf",
+      "custom/weather",
+      "custom/darkgrayb",
+
+      "custom/darkgrayf",
+      "tray",
+      "clock#date",
+      "custom/darkgrayb",
+
+      "custom/grayf",
+      "clock#time" // "custom/time"
     ],
   
-  	// Modules
-  
-  	"battery": {
-  		"interval": 10,
-  		"states": {
-  			"warning": 30,
-  			"critical": 15
-  		},
-  		"format-time": "{H}:{M:02}",
-  		"format": "{icon} {capacity}% ({time})",
-  		"format-charging": " {capacity}% ({time})",
-  		"format-charging-full": " {capacity}%",
-  		"format-full": "{icon} {capacity}%",
-  		"format-alt": "{icon} {power}W",
-  		"format-icons": [
-  			"",
-  			"",
-  			"",
-  			"",
-  			""
-  		],
-  		"tooltip": false
-  	},
-  
-  	"cpu": {
-  		"interval": 5,
-  		"tooltip": false,
-  		"format": " {usage}%",
-  		"format-alt": " {load}",
-  		"states": {
-  			"warning": 70,
-  			"critical": 90
-  		}
-  	},
-  
-  	"temperature": {
-  		"critical-threshold": 90,
-  		"interval": 5,
-  		"format": "{icon} {temperatureC}°",
-  		"format-icons": [
-  			"",
-  			"",
-  			"",
-  			"",
-  			""
-  		],
-  		"tooltip": false
-  	},
-  
-  	"hyprland/language": {
-  		"format": " {shortDescription} ({short})",
-  		"min-length": 9,
-  		"on-click": "swaymsg 'input * xkb_switch_layout next'",
-  		"tooltip": false
-  	},
-  
-  	"memory": {
-  		"interval": 5,
-  		"format": " {used:0.1f}G/{total:0.1f}G",
-  		"states": {
-  			"warning": 70,
-  			"critical": 90
-  		},
-  		"tooltip": false
-  	},
-  
-  	"network": {
-  		"interval": 5,
-  		"format-wifi": " {essid} ({signalStrength}%)",
-  		"format-ethernet": " {ifname}",
-  		"format-disconnected": "No connection",
-  		"format-alt": " {ipaddr}/{cidr}",
-  		"tooltip": false
-  	},
-  
+    "layer": "top",
     "include": ["$HOME/.config/waybar/shared.jsonc"],
-  
-    // FIXME: Add BT codec
-  	"pulseaudio": {
-  		"format": "{icon} {desc} {volume}%",
-  		// "format-bluetooth": "{icon} {volume}%",
-  		"format-muted": "",
-  		"format-icons": {
-  			"headphone": "",
-  			"hands-free": "",
-  			"headset": "",
-  			"phone": "",
-  			"portable": "",
-  			"car": "",
-  			"default": ["", ""]
-  		},
-  		"scroll-step": 1,
-  		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-  		"tooltip": false
-  	},
-  
-    "bluetooth": {
-    	"format": " {status}",
-    	"format-connected": " {device_alias}",
-    	"format-connected-battery": " {num_connections}: {icon} ({device_battery_percentage}%)",
-    	// "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
-  		"format-icons": {
-  		  "headphone": "",
-  		  "hands-free": "",
-  		  "headset": "",
-  		  "phone": "",
-  		  "portable": "",
-  		  "car": "",
-  		  "default": ""
-  		},
-    	"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-    	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-    	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
-  		"on-click": "bt-select"
-    },
-  
-  	"tray": {
-  	  "icon-size": 18,
-  	  "spacing": 10
-  	},
-  
-    // TODO: Support accuweather backend
-    "custom/weather": {
-        "exec": "wttrbar --nerd --fahrenheit --mph --location 'San Diego' --custom-indicator  '{ICON} {temp_F}F {areaName}'",
-        "format": "{}",
-        // "exec": "wttrbar --nerd",
-        // "format": "{}C",
-        "tooltip": true,
-        "interval": 3600,
-        "return-type": "json"
-    },
-  
-    // signal=2
-    "custom/mus": { "exec": "~/.local/bin/i3blocks/mus", "interval": "5", },
-  
-    "custom/accuweather": { "exec": "~/.local/bin/i3blocks/accuweather", "interval": "1800", },
-    "custom/distcompute": { "exec": "~/.local/bin/i3blocks/distcompute", "interval": "15", },
-    "custom/cpu": { "exec": "~/.local/bin/i3blocks/cpu", "interval": "5", },
-    "custom/amdgpu": { "exec": "~/.local/bin/i3blocks/amdgpu", "interval": "5", },
-    "custom/dsk": { "exec": "~/.local/bin/i3blocks/dsk", "interval": "30", },
-    "custom/vpn": { "exec": "~/.local/bin/i3blocks/vpn", "interval": "30", },
-    // "custom/kb": { "exec": "~/.local/bin/i3blocks/kb", "interval": "100000000000", },
-  
-    // signal=13 
-    "custom/vol": { "exec": "~/.local/bin/i3blocks/vol", "interval": "10", },
-  
-    "custom/bt": { "exec": "~/.local/bin/i3blocks/bt", "interval": "10", },
-    "custom/bat": { "exec": "~/.local/bin/i3blocks/bat", "interval": "5", },
-    "custom/time": { "exec": "~/.local/bin/i3blocks/time", "interval": "1", },
   },
   {
-  	"layer": "top",
     "output": "HDMI-A-1",
   	"position": "top",
-
-    "include": ["$HOME/.config/waybar/shared.jsonc"],
   
   	"modules-left": [
   		"hyprland/submap",
   		"hyprland/workspaces",
-  		"hyprland/window"
+  		"hyprland/window",
+
+  		"sway/mode",
+  		"sway/workspaces",
+  		"sway/window"
   	],
   
   	"modules-right": [
-      "custom/darkgrayf", "mpris", "custom/darkgrayb",
-      "custom/blackf", "tray", "clock#date", "custom/blackb",
-      "custom/grayf", "clock#time"
+      "custom/darkgrayf",
+      "mpris",
+      "custom/darkgrayb",
+
+      "custom/blackf",
+      "tray",
+      "clock#date",
+      "custom/blackb",
+
+      "custom/grayf",
+      "clock#time"
   	],
-  
-  	"hyprland/submap": {
-  		"format": " {} ",
-  		"tooltip": false
-  	},
-  
-    "mpris": {
-  	  "format": "{player_icon} {dynamic}",
-  	  "format-paused": "{status_icon} <i>{dynamic}</i>",
-  	  "player-icons": {
-  	  	"default": "▶",
-  	  	"mpv": "🎵"
-  	  },
-  	  "status-icons": {
-  	  	"paused": "⏸"
-  	  },
-    },
+
+  	"layer": "top",
+    "include": ["$HOME/.config/waybar/shared.jsonc"],
+  },
+  {
+    "output": "eDP-1", // "HDMI-A-1"
+    "position": "bottom",
+
+    "modules-left": [
+      "hyprland/submap",
+      "hyprland/workspaces",
+      "hyprland/window",
+
+      "sway/mode",
+      "sway/workspaces",
+      "sway/window"
+    ],
+
+    "modules-right": [
+      "custom/blackf",
+      "mpris", // "custom/mus"
+      "custom/blackb",
+
+      "custom/darkgrayf",
+      "sway/language", // "hyprland/language"
+      "custom/darkgrayb",
+
+      "custom/redf",
+      "battery", // "custom/bat"
+      "custom/redb",
+
+      "custom/darkgrayf",
+      "tray",
+      "clock#date",
+      "custom/darkgrayb",
+      "custom/grayf",
+      "clock#time"
+    ],
+
+    "layer": "top",
+    "include": ["$HOME/.config/waybar/shared.jsonc"],
   }
 ]

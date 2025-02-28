@@ -14,7 +14,7 @@
       "type": "os",
       // "{sysname} {name} {pretty-name} {id} {id-like} {variant} {variant-id} {version} {version-id} {codename} {build-id} {arch}"
       // short: "{id} {codename} {arch}"
-      "format": "{name} [{arch}]"
+      "format": "{pretty-name} [{arch}]"
     },
     "host",
     "kernel",

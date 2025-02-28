@@ -51,11 +51,12 @@
 #waybar {
 	background: @black;
 	color: @white;
-	font-family: Mononoki Nerd Font Mono;
+	font-family: Mononoki Nerd Font;
+	/* font-family: Inconsolata Nerd Font Mono; */
 	/* font-family: FantasqueSansM Nerd Font Mono; */
 	/* font-family: Hack Nerd Font Mono; */
-	font-size: 11pt;
-  min-height: 15px; /* set waybar's height to 18px; */
+	font-size: 16px;
+  /* min-height: 15px; */
 	/* font-weight: bold; */
 }
 
@@ -86,8 +87,6 @@
 	padding-right: 5pt;
 }
 
-/* Each critical module */
-#mode,
 #memory.critical,
 #cpu.critical,
 #temperature.critical,
@@ -150,7 +149,6 @@
 /* FIXME: Add slant nerd font char */
 
 #submap, #mode {
-	font-size: 11pt;
 	color: @white;
 	background: @darkgray;
   font-weight: bold;
@@ -173,18 +171,18 @@
 
 /* Module styling */
 #pulseaudio     { background: @magenta; color: @black; }
-#network        { background: @magenta; color: @white; }
+#network        { background: @magenta; color: @darkgray; }
 #memory         { background: @cyan; color: @black; }
-#cpu            { background: @green; color: @black; }
-#temperature    { background: @green; color: @black; }
-#language       { background: @brightyellow; color: @black; }
+#cpu            { background: @yellow; color: @black; }
+#temperature    { background: @yellow; color: @black; }
+#language       { background: @darkgray; color: @white; }
 #custom-weather { background: @darkgray; color: @white; }
 #mpris          { background: @darkgray; color: @white; }
-#battery        { background: @teal; color: @white; }
-#bluetooth      { background: @blue; color: @gray; }
-#tray           { background: @black; }
+#battery        { background: @red; color: @black; }
+#bluetooth      { background: @blue; color: @white; }
+#tray           { background: @darkgray; }
 
-#clock.date { background: @black; color: @gray; }
+#clock.date { background: @darkgray; color: @gray; }
 #clock.time { background: @gray; color: @black; }
 
 /* Separator styling */

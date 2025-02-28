@@ -80,7 +80,7 @@ opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true -- Ignore case
 opt.inccommand = "nosplit" -- preview incremental substitute
 opt.jumpoptions = "view"
-opt.laststatus = 3 -- global statusline
+opt.laststatus = vim.g.started_by_firenvim and 0 or 3 -- global statusline
 opt.linebreak = true -- Wrap lines at convenient points
 opt.list = true -- Show some invisible characters (tabs...
 opt.mouse = "a" -- Enable mouse mode
@@ -114,6 +114,18 @@ opt.virtualedit = "block" -- Allow cursor to move where there is no text in visu
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
+
+opt.autochdir = true
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = "github.com_*.txt",
+  command = "set filetype=markdown",
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = "grafana.*.txt",
+  command = "set filetype=promql",
+})
 
 if vim.fn.has("nvim-0.10") == 1 then
   opt.smoothscroll = true

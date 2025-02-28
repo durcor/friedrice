@@ -1,39 +1,49 @@
 #!/bin/sh
 
+# TODO: Make a wallpaper tagger/finder (fzf that bitch?)
+
 # shellcheck disable=1091
-. "${XDG_CACHE_HOME:-$HOME/.cache}/wal/colors.sh"
+[ "$XDG_CACHE_HOME" ] || XDG_CACHE_HOME=$HOME/.cache
+. "$XDG_CACHE_HOME/wal/colors.sh"
 
-if [ "$WAYLAND_DISPLAY" ]; then
-	image_file=${XDG_CONFIG_HOME-$HOME/.config}/wpg/.current
-	# SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock swaymsg 'output * dpms off'
-	# shellcheck disable=2154
-	# swaylock-effects arch pkg
-	swaylock -K --screenshots -i "$image_file" --effect-blur 4x4 \
-		--clock --timestr '%T' --datestr '%F' \
-		--font "mononoki Nerd Font" --font-size 30 --indicator-idle-visible \
-		--indicator --indicator-radius 100 --indicator-thickness 10 \
-		--ring-color "$color13" \
-		--text-color "$color15" \
-		--key-hl-color "$color12" \
-		--line-color "$color8" \
-		--inside-color "$color8" \
-		--separator-color "$color0" \
-		--inside-clear-color "$color11" --line-clear-color "$color12" --ring-clear-color "$color13"
-	# SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock swaymsg 'output * dpms on'
-else
-	resolution=$(xdpyinfo | grep dimensions | awk '{print $2}')
-	# filters='noise=alls=10,scale=iw*.05:-1,scale=iw*20:-1:flags=neighbor'
-	filters='boxblur=10'
+[ "$XDG_CONFIG_HOME" ] || XDG_CONFIG_HOME=$HOME/.config
 
-	image_file=/tmp/lock.png
-	ffmpeg \
-		-y -loglevel 0 \
-		-s "$resolution" \
-		-f x11grab \
-		-i "$DISPLAY" \
-		-vframes 1 \
-		-vf "$filters" \
-		"$image_file"
+wal_path=$(cat $XDG_CACHE_HOME/wal/wal)
+wal_name=$(echo $wal_path | awk -F/ '{print $NF}')
 
-	i3lock -e -i "$image_file"
-fi
+make_blur_lock_screen() {
+  [ -f "/tmp/$wal_name" ] ||
+    convert -scale 10% -blur 0x2.5 -resize 1000% $wal_path /tmp/$wal_name
+}
+
+case $XDG_CURRENT_DESKTOP in
+sway | hyprland)
+  resolution=$(swaymsg -t get_outputs |
+    jq '.[].current_mode | (.width|tostring) + "x" + (.height|tostring)' |
+    tr -d \")
+
+  make_blur_lock_screen
+
+  # SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock swaymsg 'output * dpms off'
+  # shellcheck disable=2154
+  # swaylock-effects arch pkg
+
+  swaylock -f -K -i /tmp/$wal_name \
+    --font "mononoki Nerd Font" --font-size 30 \
+    --indicator-idle-visible --indicator-radius 100 --indicator-thickness 10 \
+    --ring-color "$color13" \
+    --text-color "$color15" \
+    --key-hl-color "$color12" \
+    --line-color "$color8" \
+    --inside-color "$color8" \
+    --separator-color "$color0" \
+    --inside-clear-color "$color11" --line-clear-color "$color12" --ring-clear-color "$color13"
+  # SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock swaymsg 'output * dpms on'
+  ;;
+*)
+  resolution=$(xdpyinfo | awk '/dimensions/{print $2}')
+  make_blur_lock_screen
+
+  i3lock -e -i "/tmp/$wal_name"
+  ;;
+esac
