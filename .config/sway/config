@@ -31,7 +31,8 @@ include $HOME/.cache/wal/colors-sway
 # font for window titles+status bar
 font pango: "mononoki Nerd Font Mono" 11
 
-set $mode-notif exec notify-send -h string:x-canonical-private-synchronous:i3mode -u low
+# Flash window on mode change
+set $mode-notif exec flash_window; notify-send -h string:x-canonical-private-synchronous:i3mode -u low
 
 # mouse + binding moves floating windows
 floating_modifier Mod1
@@ -39,7 +40,7 @@ floating_modifier Mod1
 input * {
   xkb_capslock disable
   xkb_numlock disable
-  xkb_layout "us,es"
+  xkb_layout "us,latam"
   xkb_options "grp:alt_space_toggle,caps:escape"
   repeat_delay 135
   tap enabled
@@ -89,7 +90,7 @@ mode manager {
     bindsym XF86Sleep exec lockman; exec sudo systemctl suspend
     # bindsym u exec "xclip -t -se p | xclip -i -s c"
     # bindsym slash exec dmenual -i -p run
-    bindsym slash exec $TERMINAL --class float -e fzfexec; exec sway mode window
+    bindsym slash exec $TERMINAL --class float -e nvim +'lua Snacks.picker.files({cwd = "~", ignored = false, hidden = true})'; exec sway mode window
     bindsym shift+slash exec sway mode window; exec wofi -S run
     bindsym f exec $TERMINAL -e lf
     bindsym shift+p exec passmenu
@@ -400,7 +401,9 @@ for_window [class="Spotify"] move to workspace 8
 # for_window [instance="pop"] border pixel 10
 # exec $terminal --class pop
 
-for_window [instance="float"] floating enable
+# for_window [instance="float"] floating enable
+for_window [app_id="float"] floating enable
+for_window [app_id="float"] resize set 1400 1000
 
 # class                 border  bg      txt     indicator child_border
 client.focused          $color1 $color1 $color1 $color1   $color1
@@ -416,7 +419,9 @@ bar {
 }
 
 exec $TERMINAL
+# FIXME: GUIBROWSER -> BROWSER
 exec $GUIBROWSER
+# FIXME: Migrate solely to librewolf
 exec librewolf
 exec vesktop
 
@@ -426,11 +431,12 @@ exec nm-applet
 # exec foot --server
 exec 'cfg rf'
 
-exec mako
+exec_always 'killall -9 mako; mako'
 exec_always '/usr/libexec/xdg-desktop-portal -r'
 exec_always '/usr/libexec/xdg-desktop-portal-wlr -r'
 
-exec 'killall -9 flashfocus; flashfocus'
+exec_always 'killall -9 flashfocus; flashfocus'
+
 exec 'spotifyd --no-daemon'
 exec 'swayidle -w timeout 900 "lockman" timeout 900 "swaymsg output * dpms off" resume "swaymsg output * dpms on" before-sleep "lockman"'
 exec_always sleep 3 & wait && setsid sway mode window
