@@ -1,0 +1,13 @@
+#!/bin/bash
+
+[ $XDG_CONFIG_HOME ] || XDG_CONFIG_HOME=$HOME/.config
+[ $XDG_CACHE_HOME ] || XDG_CACHE_HOME=$HOME/.cache
+
+config_dir=$XDG_CONFIG_HOME/sway
+
+trap "sway reload" EXIT
+
+while true; do
+  inotifywait -e create,modify "$config_dir/config" "$XDG_CACHE_HOME/wal/colors-sway"
+  sway reload
+done

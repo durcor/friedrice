@@ -183,6 +183,7 @@
 #mpris               { background: @darkgray; color: @white; }
 #battery             { background: @red; color: @black; }
 #bluetooth           { background: @blue; color: @white; }
+#idle_inhibitor      { background: @darkgray; }
 #tray                { background: @darkgray; }
 
 #clock.date { background: @darkgray; color: @gray; }

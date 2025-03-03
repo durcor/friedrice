@@ -31,17 +31,12 @@
       "memory", // "custom/mem",
       // "custom/dsk",
       "custom/cyanb",
-      "custom/yellowf",
-      "cpu", // "custom/cpu",
-      "temperature#cpu",
-      // "custom/gpu", // "custom/amdgpu",
-      // "temperature#gpu",
-      "custom/nvidia-usage",
-      "custom/nvidia-temp",
-      "custom/yellowb",
       // "custom/distcompute",
       "custom/darkgrayf",
       "custom/weather",
+      "custom/darkgrayb",
+      "custom/darkgrayf",
+      "idle_inhibitor",
       "custom/darkgrayb",
       "custom/darkgrayf",
       "tray",
@@ -67,6 +62,47 @@
       "sway/window"
     ],
     "modules-right": [
+      "custom/darkgrayf",
+      "mpris",
+      "custom/darkgrayb",
+      "custom/magentaf",
+      "pulseaudio",
+      "custom/magentab",
+      "custom/darkgrayf",
+      "tray",
+      "clock#date",
+      "custom/darkgrayb",
+      "custom/grayf",
+      "clock#time"
+    ],
+    "layer": "top",
+    "include": [
+      "$HOME/.config/waybar/shared.jsonc"
+    ]
+  },
+  {
+    "output": [
+      "eDP-1",
+      "HDMI-A-1"
+    ],
+    "position": "bottom",
+    "modules-left": [
+      "hyprland/submap",
+      "hyprland/workspaces",
+      "hyprland/window",
+      "sway/mode",
+      "sway/workspaces",
+      "sway/window"
+    ],
+    "modules-right": [
+      "custom/yellowf",
+      "cpu", // "custom/cpu",
+      "temperature#cpu",
+      "custom/gpu", // "custom/amdgpu",
+      "temperature#gpu",
+      "custom/nvidia-usage",
+      "custom/nvidia-temp",
+      "custom/yellowb",
       "custom/darkgrayf",
       "mpris",
       "custom/darkgrayb",

@@ -184,7 +184,7 @@
   },
   // FIXME: Add BT codec
   "pulseaudio": {
-    "format": "{icon} {desc} {volume}%",
+    "format": "{icon}  {desc} ({volume}%)",
     // "format-bluetooth": "{icon} {volume}%",
     "format-muted": "",
     "format-icons": {
@@ -202,6 +202,13 @@
     "scroll-step": 1,
     "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
     "tooltip": false
+  },
+  "idle_inhibitor": {
+    "format": "{icon} ",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
   },
   // signal=2
   "custom/mus": {

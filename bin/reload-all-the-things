@@ -1,0 +1,4 @@
+#!/bin/sh
+
+autoreload-waybar
+reload-sway-on-change
