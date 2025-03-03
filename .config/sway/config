@@ -39,7 +39,7 @@ floating_modifier Mod1
 input * {
   xkb_capslock disable
   xkb_numlock disable
-  xkb_layout "us,es"
+  xkb_layout "us,latam"
   xkb_options "grp:alt_space_toggle,caps:escape"
   repeat_delay 135
   tap enabled
@@ -59,7 +59,7 @@ output HDMI-A-1 pos 0 360 res 1920x1080
 output HDMI-A-1 adaptive_sync off
 
 output DP-3 pos 1920 0 res 2560x1440
-output HDMI-A-1 adaptive_sync on
+output DP-3 adaptive_sync on
 
 output eDP-1 pos 1000 1600 res 1920x1200
 output DP-2 pos 0 0 res 3840x1600
@@ -90,7 +90,7 @@ mode manager {
     # bindsym u exec "xclip -t -se p | xclip -i -s c"
     # bindsym slash exec dmenual -i -p run
     bindsym slash exec $TERMINAL --class float -e fzfexec; exec sway mode window
-    bindsym shift+slash exec sway mode window; exec wofi -S run
+    bindsym shift+slash exec sway mode window; exec fuzzel
     bindsym f exec $TERMINAL -e lf
     bindsym shift+p exec passmenu
     # TODO: make pasting intelligent using the file extension and falling back to mpv
@@ -433,6 +433,7 @@ exec_always '/usr/libexec/xdg-desktop-portal-wlr -r'
 exec 'killall -9 flashfocus; flashfocus'
 exec 'spotifyd --no-daemon'
 exec 'swayidle -w timeout 900 "lockman" timeout 900 "swaymsg output * dpms off" resume "swaymsg output * dpms on" before-sleep "lockman"'
+exec reload-all-the-things
 exec_always sleep 3 & wait && setsid sway mode window
 
 exec_always dbus-update-activation-environment --systemd DISPLAY

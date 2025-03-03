@@ -1,3 +1,4 @@
+" vi:ft=tridactyl
 " General Settings
 set configversion 1.9
 set newtab https://cokestronaut.neocities.org
@@ -175,4 +176,3 @@ bind . repeat
 command fixamo_quiet jsb tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""'))
 command fixamo js tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""').then(tri.excmds.fillcmdline_tmp(3000, "Permissions added to user.js. Please restart Firefox to make them take affect.")))
 " fixamo_quiet
-" vi:ft=tridactyl

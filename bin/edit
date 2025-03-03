@@ -16,12 +16,22 @@
 #     fi
 # fi
 
-if [ "$NVIM" ]; then
+case $(file --mime-type -b $1) in
+image/*)
+  setsid gimp $1
+  ;;
+application/x-shockwave-flash | application/*)
+  echo >&2 "warning: this is a binary. idk what to do here"
+  ;;
+*)
+  if [ "$NVIM" ]; then
     if [ "$1" ]; then
-        nvr --remote -p "$@"
+      nvr --remote -p "$@"
     else
-        nvr --remote -c ':terminal'
+      nvr --remote -c ':terminal'
     fi
-else
+  else
     NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim "$@"
-fi
+  fi
+  ;;
+esac

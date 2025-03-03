@@ -28,17 +28,16 @@ selected_device=$(
       info=$(bluetoothctl info "$id")
       icon=$(echo "$info" | awk '/Icon: /{print $2}')
       connected=$(
-        if [[ $(echo "$info" | grep "Connected: " | awk '{ print $2 }') == "yes" ]]; then
+        [[ $(echo "$info" | awk '/Connected: /{print $2}') == "yes" ]] &&
           echo " (Connected)"
-        fi
       )
 
-      echo "$(bt_str_to_ico $icon) $name [$id]${connected}"
+      echo "$(bt_str_to_ico $icon)  $name [$id]${connected}"
     done |
     if [ $WAYLAND_DISPLAY ]; then
-      wofi --dmenu -p "Select device" -i -no-custom
+      fuzzel -d --placeholder "Select device"
     else
-      rofi -dmenu -p "Select device" -i -no-custom
+      rofi -dmenu -ip "Select device" -no-custom
     fi
 )
 
