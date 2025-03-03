@@ -1,3 +1,4 @@
+" vi:ft=vim
 " General Settings
 set configversion 1.9
 set newtab https://cokestronaut.neocities.org
@@ -100,8 +101,8 @@ bind U undo window
 bind gi focusinput -l
 bind g? rot13
 bind g; changelistjump -1
-bind J tabprev
-bind K tabnext
+bind J urlroot
+bind K urlparent
 " bind gt tabnext_gt
 bind gt fillcmdline taball
 bind gT tabprev
@@ -167,12 +168,11 @@ bind <S-Insert> mode ignore
 bind <AC-Escape> mode ignore
 bind <AC-`> mode ignore
 bind <S-Escape> mode ignore
-bind <Escape> composite mode normal ; hidecmdline
-bind <C-[> composite mode normal ; hidecmdline
+bind <Escape> composite mode normal ; hidecmdline; noh
+bind <C-[> composite mode normal ; hidecmdline; noh
 bind a current_url bmark
 bind A bmark
 bind . repeat
 command fixamo_quiet jsb tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""'))
 command fixamo js tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""').then(tri.excmds.fillcmdline_tmp(3000, "Permissions added to user.js. Please restart Firefox to make them take affect.")))
 " fixamo_quiet
-" vi:ft=tridactyl
