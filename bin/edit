@@ -17,11 +17,11 @@
 # fi
 
 if [ "$NVIM" ]; then
-    if [ "$1" ]; then
-        nvr --remote -p "$@"
-    else
-        nvr --remote -c ':terminal'
-    fi
+  if [ "$1" ]; then
+    nvr --remote -p "$@"
+  else
+    nvr --remote -c ':terminal'
+  fi
 else
-    NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim "$@"
+  nvim "$@"
 fi
