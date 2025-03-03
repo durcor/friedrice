@@ -91,7 +91,6 @@ mode manager {
     # bindsym u exec "xclip -t -se p | xclip -i -s c"
     # bindsym slash exec dmenual -i -p run
     bindsym slash exec $TERMINAL --class float -e nvim +'lua Snacks.picker.files({cwd = "~", ignored = false, hidden = true})'; exec sway mode window
-    bindsym shift+slash exec sway mode window; exec wofi -S run
     bindsym shift+slash exec sway mode window; exec fuzzel
     bindsym f exec $TERMINAL -e lf
     bindsym shift+p exec passmenu

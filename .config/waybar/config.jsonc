@@ -95,6 +95,9 @@
       "sway/window"
     ],
     "modules-right": [
+      "custom/blackf",
+      "mpris",
+      "custom/blackb",
       "custom/yellowf",
       "cpu", // "custom/cpu",
       "temperature#cpu",
@@ -103,42 +106,6 @@
       "custom/nvidia-usage",
       "custom/nvidia-temp",
       "custom/yellowb",
-      "custom/darkgrayf",
-      "mpris",
-      "custom/darkgrayb",
-      "custom/darkgrayf",
-      "sway/language",
-      "hyprland/language",
-      "custom/darkgrayb",
-      "custom/darkgrayf",
-      "tray",
-      "clock#date",
-      "custom/darkgrayb",
-      "custom/grayf",
-      "clock#time"
-    ],
-    "layer": "top",
-    "include": [
-      "$HOME/.config/waybar/shared.jsonc"
-    ]
-  },
-  {
-    "output": [
-      "eDP-1"
-    ], // , "HDMI-A-1"],
-    "position": "bottom",
-    "modules-left": [
-      "hyprland/submap",
-      "hyprland/workspaces",
-      "hyprland/window",
-      "sway/mode",
-      "sway/workspaces",
-      "sway/window"
-    ],
-    "modules-right": [
-      "custom/blackf",
-      "mpris", // "custom/mus"
-      "custom/blackb",
       "custom/darkgrayf",
       "sway/language",
       "hyprland/language",

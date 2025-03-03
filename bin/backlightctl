@@ -5,31 +5,70 @@
 # A value can be provided as the second argument in order to control the
 # percent delta of the brightness modification
 
+notify_echo() {
+  echo "$1"
+  notify-send "backlightctl" "$1"
+}
+
+[ -f /tmp/new_backlightctl_udev_rule ] && {
+  notify_echo >&2 "Error: You need to reboot for the udev rule to take effect"
+  exit 1
+}
+
 backlight_dev_dir=$(realpath /sys/class/backlight/*)
+
+UID=$(id -u)
+
+[ "$UID" -eq 0 ] || {
+  user_in_video=false
+  for g in $(groups); do [ "$g" = video ] && user_in_video=true; done
+
+  $user_in_video || {
+    notify_echo >&2 "Error: $USER must be a member of the 'video' group for the udev rule"
+    exit 1
+  }
+}
+
+[ -f /etc/udev/rules.d/backlight.rules ] || {
+  [ "$UID" -eq 0 ] || {
+    notify_echo >&2 "Error: This script must be run as root while setting up the udev rule"
+    exit 1
+  }
+  mkdir -p /etc/udev/rules.d
+
+  cat <<EOF >/etc/udev/rules.d/backlight.rules
+ACTION=="add", SUBSYSTEM=="backlight", RUN+="/bin/chgrp video  ${backlight_dev_dir}/brightness", RUN+="/bin/chmod g+w ${backlight_dev_dir}/brightness"
+EOF
+
+  notify_echo "You'll need to reboot before the udev rule takes effect"
+  touch /tmp/new_backlightctl_udev_rule
+  exit 0
+}
 
 current_brightness=$(cat "${backlight_dev_dir}/brightness")
 max_brightness=$(cat "${backlight_dev_dir}/max_brightness")
 
 interval=$((max_brightness / 100))
 
-if [ "$2" ]; then
-    brightness_percent_delta=$2
-else
-    brightness_percent_delta=1
-fi
+brightness_percent_delta=1
+[ "$2" ] && brightness_percent_delta=$2
+
+get() {
+  echo $((current_brightness * 100 / max_brightness))
+}
 
 up() {
-    sudo sh -c "echo $((current_brightness + (interval * brightness_percent_delta))) > ${backlight_dev_dir}/brightness"
+  echo $((current_brightness + (interval * brightness_percent_delta))) >"${backlight_dev_dir}/brightness"
 }
 
 down() {
-    sudo sh -c "echo $((current_brightness - (interval * brightness_percent_delta))) > ${backlight_dev_dir}/brightness"
+  echo $((current_brightness - (interval * brightness_percent_delta))) >"${backlight_dev_dir}/brightness"
 }
 
 case $1 in
-    up|down) $1 ;;
-    *)
-        echo >&2 "Error: Unsupoorted option $1. Valid options are: [up, down]"
-        exit 1
-        ;;
+up | down | get) $1 ;;
+*)
+  echo >&2 "Error: Unsupported option $1. Valid options are: [up, down, get]"
+  exit 1
+  ;;
 esac

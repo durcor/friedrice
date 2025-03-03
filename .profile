@@ -116,7 +116,7 @@ sway | hyprland)
   export SDL_VIDEODRIVER=wayland
   export XDG_CURRENT_DESKTOP="$disp"
   export MOZ_ENABLE_WAYLAND=1
-  $disp
+  $disp --unsupported-gpu
   ;;
 esac
 

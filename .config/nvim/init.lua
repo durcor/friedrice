@@ -96,14 +96,14 @@ require("image").setup({
   hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" }, -- render image files as images when opened
 })
 
-require("hydra")({
-  name = "Side scroll",
-  mode = "n",
-  body = "z",
-  heads = {
-    { "h", "5zh" },
-    { "l", "5zl", { desc = "←/→" } },
-    { "H", "zH" },
-    { "L", "zL", { desc = "half screen ←/→" } },
-  },
-})
+-- require("hydra")({
+--   name = "Side scroll",
+--   mode = "n",
+--   body = "z",
+--   heads = {
+--     { "h", "5zh" },
+--     { "l", "5zl", { desc = "←/→" } },
+--     { "H", "zH" },
+--     { "L", "zL", { desc = "half screen ←/→" } },
+--   },
+-- })
