@@ -1,124 +1,79 @@
 [
+  // eDP-1: Sharp Corporation 0x1515 0x00000000
   {
-    "output": ["eDP-1", "DP-2", "DP-3"],
+    "output": [
+      "eDP-1",
+      "DP-2",
+      "DP-3"
+    ],
     "position": "top",
-
     "modules-left": [
+      // FIXME: Can we consolidate these modules to wlr/*?
       "hyprland/submap",
       "hyprland/workspaces",
       "hyprland/window",
-
       "sway/mode",
       "sway/workspaces",
       "sway/window"
     ],
-
     "modules-right": [
       "custom/magentaf",
       "pulseaudio",
       "custom/magentab",
-
       "custom/bluef",
       "bluetooth", // "custom/bt",
       "custom/blueb",
-
       "custom/magentaf",
       "network",
       // "custom/vpn",
       "custom/magentab",
-
       "custom/cyanf",
       "memory", // "custom/mem",
       // "custom/dsk",
       "custom/cyanb",
-
       "custom/yellowf",
       "cpu", // "custom/cpu",
       "temperature#cpu",
-      "custom/gpu", // "custom/amdgpu",
-      "temperature#gpu",
+      // "custom/gpu", // "custom/amdgpu",
+      // "temperature#gpu",
+      "custom/nvidia-usage",
+      "custom/nvidia-temp",
       "custom/yellowb",
-
       // "custom/distcompute",
-
       "custom/darkgrayf",
       "custom/weather",
       "custom/darkgrayb",
-
       "custom/darkgrayf",
       "tray",
       "clock#date",
       "custom/darkgrayb",
-
       "custom/grayf",
       "clock#time" // "custom/time"
     ],
-  
     "layer": "top",
-    "include": ["$HOME/.config/waybar/shared.jsonc"],
+    "include": [
+      "$HOME/.config/waybar/shared.jsonc"
+    ]
   },
   {
     "output": "HDMI-A-1",
-  	"position": "top",
-  
-  	"modules-left": [
-  		"hyprland/submap",
-  		"hyprland/workspaces",
-  		"hyprland/window",
-
-  		"sway/mode",
-  		"sway/workspaces",
-  		"sway/window"
-  	],
-  
-  	"modules-right": [
-      "custom/darkgrayf",
-      "mpris",
-      "custom/darkgrayb",
-
-      "custom/darkgrayf",
-      "sway/language", "hyprland/language",
-      "custom/darkgrayb",
-
-      "custom/darkgrayf",
-      "tray",
-      "clock#date",
-      "custom/darkgrayb",
-
-      "custom/grayf",
-      "clock#time"
-  	],
-
-  	"layer": "top",
-    "include": ["$HOME/.config/waybar/shared.jsonc"],
-  },
-  {
-    "output": ["eDP-1"], // , "HDMI-A-1"],
-    "position": "bottom",
-
+    "position": "top",
     "modules-left": [
       "hyprland/submap",
       "hyprland/workspaces",
       "hyprland/window",
-
       "sway/mode",
       "sway/workspaces",
       "sway/window"
     ],
-
     "modules-right": [
-      "custom/blackf",
-      "mpris", // "custom/mus"
-      "custom/blackb",
-
       "custom/darkgrayf",
-      "sway/language", "hyprland/language",
+      "mpris",
       "custom/darkgrayb",
-
-      "custom/redf",
-      "battery", // "custom/bat"
-      "custom/redb",
-
+      "custom/darkgrayf",
+      "sway/language",
+      "hyprland/language",
+      "custom/darkgrayb",
       "custom/darkgrayf",
       "tray",
       "clock#date",
@@ -126,8 +81,45 @@
       "custom/grayf",
       "clock#time"
     ],
-
     "layer": "top",
-    "include": ["$HOME/.config/waybar/shared.jsonc"],
+    "include": [
+      "$HOME/.config/waybar/shared.jsonc"
+    ]
+  },
+  {
+    "output": [
+      "eDP-1"
+    ], // , "HDMI-A-1"],
+    "position": "bottom",
+    "modules-left": [
+      "hyprland/submap",
+      "hyprland/workspaces",
+      "hyprland/window",
+      "sway/mode",
+      "sway/workspaces",
+      "sway/window"
+    ],
+    "modules-right": [
+      "custom/blackf",
+      "mpris", // "custom/mus"
+      "custom/blackb",
+      "custom/darkgrayf",
+      "sway/language",
+      "hyprland/language",
+      "custom/darkgrayb",
+      "custom/redf",
+      "battery", // "custom/bat"
+      "custom/redb",
+      "custom/darkgrayf",
+      "tray",
+      "clock#date",
+      "custom/darkgrayb",
+      "custom/grayf",
+      "clock#time"
+    ],
+    "layer": "top",
+    "include": [
+      "$HOME/.config/waybar/shared.jsonc"
+    ]
   }
 ]

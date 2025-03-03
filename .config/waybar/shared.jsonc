@@ -7,47 +7,40 @@
     "format": " {} ",
     "tooltip": false
   },
-
   "hyprland/window": {
     "format": "{}",
     "max-length": 30,
     "tooltip": false
   },
-
   "hyprland/workspaces": {
     "disable-scroll-wraparound": true,
     "smooth-scrolling-threshold": 4,
     "enable-bar-scroll": true,
     "format": "{name}"
   },
-
   "clock#time": {
     "interval": 1,
     "format": "{:%H:%M/%S}",
     "tooltip": false
   },
-
   "clock#date": {
     "interval": 20,
     "format": "{:%e %b %Y}",
     "tooltip": false
     // "tooltip-format": "{:%e %B %Y}"
   },
-
   "hyprland/language": {
     "format": "  {flag}",
     "min-length": 6,
     "on-click": "swaymsg 'input * xkb_switch_layout next'",
     "tooltip": false
   },
-
   "sway/language": {
     "format": "  {flag}",
     "min-length": 6,
     "on-click": "swaymsg 'input * xkb_switch_layout next'",
     "tooltip": false
   },
-
   "mpris": {
     "format": "{player_icon} {dynamic}",
     "format-paused": "{status_icon} <i>{dynamic}</i>",
@@ -57,20 +50,18 @@
     },
     "status-icons": {
       "paused": "⏸"
-    },
+    }
   },
-
   // TODO: Support accuweather backend
   // TODO: Allow ability to easily configure multiple locations
   // TODO: Grab location using GPS. Fallback to IP. Override with config
   "custom/weather": {
-      "exec": "wttrbar --nerd --fahrenheit --mph --custom-indicator '{ICON}  {temp_F}F {areaName}' --location 'San Diego'",
-      "format": "{}",
-      "tooltip": true,
-      "interval": 3600,
-      "return-type": "json"
+    "exec": "wttrbar --nerd --fahrenheit --mph --custom-indicator '{ICON}  {temp_F}F {areaName}' --location 'San Diego'",
+    "format": "{}",
+    "tooltip": true,
+    "interval": 3600,
+    "return-type": "json"
   },
-
   "battery": {
     "interval": 10,
     "states": {
@@ -92,12 +83,10 @@
     ],
     "tooltip": false
   },
-
   "tray": {
     "icon-size": 15,
     "spacing": 10
   },
-
   // FIXME: Show icon/battery level per device connected
   "bluetooth": {
     "format": " {num_connections}",
@@ -119,15 +108,6 @@
     "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
     "on-click": "bt-select"
   },
-
-  // "exec": "~/.local/bin/i3blocks/amdgpu"
-  "custom/gpu": {
-    "exec": "cat /sys/class/hwmon/hwmon1/device/gpu_busy_percent",
-    "format": " {}%",
-    "return-type": "",
-    "interval": 5
-  },
-
   "cpu": {
     "interval": 5,
     "tooltip": false,
@@ -138,11 +118,10 @@
       "critical": 90
     }
   },
-
   "temperature#cpu": {
     "critical-threshold": 90,
     "interval": 5,
-    "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+    "hwmon-path": "/sys/class/hwmon/hwmon10/temp1_input",
     "format": "{icon} {temperatureC}°C",
     "format-icons": [
       "",
@@ -153,13 +132,18 @@
     ],
     "tooltip": false
   },
-
+  // "exec": "~/.local/bin/i3blocks/amdgpu"
+  "custom/gpu": {
+    "exec": "cat /sys/class/hwmon/hwmon1/device/gpu_busy_percent",
+    "format": "  {}%",
+    "return-type": "",
+    "interval": 5
+  },
   "temperature#gpu": {
     "critical-threshold": 90,
-    "hwmon-path": "hwmon1",
     "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
-    "interval": 5,
-    "format": "{icon} {temperatureC}°C",
+    "interval": 10,
+    "format": "{icon}  {temperatureC}°C",
     "format-icons": [
       "",
       "",
@@ -169,7 +153,18 @@
     ],
     "tooltip": false
   },
-
+  "custom/nvidia-usage": {
+    "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
+    "format": "  {}% ",
+    "return-type": "",
+    "interval": 15
+  },
+  "custom/nvidia-temp": {
+    "exec": "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits",
+    "format": "{}°C ",
+    "return-type": "",
+    "interval": 15
+  },
   "memory": {
     "interval": 5,
     "format": "  {used:0.1f}G/{total:0.1f}G",
@@ -179,7 +174,6 @@
     },
     "tooltip": false
   },
-
   "network": {
     "interval": 5,
     "format-wifi": "  {essid} ({signalStrength}%)",
@@ -188,7 +182,6 @@
     "format-alt": "{ipaddr}/{cidr}",
     "tooltip": false
   },
-
   // FIXME: Add BT codec
   "pulseaudio": {
     "format": "{icon} {desc} {volume}%",
@@ -210,40 +203,176 @@
     "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
     "tooltip": false
   },
-
   // signal=2
-  "custom/mus": { "exec": "~/.local/bin/i3blocks/mus", "interval": "5", },
-
-  "custom/accuweather": { "exec": "~/.local/bin/i3blocks/accuweather", "interval": "1800", },
-  "custom/distcompute": { "exec": "~/.local/bin/i3blocks/distcompute", "interval": "15", },
-  "custom/cpu": { "exec": "~/.local/bin/i3blocks/cpu", "interval": "5", },
-  "custom/dsk": { "exec": "~/.local/bin/i3blocks/dsk", "interval": "30", },
-  "custom/vpn": { "exec": "~/.local/bin/i3blocks/vpn", "interval": "30", },
+  "custom/mus": {
+    "exec": "~/.local/bin/i3blocks/mus",
+    "interval": "5"
+  },
+  "custom/accuweather": {
+    "exec": "~/.local/bin/i3blocks/accuweather",
+    "interval": "1800"
+  },
+  "custom/distcompute": {
+    "exec": "~/.local/bin/i3blocks/distcompute",
+    "interval": "15"
+  },
+  "custom/cpu": {
+    "exec": "~/.local/bin/i3blocks/cpu",
+    "interval": "5"
+  },
+  "custom/dsk": {
+    "exec": "~/.local/bin/i3blocks/dsk",
+    "interval": "30"
+  },
+  "custom/vpn": {
+    "exec": "~/.local/bin/i3blocks/vpn",
+    "interval": "30"
+  },
   // "custom/kb": { "exec": "~/.local/bin/i3blocks/kb", "interval": "100000000000", },
-
   // signal=13 
-  "custom/vol": { "exec": "~/.local/bin/i3blocks/vol", "interval": "10", },
-
-  "custom/bt": { "exec": "~/.local/bin/i3blocks/bt", "interval": "10", },
-  "custom/bat": { "exec": "~/.local/bin/i3blocks/bat", "interval": "5", },
-  "custom/time": { "exec": "~/.local/bin/i3blocks/time", "interval": "1", },
-
+  "custom/vol": {
+    "exec": "~/.local/bin/i3blocks/vol",
+    "interval": "10"
+  },
+  "custom/bt": {
+    "exec": "~/.local/bin/i3blocks/bt",
+    "interval": "10"
+  },
+  "custom/bat": {
+    "exec": "~/.local/bin/i3blocks/bat",
+    "interval": "5"
+  },
+  "custom/time": {
+    "exec": "~/.local/bin/i3blocks/time",
+    "interval": "1"
+  },
   // Separators
-  "custom/blackf": { "format": "", "tooltip": false }, "custom/blackb": { "format": "", "tooltip": false },
-  "custom/redf": { "format": "", "tooltip": false }, "custom/redb": { "format": "", "tooltip": false },
-  "custom/greenf": { "format": "", "tooltip": false }, "custom/greenb": { "format": "", "tooltip": false },
-  "custom/yellowf": { "format": "", "tooltip": false }, "custom/yellowb": { "format": "", "tooltip": false },
-  "custom/bluef": { "format": "", "tooltip": false }, "custom/blueb": { "format": "", "tooltip": false },
-  "custom/purplef": { "format": "", "tooltip": false }, "custom/purpleb": { "format": "", "tooltip": false },
-  "custom/tealf": { "format": "", "tooltip": false }, "custom/tealb": { "format": "", "tooltip": false },
-  "custom/grayf": { "format": "", "tooltip": false }, "custom/grayb": { "format": "", "tooltip": false },
-
-  "custom/darkgrayf": { "format": "", "tooltip": false }, "custom/darkgrayb": { "format": "", "tooltip": false },
-  "custom/brightredf": { "format": "", "tooltip": false }, "custom/brightredb": { "format": "", "tooltip": false },
-  "custom/brightgreenf": { "format": "", "tooltip": false }, "custom/brightgreenb": { "format": "", "tooltip": false },
-  "custom/brightyellowf": { "format": "", "tooltip": false }, "custom/brightyellowb": { "format": "", "tooltip": false },
-  "custom/brightbluef": { "format": "", "tooltip": false }, "custom/brightbluef": { "format": "", "tooltip": false },
-  "custom/magentaf": { "format": "", "tooltip": false }, "custom/magentab": { "format": "", "tooltip": false },
-  "custom/cyanf": { "format": "", "tooltip": false }, "custom/cyanb": { "format": "", "tooltip": false },
-  "custom/whitef": { "format": "", "tooltip": false }, "custom/whiteb": { "format": "", "tooltip": false },
+  "custom/blackf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/blackb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/redf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/redb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/greenf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/greenb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/yellowf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/yellowb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/bluef": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/blueb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/purplef": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/purpleb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/tealf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/tealb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/grayf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/grayb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/darkgrayf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/darkgrayb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightredf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightredb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightgreenf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightgreenb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightyellowf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightyellowb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightbluef": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/brightblueb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/magentaf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/magentab": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/cyanf": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/cyanb": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/whitef": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/whiteb": {
+    "format": "",
+    "tooltip": false
+  }
 }

@@ -170,18 +170,20 @@
 #submap.notify, #mode.notify         { background: @color2;  }
 
 /* Module styling */
-#pulseaudio     { background: @magenta; color: @black; }
-#network        { background: @magenta; color: @darkgray; }
-#memory         { background: @cyan; color: @black; }
-#cpu            { background: @yellow; color: @black; }
-#custom-gpu     { background: @yellow; color: @black; }
-#temperature    { background: @yellow; color: @black; }
-#language       { background: @darkgray; color: @white; }
-#custom-weather { background: @darkgray; color: @white; }
-#mpris          { background: @darkgray; color: @white; }
-#battery        { background: @red; color: @black; }
-#bluetooth      { background: @blue; color: @white; }
-#tray           { background: @darkgray; }
+#pulseaudio          { background: @magenta; color: @black; }
+#network             { background: @magenta; color: @darkgray; }
+#memory              { background: @cyan; color: @black; }
+#cpu                 { background: @yellow; color: @black; }
+#custom-gpu          { background: @yellow; color: @black; }
+#custom-nvidia-usage { background: @yellow; color: @black; }
+#custom-nvidia-temp  { background: @yellow; color: @black; }
+#temperature         { background: @yellow; color: @black; }
+#language            { background: @darkgray; color: @white; }
+#custom-weather      { background: @darkgray; color: @white; }
+#mpris               { background: @darkgray; color: @white; }
+#battery             { background: @red; color: @black; }
+#bluetooth           { background: @blue; color: @white; }
+#tray                { background: @darkgray; }
 
 #clock.date { background: @darkgray; color: @gray; }
 #clock.time { background: @gray; color: @black; }
