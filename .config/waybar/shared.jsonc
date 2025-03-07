@@ -30,9 +30,9 @@
     // "tooltip-format": "{:%e %B %Y}"
   },
   "hyprland/language": {
-    "format": "  {flag}",
+    "format": "  {short}",
     "min-length": 6,
-    "on-click": "swaymsg 'input * xkb_switch_layout next'",
+    "on-click": "hyprctl switchxkblayout $(hyprctl devices | rg -B3 'main: yes' | head -1 | xargs) next",
     "tooltip": false
   },
   "sway/language": {
@@ -110,7 +110,6 @@
   },
   "cpu": {
     "interval": 5,
-    "tooltip": false,
     "format": "  {usage}%",
     "format-alt": " {load}",
     "states": {
@@ -122,15 +121,15 @@
     "critical-threshold": 90,
     "interval": 5,
     "hwmon-path": "/sys/class/hwmon/hwmon10/temp1_input",
-    "format": "{icon} {temperatureC}°C",
+    // "format": "{icon} {temperatureC}°C",
+    "format": "{temperatureC}°C",
     "format-icons": [
       "",
       "",
       "",
       "",
       ""
-    ],
-    "tooltip": false
+    ]
   },
   // "exec": "~/.local/bin/i3blocks/amdgpu"
   "custom/gpu": {
@@ -138,6 +137,14 @@
     "format": "  {}%",
     "return-type": "",
     "interval": 5
+  },
+  "custom/gpu-usage": {
+    "format": "{icon}  {} ",
+    "exec": "gpu-usage-waybar",
+    "return-type": "json",
+    // "format-icons": "󰾲",
+    "format-icons": "",
+    "on-click": "kitty nvtop"
   },
   "temperature#gpu": {
     "critical-threshold": 90,
@@ -171,16 +178,18 @@
     "states": {
       "warning": 70,
       "critical": 90
-    },
-    "tooltip": false
+    }
+  },
+  "disk": {
+    "interval": 30,
+    "format": "  {free}/{total}"
   },
   "network": {
     "interval": 5,
     "format-wifi": "  {essid} ({signalStrength}%)",
-    "format-ethernet": "{ifname}",
+    "format-ethernet": " {ifname}",
     "format-disconnected": "No connection",
-    "format-alt": "{ipaddr}/{cidr}",
-    "tooltip": false
+    "format-alt": "{ipaddr}/{cidr}"
   },
   // FIXME: Add BT codec
   "pulseaudio": {
