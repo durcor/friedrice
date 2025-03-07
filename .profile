@@ -67,8 +67,7 @@ export AMDVLK_ENABLE_DEVELOPING_EXT="all"
 export ENABLE_VKBASALT=0
 # export mesa_glthread=true
 # export RADV_FORCE_VRS="2x2"
-# pswave32,gewave32,cswave32
-export RADV_PERFTEST="rt,sam,nv_ms"
+export RADV_PERFTEST="rt,sam,nv_ms" # pswave32,gewave32,cswave32
 export VAAPI_MPEG4_ENABLED=true
 
 # Dev Environment
@@ -77,12 +76,9 @@ export CLASSPATH="$CLASSPATH:/usr/share/java/*"
 ## LaTeX plugins
 export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
 
-[ "$TERM" = linux ] && {
-  [ -f "$XDG_CACHE_HOME/wal/colors-tty.sh" ] && . "$XDG_CACHE_HOME/wal/colors-tty.sh"
-  sudo -n kbdrate -r 35 -d 150 >/dev/null
-  # TODO: Remap caps lock and escape in the TTY (using interception?)
-  sudo setupcon
-}
+[ "$TERM" = linux ] &&
+  [ -f "$XDG_CACHE_HOME/wal/colors-tty.sh" ] &&
+  . "$XDG_CACHE_HOME/wal/colors-tty.sh"
 
 [ -d "$HOME/.themes/$GTK_THEME" ] || {
   echo >&2 "Error: $GTK_THEME is not installed."
@@ -116,9 +112,17 @@ sway | hyprland)
   export SDL_VIDEODRIVER=wayland
   export XDG_CURRENT_DESKTOP="$disp"
   export MOZ_ENABLE_WAYLAND=1
-  $disp --unsupported-gpu
+  case $disp in sway) flags='--unsupported-gpu' ;; esac
+  $disp $flags
   ;;
 esac
+
+[ "$TERM" = linux ] && {
+  echo "NOTE: Setting repeat and delay rate (Requires root)"
+  sudo -n kbdrate -r 35 -d 150 >/dev/null
+  # TODO: Remap caps lock and escape in the TTY (using interception?)
+  sudo setupcon
+}
 
 # [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ] && . "$HOME/.nix-profile/etc/profile.d/nix.sh" # added by Nix installer
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

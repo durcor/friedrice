@@ -5,7 +5,7 @@
 
 # Shorter commands
 abbrev-alias s="sudo"
-abbrev-alias mk="make"
+abbrev-alias mk="make -j$(nproc)"
 abbrev-alias mkp="makepkg -sifc"
 abbrev-alias p="paru"
 abbrev-alias -g noerr="2>/dev/null"
