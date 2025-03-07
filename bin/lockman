@@ -17,18 +17,18 @@ make_blur_lock_screen() {
 }
 
 case $XDG_CURRENT_DESKTOP in
-sway | hyprland)
-  resolution=$(swaymsg -t get_outputs |
-    jq '.[].current_mode | (.width|tostring) + "x" + (.height|tostring)' |
-    tr -d \")
+sway | *yprland)
+  # resolution=$(swaymsg -t get_outputs |
+  #   jq '.[].current_mode | (.width|tostring) + "x" + (.height|tostring)' |
+  #   tr -d \")
 
   make_blur_lock_screen
 
-  # SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock swaymsg 'output * dpms off'
+  # S"AYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock swaymsg 'output * dpms off'
   # shellcheck disable=2154
   # swaylock-effects arch pkg
 
-  swaylock -f -K -i /tmp/$wal_name \
+  swaylock -f -K -i "/tmp/$wal_name" \
     --font "mononoki Nerd Font" --font-size 30 \
     --indicator-idle-visible --indicator-radius 100 --indicator-thickness 10 \
     --ring-color "$color13" \
@@ -38,7 +38,7 @@ sway | hyprland)
     --inside-color "$color8" \
     --separator-color "$color0" \
     --inside-clear-color "$color11" --line-clear-color "$color12" --ring-clear-color "$color13"
-  # SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock swaymsg 'output * dpms on'
+  # S"AYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock swaymsg 'output * dpms on'
   ;;
 *)
   resolution=$(xdpyinfo | awk '/dimensions/{print $2}')

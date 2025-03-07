@@ -305,15 +305,15 @@ mode mpd {
     bindsym Escape mode manager; exec $mode-notif "MANAGER MODE"
 }
 
-# Interact with pulseaudio
+# Interact with pipewire
 mode audio {
-    bindsym h $ex pactl set-sink-volume @DEFAULT_SINK@ -1%; $ex pkill -RTMIN+13 waybar
-    bindsym l $ex pactl set-sink-volume @DEFAULT_SINK@ +1%; $ex pkill -RTMIN+13 waybar
-    bindsym j $ex pactl set-sink-volume @DEFAULT_SINK@ -5%; $ex pkill -RTMIN+13 waybar
-    bindsym k $ex pactl set-sink-volume @DEFAULT_SINK@ +5%; $ex pkill -RTMIN+13 waybar
+    bindsym h $ex wpctl set-sink-volume @DEFAULT_SINK@ -1%; $ex pkill -RTMIN+13 waybar
+    bindsym l $ex wpctl set-sink-volume @DEFAULT_SINK@ +1%; $ex pkill -RTMIN+13 waybar
+    bindsym j $ex wpctl set-sink-volume @DEFAULT_SINK@ -5%; $ex pkill -RTMIN+13 waybar
+    bindsym k $ex wpctl set-sink-volume @DEFAULT_SINK@ +5%; $ex pkill -RTMIN+13 waybar
     bindsym shift+v $ex notify-send -u low "Volume is at $(pamixer --get-volume)%"
     bindsym v $ex $TERMINAL -e ncpamixer
-    bindsym space $ex pactl set-sink-mute @DEFAULT_SINK@ toggle; $ex pkill -RTMIN+13 waybar
+    bindsym space $ex wpctl set-sink-mute @DEFAULT_SINK@ toggle; $ex pkill -RTMIN+13 waybar
 
     bindsym Escape mode manager; $ex $mode-notif "MANAGER MODE"
 }

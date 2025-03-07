@@ -1,0 +1,25 @@
+backend = "kmeans" # full resized kmeans thumb wal
+color_space = "lch"
+saturation = 50
+palette = "dark16"
+check_contrast = true
+# threshold = 25
+
+[templates]
+
+dunst = { src = 'dunst', dst = '~/.config/dunst/dunstrc' }
+
+mako = { src = 'mako', dst = '~/.config/mako/config' }
+
+zathura = { template = 'colors.zathurarc',  target = '~/.config/zathura/colors-zathura' }
+
+hypr = { template = 'colors.hypr',  target = '~/.cache/wal/colors.hypr' }
+
+kitty = { template = 'kitty',  target = '~/.config/kitty/kitty.conf' }
+
+gmmk = { template = 'gmmk',  target = '~/.config/kitty/kitty.conf', pywal = true }
+
+# glava =   { src = 'glava.glsl', dst = '~/.config/glava/rc.glsl' }
+# res =     { src = 'xres',       dst = '~/.config/Xresources' }
+
+# pywal = { src = "~/.config/wal/templates/", dst = '~/.cache/wal/', pywal = true }
