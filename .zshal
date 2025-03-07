@@ -99,10 +99,10 @@ arm() {
 fzfcd() { cd "$(fd -H -t d . 2>/dev/null | fzf)" || exit 1; }
 
 # List files
-abbrev-alias ls="ls --color=auto"
-abbrev-alias ll="ls -alFh"
+abbrev-alias ls="eza" # ls --color=auto
+abbrev-alias ll="ls -alhF"
 abbrev-alias la="ls -A"
-abbrev-alias l="ls -CF"
+abbrev-alias l="ls -F"
 
 cl() {
   cd "$@" || exit
@@ -112,8 +112,13 @@ cl() {
 abbrev-alias rn="tty-clock -csb -C 7"
 abbrev-alias whatsup="uptime -p | cowsay -f tux"
 abbrev-alias zath="zathura"
-abbrev-alias mpdbkmk="echo "- "$(mpc current)"" >> ~/doc/goodmus.md"
+
+# am i really that lazy
 abbrev-alias pandochtml="pandoc $1 -o $1.html"
+
+# i dont use these anymore
+abbrev-alias mpdbkmk="echo "- "$(mpc current)"" >> ~/doc/goodmus.md"
+
 # ealias rbsh="source ~/.bashrc"
 abbrev-alias rzsh="source ~/.zshrc"
 # ealias scrw="maim -i $(xdotool getactivewindow) -o"
@@ -143,6 +148,7 @@ abbrev-alias -g rng="ranger --choosedir=$XDG_DATA_HOME/ranger/dir;cd $XDG_DATA_H
 abbrev-alias -g whatismyip="curl http://icanhazip.com"
 abbrev-alias -g whatismyip2="curl ipecho.net/plain;echo"
 
+# cdeez nuts
 abbrev-alias -g cdw="cd ~/wal"
 abbrev-alias -g cds="cd ~/scr"
 abbrev-alias -g cdpi="cd ~/pic"
