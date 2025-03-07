@@ -39,7 +39,7 @@ export STATUSBAR="waybar"
 
 # Program Configuration
 export GTK_THEME="oomox-colors"
-export QT_QPA_PLATFORMTHEME="gtk2"
+export QT_QPA_PLATFORMTHEME="gtk3"
 export LYNX_CFG="$HOME/.lynxrc"
 # Because some programs can't find the pulse cookie on their own I guess
 export PULSE_COOKIE="$HOME/.pulse-cookie"
