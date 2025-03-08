@@ -257,7 +257,7 @@ updatecfg() {
   *pacman*)
     cp /etc/pacman.conf "$XDG_CONFIG_HOME/root/etc/pacman.conf"
     cp /etc/makepkg.conf "$XDG_CONFIG_HOME/root/etc/makepkg.conf"
-    pacman -Qeq >"$XDG_CONFIG_HOME/pkgs"
+    pacman -Qeq >"$XDG_CONFIG_HOME/arch.pkgs"
     ;;
   esac
 
