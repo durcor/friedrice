@@ -139,18 +139,19 @@
     "interval": 5
   },
   "custom/gpu-usage": {
-    "format": "{icon}  {} ",
+    "format": "{icon}  {text}",
     "exec": "gpu-usage-waybar",
     "return-type": "json",
     // "format-icons": "󰾲",
     "format-icons": "",
-    "on-click": "kitty nvtop"
+    "on-click": "$TERMINAL nvtop"
   },
   "temperature#gpu": {
     "critical-threshold": 90,
     "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
     "interval": 10,
-    "format": "{icon}  {temperatureC}°C",
+    // "format": "{icon} {temperatureC}°C",
+    "format": "{temperatureC}°C",
     "format-icons": [
       "",
       "",

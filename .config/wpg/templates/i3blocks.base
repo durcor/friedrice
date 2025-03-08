@@ -46,9 +46,9 @@ signal=2
 [distcompute]
 interval=15
 
-[mail]
-interval=100000000000
-signal=17
+# [mail]
+# interval=100000000000
+# signal=17
 
 [cpu]
 interval=5

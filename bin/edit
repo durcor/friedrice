@@ -20,7 +20,10 @@ case $(file --mime-type -b "$1") in
 image/*)
   setsid gimp "$1"
   ;;
-application/x-shockwave-flash | application/*)
+video/*)
+  setsid kdenlive "$1"
+  ;;
+application/x-shockwave-flash | application/vnd.microsoft.portable-executable | application/x-pie-executable | application/*-executable)
   echo >&2 "warning: this is a binary. idk what to do here"
   ;;
 *)

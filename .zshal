@@ -70,29 +70,33 @@ abbrev-alias -g radvllvm="RADV_DEBUG=llvm VK_ICD_FILENAMES=/usr/share/vulkan/icd
 # end() {sed $1 '$!d'}
 
 # Overwriting commands
-abbrev-alias -g mv="mv -i"
-abbrev-alias -g cp="cp -i"
+abbrev-alias -g mv="\mv -i"
+abbrev-alias -g cp="\cp -i"
 abbrev-alias fd="\fd -I"
-abbrev-alias pipes="pipes -R"
+abbrev-alias pipes="\pipes -R"
+abbrev-alias -g grep="rg"
+abbrev-alias -g dmesg="\dmesg --color=always"
+# Disk utilities
+abbrev-alias du="\du -hd1 | sort -h"
+abbrev-alias df="\df -hT -x tmpfs -x squashfs -x devtmpfs"
+abbrev-alias dd="\dd conv=noerror,sync status=progress bs=64K"
+
+abbrev-alias whatsbig="du -hs * | sort -h"
+
 abbrev-alias bk="buku --np"
 abbrev-alias bkp="buku --np -p"
 abbrev-alias bkt="buku --np --tag"
 abbrev-alias bks="buku --np -s"
 abbrev-alias bked="buku --np -w"
-abbrev-alias -g grep="\grep --color=always"
-abbrev-alias -g dmesg="dmesg --color=always"
-# Disk utilities
-abbrev-alias du="du -h"
-abbrev-alias df="df -hT -x tmpfs -x squashfs -x devtmpfs"
-abbrev-alias dd="dd conv=noerror,sync status=progress bs=64K"
-abbrev-alias whatsbig="du -hs * | sort -h"
 
 arm() {
-  aarch64-linux-gnu-as "$@" -o aarch64-tmp.o &&
-    aarch64-linux-gnu-ld -lc aarch64-tmp.o -o aarch64-tmp &&
-    qemu-aarch64 -L /usr/aarch64-linux-gnu aarch64-tmp
+  aarch64_out_obj=$(mktemp)
+  aarch64_out=$(mktemp)
+  aarch64-linux-gnu-as "$@" -o $aarch64_out_obj &&
+    aarch64-linux-gnu-ld -lc $aarch64_out_obj -o $aarch64_out &&
+    qemu-aarch64 -L /usr/aarch64-linux-gnu $aarch64_out
   exit_status=$?
-  rm aarch64-tmp.o aarch64-tmp qemu_aarch64-tmp_*.core 2>/dev/null
+  rm $aarch64_out_obj $aarch64_out qemu_aarch64-tmp_*.core 2>/dev/null
   return $exit_status
 }
 
@@ -135,7 +139,7 @@ abbrev-alias qb="qutebrowser"
 abbrev-alias scratchpad="edit $(mktemp)"
 
 abbrev-alias pushsite="neocities push ~/doc/web/on"
-# ealias webscrw="nf && maim -i $(xdotool getactivewindow) -o ~/doc/web/on/nf.png"
+# ealias webscrw="fastfetch && maim -i $(xdotool getactivewindow) -o ~/doc/web/on/nf.png"
 
 abbrev-alias -g ytdl="youtube-dl"
 abbrev-alias -g ytdl-mus="youtube-dl -icw -f bestaudio --embed-thumbnail --add-metadata --write-thumbnail"

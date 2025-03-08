@@ -1,23 +1,35 @@
-backend = "kmeans" # full resized kmeans thumb wal
-color_space = "lch"
-saturation = 50
+backend = "full" # full resized kmeans thumb wal
+color_space = "labmixed" # lab labmixed lch lchmixed lchansi
+env_vars = true
+
+saturation = 70
 palette = "dark16"
 check_contrast = true
 # threshold = 25
 
 [templates]
+dunst.src = 'dunst'
+dunst.dst = '~/.config/dunst/dunstrc'
 
-dunst = { src = 'dunst', dst = '~/.config/dunst/dunstrc' }
+mako.src = 'mako'
+mako.dst = '~/.config/mako/config'
 
-mako = { src = 'mako', dst = '~/.config/mako/config' }
+zathura.src = 'colors.zathurarc'
+zathura.dst = '~/.config/zathura/colors-zathura'
 
-zathura = { template = 'colors.zathurarc',  target = '~/.config/zathura/colors-zathura' }
+hypr.src = 'colors.hypr'
+hypr.dst = '~/.cache/wal/colors.hypr'
 
-hypr = { template = 'colors.hypr',  target = '~/.cache/wal/colors.hypr' }
+kitty.src = 'kitty'
+kitty.dst = '~/.cache/wal/colors-kitty.conf'
 
-kitty = { template = 'kitty',  target = '~/.config/kitty/kitty.conf' }
+gmmk.src = 'gmmk'
+gmmk.dst = '~/.cache/wal/gmmk'
+gmmk.pywal = true
 
-gmmk = { template = 'gmmk',  target = '~/.config/kitty/kitty.conf', pywal = true }
+discord.src = '/home/ty/src/pywal-vencord/colors-discord.css'
+discord.dst = '~/.config/vesktop/themes/wal-vencord.theme.css'
+discord.pywal = true
 
 # glava =   { src = 'glava.glsl', dst = '~/.config/glava/rc.glsl' }
 # res =     { src = 'xres',       dst = '~/.config/Xresources' }

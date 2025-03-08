@@ -1,3 +1,4 @@
+# vi:ft=zathurarc
 set recolor true
 
 set completion-bg {{background}}
