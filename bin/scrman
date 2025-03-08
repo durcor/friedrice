@@ -1,67 +1,71 @@
 #!/bin/sh
 # shellcheck disable=2094
 
-screenshot_dir="$(xdg-user-dir PICTURES)/scr"
+if type xdg-user-dir 2>/dev/null >&2; then
+  pic_dir="$(xdg-user-dir PICTURES)"
+else
+  pic_dir="$HOME/Pictures"
+fi
 
-[ -z "$screenshot_dir" ] && {
-    if command -v xdg-user-dir >/dev/null; then
-        screenshot_dir="$(xdg-user-dir PICTURES)/Screenshots"
-    else
-        screenshot_dir="$HOME/Pictures/Screenshots"
-    fi
-}
-
-[ ! -d "$screenshot_dir" ] && {
-    mkdir -p "$screenshot_dir"
-}
+screenshot_dir="$pic_dir/scr"
+[ -d "$screenshot_dir" ] || screenshot_dir="$pic_dir/Screenshots"
+mkdir -p "$screenshot_dir"
 
 screenshot_file="$screenshot_dir/$(date +%Y-%m-%d_%H%M-%S).png"
 
-grabscr()
-{
-    if [ "$WAYLAND_DISPLAY" ]; then
-        grim -g "$(slurp)" "$screenshot_file"
-    else
-        maim -B -u -s "$screenshot_file"
-    fi
+grabscr() {
+  if [ "$WAYLAND_DISPLAY" ]; then
+    grim -g "$(slurp)" "$screenshot_file"
+  else
+    maim -B -u -s "$screenshot_file"
+  fi
 }
 
-delaygrabscr()
-{
-    if [ "$WAYLAND_DISPLAY" ]; then
-        sleep "$1"
-        grim -g "$(slurp)" -o "$screenshot_file"
-    else
-        maim -B -d "$1" -u -s "$screenshot_file"
-    fi
+delaygrabscr() {
+  if [ "$WAYLAND_DISPLAY" ]; then
+    sleep "$1"
+    grim -g "$(slurp)" -o "$screenshot_file"
+  else
+    maim -B -d "$1" -u -s "$screenshot_file"
+  fi
 }
 
-uploadscr() { fup 0x0 "$screenshot_file" ;}
+uploadscr() { fup 0x0 "$screenshot_file"; }
 
-copyscr()
-{
-    if [ "$WAYLAND_DISPLAY" ]; then
-        wl-copy -t "$(file -b --mime-type "$screenshot_file")" < "$screenshot_file"
-    else
-        xclip -se c -t "$(file -b --mime-type "$screenshot_file")" -i "$screenshot_file"
-    fi
+copyscr() {
+  if [ "$WAYLAND_DISPLAY" ]; then
+    wl-copy -t "$(file -b --mime-type "$screenshot_file")" <"$screenshot_file"
+  else
+    xclip -se c -t "$(file -b --mime-type "$screenshot_file")" -i "$screenshot_file"
+  fi
 }
 
 case $1 in
-    up)
-        uploadscr
-        ;;
-    cp)
-        case $2 in
-            d)
-                delaygrabscr "$3"
-                copyscr
-                ;;
-            *)
-                grabscr
-                copyscr
-                ;;
-        esac
-        ;;
-    *);;
+cp)
+  case $2 in
+  d)
+    delaygrabscr "$3"
+    copyscr
+    ;;
+  *)
+    grabscr
+    copyscr
+    ;;
+  esac
+  ;;
+up)
+  uploadscr
+  ;;
+*)
+  prg=$(basename $0)
+  echo "Usage: $prg [up, cp]"
+  echo ""
+  echo "       $prg cp: copy to clipboard"
+  echo "       $prg up: upload to 0x0.st"
+  echo ""
+  echo "Examples:"
+  echo "       $prg cp d 5: wait 5 seconds and copy the screen"
+  echo "       $prg cp d 5: wait 5 seconds and copy the screen"
+  echo "       $prg cp: grab section of screen and copy"
+  ;;
 esac

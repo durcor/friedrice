@@ -179,6 +179,7 @@
 #custom-gpu          { background: @yellow; color: @black; }
 #custom-gpu-usage    { background: @yellow; color: @black; }
 #custom-nvidia-temp  { background: @yellow; color: @black; }
+#temperature.gpu     { background: @yellow; color: @black; }
 #language            { background: @darkgray; color: @white; }
 #custom-weather      { background: @darkgray; color: @white; }
 #mpris               { background: @darkgray; color: @white; }

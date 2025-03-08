@@ -45,7 +45,7 @@ initial_setup() {
   # esac
 
   cfg_dir=$XDG_CONFIG_HOME
-  template_dir=$cfg_dir/wpg/templates
+  # template_dir=$cfg_dir/wpg/templates
 
   ln -s "$template_dir/dunst" "$cfg_dir/dunst/dunstrc"
   ln -s "$template_dir/mako" "$cfg_dir/mako/config"
@@ -79,25 +79,28 @@ initial_setup() {
 
 refreshcfg() {
   connected_usb_devices=$(lsusb)
-  wpg -s "$(wpg -c)"
+  # wpg -s "$(wpg -c)"
+  wallust run $XDG_CONFIG_HOME/wpg/.current
 
   # Use OpenRGB's generic RGB peripheral interface to rice some hardware
-  # NOTE: This is hard-coded for my setup, so your command parameters WILL
-  # vary, provided that you have openrgb installed
+  # FIXME: Use names of devices instead of hard-coding IDs
   # 0: RAM Stick 1
   # 1: RAM Stick 2
   # 2: RAM Stick 3
   # 3: RAM Stick 4
-  # 4: NZXT Controller
-  # 5: Keyboard
+  # 4: Sapphire Nitro+ GPU
+  # 5: NZXT Controller
   # 6: AMD Wraith Prism
-  # 7: Razer DeathAdder Elite
+  # 7: Razer Goliathus
+  # 8: Keyboard
+  # 9: Razer Basilisk
   command -v openrgb >/dev/null 2>&1 &&
     openrgb \
       -d 0 -c "${color14##\#}" -m Static \
       -d 1 -c "${color9##\#}" -m Static \
       -d 2 -c "${color12##\#}" -m Static \
-      -d 3 -c "${color11##\#}" -m Static
+      -d 3 -c "${color11##\#}" -m Static \
+      -d 4 -c "${color12##\#}" -m Static
 
   # Coloring NZXT fans
   echo "$connected_usb_devices" | grep -q NZXT && {
@@ -133,9 +136,9 @@ refreshcfg() {
   sleep 0.1
 
   # Refresh window manager in use (TODO: inotifywait?)
-  if [ "$WAYLAND_DISPLAY" ]; then
+  if pgrep sway; then
     sway restart
-  else
+  elif pgrep i3; then
     rfkb
     i3 restart
   fi
@@ -167,10 +170,10 @@ refreshcfg() {
 
   # Rice Zathura
   # FIXME: Install genzathurarc to $PATH
-  command -v zathura >/dev/null 2>&1 && {
-    zathura_cfg_dir="$XDG_CONFIG_HOME/zathura"
-    "$HOME/src/zathura-pywal/genzathurarc" >>"$zathura_cfg_dir/colors-zathura"
-  }
+  # command -v zathura >/dev/null 2>&1 && {
+  #   zathura_cfg_dir="$XDG_CONFIG_HOME/zathura"
+  #   "$HOME/src/zathura-pywal/genzathurarc" >>"$zathura_cfg_dir/colors-zathura"
+  # }
 
   pgrep mako && (
     killall -9 mako
@@ -182,7 +185,7 @@ refreshcfg() {
   )
 
   # Rice GTK/QT applications
-  oomox-cli "$XDG_CACHE_HOME/wal/colors-oomox"
+  oomox-cli -o oomox "$XDG_CACHE_HOME/wal/colors-oomox"
 
   # Restart notification daemons (TODO: inotifywait?)
   pgrep mako && killall -9 mako && fork_exec mako
@@ -270,7 +273,7 @@ updatecfg() {
   git add -f "$XDG_CONFIG_HOME/root"
 
   git add -f ~/bin
-  git add -f "$XDG_CONFIG_HOME/wpg/templates/*.base"
+  # git add -f "$XDG_CONFIG_HOME/wpg/templates/*.base"
   git add -f "$XDG_CONFIG_HOME/pkgs"
 }
 

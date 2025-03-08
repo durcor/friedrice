@@ -9,18 +9,95 @@ data
 cal
 wallet
 addbk
+
+# the dotfiles of doom (state)
+.cache
+.local
+
+# shell histories
 .shhis
 .bash_history
 .sqlite_history
-.secret
-.local/share/newsboat
-.config/vdirsyncer/config
-.local/share/buku/bookmarks.db
-.config/spotifyd/spotifyd.conf
-.shhis
-.notmuch-config
+.python_history
+.utop-history
 .dmenuhis
+
+# there's secrets in here
+.secret
+.config/vdirsyncer/config
+.config/spotifyd/spotifyd.conf
+.password-store
 .ssh
 .gnupg
+.aws
+
+.notmuch-config
 .netrc
-.password-store
+
+# i don't think these are supposed to be here
+.config/itch
+.config/BraveSoftware
+.config/discordcanary
+.config/fah
+.config/discord
+.config/vesktop
+.config/PCSX2
+.config/discorddevelopment
+.config/Microsoft
+.config/spicetify
+
+# browser data dirs
+.tor-browser
+.mozilla
+.thunderbird
+.firedragon
+.librewolf
+
+# rust
+.rustup
+.cargo
+
+# package managers
+.m2
+.npm
+.cpanm
+.stack
+
+# vidya
+.neverball
+.steam
+.wine
+
+# annoying programs that shit in my home directory
+.ccache
+.itch
+.minecraft
+.tmux
+.googleearth
+.cmake
+.Immersed
+.subversion
+.zinit
+.shared-ringdb
+.pki
+.mame
+.openshot_qt
+.tuxpaint
+.java
+.macromedia
+.texlive
+.Superposition
+.openjfx
+.nimble
+.thumbnails
+.sconsify
+.quake2rtx
+.msf4
+.gem
+.zoom
+.xonotic
+.themes
+.renpy
+.hashcat
+.keras
+.gradle

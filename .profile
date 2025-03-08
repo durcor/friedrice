@@ -34,9 +34,13 @@ export READER="zathura"
 export MAILREADER="neomutt"
 export STATUSBAR="waybar"
 
-# Program Configuration
-export GTK_THEME="oomox-colors"
+# RICE!!!!!
+export FONT="Mononoki Nerd Font"
+export FONT_SIZE="11"
+export GTK_THEME="oomox"
 export QT_QPA_PLATFORMTHEME="gtk3"
+
+# Program Configuration
 export LYNX_CFG="$HOME/.lynxrc"
 # Because some programs can't find the pulse cookie on their own I guess
 export PULSE_COOKIE="$HOME/.pulse-cookie"
@@ -117,8 +121,9 @@ esac
 [ "$TERM" = linux ] && {
   echo "NOTE: Setting repeat and delay rate (Requires root)"
   sudo -n kbdrate -r 35 -d 150 >/dev/null
-  # TODO: Remap caps lock and escape in the TTY (using interception?)
-  sudo setupcon
+  # TODO: Remap caps lock and escape using interception
+  echo "NOTE: Remapping keys (Requires root)"
+  sudo loadkeys /etc/keystrings
 }
 
 # [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ] && . "$HOME/.nix-profile/etc/profile.d/nix.sh" # added by Nix installer

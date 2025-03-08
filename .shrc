@@ -1,7 +1,6 @@
 #!/bin/sh
 # ~/.shrc
 # shellcheck disable=1090
-# vi:ft=sh
 #
 # Put stuff here that you want sourced every time a new shell
 # instance is created
@@ -79,4 +78,13 @@ lfcd () {
             cd "$dir" || exit 1
         fi
     fi
+}
+
+yazicd() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
 }
