@@ -1,6 +1,6 @@
 # vi:ft=dosini
 
-font={def-font} 9
+font=Mononoki Nerd Font 9
 
 # output=HDMI-A-1
 # output=eDP-1
@@ -16,9 +16,9 @@ width=500
 
 layer=overlay
 
-text-color={color15}
-background-color={color8}
-border-color={color9}
+text-color={{color15}}
+background-color={{color8}}
+border-color={{color9}}
 
 [urgency=low]
 default-timeout=500

@@ -50,9 +50,6 @@ interval=15
 interval=100000000000
 signal=17
 
-[accuweather]
-interval=1800
-
 [cpu]
 interval=5
 
@@ -110,6 +107,9 @@ interval=5
 # [batplus]
 # interval=5
 # instance=BAT0
+
+[accuweather]
+interval=1800
 
 [time]
 interval=1
