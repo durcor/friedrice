@@ -1,14 +1,19 @@
 #!/bin/sh
 # shellcheck disable=2094
 
-if type xdg-user-dir 2>/dev/null >&2; then
+if hash xdg-user-dir 2>/dev/null; then
   pic_dir="$(xdg-user-dir PICTURES)"
 else
   pic_dir="$HOME/Pictures"
 fi
 
-screenshot_dir="$pic_dir/scr"
-[ -d "$screenshot_dir" ] || screenshot_dir="$pic_dir/Screenshots"
+screenshot_dir=$(
+  if [ -d "$pic_dir/scr" ]; then
+    echo "$pic_dir/scr"
+  else
+    echo "$pic_dir/Screenshots"
+  fi
+)
 mkdir -p "$screenshot_dir"
 
 screenshot_file="$screenshot_dir/$(date +%Y-%m-%d_%H%M-%S).png"

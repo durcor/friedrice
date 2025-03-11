@@ -1,31 +1,58 @@
-backend = "full" # full resized kmeans thumb wal
-color_space = "labmixed" # lab labmixed lch lchmixed lchansi
+backend = "kmeans"   # full resized fastresize kmeans thumb wal
+color_space = "lab" # lab labmixed lch lchmixed lchansi
 env_vars = true
 
-saturation = 70
+# dark:            8 dark colors, dark background and light contrast
+# harddark:        Same as `dark` with hard hue colors
+# ansidark:        This is not a 'dark' variant, is a new palette that is meant to work with `lchansi` colorspace, which will maintain 'tty' like color order and only adjusting the colors acording to the theme. A possible solution for LS_COLORS and the like. Should workout with other colorspace, but the result may not be optimal
+# softdark:        Variant of softlight, uses the lightest colors and a dark background (could be interpreted as `dark` inversed)
+# light:           Light bg, dark fg
+# softlight:       Light with soft pastel colors, counterpart of `harddark`
+#
+# dark16:          Same as `dark` but uses the 16 colors trick
+# ansidark16:      The ansidark palette with 16 color variation
+# harddark16:      Harddark with 16 color variation
+# softdark16:      softdark with 16 color variation
+#
+# light16:         Same as `light` but uses the 16 color trick
+# softlight16:     softlight with 16 color variation
+#
+# darkcomp:        This is a `dark` variant that changes all colors to it's complementary counterpart, giving the feeling of a 'new palette' but that still makes sense with the image provided
+# harddarkcomp:    complementary colors variation of harddark scheme
+# softdarkcomp:    complementary variation for softdark
+# lightcomp:       complementary colors variation of light
+# softlightcomp:   softlight with complementary colors
+#
+# darkcomp16:      16 variation of the dark complementary variant
+# harddarkcomp16:  complementary colors variation of harddark scheme
+# softdarkcomp16:  complementary variation for softdark with the 16 color variation
+#
+# lightcomp16:     complementary colors variation of light with the 16 color variation
+# softlightcomp16: softlight with complementary colors with 16 colors
 palette = "dark16"
+
 check_contrast = true
+
 # threshold = 25
+saturation = 50
 
 [templates]
-dunst.src = 'dunst'
-dunst.dst = '~/.config/dunst/dunstrc'
+# Languages
+json =    { src = 'colors.json', dst = '~/.cache/wal/colors.json' }
+hypr =    { src = 'colors.hypr', dst = '~/.cache/wal/colors.hypr' }
 
-mako.src = 'mako'
-mako.dst = '~/.config/mako/config'
+# Notification Daemons
+dunst = { src = 'dunst', dst = '~/.config/dunst/dunstrc' }
+mako =  { src = 'mako',  dst = '~/.config/mako/config' }
 
-zathura.src = 'colors.zathurarc'
-zathura.dst = '~/.config/zathura/colors-zathura'
+fuzzel =  { src = 'fuzzel.ini',       dst = '~/.config/fuzzel/fuzzel.ini' }
+waybar =  { src = 'waybar.css',       dst = '~/.config/waybar/colors.css' }
+kitty =   { src = 'kitty',            dst = '~/.cache/wal/colors-kitty.conf' }
+zathura = { src = 'colors.zathurarc', dst = '~/.config/zathura/colors-zathura' }
 
-hypr.src = 'colors.hypr'
-hypr.dst = '~/.cache/wal/colors.hypr'
+gmmk = { src = 'gmmk', dst = '~/.cache/wal/gmmk', pywal = true }
 
-kitty.src = 'kitty'
-kitty.dst = '~/.cache/wal/colors-kitty.conf'
-
-gmmk.src = 'gmmk'
-gmmk.dst = '~/.cache/wal/gmmk'
-gmmk.pywal = true
+tridactyl = { src = 'tridactyl.css', dst = '~/.config/tridactyl/themes/base16-wpg.css', pywal = true }
 
 discord.src = '/home/ty/src/pywal-vencord/colors-discord.css'
 discord.dst = '~/.config/vesktop/themes/wal-vencord.theme.css'

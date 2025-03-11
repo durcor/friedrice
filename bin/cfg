@@ -218,27 +218,25 @@ addcfg() {
 editcfg() {
   if [ -z "$2" ]; then
     # If the user quits out of fzf, exit cfg immediately
-    cfgfileloc="$(sed "s|~|/home/$USER|" "$XDG_CONFIG_HOME/cfg/al" |
+    cfgfileloc="$(sed "s|~|$HOME|" "$XDG_CONFIG_HOME/cfg/al" |
       awk '{print $2}' | fzf)" || exit 1
   else
-    cfgfileloc="$(sed "s|~|/home/$USER|" "$XDG_CONFIG_HOME/cfg/al" |
+    cfgfileloc="$(sed "s|~|$HOME|" "$XDG_CONFIG_HOME/cfg/al" |
       grep "^$2 " | awk '{print $2}')"
   fi
 
-  cfgfilepostrun="$(grep "$(echo "$cfgfileloc" | sed "s|/home/$USER|~|")" "$XDG_CONFIG_HOME/cfg/al" | awk '{$1="";$2="";print}' | xargs)"
+  cfgfilepostrun="$(grep "$(echo "$cfgfileloc" | sed "s|$HOME|~|")" "$XDG_CONFIG_HOME/cfg/al" | awk '{$1="";$2="";print}' | xargs)"
 
   # Only advance onto the post run command if the edit of the
   # file succeeds
   # (ie. sudoedit without doing any actual editing or
   # editing a file that is already open in another instance)
-  edit "$cfgfileloc" &&
-
-    # updatecfg
+  edit "$cfgfileloc" && # updatecfg
     [ -n "$cfgfilepostrun" ] && $SHELL -c "$cfgfilepostrun"
 }
 
 listcfg() {
-  awk '{print $1 ; print $2}' "$XDG_CONFIG_HOME/cfg/al"
+  awk '{print $1; print $2}' "$XDG_CONFIG_HOME/cfg/al"
 }
 
 updatecfg() {
@@ -247,17 +245,34 @@ updatecfg() {
 
   . /etc/os-release
 
+  # Make my life a little easier
+  [ $ID_LIKE ] || ID_LIKE=$ID
+
   case $ID_LIKE in
   *debian*)
-    echo >&2 "Error: Not implemented for $NAME yet"
+    # TODO: Add apt/dpkg configs
+    apt-get list --installed >"$XDG_CONFIG_HOME/apt.pkgs"
     ;;
   *fedora*)
-    echo >&2 "Error: Not implemented for $NAME yet"
+    # TODO: Add dnf configs
+    dnf list installed >"$XDG_CONFIG_HOME/dnf.pkgs"
     ;;
-  *pacman*)
+  arch)
     cp /etc/pacman.conf "$XDG_CONFIG_HOME/root/etc/pacman.conf"
     cp /etc/makepkg.conf "$XDG_CONFIG_HOME/root/etc/makepkg.conf"
-    pacman -Qeq >"$XDG_CONFIG_HOME/arch.pkgs"
+    pacman -Qeq >"$XDG_CONFIG_HOME/pacman.pkgs"
+    ;;
+  nixos)
+    echo >&2 "Error: Support for Nix is in progress"
+    exit 1
+    ;;
+  gentoo)
+    echo >&2 "Error: Support for Gentoo is in progress"
+    exit 1
+    ;;
+  *)
+    echo >&2 "Error: $ID_LIKE is not supported yet. Please create an issue at github.com/durcor/friedrice"
+    exit 1
     ;;
   esac
 

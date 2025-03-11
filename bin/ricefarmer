@@ -1,0 +1,15 @@
+#!/bin/sh
+# Before one may enjoy their rice, they must farm it
+
+wallpaper_dir=$HOME/pic/wal
+
+new_wal=$(fd -IH . $wallpaper_dir | fuzzel -d)
+
+[ $new_wal ] || {
+  exit 1
+}
+
+printf '%s' $new_wal >~/.cache/wal/wal
+ln -s $new_wal ~/.cache/wal/pic
+
+wallust run $new_wal

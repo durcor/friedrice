@@ -1,4 +1,4 @@
-@import 'colors-waybar.css';
+@import 'colors.css';
 
 /* Keyframes */
 
@@ -49,7 +49,7 @@
 /* The whole bar */
 #waybar {
 	background: @black;
-	color: @white;
+	color: @foreground;
 	font-family: Mononoki Nerd Font;
 	/* font-family: Inconsolata Nerd Font Mono; */
 	/* font-family: FantasqueSansM Nerd Font Mono; */
@@ -149,7 +149,7 @@
 /* FIXME: Add slant nerd font char */
 
 #submap, #mode {
-	color: @white;
+	color: @foreground;
 	background: @darkgray;
   font-weight: bold;
   /* text-transform: uppercase; */
@@ -170,26 +170,26 @@
 #submap.notify,     #mode.notify     { background: @color2;  }
 
 /* Module styling */
-#pulseaudio          { background: @magenta; color: @black; }
-#network             { background: @magenta; color: @darkgray; }
-#disk                { background: @teal; color: @black; }
-#memory              { background: @cyan; color: @black; }
-#cpu                 { background: @brightyellow; color: @black; }
-#temperature.cpu     { background: @brightyellow; color: @black; }
-#custom-gpu          { background: @yellow; color: @black; }
-#custom-gpu-usage    { background: @yellow; color: @black; }
-#custom-nvidia-temp  { background: @yellow; color: @black; }
-#temperature.gpu     { background: @yellow; color: @black; }
-#language            { background: @darkgray; color: @white; }
-#custom-weather      { background: @darkgray; color: @white; }
-#mpris               { background: @darkgray; color: @white; }
+#pulseaudio          { background: @magenta; color: @background; }
+#network             { background: @magenta; color: @foreground; }
+#disk                { background: @teal; color: @background; }
+#memory              { background: @cyan; color: @background; }
+#cpu                 { background: @brightyellow; color: @foreground; }
+#temperature.cpu     { background: @brightyellow; color: @foreground; }
+#custom-gpu          { background: @yellow; color: @foreground; }
+#custom-gpu-usage    { background: @yellow; color: @foreground; }
+#custom-nvidia-temp  { background: @yellow; color: @foreground; }
+#temperature.gpu     { background: @yellow; color: @foreground; }
+#language            { background: @darkgray; color: @foreground; }
+#custom-weather      { background: @darkgray; color: @foreground; }
+#mpris               { background: @darkgray; color: @foreground; }
 #battery             { background: @red; color: @black; }
-#bluetooth           { background: @blue; color: @white; }
+#bluetooth           { background: @blue; color: @foreground; }
 #idle_inhibitor      { background: @purple; }
 #tray                { background: @darkgray; }
 
-#clock.date { background: @darkgray; color: @gray; }
-#clock.time { background: @gray; color: @black; }
+#clock.date { background: @darkgray; color: @foreground; }
+#clock.time { background: @white; color: @black; }
 
 /* Separator styling */
 #custom-blackf { color: @black; background: @black; }
