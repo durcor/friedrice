@@ -15,4 +15,3 @@ PATH=$HOME/.gem/ruby/2.6.0/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/bin
 
 source_if_exists "$HOME/.config/broot/launcher/bash/br"
 source_if_exists "$HOME/.cargo/env"
-. "$HOME/.cargo/env"
