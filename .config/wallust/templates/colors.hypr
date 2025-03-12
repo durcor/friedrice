@@ -1,7 +1,7 @@
-$wallpaper = {wallpaper}
+$wallpaper = {{wallpaper}}
 
-$background = {background}
-$foreground = {color15}
+$background = {{background}}
+$foreground = {{color15}}
 
 $color0 = {{color0}}
 $color1 = {{color1}}
