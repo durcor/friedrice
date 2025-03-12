@@ -3,17 +3,17 @@
 # i like to fry my rice
 *Now using wallust instead of pywal/wpg for templating and colorscheme generation*
 
+## why should you use this
+- vim keybinds and modes literally everywhere
+- shell auto suggestions
+- pretty colors that are consistent across apps (browser, discord, gtk, qt, terminal)
+- aims to be distro-agnostic (first-class support for arch, debian, fedora, etc.)
+
 ## How to Install
 ```sh
 git clone https://github.com/durcor/friedrice
 rsync --remove-source-files friedrice $HOME
 ```
-
-## Cool Features
-- vim keybinds and modes literally everywhere
-- shell auto suggestions
-- pretty colors that are consistent across apps (browser, discord, gtk, qt, terminal)
-- aim to be distro-agnostic (first-class support for arch, debian, fedora, etc.)
 
 ## My Workflow
 ```sh
@@ -22,12 +22,12 @@ rsync --remove-source-files friedrice $HOME
 
 * `WM`: hyprland or sway
 * `$STATUSBAR`: waybar (+ personal [blocks](https://github.com/durcor/blocks))
-* `$TERMINAL`: kitty + nvim
+* `$TERMINAL`: kitty
 * `$SHELL`: zsh (zinit)
   - [zsh expandable aliases](.zshal)
   - [powerline10k prompt](.p10k.zsh)
 * `$BROWSER`:
-  - firefox/librewolf
+  - firefox/librewolf/firedragon
     - tridactyl
     - ublock origin + umatrix
     - dark reader wal fork
@@ -35,7 +35,7 @@ rsync --remove-source-files friedrice $HOME
 * `$FILEMAN`: lf or yazi
 * `$EDITOR`: nvim (lazy-vim)
 * `$MAILREADER`: neomutt or thunderbird
-* `$MUSICPLAYER`: mpd (ncmpcpp[tui] + mpc[cli]) + spotfiyd (spotify-tui)
+* `$MUSICPLAYER`: mpd (ncmpcpp(tui) + mpc(cli)) + spotfiyd (spotify-tui)
 * `$NOTIFYDAEMON`: mako (wayland)
 * `$MEDIAPLAYER`: mpv
 
@@ -50,8 +50,8 @@ rsync --remove-source-files friedrice $HOME
 * Text Editor/IDE: Neovim
 * Terminal Multiplexer: Neovim :terminal + tabs/windows functionality
 * Window Manager: 
-  - Wayland - sway/hyprland
-  - Xorg - i3
+  - Wayland - sway (modes)/hyprland (submaps) + hy3
+  - Xorg - i3 (modes)
 * Browser
   - firefox-based (tridactyl)
   - chromium-based (vimium)
@@ -61,6 +61,7 @@ rsync --remove-source-files friedrice $HOME
   - zsh (vi-mode)
 
 # TODO
+- hy3 on hyprland
 - Flash windows/window borders on mode/submap change w/ overlay of transparent text in center of screen instead of notifications
 - move from hyprland/sway + waybar to cosmic?
 - nixos?

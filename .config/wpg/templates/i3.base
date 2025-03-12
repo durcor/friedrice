@@ -441,7 +441,7 @@ $exa picom --experimental-backends
 $exa dunst
 $exa ~/.fehbg
 $ex /lib/discord-canary/Discord /lib/discord-canary/resources/app.asar
-# $ex cfg rf
+# $ex gaia rf
 # $ex clipmenud
 $exa sleep 0.1 ; i3 mode "$mode_window"
 # $exa $XDG_CONFIG_HOME/polybar/launch.sh
