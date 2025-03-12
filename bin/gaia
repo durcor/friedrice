@@ -10,9 +10,9 @@
 
 . "$XDG_CACHE_HOME/wal/colors.sh"
 
-[ -f "$XDG_CONFIG_HOME/cfg/al" ] || {
-  mkdir -p "$XDG_CONFIG_HOME/cfg"
-  touch "$XDG_CONFIG_HOME/cfg/al"
+[ -f "$XDG_CONFIG_HOME/gaia/al" ] || {
+  mkdir -p "$XDG_CONFIG_HOME/gaia"
+  touch "$XDG_CONFIG_HOME/gaia/al"
 }
 
 fork_exec() {
@@ -97,8 +97,7 @@ initial_setup() {
 
 refreshcfg() {
   connected_usb_devices=$(lsusb)
-  # wpg -s "$(wpg -c)"
-  wallust run $wallpaper
+  wallust run "$wallpaper"
 
   # Use OpenRGB's generic RGB peripheral interface to rice some hardware
   # FIXME: Use names of devices instead of hard-coding IDs
@@ -147,14 +146,15 @@ refreshcfg() {
 
   # Rice any RGB keyboards using Microdia's microcontroller
   # FIXME: Use openrgb instead?
-  echo "$connected_usb_devices" | grep -q Microdia &&
-    rgb_keyboard --custom-pattern \
-      "$XDG_CONFIG_HOME/wpg/templates/gmmk"
+  # FIXME: Need a better method for finding rgb keyboards
+  # echo "$connected_usb_devices" | grep -q Microdia &&
+  #   rgb_keyboard --custom-pattern \
+  #     "$XDG_CONFIG_HOME/wpg/templates/gmmk"
 
   sleep 0.1
 
   # Refresh window manager in use (TODO: inotifywait?)
-  if pgrep sway; then
+  if [ "$SWAY_SOCK" ]; then
     sway restart
   elif pgrep i3; then
     rfkb
@@ -167,13 +167,13 @@ refreshcfg() {
   # cd ~/src/slock && sudo make clean install || exit 1
 
   # Rice and refresh Steam
-  chk_cmd wal_steam "Steam"
-  wal_steam -w
-  pgrep steam && {
-    killall -9 steam
-    sleep 5
-    fork_exec steam-native
-  }
+  # chk_cmd wal_steam "Steam"
+  # wal_steam -w
+  # pgrep steam && {
+  #   killall -9 steam
+  #   sleep 5
+  #   fork_exec steam-native
+  # }
 
   pgrep nm-applet && {
     killall -9 nm-applet
@@ -198,15 +198,18 @@ refreshcfg() {
   pgrep hyprpaper && systemctl --user restart hyprpaper
 
   # Restart notification daemons (TODO: inotifywait?)
-  pgrep mako && systemctl --user restart mako
-  pgrep dunst && systemctl --user restart dunst
+  if [ "$WAYLAND_DISPLAY" ]; then
+    pgrep mako && systemctl --user restart mako
+  else
+    pgrep dunst && systemctl --user restart dunst
+  fi
 
   # Rice GTK/QT applications
   oomox-cli -o oomox "$XDG_CACHE_HOME/wal/colors-oomox"
 
   # Rice Spotify
-  chk_cmd oomoxify-cli "Spotify"
-  oomoxify-cli -f "mononoki Nerd Font" -s /opt/spotify/Apps "$XDG_CACHE_HOME/wal/colors-oomox"
+  # chk_cmd oomoxify-cli "Spotify"
+  # oomoxify-cli -f "mononoki Nerd Font" -s /opt/spotify/Apps "$XDG_CACHE_HOME/wal/colors-oomox"
   # if pgrep spotify; then
   #     spicetify apply
   #     sleep 1
@@ -333,30 +336,30 @@ s | setup)
   initial_setup
   ;;
 *)
-  echo "\
-cfg - the simple config controller
+  cat <<EOF
+gaia - the holy environment colorizer
 
     r/rf/refresh - refresh all configs
-        - cfg r
+        - gaia r
 
     a/add - add new config
-        - cfg a (PATH TO CONFIG) (CONFIG ALIAS)
+        - gaia a (PATH TO CONFIG) (CONFIG ALIAS)
 
     e/ed/edit - edit existing config
-        - cfg e
+        - gaia e
             - calls fzf
             OR
-        - cfg e (CONFIG ALIAS)
+        - gaia e (CONFIG ALIAS)
 
     l/ls/list - list existing config aliases
-        - cfg l
+        - gaia l
 
     u/up/update - push to your main repo
-        - cfg u
+        - gaia u
 
     x/d/rm/delete - delete a config file
-    - cfg x
+    - gaia x
         - calls fzf
-"
+EOF
   ;;
 esac

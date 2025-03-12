@@ -183,7 +183,7 @@
 #language            { background: @darkgray; color: @foreground; }
 #custom-weather      { background: @darkgray; color: @foreground; }
 #mpris               { background: @darkgray; color: @foreground; }
-#battery             { background: @red; color: @black; }
+#battery             { background: @red; color: @foreground; }
 #bluetooth           { background: @blue; color: @foreground; }
 #idle_inhibitor      { background: @purple; }
 #tray                { background: @darkgray; }
