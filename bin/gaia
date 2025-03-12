@@ -16,7 +16,7 @@
 }
 
 fork_exec() {
-  setsid >/dev/null nohup "$@"
+  setsid >/dev/null "$@" &
 }
 
 chk_cmd() {
@@ -29,43 +29,61 @@ chk_cmd() {
 initial_setup() {
   set -e
 
-  # FIXME: DON'T enable this until we have a clear separation between packages for different distros
-  #
-  # case $(lsb_release -is) in
-  # "Arch")
-  #   chk_cmd paru "AUR"
-  #   paru -S "$(cat ~/.config/pkgs)"
-  #   ;;
-  # "Debian" | "Ubuntu") # FIXME: This probably fails horribly
-  #   sudo apt install "$(cat ~/.config/pkgs)"
-  #   ;;
-  # *)
-  #   echo >&2 "Error: Unsupported distribution. Please file an issue at https://github.com/durcor/friedrice. Thank you!"
-  #   ;;
-  # esac
+  . /etc/os-release
 
-  cfg_dir=$XDG_CONFIG_HOME
+  # Make my life a little easier
+  [ $ID_LIKE ] || ID_LIKE=$ID
+
+  case $ID_LIKE in
+  *debian*)
+    # TODO: Add apt/dpkg configs
+    apt-get list --installed >"$XDG_CONFIG_HOME/apt.pkgs"
+    sudo apt-get install "$(cat ~/.config/apt.pkgs)"
+    ;;
+  *fedora*)
+    # TODO: Add dnf configs
+    dnf list installed >"$XDG_CONFIG_HOME/dnf.pkgs"
+    ;;
+  arch)
+    sudo ln -s "$XDG_CONFIG_HOME/root/etc/pacman.conf" /etc/pacman.conf
+    sudo ln -s "$XDG_CONFIG_HOME/root/etc/makepkg.conf" /etc/makepkg.conf
+
+    chk_cmd paru "AUR"
+    paru -S "$(cat ~/.config/pacman.pkgs)"
+    ;;
+  nixos)
+    echo >&2 "Error: Support for Nix is in progress"
+    exit 1
+    ;;
+  gentoo)
+    echo >&2 "Error: Support for Gentoo is in progress"
+    exit 1
+    ;;
+  *)
+    echo >&2 "Error: $ID_LIKE is not supported yet. Please create an issue at github.com/durcor/friedrice"
+    exit 1
+    ;;
+  esac
+
+  # cfg_dir=$XDG_CONFIG_HOME
   # template_dir=$cfg_dir/wpg/templates
 
-  ln -s "$template_dir/dunst" "$cfg_dir/dunst/dunstrc"
-  ln -s "$template_dir/mako" "$cfg_dir/mako/config"
-
   # Browser
-  ln -s "$template_dir/qutebrowser" "$cfg_dir/qutebrowser/appearance.py"
-  ln -s "$template_dir/tridactyl" "$cfg_dir/tridactyl/tridactylrc"
+  # ln -s "$template_dir/qutebrowser" "$cfg_dir/qutebrowser/appearance.py"
+  # ln -s "$template_dir/tridactyl" "$cfg_dir/tridactyl/tridactylrc"
 
   # Program Launchers
-  ln -s "$template_dir/rofi" "$cfg_dir/rofi/config"
+  # ln -s "$template_dir/rofi" "$cfg_dir/rofi/config"
 
   # Terminals
-  ln -s "$template_dir/kitty" "$cfg_dir/kitty/kitty.conf"
+  # ln -s "$template_dir/kitty" "$cfg_dir/kitty/kitty.conf"
   # ln -s "$template_dir/alacritty" "$cfg_dir/alacritty/alacritty.yml"
   # ln -s "$template_dir/foot" "$cfg_dir/foot/foot.ini"
-  ln -s "$template_dir/wayst" "$cfg_dir/wayst/config"
+  # ln -s "$template_dir/wayst" "$cfg_dir/wayst/config"
 
   # Misc
-  ln -s "$template_dir/mangohud" "$cfg_dir/MangoHud/MangoHud.conf"
-  ln -s "$template_dir/mpv" "$cfg_dir/mpv/mpv.conf"
+  # ln -s "$template_dir/mangohud" "$cfg_dir/MangoHud/MangoHud.conf"
+  # ln -s "$template_dir/mpv" "$cfg_dir/mpv/mpv.conf"
 
   # Xorg trash
   # FIXME: Remove these
@@ -80,7 +98,7 @@ initial_setup() {
 refreshcfg() {
   connected_usb_devices=$(lsusb)
   # wpg -s "$(wpg -c)"
-  wallust run $XDG_CONFIG_HOME/wpg/.current
+  wallust run $wallpaper
 
   # Use OpenRGB's generic RGB peripheral interface to rice some hardware
   # FIXME: Use names of devices instead of hard-coding IDs
@@ -175,21 +193,16 @@ refreshcfg() {
   #   "$HOME/src/zathura-pywal/genzathurarc" >>"$zathura_cfg_dir/colors-zathura"
   # }
 
-  pgrep mako && (
-    killall -9 mako
-    fork_exec mako
-  )
-  pgrep dunst && (
-    killall -9 dunst
-    fork_exec dunst
-  )
+  pgrep waybar && systemctl --user restart waybar
+
+  pgrep hyprpaper && systemctl --user restart hyprpaper
+
+  # Restart notification daemons (TODO: inotifywait?)
+  pgrep mako && systemctl --user restart mako
+  pgrep dunst && systemctl --user restart dunst
 
   # Rice GTK/QT applications
   oomox-cli -o oomox "$XDG_CACHE_HOME/wal/colors-oomox"
-
-  # Restart notification daemons (TODO: inotifywait?)
-  pgrep mako && killall -9 mako && fork_exec mako
-  pgrep dunst && killall -9 dunst && fork_exec dunst
 
   # Rice Spotify
   chk_cmd oomoxify-cli "Spotify"

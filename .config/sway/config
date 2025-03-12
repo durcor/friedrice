@@ -429,7 +429,7 @@ exec nm-applet
 # exec easyeffects
 # exec 'wl-paste --watch clipman store'
 # exec foot --server
-exec 'cfg rf'
+exec 'gaia rf'
 
 exec_always 'killall -9 mako; mako'
 exec_always '/usr/libexec/xdg-desktop-portal -r'

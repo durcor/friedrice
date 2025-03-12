@@ -1,4 +1,4 @@
-backend = "kmeans"   # full resized fastresize kmeans thumb wal
+backend = "full"   # full resized fastresize kmeans thumb wal
 color_space = "lab" # lab labmixed lch lchmixed lchansi
 env_vars = true
 
@@ -34,12 +34,18 @@ palette = "dark16"
 check_contrast = true
 
 # threshold = 25
+
 saturation = 50
 
 [templates]
+colors = { src = 'colors', dst = '~/.cache/wal/colors' }
+
 # Languages
+sh   =    { src = 'colors.sh',   dst = '~/.cache/wal/colors.sh' }
+py   =    { src = 'colors.py',   dst = '~/.cache/wal/colors.py' }
 json =    { src = 'colors.json', dst = '~/.cache/wal/colors.json' }
 hypr =    { src = 'colors.hypr', dst = '~/.cache/wal/colors.hypr' }
+vim  =    { src = 'colors.vim',  dst = '~/.cache/wal/colors.vim' }
 
 # Notification Daemons
 dunst = { src = 'dunst', dst = '~/.config/dunst/dunstrc' }
@@ -54,7 +60,7 @@ gmmk = { src = 'gmmk', dst = '~/.cache/wal/gmmk', pywal = true }
 
 tridactyl = { src = 'tridactyl.css', dst = '~/.config/tridactyl/themes/base16-wpg.css', pywal = true }
 
-discord.src = '/home/ty/src/pywal-vencord/colors-discord.css'
+discord.src = '/home/ty/src/wal-vencord/colors-discord.css'
 discord.dst = '~/.config/vesktop/themes/wal-vencord.theme.css'
 discord.pywal = true
 
