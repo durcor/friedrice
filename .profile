@@ -111,7 +111,7 @@ sway | hyprland)
   # export WLR_RENDERER=vulkan
   export QT_QPA_PLATFORM=wayland
   export SDL_VIDEODRIVER=wayland
-  export XDG_CURRENT_DESKTOP="$disp"
+  # export XDG_CURRENT_DESKTOP="$disp"
   export MOZ_ENABLE_WAYLAND=1
   case $disp in sway) flags='--unsupported-gpu' ;; esac
   $disp $flags
