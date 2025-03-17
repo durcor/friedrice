@@ -76,18 +76,19 @@ export GOPATH="$XDG_DATA_HOME/go"
 export CLASSPATH="$CLASSPATH:/usr/share/java/*"
 ## LaTeX plugins
 export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
+export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
 
-[ "$TERM" = linux ] &&
-  [ -f "$XDG_CACHE_HOME/wal/colors-tty.sh" ] &&
-  . "$XDG_CACHE_HOME/wal/colors-tty.sh"
+[ "$TERM" = linux ] \
+    && [ -f "$XDG_CACHE_HOME/wal/colors-tty.sh" ] \
+    && . "$XDG_CACHE_HOME/wal/colors-tty.sh"
 
 [ -d "$HOME/.themes/$GTK_THEME" ] || {
-  echo >&2 "Error: $GTK_THEME is not installed."
-  echo "Fix this right now!"
+    echo >&2 "Error: $GTK_THEME is not installed."
+    echo "Fix this right now!"
 }
 
 login_options=$(
-  cat <<EOF
+    cat <<EOF
 sway
 xorg
 hyprland
@@ -95,35 +96,35 @@ EOF
 )
 
 [ "$SSH_TTY" ] || [ "$WAYLAND_DISPLAY" ] || [ "$DISPLAY" ] || [ "$TMUX" ] || {
-  header="How do you wish to log in? (Press <Esc>, <Ctrl+[>, or <Ctrl+C> to stay in the tty)"
-  disp=$(echo "$login_options" | fzf --header "$header" --header-first)
+    header="How do you wish to log in? (Press <Esc>, <Ctrl+[>, or <Ctrl+C> to stay in the tty)"
+    disp=$(echo "$login_options" | fzf --header "$header" --header-first)
 }
 
 case $disp in
-xorg)
-  # Set up multi-monitor FreeSync correctly by piggy-backing off wayland's better FreeSync support
-  # sway &
-  # sleep 5
-  # SWAYSOCK="/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock" sway exit
-  startx
-  ;;
-sway | hyprland)
-  # export WLR_RENDERER=vulkan
-  export QT_QPA_PLATFORM=wayland
-  export SDL_VIDEODRIVER=wayland
-  # export XDG_CURRENT_DESKTOP="$disp"
-  export MOZ_ENABLE_WAYLAND=1
-  case $disp in sway) flags='--unsupported-gpu' ;; esac
-  $disp $flags
-  ;;
+    xorg)
+        # Set up multi-monitor FreeSync correctly by piggy-backing off wayland's better FreeSync support
+        # sway &
+        # sleep 5
+        # SWAYSOCK="/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock" sway exit
+        startx
+        ;;
+    sway | hyprland)
+        # export WLR_RENDERER=vulkan
+        export QT_QPA_PLATFORM=wayland
+        export SDL_VIDEODRIVER=wayland
+        # export XDG_CURRENT_DESKTOP="$disp"
+        export MOZ_ENABLE_WAYLAND=1
+        case $disp in sway) flags='--unsupported-gpu' ;; esac
+        $disp $flags
+        ;;
 esac
 
 [ "$TERM" = linux ] && {
-  echo "NOTE: Setting repeat and delay rate (Requires root)"
-  sudo -n kbdrate -r 35 -d 150 >/dev/null
-  # TODO: Remap caps lock and escape using interception
-  echo "NOTE: Remapping keys (Requires root)"
-  sudo loadkeys /etc/keystrings
+    echo "NOTE: Setting repeat and delay rate (Requires root)"
+    sudo -n kbdrate -r 35 -d 150 >/dev/null
+    # TODO: Remap caps lock and escape using interception
+    echo "NOTE: Remapping keys (Requires root)"
+    sudo loadkeys /etc/keystrings
 }
 
 # [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ] && . "$HOME/.nix-profile/etc/profile.d/nix.sh" # added by Nix installer
