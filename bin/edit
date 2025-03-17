@@ -1,5 +1,7 @@
 #!/bin/sh
 
+[ $XDG_CONFIG_DIR ] || XDG_CONFIG_DIR=$HOME/.config
+
 # if [ "$VIMRUNTIME" ]; then
 #     if [ "$1" ]; then
 #         $EDITOR "$1"
@@ -17,24 +19,45 @@
 # fi
 
 case $(file --mime-type -b "$1") in
-image/*)
-  setsid gimp "$1"
-  ;;
-video/*)
-  setsid kdenlive "$1"
-  ;;
-application/x-shockwave-flash | application/vnd.microsoft.portable-executable | application/x-pie-executable | application/*-executable)
-  echo >&2 "warning: this is a binary. idk what to do here"
-  ;;
-*)
-  if [ "$NVIM" ]; then
-    if [ "$1" ]; then
-      nvr --remote -p "$@"
-    else
-      nvr --remote -c ':terminal'
-    fi
-  else
-    NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim "$@"
-  fi
-  ;;
+    image/*)
+        setsid gimp "$1"
+        ;;
+    video/*)
+        hash kdenlive 2>/dev/null || {
+            echo "Dude, install a video editor."
+            exit 1
+        }
+        setsid kdenlive "$1"
+        ;;
+    application/zip)
+        echo >&2 "warning: this is a zip file. here's what's in it though:"
+        unzip -l $1
+        # ask the user if they want to extract it
+        ;;
+    application/x-shockwave-flash | application/vnd.microsoft.portable-executable | application/x-pie-executable | application/*-executable | application/octet-stream)
+        echo >&2 "warning: this is a binary. idk what to do here"
+        ;;
+    *)
+        case $_ in
+            /usr/bin/sudo | /usr/bin/systemctl) exec nvr --remote-tab-wait $@ ;;
+        esac
+        if [ "$NVIM" ]; then
+            case $1 in
+                /dev/shm/pass.* | $XDG_CONFIG_DIR/systemd/user/.#* | /tmp/vimv.*)
+                    exec nvr --remote-tab-wait $@
+                    ;;
+                *)
+                    # echo "Dude, you really gotta fix this"
+                    # echo "Editing '$1' for you..."
+                    if [ "$1" ]; then
+                        exec nvr --remote -p "$@"
+                    else
+                        exec nvr --remote -c ':terminal'
+                    fi
+                    ;;
+            esac
+        else
+            NVIM_LISTEN_ADDRESS=/tmp/nvimsocket exec nvim "$@"
+        fi
+        ;;
 esac

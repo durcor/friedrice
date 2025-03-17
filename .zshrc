@@ -30,6 +30,8 @@ unsetopt nomatch
 
 setopt histignorealldups sharehistory autocd
 
+# FIXME: Separate histories into separate files (30-day intervals?)
+# FIXME: Scrub empty lines
 # Keep 100000 lines of history within the shell and save it to ~/.shhis
 HISTSIZE=100000
 SAVEHIST=100000

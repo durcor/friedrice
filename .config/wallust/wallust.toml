@@ -56,6 +56,8 @@ waybar =  { src = 'waybar.css',       dst = '~/.config/waybar/colors.css' }
 kitty =   { src = 'kitty',            dst = '~/.cache/wal/colors-kitty.conf' }
 zathura = { src = 'colors.zathurarc', dst = '~/.config/zathura/colors-zathura' }
 
+mpv = { src = 'mpv.conf', dst = '~/.config/mpv/colors.conf' }
+
 gmmk = { src = 'gmmk', dst = '~/.cache/wal/gmmk', pywal = true }
 
 tridactyl = { src = 'tridactyl.css', dst = '~/.config/tridactyl/themes/base16-wpg.css', pywal = true }
