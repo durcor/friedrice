@@ -11,12 +11,16 @@ return {
 				},
 				{
 					pane = 2,
-					{ section = "keys", gap = 1, padding = 1 },
+					{
+						{
+							action = "<leader>ff",
+							key = "f",
+						},
+						section = "keys",
+						gap = 1,
+						padding = 1,
+					},
 					{ section = "startup" },
-				},
-				{
-					action = "<leader>ff",
-					key = "f",
 				},
 			},
 		},
