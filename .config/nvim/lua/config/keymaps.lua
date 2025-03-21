@@ -244,45 +244,60 @@ end, { desc = "Lazygit (Root Dir)" })
 map("n", "<leader>gG", function()
 	Snacks.lazygit()
 end, { desc = "Lazygit (cwd)" })
---
 
 -- terminal
 map("n", "<leader>t", function()
 	Snacks.terminal.toggle()
 end)
 
--- getting out of the CLI
+-- getting out of the command line
 map("t", "<F12>", "<C-\\><C-N>")
 map("t", "<S-Escape>", "<C-\\><C-N>")
+
 -- window creation
-local make_terminal = "terminal<cr><cmd>setlocal nonumber | setlocal norelativenumber | setlocal signcolumn=no<cr>i"
-map("n", "<F12>o", "<cmd>tab " .. make_terminal)
-map("n", "<F12>-", "<cmd>split | " .. make_terminal)
-map("n", "<F12>_", "<cmd>split | " .. make_terminal)
-map("n", "<F12>\\", "<cmd>vsplit | " .. make_terminal)
-map("n", "<F12>|", "<cmd>vsplit | " .. make_terminal)
+map("n", "<F12>o", "<cmd>tabnew | lua Snacks.terminal.open()<cr>", { desc = "New tab (terminal)" })
+
+map("n", "<F12>-", function()
+	Snacks.terminal(nil, { win = { position = "bottom" } })
+end, { desc = "Split vertical (new terminal)" })
+
+map("n", "<F12>_", function()
+	Snacks.terminal(nil, { win = { position = "top" } })
+end, { desc = "Split vertical (new terminal)" })
+
+map("n", "<F12>\\", function()
+	Snacks.terminal(nil, { win = { position = "right" } })
+end, { desc = "Split vertical (new terminal)" })
+
+map("n", "<F12>|", function()
+	Snacks.terminal(nil, { win = { position = "left" } })
+end, { desc = "Split vertical (new terminal)" })
+
 -- buffer navigation
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+
 -- window navigation
-map("n", "<F12>h", "<C-w>h<F12>")
-map("n", "<F12>j", "<C-w>j<F12>")
-map("n", "<F12>k", "<C-w>k<F12>")
-map("n", "<F12>l", "<C-w>l<F12>")
+map("n", "<F12>h", "<C-w>h", { desc = "Change window (left)" })
+map("n", "<F12>j", "<C-w>j", { desc = "Change window (down)" })
+map("n", "<F12>k", "<C-w>k", { desc = "Change window (up)" })
+map("n", "<F12>l", "<C-w>l", { desc = "Change window (right)" })
+
 -- tab navigation
-map("n", "<F12>0", "<cmd>tabfirst<cr><F12>")
-map("n", "<F12>w", "<cmd>tabnext<cr><F12>")
-map("n", "<F12>b", "<cmd>tabprevious<cr><F12>")
-map("n", "<F12>$", "<cmd>tablast<cr><F12>")
+map("n", "<F12>0", "<cmd>tabfirst<cr>", { desc = "First tab" })
+map("n", "<F12>w", "<cmd>tabnext<cr>", { desc = "Next tab" })
+map("n", "<F12>b", "<cmd>tabprevious<cr>", { desc = "Prev tab" })
+map("n", "<F12>$", "<cmd>tablast<cr>", { desc = "Last tab" })
+
 -- resizing
-map("n", "<F12>H", "<cmd>vertical resize +1<cr><F12>")
-map("n", "<F12>L", "<cmd>vertical resize -1<cr><F12>")
-map("n", "<F12>J", "<cmd>resize -1<cr><F12>")
-map("n", "<F12>K", "<cmd>resize +1<cr><F12>")
+map("n", "<F12>H", "<cmd>vertical resize +1<cr>", { desc = "Resize window (left)" })
+map("n", "<F12>L", "<cmd>vertical resize -1<cr>", { desc = "Resize window (right)" })
+map("n", "<F12>J", "<cmd>resize -1<cr>", { desc = "Resize window (up)" })
+map("n", "<F12>K", "<cmd>resize +1<cr>", { desc = "Resize window (down)" })
 
-map("n", "<F12>x", "<cmd>bdelete!<cr><F12>")
-map("n", "<F12>i", "<Esc>")
+map("n", "<F12>x", "<cmd>bdelete!<cr>", { desc = "Change focus to the window to the left" })
+map("n", "<F12>i", "<Esc>", { desc = "Exit mode" })
 
-map("n", "gb", "<cmd>Buffers<cr>")
+map("n", "gb", "<cmd>Buffers<cr>", { desc = "Change buffer" })

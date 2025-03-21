@@ -60,7 +60,7 @@ mpv = { src = 'mpv.conf', dst = '~/.config/mpv/colors.conf' }
 
 gmmk = { src = 'gmmk', dst = '~/.cache/wal/gmmk', pywal = true }
 
-tridactyl = { src = 'tridactyl.css', dst = '~/.config/tridactyl/themes/base16-wpg.css', pywal = true }
+tridactyl = { src = 'tridactyl.css', dst = '~/.config/tridactyl/themes/wal.css', pywal = true }
 
 discord.src = '../../../src/wal-vencord/colors-discord.css'
 discord.dst = '~/.config/vesktop/themes/wal-vencord.theme.css'

@@ -2,21 +2,29 @@
 
 [ $XDG_CONFIG_DIR ] || XDG_CONFIG_DIR=$HOME/.config
 
-# if [ "$VIMRUNTIME" ]; then
-#     if [ "$1" ]; then
-#         $EDITOR "$1"
-#     else
-#         $EDITOR -c :terminal
-#     fi
-# else
-#     if [ ! "$1" ]; then
-#         nvim
-#     elif [ -O "$1" ] || [ ! -f "$1" ]; then
-#         nvim "$1"
-#     else
-#         sudoedit "$1"
-#     fi
-# fi
+edit_with_nvim() {
+    case $_ in
+        */bin/sudo | */bin/systemctl) exec nvr --remote-tab-wait $@ ;;
+    esac
+    if [ "$NVIM" ]; then
+        case $1 in
+            /dev/shm/pass.* | $XDG_CONFIG_DIR/systemd/user/.#* | /tmp/vimv.*)
+                exec nvr --remote-tab-wait $@
+                ;;
+            *)
+                # echo "Dude, you really gotta fix this"
+                # echo "Editing '$1' for you..."
+                if [ "$1" ]; then
+                    exec nvr --remote -p "$@"
+                else
+                    exec nvr --remote -c ':terminal'
+                fi
+                ;;
+        esac
+    else
+        NVIM_LISTEN_ADDRESS=/tmp/nvimsocket exec nvim "$@"
+    fi
+}
 
 case $(file --mime-type -b "$1") in
     image/*)
@@ -37,27 +45,5 @@ case $(file --mime-type -b "$1") in
     application/x-shockwave-flash | application/vnd.microsoft.portable-executable | application/x-pie-executable | application/*-executable | application/octet-stream)
         echo >&2 "warning: this is a binary. idk what to do here"
         ;;
-    *)
-        case $_ in
-            /usr/bin/sudo | /usr/bin/systemctl) exec nvr --remote-tab-wait $@ ;;
-        esac
-        if [ "$NVIM" ]; then
-            case $1 in
-                /dev/shm/pass.* | $XDG_CONFIG_DIR/systemd/user/.#* | /tmp/vimv.*)
-                    exec nvr --remote-tab-wait $@
-                    ;;
-                *)
-                    # echo "Dude, you really gotta fix this"
-                    # echo "Editing '$1' for you..."
-                    if [ "$1" ]; then
-                        exec nvr --remote -p "$@"
-                    else
-                        exec nvr --remote -c ':terminal'
-                    fi
-                    ;;
-            esac
-        else
-            NVIM_LISTEN_ADDRESS=/tmp/nvimsocket exec nvim "$@"
-        fi
-        ;;
+    *) edit_with_nvim $@ ;;
 esac

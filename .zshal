@@ -24,7 +24,7 @@ abbrev-alias btctl="bluetoothctl"
 # neovim-remote really needs to be mainlined into nvim
 abbrev-alias v="edit"
 abbrev-alias nv="nvim"
-abbrev-alias sv="EDITOR='nvr --remote-tab-wait' sudo -e"
+abbrev-alias sv="sudo -e"
 abbrev-alias vt="nvr --remote -p"
 abbrev-alias vv="nvr --remote -o"
 abbrev-alias vh="nvr --remote -O"
