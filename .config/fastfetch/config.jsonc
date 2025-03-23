@@ -52,7 +52,7 @@
     // "opencl",
     // "bluetooth",
     // "bluetoothradio",
-    "locale",
+    // "locale",
     "break", // literal line break
     "colors"
   ]

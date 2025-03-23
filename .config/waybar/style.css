@@ -38,7 +38,7 @@
 * {
 	border: none;
 	border-radius: 0;
-	min-height: 0;
+	min-height: 21px;
 	margin: 0;
 	padding: 0;
 	box-shadow: none;
@@ -170,23 +170,24 @@
 #submap.notify,     #mode.notify     { background: @color2;  }
 
 /* Module styling */
-#pulseaudio          { background: @magenta; color: @background; }
-#network             { background: @magenta; color: @foreground; }
-#disk                { background: @teal; color: @background; }
-#memory              { background: @cyan; color: @background; }
-#cpu                 { background: @brightyellow; color: @foreground; }
-#temperature.cpu     { background: @brightyellow; color: @foreground; }
-#custom-gpu          { background: @yellow; color: @foreground; }
-#custom-gpu-usage    { background: @yellow; color: @foreground; }
-#custom-nvidia-temp  { background: @yellow; color: @foreground; }
-#temperature.gpu     { background: @yellow; color: @foreground; }
-#language            { background: @darkgray; color: @foreground; }
-#custom-weather      { background: @darkgray; color: @foreground; }
-#mpris               { background: @darkgray; color: @foreground; }
-#battery             { background: @red; color: @foreground; }
-#bluetooth           { background: @blue; color: @foreground; }
-#idle_inhibitor      { background: @purple; }
-#tray                { background: @darkgray; }
+#pulseaudio         { background: @magenta; color: @background; }
+#network            { background: @magenta; color: @foreground; }
+#custom-vpn         { background: @brightgreen; color: @foreground; }
+#disk               { background: @teal; color: @background; }
+#memory             { background: @cyan; color: @background; }
+#cpu                { background: @brightyellow; color: @foreground; }
+#temperature.cpu    { background: @brightyellow; color: @foreground; }
+#custom-gpu         { background: @yellow; color: @foreground; }
+#custom-gpu-usage   { background: @yellow; color: @foreground; }
+#custom-nvidia-temp { background: @yellow; color: @foreground; }
+#temperature.gpu    { background: @yellow; color: @foreground; }
+#language           { background: @darkgray; color: @foreground; }
+#custom-weather     { background: @darkgray; color: @foreground; }
+#mpris              { background: @darkgray; color: @foreground; }
+#battery            { background: @red; color: @foreground; }
+#bluetooth          { background: @blue; color: @foreground; }
+#idle_inhibitor     { background: @purple; }
+#tray               { background: @darkgray; }
 
 #clock.date { background: @darkgray; color: @foreground; }
 #clock.time { background: @white; color: @black; }

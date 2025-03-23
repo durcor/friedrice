@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cur_bt_dev_info=$(bluetoothctl info)
+cur_bt_dev=$(echo "$cur_bt_dev_info" | awk 'NR == 1 { print $2 }')
+
+bluetoothctl disconnect "$cur_bt_dev" && bluetoothctl connect "$cur_bt_dev"

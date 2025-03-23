@@ -120,7 +120,7 @@
   "temperature#cpu": {
     "critical-threshold": 90,
     "interval": 5,
-    "hwmon-path": "/sys/class/hwmon/hwmon10/temp1_input",
+    "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
     // "format": "{icon} {temperatureC}°C",
     "format": "{temperatureC}°C",
     "format-icons": [
@@ -148,7 +148,7 @@
   },
   "temperature#gpu": {
     "critical-threshold": 90,
-    "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+    "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
     "interval": 10,
     // "format": "{icon} {temperatureC}°C",
     "format": "{temperatureC}°C",
@@ -242,8 +242,16 @@
     "interval": "30"
   },
   "custom/vpn": {
-    "exec": "~/.local/bin/i3blocks/vpn",
-    "interval": "30"
+    "interval": "30",
+    "return-type": "",
+    // "exec": "~/.local/bin/i3blocks/vpn",
+    "exec": "~/src/mercury/mercury status mullvad",
+    "on-click": "~/src/mercury/mercury toggle",
+    "on-click-right": "~/src/mercury/mercury menu",
+    "on-click-middle": "~/src/mercury/mercury ip-clip",
+    "interval": 5,
+    // "format": "<label>",
+    // "format-background": "#111111",
   },
   // "custom/kb": { "exec": "~/.local/bin/i3blocks/kb", "interval": "100000000000", },
   // signal=13 

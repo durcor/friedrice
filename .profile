@@ -110,12 +110,17 @@ case $disp in
         ;;
     sway | hyprland)
         # export WLR_RENDERER=vulkan
-        export QT_QPA_PLATFORM=wayland
-        export SDL_VIDEODRIVER=wayland
+        # export QT_QPA_PLATFORM=wayland
+        # export SDL_VIDEODRIVER=wayland
         # export XDG_CURRENT_DESKTOP="$disp"
         export MOZ_ENABLE_WAYLAND=1
-        case $disp in sway) flags='--unsupported-gpu' ;; esac
-        $disp $flags
+        export ELECTRON_OZONE_PLATFORM_HINT=wayland
+        if hash uwsm 2>/dev/null && uwsm check may-start; then # && uwsm select
+            exec uwsm start ${disp}-uwsm.desktop
+        else
+            case $disp in sway) flags='--unsupported-gpu' ;; esac
+            exec $disp $flags
+        fi
         ;;
 esac
 
@@ -127,5 +132,7 @@ esac
     sudo loadkeys /etc/keystrings
 }
 
-# [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ] && . "$HOME/.nix-profile/etc/profile.d/nix.sh" # added by Nix installer
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+source_if_exists() { [ -e "$1" ] && . "$1"; }
+
+source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh" # added by Nix installer
+source_if_exists "$HOME/.cargo/env"
