@@ -1,7 +1,7 @@
 " vi:ft=vim
 " General Settings
 set configversion 1.9
-set newtab https://cokestronaut.neocities.org
+set newtab about:newtab
 set theme base16-wpg
 set update.lastchecktime 1594223717970
 set update.nag true

@@ -7,10 +7,13 @@
     "format": " {} ",
     "tooltip": false
   },
+  "sway/window": {
+    "format": "{}",
+    "expand": true
+  },
   "hyprland/window": {
     "format": "{}",
-    "max-length": 30,
-    "tooltip": false
+    "expand": true
   },
   "hyprland/workspaces": {
     "disable-scroll-wraparound": true,
