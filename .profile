@@ -76,6 +76,7 @@ export GOPATH="$XDG_DATA_HOME/go"
 export CLASSPATH="$CLASSPATH:/usr/share/java/*"
 ## LaTeX plugins
 export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
+export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
 
 [ "$TERM" = linux ] \
     && [ -f "$XDG_CACHE_HOME/wal/colors-tty.sh" ] \
