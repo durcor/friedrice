@@ -50,7 +50,9 @@
 #waybar {
 	background: @black;
 	color: @foreground;
-	font-family: Mononoki Nerd Font;
+	/* font-family: Mononoki Nerd Font; */
+	font-family: Terminess Nerd Font;
+	/* font-family: Unifont; */
 	/* font-family: Inconsolata Nerd Font Mono; */
 	/* font-family: FantasqueSansM Nerd Font Mono; */
 	/* font-family: Hack Nerd Font Mono; */

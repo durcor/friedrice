@@ -1,0 +1,8 @@
+[Unit]
+Description=Synchronize calendars and contacts
+Documentation=https://vdirsyncer.readthedocs.org/
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+ExecStart=/home/ty/bin/calsync

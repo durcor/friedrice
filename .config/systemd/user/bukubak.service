@@ -1,0 +1,7 @@
+[Unit]
+Description=Backup local buku bookmarks to cloud instance
+# Wants=network-online.target
+# After=network.target network-online.target
+
+[Service]
+ExecStart=/bin/sh -c '/home/ty/bin/bukubak'

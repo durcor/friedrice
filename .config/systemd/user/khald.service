@@ -1,0 +1,9 @@
+[Unit]
+Description=khald
+Documentation=https://github.com/durcor/khald
+
+[Service]
+ExecStart=%h/.local/bin/khald
+
+[Install]
+WantedBy=default.target

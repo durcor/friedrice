@@ -52,6 +52,7 @@ addbk
 .thunderbird
 .firedragon
 .librewolf
+.config/google-chrome
 
 # rust
 .rustup
@@ -101,3 +102,7 @@ addbk
 .hashcat
 .keras
 .gradle
+
+# electron apps...
+.config/teams-for-linux
+.config/Riot

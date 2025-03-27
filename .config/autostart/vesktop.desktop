@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Vesktop
+Comment=Vesktop autostart script
+Exec="/usr/lib/vesktop/vesktop" "--enable-features=UseOzonePlatform" "--ozone-platform=wayland"
+StartupNotify=false
+Terminal=false

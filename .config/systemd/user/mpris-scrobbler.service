@@ -1,0 +1,16 @@
+[Unit]
+Description = daemon to scrobble tracks loaded from the MPRIS DBus interface to compatible services
+Documentation=man:mpris-scrobbler
+Requires = dbus.socket
+
+[Service]
+Type = simple
+Environment="XDG_DATA_HOME=%h/.local/share"
+ExecStart = /usr/bin/mpris-scrobbler -vv
+ExecReload = /bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=3
+CPUQuota=1%
+
+[Install]
+WantedBy=default.target

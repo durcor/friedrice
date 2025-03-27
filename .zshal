@@ -75,10 +75,8 @@ abbrev-alias -g mv="\mv -i"
 abbrev-alias -g cp="\cp -i"
 abbrev-alias fd="\fd -IH"
 abbrev-alias -g rg="rg -. --no-ignore"
-abbrev-alias -g grep="rg"
 abbrev-alias -g dmesg="\dmesg -H --color=always"
 abbrev-alias ytop="\ytop -p"
-abbrev-alias radeontop="radeontop -c"
 
 # List files
 abbrev-alias ls="eza" # ls --color=auto

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+submap_name=$1
+
+[ $submap_name ] || {
+    echo "Error: No submap name provided"
+    exit 1
+}
+
+cur_win=$(hyprctl -j activewindow | jq -r .address)
+
+# hyprctl --batch "setprop address:$cur_win bordersize 20; submap $submap_name" \
+#     && sleep 0.2 && hyprctl dispatch setprop address:$cur_win bordersize 4
+
+hyprctl dispatch setprop address:$cur_win bordersize 20 \
+    && hyprctl dispatch submap $submap_name && sleep 0.2 \
+    && hyprctl dispatch setprop address:$cur_win bordersize 4
