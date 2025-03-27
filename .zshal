@@ -20,6 +20,7 @@ abbrev-alias ed="edit"
 abbrev-alias d="docker"
 abbrev-alias dco="docker compose"
 abbrev-alias btctl="bluetoothctl"
+abbrev-alias wfr="wf-recorder"
 
 # neovim-remote really needs to be mainlined into nvim
 abbrev-alias v="edit"
@@ -74,10 +75,8 @@ abbrev-alias -g mv="\mv -i"
 abbrev-alias -g cp="\cp -i"
 abbrev-alias fd="\fd -IH"
 abbrev-alias -g rg="rg -. --no-ignore"
-abbrev-alias -g grep="rg"
 abbrev-alias -g dmesg="\dmesg -H --color=always"
 abbrev-alias ytop="\ytop -p"
-abbrev-alias radeontop="radeontop -c"
 
 # List files
 abbrev-alias ls="eza" # ls --color=auto
@@ -172,6 +171,8 @@ abbrev-alias -g cdwpg="cd ~/.config/wpg"
 abbrev-alias -g cdwrk="cd $WORKDIR"
 
 # Systemd Aliases
+abbrev-alias -g jrn="journalctl"
+
 abbrev-alias -g sctlui="systemctl-tui -s user"
 abbrev-alias -g sctl="systemctl --user"
 abbrev-alias -g sctled="systemctl --user edit --full --force"

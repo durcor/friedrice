@@ -5,6 +5,11 @@ sort_reverse = true
 scrolloff = 200
 ratio = [1, 2, 3]
 
+[opener]
+open = [
+  { mime = "image/*", run = 'mpv "$@"' }
+]
+
 [plugin]
 # prepend_previewers = [
 # 	{ mime = "image/*", run = "chafa" },

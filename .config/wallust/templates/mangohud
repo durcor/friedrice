@@ -55,7 +55,7 @@ gpu_core_clock      = 1
 gpu_power           = 1
 gpu_load_change 	= 1
 gpu_load_color 		= {color10.strip},{color11.strip},{color9.strip}
-gpu_name            = 0
+gpu_name            = 1
 ## VRAM
 vram                = 1
 gpu_mem_clock       = 1
@@ -74,7 +74,6 @@ procmem             = 1
 procmem_shared      = 1
 procmem_virt        = 1
 ## I/O
-io_stats            = 1
 io_read             = 1
 io_write            = 1
 ## Environment
@@ -87,7 +86,7 @@ vkbasalt            = 1
 gamemode            = 1
 resolution          = 1
 media_player        = 1
-exec                = sysinfo
+# exec                = sysinfo
 ##################### AESTHETICS
 position            = top-left
 font_size           = 20

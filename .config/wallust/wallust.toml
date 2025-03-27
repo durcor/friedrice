@@ -1,4 +1,4 @@
-backend = "full"   # full resized fastresize kmeans thumb wal
+backend = "thumb"   # full resized fastresize kmeans thumb wal
 color_space = "lab" # lab labmixed lch lchmixed lchansi
 env_vars = true
 
@@ -51,12 +51,20 @@ vim  =    { src = 'colors.vim',  dst = '~/.cache/wal/colors.vim' }
 dunst = { src = 'dunst', dst = '~/.config/dunst/dunstrc' }
 mako =  { src = 'mako',  dst = '~/.config/mako/config' }
 
+# Launchers
 fuzzel =  { src = 'fuzzel.ini',       dst = '~/.config/fuzzel/fuzzel.ini' }
+
 waybar =  { src = 'waybar.css',       dst = '~/.config/waybar/colors.css' }
-kitty =   { src = 'kitty',            dst = '~/.cache/wal/colors-kitty.conf' }
+
+# Terminals
+kitty =   { src = 'kitty',    dst = '~/.cache/wal/colors-kitty.conf' }
+# foot =   { src = 'foot.ini', dst = '~/.config/foot/foot.ini', pywal = true }
+
 zathura = { src = 'colors.zathurarc', dst = '~/.config/zathura/colors-zathura' }
 
+# GUI Overlays
 mpv = { src = 'mpv.conf', dst = '~/.config/mpv/colors.conf' }
+mangohud = { src = 'mangohud', dst = '~/.config/MangoHud/MangoHud.conf', pywal = true }
 
 gmmk = { src = 'gmmk', dst = '~/.cache/wal/gmmk', pywal = true }
 

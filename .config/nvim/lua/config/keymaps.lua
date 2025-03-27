@@ -300,4 +300,6 @@ map("n", "<F12>K", "<cmd>resize +1<cr>", { desc = "Resize window (down)" })
 map("n", "<F12>x", "<cmd>bdelete!<cr>", { desc = "Change focus to the window to the left" })
 map("n", "<F12>i", "<Esc>", { desc = "Exit mode" })
 
-map("n", "gb", "<cmd>Buffers<cr>", { desc = "Change buffer" })
+map("n", "gb", function()
+	Snacks.picker.buffers()
+end, { desc = "Change buffer" })
