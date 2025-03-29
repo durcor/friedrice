@@ -250,12 +250,16 @@ map("n", "<leader>t", function()
 	Snacks.terminal.toggle()
 end)
 
+map("t", "<C-t>", function()
+	Snacks.terminal.toggle()
+end)
+
 -- getting out of the command line
 map("t", "<F12>", "<C-\\><C-N>")
 map("t", "<S-Escape>", "<C-\\><C-N>")
 
 -- window creation
-map("n", "<F12>o", "<cmd>tabnew | lua Snacks.terminal.open()<cr>", { desc = "New tab (terminal)" })
+map("n", "<F12>o", "<cmd>tab term<cr>i", { desc = "New tab (terminal)" })
 
 map("n", "<F12>-", function()
 	Snacks.terminal(nil, { win = { position = "bottom" } })

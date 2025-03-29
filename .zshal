@@ -19,6 +19,7 @@ abbrev-alias kh="khard"
 abbrev-alias ed="edit"
 abbrev-alias d="docker"
 abbrev-alias dco="docker compose"
+abbrev-alias pd="podman"
 abbrev-alias btctl="bluetoothctl"
 abbrev-alias wfr="wf-recorder"
 
