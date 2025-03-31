@@ -1,1 +1,1 @@
-mpv-reload/reload.lua
+../../../src/mpv-reload/reload.lua
