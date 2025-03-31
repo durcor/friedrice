@@ -1,7 +1,7 @@
 ![rice](pic/rice.png)
 
 # i like to fry my rice
-*Now using wallust instead of pywal/wpg for templating and colorscheme generation*
+*Now using [wallust](https://codeberg.org/explosion-mental/wallust) instead of pywal/wpg for templating and colorscheme generation*
 
 ## why should you use this
 - vim keybinds and modes literally everywhere

@@ -1,14 +1,20 @@
 [manager]
 show_hidden = true
+show_symlink = true
 sort_by = "mtime"
+linemode = "size"
+# linemode = "size_and_mtime"
 sort_reverse = true
 scrolloff = 200
 ratio = [1, 2, 3]
+title_format = "yazi: {cwd}"
 
-[opener]
-open = [
-  { mime = "image/*", run = 'mpv "$@"' }
-]
+# [opener]
+# open = [
+#   { run = 'mpv "$@"', Desc = "Open" },
+#   { mime = "image/*", run = 'mpv "$@"' },
+#   { mime = "aplication/pdf", run = 'zathura "$@"' },
+# ]
 
 [plugin]
 # prepend_previewers = [

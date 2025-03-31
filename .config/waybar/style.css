@@ -10,10 +10,10 @@
 }
 
 /* Colors */
-@define-color black	@color0;
-@define-color red	@color1;
-@define-color green	@color2;
-@define-color yellow	@color3;
+@define-color black   @color0;
+@define-color red     @color1;
+@define-color green   @color2;
+@define-color yellow  @color3;
 @define-color blue	@color4;
 @define-color purple	@color5;
 @define-color teal	@color6;
@@ -52,6 +52,7 @@
 	color: @foreground;
 	/* font-family: Mononoki Nerd Font; */
 	font-family: Terminess Nerd Font;
+	/* font-family: Greybeard16px; */
 	/* font-family: Unifont; */
 	/* font-family: Inconsolata Nerd Font Mono; */
 	/* font-family: FantasqueSansM Nerd Font Mono; */
@@ -171,71 +172,44 @@
 #submap.yank,       #mode.yank       { background: @color4;  }
 #submap.notify,     #mode.notify     { background: @color2;  }
 
-/* Module styling */
-#pulseaudio         { background: @magenta; color: @background; }
-#network            { background: @magenta; color: @foreground; }
-#custom-vpn         { background: @brightgreen; color: @foreground; }
-#disk               { background: @teal; color: @background; }
-#memory             { background: @cyan; color: @background; }
-#cpu                { background: @brightyellow; color: @foreground; }
-#temperature.cpu    { background: @brightyellow; color: @foreground; }
-#custom-gpu         { background: @yellow; color: @foreground; }
-#custom-gpu-usage   { background: @yellow; color: @foreground; }
-#custom-nvidia-temp { background: @yellow; color: @foreground; }
-#temperature.gpu    { background: @yellow; color: @foreground; }
-#language           { background: @darkgray; color: @foreground; }
-#custom-weather     { background: @darkgray; color: @foreground; }
-#mpris              { background: @darkgray; color: @foreground; }
-#battery            { background: @red; color: @foreground; }
-#bluetooth          { background: @blue; color: @foreground; }
-#idle_inhibitor     { background: @purple; }
-#tray               { background: @darkgray; }
+/* Module styling (with separators) */
 
-#clock.date { background: @darkgray; color: @foreground; }
-#clock.time { background: @white; color: @black; }
-
-/* Separator styling */
-#custom-blackf { color: @black; background: @black; }
-#custom-blackb { color: @black; background: @black; }
-
-#custom-redf { color: @red; background: @black; }
-#custom-redb { color: @black; background: @red; }
-
-#custom-brightredf { color: @brightred; background: @black; }
-#custom-brightredb { color: @black; background: @brightred; }
-
-#custom-greenf { color: @green; background: @black; }
-#custom-greenb { color: @black; background: @green; }
-
-#custom-brightgreenf { color: @brightgreen; background: @black; }
-#custom-brightgreenb { color: @black; background: @brightgreen; }
-
-#custom-yellowf { color: @yellow; background: @black; }
-#custom-yellowb { color: @black; background: @yellow; }
-
-#custom-brightyellowf { color: @brightyellow; background: @black; }
-#custom-brightyellowb { color: @black; background: @brightyellow; }
-
-#custom-bluef { color: @blue; background: @black; }
-#custom-blueb { color: @black; background: @blue; }
-
-#custom-brightbluef { color: @brightblue; background: @black; }
-#custom-brightblueb { color: @black; background: @brightblue; }
-
-#custom-purplef { color: @purple; background: @black; }
-#custom-purpleb { color: @black; background: @purple; }
-
-#custom-magentaf { color: @magenta; background: @black; }
-#custom-magentab { color: @black; background: @magenta; }
-
-#custom-tealf { color: @teal; background: @black; }
-#custom-tealb { color: @black; background: @teal; }
-
-#custom-cyanf { color: @cyan; background: @black; }
-#custom-cyanb { color: @black; background: @cyan; }
-
-#custom-grayf { color: @gray; background: @black; }
-#custom-grayb { color: @black; background: @gray; }
-
-#custom-darkgrayf { color: @darkgray; background: @black; }
-#custom-darkgrayb { color: @black; background: @darkgray; }
+/* top */
+#custom-sep_audio        { color: @magenta; background: @black; }
+#pulseaudio              { background: @magenta; color: @background; }
+#custom-sep_audio_bt     { color: @blue; background: @magenta; }
+#bluetooth               { background: @blue; color: @foreground; }
+#custom-sep_bt_vpn       { color: @brightgreen; background: @blue; }
+#custom-sep_bt_tray      { color: @darkgray; background: @blue; }
+#custom-vpn              { background: @brightgreen; color: @foreground; }
+#custom-sep_vpn_net      { background: @brightgreen; color: @magenta }
+#network                 { background: @magenta; color: @foreground; }
+#custom-sep_net_idle     { background: @magenta; color: @purple }
+#idle_inhibitor          { background: @purple; }
+#custom-sep_idle_tray    { background: @purple; color: @darkgray }
+#tray                    { background: @darkgray; }
+#custom-weather          { background: @darkgray; color: @foreground; }
+#custom-sep_weather_date { background: @darkgray; color: @background }
+#clock.date              { background: @background; color: @foreground; }
+#custom-sep_clock        { background: @black; color: @gray }
+#clock.time              { background: @white; color: @black; }
+/* bottom left */
+#cpu                 { background: @brightyellow; color: @foreground; }
+#temperature.cpu     { background: @brightyellow; color: @foreground; }
+#custom-sep_cpu_gpu  { background: @brightyellow; color: @yellow }
+#custom-gpu          { background: @yellow; color: @foreground; }
+#custom-gpu-usage    { background: @yellow; color: @foreground; }
+#custom-nvidia-temp  { background: @yellow; color: @foreground; }
+#temperature.gpu     { background: @yellow; color: @foreground; }
+#custom-sep_gpu_mem  { background: @yellow; color: @teal }
+#memory              { background: @teal; color: @foreground; }
+#custom-sep_mem_disk { background: @teal; color: @magenta }
+#disk                { background: @magenta; color: @background; }
+#custom-sep_disk     { background: @magenta; color: @background; }
+/* bottom right */
+#custom-sep_mpris      { background: @black; color: @darkgray }
+#mpris                 { background: @darkgray; color: @foreground; }
+#custom-sep_mpris_lang { background: @darkgray; color: @green }
+#language              { background: @green; color: @foreground; }
+#custom-sep_lang_bat   { background: @green; color: @red }
+#battery               { background: @red; color: @foreground; }

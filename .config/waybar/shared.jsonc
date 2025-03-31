@@ -273,133 +273,21 @@
     "exec": "~/.local/bin/i3blocks/time",
     "interval": "1"
   },
-  // Separators
-  "custom/blackf": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/blackb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/redf": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/redb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/greenf": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/greenb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/yellowf": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/yellowb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/bluef": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/blueb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/purplef": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/purpleb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/tealf": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/tealb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/grayf": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/grayb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/darkgrayf": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/darkgrayb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/brightredf": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/brightredb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/brightgreenf": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/brightgreenb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/brightyellowf": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/brightyellowb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/brightbluef": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/brightblueb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/magentaf": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/magentab": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/cyanf": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/cyanb": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/whitef": {
-    "format": "",
-    "tooltip": false
-  },
-  "custom/whiteb": {
-    "format": "",
-    "tooltip": false
-  }
+  // Separators (TODO: make this less painful)
+  "custom/sep_audio":      { "format": "", "tooltip": false },
+  "custom/sep_audio_bt":   { "format": "", "tooltip": false },
+  "custom/sep_bt_vpn":     { "format": "", "tooltip": false },
+  "custom/sep_bt_tray":    { "format": "", "tooltip": false },
+  "custom/sep_vpn_net":    { "format": "", "tooltip": false },
+  "custom/sep_net_idle":   { "format": "", "tooltip": false },
+  "custom/sep_idle_tray":  { "format": "", "tooltip": false },
+  "custom/sep_weather_date":    { "format": "", "tooltip": false },
+  "custom/sep_clock":      { "format": "", "tooltip": false },
+  "custom/sep_cpu_gpu":    { "format": "", "tooltip": false },
+  "custom/sep_gpu_mem":    { "format": "", "tooltip": false },
+  "custom/sep_mem_disk":   { "format": "", "tooltip": false },
+  "custom/sep_disk":       { "format": "", "tooltip": false },
+  "custom/sep_mpris":      { "format": "", "tooltip": false },
+  "custom/sep_mpris_lang": { "format": "", "tooltip": false },
+  "custom/sep_lang_bat":   { "format": "", "tooltip": false },
 }

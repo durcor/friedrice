@@ -1,1 +1,1 @@
-mpv-acestream/scripts/mpv-acestream.lua
+../../../src/mpv-acestream/scripts/mpv-acestream.lua
