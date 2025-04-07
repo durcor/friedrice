@@ -261,18 +261,12 @@ map("t", "<S-Escape>", "<C-\\><C-N>")
 -- window creation
 map("n", "<F12>o", "<cmd>tab term<cr>i", { desc = "New tab (terminal)" })
 
-map("n", "<F12>-", function()
-	Snacks.terminal(nil, { win = { position = "bottom" } })
-end, { desc = "Split vertical (new terminal)" })
-
+map("n", "<F12>-", "<cmd> split | term<cr>i", { desc = "Split horizontal (new terminal)" })
 map("n", "<F12>_", function()
 	Snacks.terminal(nil, { win = { position = "top" } })
-end, { desc = "Split vertical (new terminal)" })
+end, { desc = "Split horizontal (new terminal)" })
 
-map("n", "<F12>\\", function()
-	Snacks.terminal(nil, { win = { position = "right" } })
-end, { desc = "Split vertical (new terminal)" })
-
+map("n", "<F12>\\", "<cmd> vsplit | term<cr>i", { desc = "Split vertical (new terminal)" })
 map("n", "<F12>|", function()
 	Snacks.terminal(nil, { win = { position = "left" } })
 end, { desc = "Split vertical (new terminal)" })
