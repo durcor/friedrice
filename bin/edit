@@ -1,4 +1,7 @@
 #!/bin/sh
+#
+# Assumes your $EDITOR of choice is nvim
+# Uses nvr (neovim-remote) to create new buffers for files within an existing nvim instance
 
 [ $XDG_CONFIG_DIR ] || XDG_CONFIG_DIR=$HOME/.config
 
@@ -12,10 +15,12 @@ edit_with_nvim() {
                 exec nvr --remote-tab-wait $@
                 ;;
             *)
-                # echo "Dude, you really gotta fix this"
-                # echo "Editing '$1' for you..."
                 if [ "$1" ]; then
-                    exec nvr --remote -p "$@"
+                    if [ -f "$1" ] && [ "$(stat -c '%u' $1)" -eq 0 ]; then
+                        exec sudo -e $1
+                    else
+                        exec nvr --remote -p "$@"
+                    fi
                 else
                     exec nvr --remote -c ':terminal'
                 fi
