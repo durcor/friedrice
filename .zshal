@@ -75,7 +75,7 @@ abbrev-alias -g radvllvm="RADV_DEBUG=llvm VK_ICD_FILENAMES=/usr/share/vulkan/icd
 abbrev-alias -g mv="\mv -i"
 abbrev-alias -g cp="\cp -i"
 abbrev-alias fd="\fd -IH"
-abbrev-alias -g rg="rg -. --no-ignore"
+abbrev-alias -g rg="\rg -. --no-ignore"
 abbrev-alias -g dmesg="\dmesg -H --color=always"
 abbrev-alias ytop="\ytop -p"
 
