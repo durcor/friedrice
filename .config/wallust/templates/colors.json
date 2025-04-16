@@ -8,7 +8,7 @@
         "cursor": "{{cursor}}"
     },
     "colors": {
-        "color0": "{{color0}}",
+        "color0": "{{color0 | darken(0.75)}}",
         "color1": "{{color1}}",
         "color2": "{{color2}}",
         "color3": "{{color3}}",
@@ -16,7 +16,7 @@
         "color5": "{{color5}}",
         "color6": "{{color6}}",
         "color7": "{{color7}}",
-        "color8": "{{color8}}",
+        "color8": "{{color8 | darken(0.75)}}",
         "color9": "{{color9}}",
         "color10": "{{color10}}",
         "color11": "{{color11}}",

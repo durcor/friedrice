@@ -226,7 +226,7 @@ end, { desc = "Pick buffer" })
 
 map("n", "<leader>p", function()
 	Snacks.picker()
-end)
+end, { desc = "Picker snack" })
 
 map("n", "<leader><leader>", "<cmd>w<cr>")
 
@@ -248,7 +248,7 @@ end, { desc = "Lazygit (cwd)" })
 -- terminal
 map("n", "<leader>t", function()
 	Snacks.terminal.toggle()
-end)
+end, { desc = "Toggle Terminal" })
 
 map("t", "<C-t>", function()
 	Snacks.terminal.toggle()
@@ -259,6 +259,9 @@ map("t", "<F12>", "<C-\\><C-N>")
 map("t", "<S-Escape>", "<C-\\><C-N>")
 
 -- window creation
+-- map("n", "<leader>T", "<cmd>tab terminal<cr>", { desc = "New tab (terminal)" })
+-- map("n", "<F12>o", "<cmd>tab terminal<cr>", { desc = "New tab (terminal)" })
+map("n", "<leader>T", "<cmd>tab term<cr>i", { desc = "New tab (terminal)" })
 map("n", "<F12>o", "<cmd>tab term<cr>i", { desc = "New tab (terminal)" })
 
 map("n", "<F12>-", "<cmd> split | term<cr>i", { desc = "Split horizontal (new terminal)" })

@@ -47,18 +47,15 @@ json =    { src = 'colors.json', dst = '~/.cache/wal/colors.json' }
 hypr =    { src = 'colors.hypr', dst = '~/.cache/wal/colors.hypr' }
 vim  =    { src = 'colors.vim',  dst = '~/.cache/wal/colors.vim' }
 
-# Notification Daemons
-dunst = { src = 'dunst', dst = '~/.config/dunst/dunstrc' }
-mako =  { src = 'mako',  dst = '~/.config/mako/config' }
-
-# Launchers
-fuzzel =  { src = 'fuzzel.ini',       dst = '~/.config/fuzzel/fuzzel.ini' }
-
-waybar =  { src = 'waybar.css',       dst = '~/.config/waybar/colors.css' }
+# Window Manager Things
+dunst  = { src = 'dunst',      dst = '~/.config/dunst/dunstrc' }
+mako   = { src = 'mako',       dst = '~/.config/mako/config' }
+fuzzel = { src = 'fuzzel.ini', dst = '~/.config/fuzzel/fuzzel.ini' }
+waybar = { src = 'waybar.css', dst = '~/.config/waybar/colors.css' }
 
 # Terminals
-kitty =   { src = 'kitty',    dst = '~/.cache/wal/colors-kitty.conf' }
-# foot =   { src = 'foot.ini', dst = '~/.config/foot/foot.ini', pywal = true }
+kitty = { src = 'kitty',    dst = '~/.cache/wal/colors-kitty.conf' }
+foot  = { src = 'foot.ini', dst = '~/.config/foot/foot.ini' }
 
 zathura = { src = 'colors.zathurarc', dst = '~/.config/zathura/colors-zathura' }
 

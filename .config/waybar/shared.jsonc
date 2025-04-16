@@ -123,7 +123,8 @@
   "temperature#cpu": {
     "critical-threshold": 90,
     "interval": 5,
-    "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
+    // TODO: Make dynamic based on where cpu temps are attached
+    "hwmon-path": "/sys/class/hwmon/hwmon11/temp1_input",
     // "format": "{icon} {temperatureC}°C",
     "format": "{temperatureC}°C",
     "format-icons": [
@@ -134,20 +135,18 @@
       ""
     ]
   },
-  // "exec": "~/.local/bin/i3blocks/amdgpu"
-  "custom/gpu": {
-    "exec": "cat /sys/class/hwmon/hwmon1/device/gpu_busy_percent",
-    "format": "  {}%",
-    "return-type": "",
-    "interval": 5
-  },
   "custom/gpu-usage": {
     "format": "{icon}  {text}",
     "exec": "gpu-usage-waybar",
+    // "format": "  {}%",
+    // "exec": "cat /sys/class/hwmon/hwmon1/device/gpu_busy_percent",
+    // "exec": "~/.local/bin/i3blocks/amdgpu"
+    // "interval": 5
+    // "return-type": "",
     "return-type": "json",
     // "format-icons": "󰾲",
     "format-icons": "",
-    "on-click": "$TERMINAL nvtop"
+    "on-click": "kitty -1 nvtop"
   },
   "temperature#gpu": {
     "critical-threshold": 90,
