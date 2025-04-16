@@ -6,7 +6,7 @@ font=Terminess Nerd Font 9
 output=eDP-1
 output=HDMI-A-1
 
-# Set padding on each side to the size specified by directional. 
+# Set padding on each side to the size specified by directional.
 # See DIRECTIONAL VALUES for more information.
 padding=5
 margin=2
@@ -17,7 +17,7 @@ width=500
 layer=overlay
 
 text-color={{color15}}
-background-color={{color8}}
+background-color={{color8 | darken(0.75)}}
 border-color={{color9}}
 
 [urgency=low]
