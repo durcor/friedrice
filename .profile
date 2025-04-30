@@ -65,6 +65,7 @@ export DXVK_ASYNC=0
 ## Graphics
 export AMDVLK_ENABLE_DEVELOPING_EXT="all"
 export ENABLE_VKBASALT=0
+export RUSTICL_ENABLE=radeonsi
 # export mesa_glthread=true
 # export RADV_FORCE_VRS="2x2"
 export RADV_PERFTEST="rt,sam,nv_ms" # pswave32,gewave32,cswave32
