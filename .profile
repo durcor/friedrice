@@ -87,42 +87,43 @@ export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
     echo "Fix this right now!"
 }
 
-login_options=$(
-    cat <<EOF
+# my super simple login manager
+[ "$WAYLAND_DISPLAY" ] || [ "$DISPLAY" ] || [ "$SSH_TTY" ] || [ "$TMUX" ] || {
+    login_options=$(
+        cat <<EOF
 sway
 xorg
 hyprland
 EOF
-)
+    )
 
-[ "$SSH_TTY" ] || [ "$WAYLAND_DISPLAY" ] || [ "$DISPLAY" ] || [ "$TMUX" ] || {
     header="How do you wish to log in? (Press <Esc>, <Ctrl+[>, or <Ctrl+C> to stay in the tty)"
     disp=$(echo "$login_options" | fzf --header "$header" --header-first)
-}
 
-case $disp in
-    xorg)
-        # Set up multi-monitor FreeSync correctly by piggy-backing off wayland's better FreeSync support
-        # sway &
-        # sleep 5
-        # SWAYSOCK="/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock" sway exit
-        startx
-        ;;
-    sway | hyprland)
-        # export WLR_RENDERER=vulkan
-        # export QT_QPA_PLATFORM=wayland
-        # export SDL_VIDEODRIVER=wayland
-        # export XDG_CURRENT_DESKTOP="$disp"
-        export MOZ_ENABLE_WAYLAND=1
-        export ELECTRON_OZONE_PLATFORM_HINT=wayland
-        if hash uwsm 2>/dev/null && uwsm check may-start; then # && uwsm select
-            exec uwsm start ${disp}-uwsm.desktop
-        else
-            case $disp in sway) flags='--unsupported-gpu' ;; esac
-            exec $disp $flags
-        fi
-        ;;
-esac
+    case $disp in
+        xorg)
+            # Set up multi-monitor FreeSync correctly by piggy-backing off wayland's better FreeSync support
+            # sway &
+            # sleep 5
+            # SWAYSOCK="/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock" sway exit
+            startx
+            ;;
+        sway | hyprland)
+            # export WLR_RENDERER=vulkan
+            # export QT_QPA_PLATFORM=wayland
+            # export SDL_VIDEODRIVER=wayland
+            # export XDG_CURRENT_DESKTOP="$disp"
+            export MOZ_ENABLE_WAYLAND=1
+            export ELECTRON_OZONE_PLATFORM_HINT=wayland
+            if hash uwsm 2>/dev/null && uwsm check may-start; then # && uwsm select
+                exec uwsm start ${disp}-uwsm.desktop
+            else
+                case $disp in sway) flags='--unsupported-gpu' ;; esac
+                exec $disp $flags
+            fi
+            ;;
+    esac
+}
 
 [ "$TERM" = linux ] && {
     echo "NOTE: Setting repeat and delay rate (Requires root)"
