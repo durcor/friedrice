@@ -263,6 +263,7 @@ map("t", "<S-Escape>", "<C-\\><C-N>")
 -- map("n", "<F12>o", "<cmd>tab terminal<cr>", { desc = "New tab (terminal)" })
 map("n", "<leader>T", "<cmd>tab term<cr>i", { desc = "New tab (terminal)" })
 map("n", "<F12>o", "<cmd>tab term<cr>i", { desc = "New tab (terminal)" })
+map("n", "<F12>O", "<cmd>tab term yazi<cr>i", { desc = "New tab (yazi)" })
 
 map("n", "<F12>-", "<cmd> split | term<cr>i", { desc = "Split horizontal (new terminal)" })
 map("n", "<F12>_", function()

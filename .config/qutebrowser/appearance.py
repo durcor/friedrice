@@ -1,1 +1,1 @@
-/home/ty/.config/wpg/templates/qutebrowser
+../wpg/templates/qutebrowser

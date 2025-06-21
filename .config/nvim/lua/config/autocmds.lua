@@ -22,6 +22,15 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 	end,
 })
 
+-- Make terminal as clean as possible
+-- vim.api.nvim_create_autocmd({ "TermOpen" }, {
+--   group = augroup("cleanterm"),
+--   callback = function()
+--     vim.cmd("setlocal nonumber norelativenumber")
+--     vim.cmd("startinsert")
+--   end,
+-- })
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = augroup("highlight_yank"),

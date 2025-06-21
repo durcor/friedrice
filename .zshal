@@ -3,29 +3,48 @@
 
 # NOTE: the -g flag to abbrev-alias causes the alias to expand anywhere in a shell command
 
-# Shorter commands
+# the essentials
+abbrev-alias g="git"
 abbrev-alias s="sudo"
+abbrev-alias e="echo"
 abbrev-alias mk="make -j$(nproc)"
 abbrev-alias mkp="makepkg -sifc"
 abbrev-alias p="paru"
+abbrev-alias bat="bat -pp --theme base16"
+abbrev-alias c="bat"
 abbrev-alias -g noerr="2>/dev/null"
 abbrev-alias bm="builderman"
 abbrev-alias build="builderman"
-abbrev-alias dain="dain-ncnn-vulkan -m /usr/share/dain-ncnn-vulkan/best"
 abbrev-alias pg="$PAGER"
 abbrev-alias b="$BROWSER"
 abbrev-alias rs="rsync"
 abbrev-alias kh="khard"
-abbrev-alias ed="edit"
 abbrev-alias d="docker"
+abbrev-alias ku="kubectl"
+abbrev-alias tf="terraform"
 abbrev-alias dco="docker compose"
 abbrev-alias pd="podman"
 abbrev-alias btctl="bluetoothctl"
 abbrev-alias wfr="wf-recorder"
 abbrev-alias wal="wallust"
+abbrev-alias zath="zathura"
+abbrev-alias rm="trash-put"
+abbrev-alias pw="pass"
+abbrev-alias -g mime="file --mime-type -b"
+abbrev-alias o="xdg-open"
+abbrev-alias -g py="python"
+
+abbrev-alias -g ff="fastfetch"
+abbrev-alias ka="killall -9"
+abbrev-alias trem="transmission-remote"
+abbrev-alias t="tmux"
+abbrev-alias ki="kitty -1"
+
+abbrev-alias q="exit"
 
 # neovim-remote really needs to be mainlined into nvim
 abbrev-alias v="edit"
+abbrev-alias ed="edit"
 abbrev-alias nv="nvim"
 abbrev-alias sv="sudo -e"
 abbrev-alias vt="nvr --remote -p"
@@ -33,35 +52,79 @@ abbrev-alias vv="nvr --remote -o"
 abbrev-alias vh="nvr --remote -O"
 abbrev-alias vw="nvr --remote-tab-wait"
 
+# Systemd Aliases
+abbrev-alias -g jrn="journalctl"
+
+abbrev-alias -g sctlui="systemctl-tui -s user"
+abbrev-alias -g sctl="systemctl --user"
+abbrev-alias -g sctled="systemctl --user edit --full --force"
+abbrev-alias -g sctls="systemctl --user status"
+abbrev-alias -g sctlup="systemctl --user start"
+abbrev-alias -g sctldown="systemctl --user stop"
+abbrev-alias -g sctlen="systemctl --user enable --now"
+abbrev-alias -g sctldis="systemctl --user disable --now"
+abbrev-alias -g sctlr="systemctl --user restart"
+
+abbrev-alias -g ssctlui="sudo systemctl-tui"
+abbrev-alias -g ssctl="sudo systemctl"
+abbrev-alias -g ssctled="sudo systemctl edit --full --force"
+abbrev-alias -g ssctls="sudo systemctl status"
+abbrev-alias -g ssctlup="sudo systemctl start"
+abbrev-alias -g ssctldown="sudo systemctl stop"
+abbrev-alias -g ssctlen="sudo systemctl enable --now"
+abbrev-alias -g ssctldis="sudo systemctl disable --now"
+abbrev-alias -g ssctlr="sudo systemctl restart"
+
+# Domain-specific shortcuts
+abbrev-alias xq="xmllint --xpath"
+abbrev-alias dain="dain-ncnn-vulkan -m /usr/share/dain-ncnn-vulkan/best"
+
 abbrev-alias re="$READER"
 abbrev-alias fm="$FILEMAN"
 abbrev-alias y="yazicd"
 abbrev-alias val="colour-valgrind -s --leak-check=full --show-leak-kinds=all --track-fds=all"
 abbrev-alias tm="$TASKMAN"
-abbrev-alias e="echo"
-abbrev-alias rm="trash-put"
-abbrev-alias bat="bat -pp"
-abbrev-alias c="bat"
 abbrev-alias icat="kitty +kitten icat"
 
+# Overwriting commands with saner default flags
+abbrev-alias -g mv="\mv -i"
+abbrev-alias -g cp="\cp -i"
+abbrev-alias fd="\fd -IH"
+abbrev-alias -g rg="\rg -. --no-ignore"
+abbrev-alias -g dmesg="\dmesg -H --color=always"
+abbrev-alias ytop="\ytop -p"
 abbrev-alias gdb="\gdb --quiet"
 abbrev-alias diff="\diff --color=auto"
 abbrev-alias ip="\ip -c"
-abbrev-alias o="xdg-open"
-abbrev-alias -g py="python"
+abbrev-alias -g bc="\bc -ql"
+abbrev-alias pipes="\pipes -R"
 
-abbrev-alias tg="transgender"
+# pretty printing
 abbrev-alias hl="highlight -O ansi -s ~/.cache/wal/pywal.theme"
 abbrev-alias pyg="pygmentize -f terminal -g"
-abbrev-alias pw="pass"
-abbrev-alias q="exit"
-abbrev-alias -g mime="file --mime-type -b"
-abbrev-alias -g psv="ps aux | grep -i"
-abbrev-alias -g xcp="xclip -se c"
-abbrev-alias -g bc="bc -ql"
+
+# FIXME: make resolution dynamic
 abbrev-alias gam="gamemoderun gamescope -f -w 2560 -h 1440 --adaptive-sync -- mangohud"
 
-abbrev-alias -g yule="TERM=xterm YuleLog"
+# List files
+abbrev-alias ls="eza" # ls --color=auto
+abbrev-alias ll="ls -alhF"
+abbrev-alias la="ls -A"
+abbrev-alias l="ls -F"
+
+# Disk utilities
+abbrev-alias ncdu="dua i"
+abbrev-alias du="\du -Lhd1"
+abbrev-alias sort="\sort -h"
+abbrev-alias df="\df -hT -x tmpfs -x squashfs -x devtmpfs"
+abbrev-alias dd="\dd conv=noerror,sync status=progress bs=64K"
+abbrev-alias whatsbig="du -hs * | sort -h"
+
+
+abbrev-alias tg="transgender"
+
+abbrev-alias -g psv="ps aux | grep -i"
+abbrev-alias -g xcp="xclip -se c"
 
 abbrev-alias -g amdgpusensors="watch 'sensors | grep -A 10 amdgpu'"
 abbrev-alias -g amdvlkpro="VK_ICD_FILENAMES=/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd64.json:/opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd32.json"
@@ -72,30 +135,7 @@ abbrev-alias -g radvllvm="RADV_DEBUG=llvm VK_ICD_FILENAMES=/usr/share/vulkan/icd
 
 # end() { sed $1 '$!d'; }
 
-# Overwriting commands
-abbrev-alias -g mv="\mv -i"
-abbrev-alias -g cp="\cp -i"
-abbrev-alias fd="\fd -IH"
-abbrev-alias -g rg="\rg -. --no-ignore"
-abbrev-alias -g dmesg="\dmesg -H --color=always"
-abbrev-alias ytop="\ytop -p"
-
-# List files
-abbrev-alias ls="eza" # ls --color=auto
-abbrev-alias ll="ls -alhF"
-abbrev-alias la="ls -A"
-abbrev-alias l="ls -F"
-
-# Disk utilities
-abbrev-alias ncdu="dua i"
-abbrev-alias du="\du -hd1"
-abbrev-alias sort="\sort -h"
-abbrev-alias df="\df -hT -x tmpfs -x squashfs -x devtmpfs"
-abbrev-alias dd="\dd conv=noerror,sync status=progress bs=64K"
-abbrev-alias whatsbig="du -hs * | sort -h"
-
-abbrev-alias pipes="\pipes -R"
-
+# buku
 abbrev-alias bk="buku --np"
 abbrev-alias bkp="buku --np -p"
 abbrev-alias bkt="buku --np --tag"
@@ -122,32 +162,20 @@ cl() {
 
 abbrev-alias rn="tty-clock -csb -C 7"
 abbrev-alias whatsup="uptime -p | cowsay -f tux"
-abbrev-alias zath="zathura"
+
+abbrev-alias qb="qutebrowser"
+abbrev-alias nb="newsboat"
 
 # am i really that lazy
 abbrev-alias pandochtml="pandoc $1 -o $1.html"
 
-# ealias rbsh="source ~/.bashrc"
+# abbrev-alias rbsh="source ~/.bashrc"
 abbrev-alias rzsh="source ~/.zshrc"
-# ealias scrw="maim -i $(xdotool getactivewindow) -o"
+# abbrev-alias scrw="maim -i $(xdotool getactivewindow) -o"
 abbrev-alias smci="sudo make clean install"
-abbrev-alias ka="killall -9"
-abbrev-alias trem="transmission-remote"
-abbrev-alias t="tmux"
-abbrev-alias ki="kitty -1"
-abbrev-alias g="git"
-abbrev-alias -g ff="fastfetch"
 abbrev-alias scratchpad="edit $(mktemp)"
 
-# i dont use these anymore
-abbrev-alias mpdbkmk="echo "- "$(mpc current)"" >> ~/doc/goodmus.md"
-abbrev-alias qb="qutebrowser"
-abbrev-alias nb="newsboat"
-abbrev-alias -g nf="neofetch"
-
-abbrev-alias pushsite="neocities push ~/doc/web/on"
-# ealias webscrw="fastfetch && maim -i $(xdotool getactivewindow) -o ~/doc/web/on/nf.png"
-
+# FIXME: move to yt-dlp?
 abbrev-alias -g ytdl="youtube-dl"
 abbrev-alias -g ytdl-mus="youtube-dl -icw -f bestaudio --embed-thumbnail --add-metadata --write-thumbnail"
 abbrev-alias -g ytdl-ytmus="youtube-dl -icw -f bestaudio --embed-thumbnail --add-metadata --write-thumbnail --extract-audio --audio-format mp3 --audio-quality 0"
@@ -172,32 +200,19 @@ abbrev-alias -g cdpr="cd ~/gif"
 abbrev-alias -g cdwpg="cd ~/.config/wpg"
 abbrev-alias -g cdwrk="cd $WORKDIR"
 
-# Systemd Aliases
-abbrev-alias -g jrn="journalctl"
-
-abbrev-alias -g sctlui="systemctl-tui -s user"
-abbrev-alias -g sctl="systemctl --user"
-abbrev-alias -g sctled="systemctl --user edit --full --force"
-abbrev-alias -g sctls="systemctl --user status"
-abbrev-alias -g sctlup="systemctl --user start"
-abbrev-alias -g sctldown="systemctl --user stop"
-abbrev-alias -g sctlen="systemctl --user enable --now"
-abbrev-alias -g sctldis="systemctl --user disable --now"
-abbrev-alias -g sctlr="systemctl --user restart"
-
-abbrev-alias -g ssctlui="sudo systemctl-tui"
-abbrev-alias -g ssctl="sudo systemctl"
-abbrev-alias -g ssctled="sudo systemctl edit --full --force"
-abbrev-alias -g ssctls="sudo systemctl status"
-abbrev-alias -g ssctlup="sudo systemctl start"
-abbrev-alias -g ssctldown="sudo systemctl stop"
-abbrev-alias -g ssctlen="sudo systemctl enable --now"
-abbrev-alias -g ssctldis="sudo systemctl disable --now"
-abbrev-alias -g ssctlr="sudo systemctl restart"
-
 abbrev-alias annihilate="shred -zu -n 5"
 
 abbrev-alias -g short0c0="curl -F'shorten=$1' https://0x0.st"
 abbrev-alias -g csvadd="awk -F, 'BEGIN {sum=0} {sum += \$2} END {print sum}'"
+
+# i dont use these anymore
+abbrev-alias -g nf="neofetch"
+abbrev-alias mpdbkmk="echo "- "$(mpc current)"" >> ~/doc/goodmus.md"
+
+# dirty hacks
+abbrev-alias -g yule="TERM=xterm YuleLog"
+
+abbrev-alias pushsite="neocities push ~/doc/web/on"
+# ealias webscrw="fastfetch && maim -i $(xdotool getactivewindow) -o ~/doc/web/on/nf.png"
 
 # scihubdl() { curl -O "$(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o "http.*pdf")" ;}
