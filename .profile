@@ -91,16 +91,24 @@ export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
 [ "$WAYLAND_DISPLAY" ] || [ "$DISPLAY" ] || [ "$SSH_TTY" ] || [ "$TMUX" ] || {
     login_options=$(
         cat <<EOF
+tty
 sway
 xorg
 hyprland
 EOF
     )
 
-    header="How do you wish to log in? (Press <Esc>, <Ctrl+[>, or <Ctrl+C> to stay in the tty)"
+    header="How do you wish to log in?"
     disp=$(echo "$login_options" | fzf --header "$header" --header-first)
 
     case $disp in
+        tty)
+            echo "NOTE: Setting repeat and delay rate (Requires root)"
+            sudo -n kbdrate -r 35 -d 150 >/dev/null
+            # TODO: Remap caps lock and escape using interception
+            echo "NOTE: Remapping keys (Requires root)"
+            sudo loadkeys /etc/keystrings
+            ;;
         xorg)
             # Set up multi-monitor FreeSync correctly by piggy-backing off wayland's better FreeSync support
             # sway &
@@ -123,14 +131,6 @@ EOF
             fi
             ;;
     esac
-}
-
-[ "$TERM" = linux ] && {
-    echo "NOTE: Setting repeat and delay rate (Requires root)"
-    sudo -n kbdrate -r 35 -d 150 >/dev/null
-    # TODO: Remap caps lock and escape using interception
-    echo "NOTE: Remapping keys (Requires root)"
-    sudo loadkeys /etc/keystrings
 }
 
 source_if_exists() { [ -e "$1" ] && . "$1"; }
