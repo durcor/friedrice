@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+
+# TODO: Add ability to apply action to multiple devices
+# TODO: Sort devices based on count of previous connections
+# TODO: Sort actions based on current state (disconnect first when connected)
+
+notification_app_name=bt-select
+
+[ $XDG_DATA_HOME ] || XDG_DATA_HOME=$HOME/.local/share
+DEV_INTERACTION_COUNT_FILE=$XDG_DATA_HOME/bt_dev
+
+usage() {
+    echo "Usage: $0 [fzf, fuzzel, rofi, help]"
+}
+
+menu_cmd=$(
+    if [ $WAYLAND_DISPLAY ]; then
+        echo fuzzel
+    elif [ $DISPLAY ]; then
+        echo rofi
+    else
+        echo fzf
+    fi
+)
+
+run_menu() {
+    case $1 in
+        fuzzel)
+            fuzzel -d --placeholder "Select $2"
+            ;;
+        rofi)
+            rofi -dmenu -ip "Select $2" -no-custom
+            ;;
+        fzf)
+            fzf --cycle --ghost "Select $2"
+            ;;
+        *)
+            echo >&2 "Error: $1 is not supported"
+            exit 1
+            ;;
+    esac
+}
+
+bt_str_to_ico() {
+    case $1 in
+        "audio-headset" | "audio-headphones") echo  ;;
+        "input-gaming") echo  ;;
+        "phone") echo  ;;
+        "audio-card") echo  ;;
+        "input-keyboard") echo  ;;
+        "computer") echo  ;;
+        *) echo  ;;
+    esac
+}
+
+[ $# -gt 0 ] && {
+    if [ $# -eq 1 ]; then
+        case $1 in
+            fzf | fuzzel | rofi)
+                menu_cmd=$1
+                ;;
+            help)
+                usage
+                exit 0
+                ;;
+            *)
+                usage
+                exit 1
+                ;;
+        esac
+    else
+        usage
+        exit 1
+    fi
+}
+
+bluetooth_devices=$(bluetoothctl devices | awk '/^Device/')
+
+selected_device=$(
+    echo "$bluetooth_devices" | while IFS= read -r device; do
+        id=$(echo "$device" | awk '{ print $2 }')
+        name=$(echo "$device" | cut -d " " -f 3-)
+
+        info=$(bluetoothctl info "$id")
+        icon=$(echo "$info" | awk '/Icon: /{print $2}')
+        connected=$(
+            [[ $(echo "$info" | awk '/Connected: /{print $2}') == "yes" ]] \
+                && echo " (Connected)"
+        )
+
+        echo "$(bt_str_to_ico $icon)  $name [$id]${connected}"
+    done | run_menu $menu_cmd device
+    # dev_interaction_count=$(awk -F, '/$selected_device/{print $2}' $DEV_INTERACTION_COUNT_FILE)
+)
+
+if [ -z "$selected_device" ]; then
+    echo >&2 "Error: No device selected"
+    exit 1
+fi
+
+selected_name="${selected_device/ \[*/}"
+selected_id=$(echo "$selected_device" | grep -oE '\[[^]]+\]' | tr -d '[]')
+
+selected_action=$(
+    cat <<EOF | run_menu $menu_cmd action
+Connect
+Disconnect
+Info
+Trust
+EOF
+)
+
+icon_theme=HighContrast
+icon_path=/usr/share/icons/$icon_theme/48x48
+
+case $selected_action in
+    Connect)
+        bluetoothctl connect "$selected_id"
+        notify-send \
+            --app-name=$notification_app_name \
+            --icon=$icon_path/status/bluetooth-active.png \
+            --category=device.added \
+            "Connecting" \
+            "Connecting to ${selected_name}"
+        ;;
+    Disconnect)
+        bluetoothctl disconnect "$selected_id"
+        notify-send \
+            --app-name=$notification_app_name \
+            --icon=$icon_path/status/bluetooth-disabled.png \
+            --category=device.removed \
+            "Disconnecting" \
+            "Disconnecting from ${selected_name}"
+        ;;
+    Trust)
+        bluetoothctl trust "$selected_id"
+        notify-send \
+            --app-name=$notification_app_name \
+            --icon=$icon_path/apps/bluetooth.png \
+            "Trusting" \
+            "Trusting ${selected_name}"
+        ;;
+    Info)
+        bt_info=$(bluetoothctl info "$selected_id")
+        notify-send \
+            --app-name=$notification_app_name \
+            --icon=$icon_path/apps/bluetooth.png \
+            "Bluetooth Info" \
+            "$bt_info"
+        ;;
+    '') exit 0 ;;
+    *)
+        echo >&2 "Error: Unsupported action: '$selected_action'"
+        exit 1
+        ;;
+esac
+
+# sed -i "s/$selected_device,$num_interactions/$selected_device,$(( num_interactions + 1 ))/" $DEV_INTERACTION_COUNT_FILE
