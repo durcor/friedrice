@@ -10,10 +10,21 @@
 . "$HOME/.config/lf/ico"
 . "$HOME/.secret"
 
-export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.local/share/go/bin:$PATH"
-# export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+append_path() {
+    case ":$PATH:" in
+        *:"$1":*) ;;
+        *)
+            PATH="${PATH:+$PATH:}$1"
+            ;;
+    esac
+}
+
+append_path $HOME/bin
+append_path $HOME/.local/bin
+append_path $HOME/.local/share/go/bin
+# append_path $(ruby -r rubygems -e 'puts Gem.user_dir')/bin
+
+unset append_path
 
 export PATH
 
@@ -74,9 +85,9 @@ export VAAPI_MPEG4_ENABLED=true
 # Dev Environment
 export GOPATH="$XDG_DATA_HOME/go"
 export CLASSPATH="$CLASSPATH:/usr/share/java/*"
+export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
 ## LaTeX plugins
 export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
-export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
 
 [ "$TERM" = linux ] \
     && [ -f "$XDG_CACHE_HOME/wal/colors-tty.sh" ] \
