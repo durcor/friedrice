@@ -6,134 +6,134 @@
 # control the percent delta of the brightness modification
 
 notify_echo() {
-  echo "$1"
-  notify-send "backlightctl" "$1"
+    echo "$1"
+    notify-send "backlightctl" "$1"
 }
 
 [ -f /tmp/new_backlightctl_udev_rule ] && {
-  notify_echo >&2 "Error: You need to reboot for the udev rule to take effect"
-  exit 1
+    notify_echo >&2 "Error: You need to reboot for the udev rule to take effect"
+    exit 1
 }
 
 hash ddcutil 2>/dev/null || {
-  notify_echo >&2 "Error: ddcutil must be installed for external monitor control."
-  exit 1
+    notify_echo >&2 "Error: ddcutil must be installed for external monitor control."
+    exit 1
 }
 
 backlight_dev_dir=/sys/class/backlight
 backlight_devs=$(ls /sys/class/backlight)
 
-ddc_displays=$(ddcutil detect | awk '/^Display/{print $2}')
+ddc_displays=$(ddcutil detect -t | awk '/^Display/{print $2}')
 
 [ $backlight_devs ] || [ $ddc_displays ] || {
-  echo "Error: No configurable displays found! Sorry :("
-  exit 1
+    echo "Error: No configurable displays found! Sorry :("
+    exit 1
 }
 
 [ "$UID" -eq 0 ] || {
-  user_in_video=false
-  for g in $(groups); do [ "$g" = video ] && user_in_video=true; done
+    user_in_video=false
+    for g in $(groups); do [ "$g" = video ] && user_in_video=true; done
 
-  $user_in_video || {
-    notify_echo >&2 "Error: $USER must be a member of the 'video' group for the udev rule"
-    exit 1
-  }
+    $user_in_video || {
+        notify_echo >&2 "Error: $USER must be a member of the 'video' group for the udev rule"
+        exit 1
+    }
 }
 
 if [ $backlight_devs ] && [ ! -f /etc/udev/rules.d/backlight.rules ]; then
-  [ "$UID" -eq 0 ] || {
-    notify_echo >&2 "Error: This script must be run as root while setting up the udev rule"
-    exit 1
-  }
-  mkdir -p /etc/udev/rules.d
+    [ "$UID" -eq 0 ] || {
+        notify_echo >&2 "Error: This script must be run as root while setting up the udev rule"
+        exit 1
+    }
+    mkdir -p /etc/udev/rules.d
 
-  for dev in $backlight_devs; do
-    cat <<EOF >/etc/udev/rules.d/backlight.rules
+    for dev in $backlight_devs; do
+        cat <<EOF >/etc/udev/rules.d/backlight.rules
 ACTION=="add", SUBSYSTEM=="backlight", RUN+="/bin/chgrp video  ${backlight_dev_dir}/${dev}/brightness", RUN+="/bin/chmod g+w ${backlight_dev_dir}/${dev}/brightness"
 EOF
-  done
+    done
 
-  notify_echo "You'll need to reboot before the udev rule takes effect"
-  touch /tmp/new_backlightctl_udev_rule
-  exit 0
+    notify_echo "You'll need to reboot before the udev rule takes effect"
+    touch /tmp/new_backlightctl_udev_rule
+    exit 0
 fi
 
 brightness_percent_delta=1
 [ "$2" ] && brightness_percent_delta=$2
 
 get() {
-  [ $backlight_devs ] && {
-    local current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
-    local max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
-    local interval=$((max_brightness / 100))
+    [ $backlight_devs ] && {
+        local current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
+        local max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
+        local interval=$((max_brightness / 100))
 
-    for dev in $backlight_devs; do
-      echo $((current_brightness * 100 / max_brightness))
+        for dev in $backlight_devs; do
+            echo $((current_brightness * 100 / max_brightness))
+        done
+    }
+
+    for display in $ddc_displays; do
+        ddcutil get 10 --display $display
     done
-  }
-
-  for display in $ddc_displays; do
-    ddcutil get 10 --display $display
-  done
 }
 
 up() {
-  [ $backlight_devs ] && {
-    local current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
-    local max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
-    local interval=$((max_brightness / 100))
+    [ $backlight_devs ] && {
+        local current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
+        local max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
+        local interval=$((max_brightness / 100))
 
-    for dev in $backlight_devs; do
-      echo $((current_brightness + (interval * brightness_percent_delta))) >"${backlight_dev_dir}/${dev}/brightness"
+        for dev in $backlight_devs; do
+            echo $((current_brightness + (interval * brightness_percent_delta))) >"${backlight_dev_dir}/${dev}/brightness"
+        done
+    }
+
+    for display in $ddc_displays; do
+        display_brightness=$(ddcutil get 10 --display $display -t | cut -d' ' -f4)
+        ddcutil set 10 $((display_brightness - 10)) --display $display
     done
-  }
-
-  for display in $ddc_displays; do
-    display_brightness=$(ddcutil get 10 --display $display)
-    ddcutil set 10 40 --display $display
-  done
 }
 
 down() {
-  [ $backlight_devs ] && {
-    local current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
-    local max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
-    local interval=$((max_brightness / 100))
+    [ $backlight_devs ] && {
+        local current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
+        local max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
+        local interval=$((max_brightness / 100))
 
-    for dev in $backlight_devs; do
-      echo $((current_brightness - (interval * brightness_percent_delta))) >"${backlight_dev_dir}/${backlight_devs}/brightness"
+        for dev in $backlight_devs; do
+            echo $((current_brightness - (interval * brightness_percent_delta))) >"${backlight_dev_dir}/${backlight_devs}/brightness"
+        done
+    }
+
+    for display in $ddc_displays; do
+        display_brightness=$(ddcutil get 10 --display $display -t | cut -d' ' -f4)
+        ddcutil set 10 $((display_brightness + 10)) --display $display
     done
-  }
-
-  for display in $ddc_displays; do
-    display_brightness=$(ddcutil get 10 --display $display)
-    ddcutil set 10 40 --display $display
-  done
 }
 
 change() {
-  new_percent=$(seq 1 100 | fuzzel -d -p "new brightness >")
+    new_percent=$(seq 1 100 | fuzzel -d -p "new brightness >")
 
-  [ $backlight_devs ] && {
-    local current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
-    local max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
-    local interval=$((max_brightness / 100))
+    [ $backlight_devs ] && {
+        local current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
+        local max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
+        local interval=$((max_brightness / 100))
 
-    for dev in $backlight_devs; do
-      echo $((new_percent * interval)) >"${backlight_dev_dir}/${backlight_devs}/brightness"
+        for dev in $backlight_devs; do
+            echo $((new_percent * interval)) >"${backlight_dev_dir}/${backlight_devs}/brightness"
+        done
+    }
+
+    for display in $ddc_displays; do
+        display_brightness=$(ddcutil get 10 --display $display -t | cut -d' ' -f4)
+        ddcutil set 10 $new_percent --display $display
     done
-  }
-
-  for display in $ddc_displays; do
-    display_brightness=$(ddcutil get 10 --display $display)
-    ddcutil set 10 $new_percent --display $display
-  done
 }
 
 case $1 in
-up | down | change | get) $1 ;;
-*)
-  echo >&2 "Error: Unsupported option $1. Valid options are: [up, down, get]"
-  exit 1
-  ;;
+    up | down | change | get) $1 ;;
+    *)
+        echo >&2 "Error: Unsupported option $1. Valid options are: [up, down, get]"
+        exit 1
+        ;;
 esac
