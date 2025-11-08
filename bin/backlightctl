@@ -7,7 +7,8 @@
 
 notify_echo() {
     echo "$1"
-    notify-send "backlightctl" "$1"
+    notify-send -h string:x-canonical-private-synchronous:backlightctl "backlightctl" "$1" 2>/dev/null \
+        || echo "Error: Cannot create notification"
 }
 
 [ -f /tmp/new_backlightctl_udev_rule ] && {
@@ -23,9 +24,9 @@ hash ddcutil 2>/dev/null || {
 backlight_dev_dir=/sys/class/backlight
 backlight_devs=$(ls /sys/class/backlight)
 
-ddc_displays=$(ddcutil detect -t | awk '/^Display/{print $2}')
+ddc_displays=$(ddcutil detect -t 2>/dev/null | awk '/^Display/{print $2}')
 
-[ $backlight_devs ] || [ $ddc_displays ] || {
+[ "$backlight_devs" ] || [ "$ddc_displays" ] || {
     echo "Error: No configurable displays found! Sorry :("
     exit 1
 }
@@ -40,7 +41,7 @@ ddc_displays=$(ddcutil detect -t | awk '/^Display/{print $2}')
     }
 }
 
-if [ $backlight_devs ] && [ ! -f /etc/udev/rules.d/backlight.rules ]; then
+if [ "$backlight_devs" ] && [ ! -f /etc/udev/rules.d/backlight.rules ]; then
     [ "$UID" -eq 0 ] || {
         notify_echo >&2 "Error: This script must be run as root while setting up the udev rule"
         exit 1
@@ -61,66 +62,129 @@ fi
 brightness_percent_delta=1
 [ "$2" ] && brightness_percent_delta=$2
 
+print_bar() {
+    new_percent=$1
+
+    scale=2
+    num_squares=$((new_percent / scale))
+    num_underscores=$((100 / scale - num_squares))
+
+    for _ in $(seq "$num_squares"); do printf '▒'; done
+    for _ in $(seq "$num_underscores"); do printf '_'; done
+    printf '\n'
+}
+
 get() {
-    [ $backlight_devs ] && {
-        local current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
-        local max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
-        local interval=$((max_brightness / 100))
+    [ "$backlight_devs" ] && {
+        local current_brightness max_brightness interval
 
         for dev in $backlight_devs; do
-            echo $((current_brightness * 100 / max_brightness))
+            current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
+            max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
+            interval=$((max_brightness / 100))
+
+            notify_echo "($((current_brightness * 100 / max_brightness))%) $(print_bar $((current_brightness * 100 / max_brightness)))"
         done
     }
 
     for display in $ddc_displays; do
-        ddcutil get 10 --display $display
+        printf "Display %s: " "$display"
+        ddcutil -t get 10 --display "$display" | awk '{print $4}'
     done
 }
 
 up() {
-    [ $backlight_devs ] && {
-        local current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
-        local max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
-        local interval=$((max_brightness / 100))
+    [ "$backlight_devs" ] && {
+        local current_brightness max_brightness interval
 
         for dev in $backlight_devs; do
-            echo $((current_brightness + (interval * brightness_percent_delta))) >"${backlight_dev_dir}/${dev}/brightness"
+            current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
+            max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
+            interval=$((max_brightness / 100))
+
+            new_brightness=$((current_brightness + (interval * brightness_percent_delta)))
+            new_percent=$((current_brightness * 100 / max_brightness + brightness_percent_delta))
+
+            [ $new_brightness -gt "$max_brightness" ] && {
+                notify_echo "Error: Brightness cannot be set above $max_brightness. Current brightness is $current_brightness"
+                exit 1
+            }
+
+            echo $new_brightness >"${backlight_dev_dir}/${dev}/brightness" || {
+                notify_echo "Error: Failed to update backlight
+DEBUG: current_brightness=$current_brightness
+DEBUG: max_brightness=$max_brightness
+DEBUG: new_brightness=$new_brightness
+                            "
+                exit 1
+            }
+            notify_echo "($new_percent%) $(print_bar "$new_percent")"
         done
     }
 
     for display in $ddc_displays; do
         display_brightness=$(ddcutil get 10 --display $display -t | cut -d' ' -f4)
-        ddcutil set 10 $((display_brightness - 10)) --display $display
+        ddcutil set 10 $((display_brightness + brightness_percent_delta)) --display "$display"
     done
 }
 
 down() {
-    [ $backlight_devs ] && {
-        local current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
-        local max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
-        local interval=$((max_brightness / 100))
+    [ "$backlight_devs" ] && {
+        local current_brightness max_brightness interval
 
         for dev in $backlight_devs; do
-            echo $((current_brightness - (interval * brightness_percent_delta))) >"${backlight_dev_dir}/${backlight_devs}/brightness"
+            current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
+            max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
+            interval=$((max_brightness / 100))
+
+            new_brightness=$((current_brightness - (interval * brightness_percent_delta)))
+            new_percent=$((current_brightness * 100 / max_brightness - brightness_percent_delta))
+
+            [ $new_brightness -lt 0 ] && {
+                echo "Error: Brightness cannot be set below 0"
+                exit 1
+            }
+
+            echo $new_brightness >"${backlight_dev_dir}/${backlight_devs}/brightness" || {
+                notify_echo "Error: Failed to update backlight
+DEBUG: current_brightness=$current_brightness
+DEBUG: max_brightness=$max_brightness
+DEBUG: new_brightness=$new_brightness
+                            "
+                exit 1
+            }
+            notify_echo "($new_percent%) $(print_bar "$new_percent")"
         done
     }
 
     for display in $ddc_displays; do
         display_brightness=$(ddcutil get 10 --display $display -t | cut -d' ' -f4)
-        ddcutil set 10 $((display_brightness + 10)) --display $display
+        ddcutil set 10 $((display_brightness - brightness_percent_delta)) --display "$display"
     done
 }
 
 change() {
     new_percent=$(seq 1 100 | fuzzel -d -p "new brightness >")
 
-    [ $backlight_devs ] && {
-        local current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
-        local max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
-        local interval=$((max_brightness / 100))
+    [ "$backlight_devs" ] && {
+        local current_brightness max_brightness interval
 
         for dev in $backlight_devs; do
-            echo $((new_percent * interval)) >"${backlight_dev_dir}/${backlight_devs}/brightness"
+            current_brightness=$(cat "${backlight_dev_dir}/${dev}/brightness")
+            max_brightness=$(cat "${backlight_dev_dir}/${dev}/max_brightness")
+            interval=$((max_brightness / 100))
+
+            new_brightness=$((new_percent * interval))
+
+            echo $new_brightness >"${backlight_dev_dir}/${backlight_devs}/brightness" || {
+                notify_echo "Error: Failed to update backlight
+DEBUG: current_brightness=$current_brightness
+DEBUG: max_brightness=$max_brightness
+DEBUG: new_brightness=$new_brightness
+                            "
+                exit 1
+            }
+            notify_echo "($new_percent%) $(print_bar "$new_percent")"
         done
     }
 
@@ -133,7 +197,7 @@ change() {
 case $1 in
     up | down | change | get) $1 ;;
     *)
-        echo >&2 "Error: Unsupported option $1. Valid options are: [up, down, get]"
+        echo >&2 "Error: Unsupported option $1. Valid options are: [up, down, get, change]"
         exit 1
         ;;
 esac

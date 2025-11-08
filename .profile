@@ -135,13 +135,27 @@ EOF
             export MOZ_ENABLE_WAYLAND=1
             export ELECTRON_OZONE_PLATFORM_HINT=wayland
             if hash uwsm 2>/dev/null && uwsm check may-start; then # && uwsm select
-                exec uwsm start ${disp}-uwsm.desktop
+                exec uwsm start "${disp}-uwsm.desktop"
             else
                 case $disp in sway) flags='--unsupported-gpu' ;; esac
                 exec $disp $flags
             fi
             ;;
     esac
+}
+
+[ "$TERM" = linux ] && {
+    echo "NOTE: Setting repeat and delay rate (Requires root)"
+    sudo -n kbdrate -r 35 -d 150 >/dev/null
+    # TODO: Remap caps lock and escape using interception
+    echo "NOTE: Remapping keys (Requires root)"
+    sudo loadkeys /etc/keystrings
+}
+
+# FIXME: uh is this recommended? we're currently spawning hella ssh agents
+[ "$SSH_AGENT_PID" ] || {
+    eval "$(ssh-agent)"
+    ssh-add "$HOME/.ssh/id_rsa"
 }
 
 source_if_exists() { [ -e "$1" ] && . "$1"; }
