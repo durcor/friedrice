@@ -30,9 +30,10 @@ addbk
 .ssh
 .gnupg
 .aws
-
-.notmuch-config
+.gitconfig
 .netrc
+.notmuch-config
+.mpdscribble
 
 # i don't think these are supposed to be here
 .config/itch
