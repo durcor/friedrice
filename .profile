@@ -153,10 +153,10 @@ EOF
 }
 
 # FIXME: uh is this recommended? we're currently spawning hella ssh agents
-[ "$SSH_AGENT_PID" ] || {
-    eval "$(ssh-agent)"
-    ssh-add "$HOME/.ssh/id_rsa"
-}
+# [ "$SSH_AGENT_PID" ] || {
+#     eval "$(ssh-agent)"
+#     ssh-add "$HOME/.ssh/id_rsa"
+# }
 
 source_if_exists() { [ -e "$1" ] && . "$1"; }
 
