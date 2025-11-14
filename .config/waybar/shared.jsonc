@@ -1,5 +1,6 @@
 {
   "hyprland/submap": {
+    "on-click": "hyprmap toggle",
     "format": " {} ",
     "tooltip": false
   },
@@ -16,9 +17,8 @@
     "expand": true
   },
   "hyprland/workspaces": {
-    "disable-scroll-wraparound": true,
-    "smooth-scrolling-threshold": 4,
-    "enable-bar-scroll": true,
+    "on-scroll-up": "hyprctl dispatch workspace +1",
+    "on-scroll-down": "hyprctl dispatch workspace -1",
     "format": "{name}"
   },
   "clock#time": {
