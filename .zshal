@@ -42,6 +42,12 @@ abbrev-alias -g mime="file --mime-type -b"
 abbrev-alias -g noerr="2>/dev/null"
 
 abbrev-alias build="builderman"
+
+# Dockerisms
+abbrev-alias ARG="export"
+abbrev-alias ENV="export"
+abbrev-alias RUN="true &&"
+
 abbrev-alias ka="killall -9"
 abbrev-alias trem="transmission-remote"
 abbrev-alias t="tmux"
