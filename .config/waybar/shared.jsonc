@@ -185,7 +185,7 @@
   },
   "disk": {
     "interval": 30,
-    "format": "  {free}/{total}"
+    "format": "  {used}/{total}"
   },
   "network": {
     "interval": 5,
@@ -256,7 +256,7 @@
     // "format-background": "#111111",
   },
   // "custom/kb": { "exec": "~/.local/bin/i3blocks/kb", "interval": "100000000000", },
-  // signal=13 
+  // signal=13
   "custom/vol": {
     "exec": "~/.local/bin/i3blocks/vol",
     "interval": "10"
