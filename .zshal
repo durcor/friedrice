@@ -4,7 +4,7 @@
 # NOTE: the -g flag to abbrev-alias causes the alias to expand anywhere in a shell command
 
 # the essentials
-abbrev-alias l="eza -F" # ls --color=auto
+abbrev-alias l="eza" # ls --color=auto
 abbrev-alias c="bat -pp --theme base16"
 abbrev-alias g="git"
 abbrev-alias s="sudo"
@@ -112,7 +112,7 @@ abbrev-alias pyg="pygmentize -f terminal -g"
 abbrev-alias gam="gamemoderun gamescope -f -w 2560 -h 1440 --adaptive-sync -- mangohud"
 
 # List files
-abbrev-alias ll="eza -alhF"
+abbrev-alias ll="eza -alh"
 abbrev-alias la="eza -A"
 
 # Disk utilities
