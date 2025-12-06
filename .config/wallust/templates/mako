@@ -5,6 +5,7 @@ font=Terminess Nerd Font 9
 
 output=eDP-1
 output=HDMI-A-1
+output=DP-3
 
 # Set padding on each side to the size specified by directional.
 # See DIRECTIONAL VALUES for more information.
