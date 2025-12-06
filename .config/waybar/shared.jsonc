@@ -273,21 +273,4 @@
     "exec": "~/.local/bin/i3blocks/time",
     "interval": "1"
   },
-  // Separators (TODO: make this less painful)
-  "custom/sep_audio":      { "format": "", "tooltip": false },
-  "custom/sep_audio_bt":   { "format": "", "tooltip": false },
-  "custom/sep_bt_vpn":     { "format": "", "tooltip": false },
-  "custom/sep_bt_tray":    { "format": "", "tooltip": false },
-  "custom/sep_vpn_net":    { "format": "", "tooltip": false },
-  "custom/sep_net_idle":   { "format": "", "tooltip": false },
-  "custom/sep_idle_tray":  { "format": "", "tooltip": false },
-  "custom/sep_weather_date":    { "format": "", "tooltip": false },
-  "custom/sep_clock":      { "format": "", "tooltip": false },
-  "custom/sep_cpu_gpu":    { "format": "", "tooltip": false },
-  "custom/sep_gpu_mem":    { "format": "", "tooltip": false },
-  "custom/sep_mem_disk":   { "format": "", "tooltip": false },
-  "custom/sep_disk":       { "format": "", "tooltip": false },
-  "custom/sep_mpris":      { "format": "", "tooltip": false },
-  "custom/sep_mpris_lang": { "format": "", "tooltip": false },
-  "custom/sep_lang_bat":   { "format": "", "tooltip": false },
 }

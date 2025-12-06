@@ -3,6 +3,7 @@
   {
     "output": [
       "eDP-1",
+      "DP-1",
       "DP-2",
       "DP-3"
     ],
@@ -17,25 +18,24 @@
       "sway/window"
     ],
     "modules-right": [
-      "custom/sep_audio",
       "pulseaudio",
-      "custom/sep_audio_bt",
       "bluetooth",
-      "custom/sep_bt_vpn",
       "custom/vpn",
-      "custom/sep_vpn_net",
       "network",
-      "custom/sep_net_idle",
       //
       // "custom/distcompute",
       //
       "idle_inhibitor",
-      "custom/sep_idle_tray",
+      "cpu",
+      "temperature#cpu",
+      // FIXME: Consolidate temps into GPU module
+      "custom/gpu-usage",
+      "custom/nvidia-temp",
+      "temperature#gpu",
+      "memory",
       "tray",
       "custom/weather",
-      "custom/sep_weather_date",
       "clock#date",
-      "custom/sep_clock",
       "clock#time"
     ],
     "layer": "top",
@@ -55,16 +55,11 @@
       "sway/window"
     ],
     "modules-right": [
-      "custom/sep_audio",
       "pulseaudio",
-      "custom/sep_audio_bt",
       "bluetooth",
-      "custom/sep_bt_tray",
       "tray",
       "custom/weather",
-      "custom/sep_weather_date",
       "clock#date",
-      "custom/sep_clock",
       "clock#time"
     ],
     "layer": "top",
@@ -81,24 +76,17 @@
     "modules-left": [
       "cpu",
       "temperature#cpu",
-      "custom/sep_cpu_gpu",
       // FIXME: Consolidate temps into GPU module
       "custom/gpu-usage",
       "custom/nvidia-temp",
       "temperature#gpu",
-      "custom/sep_gpu_mem",
       "memory",
-      "custom/sep_mem_disk",
       "disk",
-      "custom/sep_disk",
     ],
     "modules-right": [
-      "custom/sep_mpris",
       "mpris",
-      "custom/sep_mpris_lang",
       "sway/language",
       "hyprland/language",
-      "custom/sep_lang_bat",
       "battery",
     ],
     "layer": "top",

@@ -1,0 +1,277 @@
+@import 'colors.css';
+
+/* Keyframes */
+
+@keyframes blink-critical {
+	to {
+		/*color: @white;*/
+		background-color: @critical;
+	}
+}
+
+/* Colors */
+@define-color black   @color0;
+@define-color red     @color1;
+@define-color green   @color2;
+@define-color yellow  @color3;
+@define-color blue	@color4;
+@define-color purple	@color5;
+@define-color teal	@color6;
+@define-color gray	@color7;
+
+@define-color darkgray	@color8;
+@define-color brightred	@color9;
+@define-color brightgreen	@color10;
+@define-color brightyellow	@color11;
+@define-color brightblue	@color12;
+@define-color magenta	@color13;
+@define-color cyan	@color14;
+@define-color white	@color15;
+
+@define-color warning 	@brightyellow;
+@define-color critical	@red;
+@define-color unfocused	@darkgray;
+@define-color focused	@cyan;
+@define-color inactive	@purple;
+
+/* Defaults */
+* {
+	border: none;
+	border-radius: 0;
+	min-height: 21px;
+	margin: 0;
+	padding: 0;
+	box-shadow: none;
+	text-shadow: none;
+	-gtk-icon-shadow: none;
+}
+
+/* The whole bar */
+#waybar {
+	background: @black;
+	color: @foreground;
+	/* font-family: Mononoki Nerd Font; */
+	font-family: Terminess Nerd Font;
+	/* font-family: Greybeard16px; */
+	/* font-family: Unifont; */
+	/* font-family: Inconsolata Nerd Font Mono; */
+	/* font-family: FantasqueSansM Nerd Font Mono; */
+	/* font-family: Hack Nerd Font Mono; */
+	font-size: 16px;
+  /* min-height: 15px; */
+	/* font-weight: bold; */
+}
+
+/* Each module */
+#battery,
+#clock,
+#cpu,
+#custom-gpu-usage,
+#language,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#bluetooth,
+#temperature,
+#custom-weather,
+#backlight,
+#idle_inhibitor,
+#disk,
+#user,
+#custom-vpn,
+#tray,
+#custom-time,
+#mpris {
+	padding-left: 5pt;
+	padding-right: 5pt;
+	padding-bottom: 1pt;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.25);
+}
+
+#memory.critical,
+#cpu.critical,
+#temperature.critical,
+#battery.critical.discharging {
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-name: blink-critical;
+	animation-duration: 1s;
+}
+
+/* Each warning */
+#network.disconnected,
+#memory.warning,
+#cpu.warning,
+#temperature.warning,
+#battery.warning.discharging {
+	color: @warning;
+}
+
+/* Workspaces stuff */
+#workspaces button {
+	/*font-weight: bold;*/
+	padding-left: 2pt;
+	padding-right: 2pt;
+	color: @white;
+	background: @unfocused;
+}
+
+/* Inactive (on unfocused output) */
+#workspaces button.visible {
+	color: @white;
+	background: @inactive;
+}
+
+/* Active (on focused output) */
+#workspaces button.focused {
+	color: @black;
+	background: @focused;
+}
+
+/* Contains an urgent window */
+#workspaces button.urgent {
+	color: @black;
+	background: @warning;
+}
+
+/* Style when cursor is on the button */
+#workspaces button:hover {
+	background: @black;
+	color: @white;
+}
+
+/* #window { */
+/* 	margin-right: 35pt; */
+/* 	margin-left: 35pt; */
+/*   transition-property: background-color; */
+/*   transition-duration: .5s; */
+/*   border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
+/* } */
+
+/* window#waybar { */
+/*   min-height: 18px; set waybar's height to 18px */
+/*   font-size: 18px; set only the font size to be bigger, which in turn will adjust the height of other elements */
+/*   transition-property: background-color; */
+/*   transition-duration: .5s; */
+/*   border-bottom: 13px solid rgba(100, 114, 125, 0.5); */
+/* } */
+
+/* Mode/Submap styling */
+/* FIXME: Add slant nerd font char */
+
+#submap, #mode {
+	color: @foreground;
+	background: @darkgray;
+  font-weight: bold;
+  /* text-transform: uppercase; */
+}
+
+#submap.manager,    #mode.manager    { background: @color12; }
+#submap.window,     #mode.window     { background: @color10; }
+#submap.launch,     #mode.launch     { background: @color6;  }
+#submap.audio,      #mode.audio      { background: @color11; }
+#submap.music,      #mode.music      { background: @color1;  }
+#submap.resize,     #mode.resize     { background: @color1;  }
+#submap.mpd,        #mode.mpd        { background: @color14; }
+#submap.visual,     #mode.visual     { background: @color9;  }
+#submap.gaps,       #mode.gaps       { background: @color15; }
+#submap.brightness, #mode.brightness { background: @color13; }
+#submap.paste,      #mode.paste      { background: @color3;  }
+#submap.yank,       #mode.yank       { background: @color4;  }
+#submap.notify,     #mode.notify     { background: @color2;  }
+
+/* Per-module styling */
+
+#pulseaudio {
+  background: @magenta;
+  color: @background;
+}
+
+#bluetooth {
+  background: @blue;
+  color: @foreground;
+}
+
+#custom-vpn {
+  background: @brightgreen;
+  color: @foreground;
+}
+
+#network {
+  background: @magenta;
+  color: @foreground;
+}
+
+#idle_inhibitor {
+  background: @purple;
+}
+
+#tray {
+  background: @darkgray;
+}
+
+/* Weather */
+#custom-weather {
+  background: @darkgray;
+  color: @foreground;
+}
+
+/* Date/Time */
+#clock.date {
+  background: @background;
+  color: @foreground;
+}
+
+#clock.time {
+  background: @white;
+  color: @black;
+  font-weight: bold;
+}
+
+/* CPU */
+#cpu,
+#temperature.cpu {
+  background: @brightyellow;
+  color: @foreground;
+}
+
+/* GPU */
+#custom-gpu,
+#custom-gpu-usage,
+#custom-nvidia-temp,
+#temperature.gpu {
+  background: @yellow;
+  color: @foreground;
+}
+
+/* RAM */
+#memory {
+  background: @teal;
+  color: @foreground;
+}
+
+/* HDD/SDD */
+#disk {
+  background: @magenta;
+  color: @background;
+}
+
+/* Media */
+#mpris {
+  background: @darkgray;
+  color: @foreground;
+}
+
+/* Keyboard language */
+#language {
+  background: @green;
+  color: @foreground;
+}
+
+/* Battery */
+#battery {
+  background: @red;
+  color: @foreground;
+}
