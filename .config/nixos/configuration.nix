@@ -5,10 +5,11 @@
 { config, lib, pkgs, inputs, chaotic, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  # NOTE: scan hardware w/ nixos-generate-config
+  # imports = [
+  #   ./hosts/noveria.nix
+  #   # ./secrets.nix # FIXME: sops-nix or agenix are the way
+  # ];
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -32,16 +33,26 @@
     substituters = [
       "https://cache.nixos.org"
       "https://chaotic-nyx.cachix.org"
+      "https://ghostty.cachix.org"
+      "https://nix-community.cachix.org"
+      "https://chaotic-nyx.cachix.org"
     ];
     trusted-substituters = [
       "https://cache.nixos.org"
+      "https://chaotic-nyx.cachix.org"
+      "https://ghostty.cachix.org"
+      "https://nix-community.cachix.org"
       "https://chaotic-nyx.cachix.org"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "chaotic-nyx.cachix.org-1:Z1OsgFx+V3eyGEIYirsc7blQLuui3CFbfvdqZQhSLaw="
+      "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
     ];
   };
+
   nix.optimise.automatic = true;
   nix.optimise.dates = ["03:45"];
   nix.gc = {
@@ -51,8 +62,6 @@
   nixpkgs.config.allowUnfree = true;
 
   networking = {
-    hostName = "noveria"; # Define your hostname.
-
     # useNetworkd = true;
 
     # Configure network connections interactively with nmcli or nmtui.
@@ -76,860 +85,17 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
+  services.kmscon.enable = true;
+  console = {
+    font = "Lat2-Terminus16";
+    # keyMap = "us";
+    useXkbConfig = true; # use xkb.options in tty.
+    earlySetup = true;
+  };
 
   fonts.packages = with pkgs; [
     nerd-fonts.terminess-ttf
-  ];
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-  services.interception-tools = {
-    enable = true;
-    plugins = with pkgs.interception-tools-plugins; [
-      caps2esc
-      dual-function-keys
-    ];
-    # udevmonConfig = "/home/ty/.config/interception-tools/udevmon.yaml";
-    udevmonConfig =
-      ''
-        - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE \
-            | ${pkgs.interception-tools-plugins.dual-function-keys}/bin/dual-function-keys -c ${config.users.users.ty.home}/.config/interception-tools/dual-function-keys/kbd.yaml \
-            | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
-          DEVICE:
-            EVENTS:
-              EV_KEY: [[KEY_F12]]
-      '';
-  };
-
-  # CUPS
-  services.printing.enable = true;
-
-  # Drive Configuration
-  #
-  # If the options attribute is not set, it'll default to "defaults"
-  # boot options for fstab. Search up fstab mount options you can use
-  # "users": Allows any user to mount and unmount
-  # "nofail": Prevent system from failing if this drive doesn't mount
-
-  # FIXME: these are LUKS partitions:
-  # Samsung 970 Evo Plus: root (lvm) -> /dev/mapper/vga-root
-  # fileSystems."/mnt/arch" = {
-  #   device = "/dev/disk/by-uuid/d14958e8-e0e0-4896-9098-18f0b7ada01d";
-  #   fsType = "ext4";
-  #   options = [
-  #     "rw"
-  #     "relatime"
-  #     # "dump=0" "pass=1"
-  #   ];
-  # };
-
-  # Samsung 970 Evo Plus: home (lvm) -> /dev/mapper/vga-home
-  # fileSystems."/mnt/arch/home" = {
-  #   device = "/dev/disk/by-uuid/45b78262-d5e8-4613-b502-8c93e1db8356";
-  #   fsType = "ext4";
-  #   options = [
-  #     "rw"
-  #     "relatime"
-  #     # "dump=0" "pass=2"
-  #   ];
-  # };
-
-  # Samsung 970 Evo Plus: boot
-  # fileSystems."/mnt/arch/boot" = {
-  #   device = "/dev/disk/by-uuid/C8E3-CBEE";
-  #   fsType = "vfat";
-  #   options = [
-  #     "rw"
-  #     "relatime"
-  #     "fmask=0022"
-  #     "dmask=0022"
-  #     "codepage=437"
-  #     "iocharset=iso8859-1"
-  #     "shortname=mixed"
-  #     "utf8"
-  #     "errors=remount-ro"
-  #     # dump=0 pass=2
-  #   ];
-  # };
-
-  # 3TB Seagate Barracuda
-  fileSystems."/mnt/data" = {
-    device = "/dev/disk/by-uuid/1cc1e9b2-6994-4ec0-a4e2-93583f1e483f";
-    fsType = "ext4";
-    options = [
-      "rw"
-      "relatime"
-      # dump=0 pass=2
-    ];
-  };
-
-  # 1TB Western Digital - Pretty old
-  fileSystems."/mnt/old" = {
-    device = "/dev/disk/by-uuid/80e51b2c-98b3-41f9-b4c9-51b6fc27122d";
-    fsType = "ext4";
-    options = [
-      "rw"
-      "relatime"
-      # dump=0 pass=2
-    ];
-  };
-
-  # sound
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-  };
-
-  # Pretty colors
-  services.hardware.openrgb.enable = true; # TODO: -git?
-  hardware.openrazer.enable = true;
-  hardware.openrazer.users = ["ty"];
-
-  # gaming
-  hardware.steam-hardware.enable = true;
-  programs.steam.extraCompatPackages = with pkgs; [
-    proton-ge-bin
-  ];
-  programs.steam.enable = true;
-  programs.steam.extraPackages = with pkgs; [
-    gamescope
-    gamemode
-    mangohud
-  ];
-  programs.gamescope.enable = true;
-
-  # nix utilities
-  programs.nh.enable = true;
-  # FIXME: isn't this a chicken-and-egg sort of problem?
-  # programs.nh.flake = "${config.users.users.ty.home}/.config/nixos";
-  programs.nix-ld.enable = true;
-
-  programs.uwsm.enable = true;
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-  };
-  programs.hyprlock.enable = true;
-  programs.waybar.enable = true;
-
-  programs.git.enable = true;
-  programs.git.lfs.enable = true;
-
-  # shells
-  programs.zsh.enable = true;
-  programs.fish.enable = true;
-
-  # Touchpad support (enabled by default in most DEs)
-  services.libinput.enable = true;
-
-  # firefox nightly upstream overlay
-  #
-  # nixpkgs.overlays =
-  #   let
-  #     moz-rev = "master";
-  #     moz-url = builtins.fetchTarball {
-  #       url = "https://github.com/mozilla/nixpkgs-mozilla/archive/${moz-rev}.tar.gz";
-  #       # sha256 = lib.fakeSha256;
-  #       sha256 = "sha256:0xxhiads5fd4jwbr685k1m527za50sl5z4bliigz99ciqxvzyf0z";
-  #     };
-  #     nightlyOverlay = (import "${moz-url}/firefox-overlay.nix");
-  #   in [
-  #     (final: prev: {
-  #       firefox-bin = { channel ? "release", ... } @ args: prev.firefox-bin;
-  #     })
-  #
-  #     nightlyOverlay
-  #   ];
-
-  # programs.firefox = {
-  #   enable = true;
-  #   package = pkgs.latest.firefox-nightly-bin;
-  #   policies = {
-  #     Preferences = {
-  #       "sidebar.revamp" = true;
-  #       "sidebar.verticalTabs" = true;
-  #       "browser.compactmode.show" = true;
-  #       "image.jxl.enabled" = true;
-  #     };
-  #   };
-  # };
-
-  # programs.neovim = {
-  #   enable = true;
-  #   vimAlias = true;
-  #   viAlias = true;
-  #   defaultEditor = true;
-  # };
-
-  environment.variables.EDITOR = "nvim";
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.ty = {
-    isNormalUser = true;
-    # human i2c boinc plugdev render audio
-    extraGroups = [
-      "wheel"
-      "video"
-      "libvirt"
-    ];
-    uid = 1000;
-    shell = pkgs.zsh;
-  };
-
-  # mesa-git.enable = true;
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = with pkgs; [
-      rocmPackages.clr.icd
-    ];
-  };
-
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.settings = {
-    General = {
-      Experimental = true;
-    };
-  };
-
-  systemd.tmpfiles.rules =
-    let
-      rocmEnv = pkgs.symlinkJoin {
-        name = "rocm-combined";
-	paths = with pkgs.rocmPackages; [
-	  rocblas
-	  hipblas
-	  clr
-	];
-      };
-    in
-    [
-      "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-      "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-    ];
-
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  environment.systemPackages = with pkgs; [
-    # util
-    eza
-    ripgrep
-    file
-    bat
-    rsync
-    croc
-    wget
-    p7zip
-    jq
-    yq-go
-    fd
-    killall
-    pandoc
-    tree
-    broot
-    just
-    khal
-    khard
-    # which
-    # buku
-
-    # gaming:
-    #
-    mangohud # TODO: -git?
-    # steamcmd
-    # supertuxkart
-    # neverball
-    # moon-buggy
-    # lutris-git
-    # mesa-demos
-    # mesa-tkg-git
-    # lib32-gamemode
-    # gamemode
-    # gamescope
-    # chaotic.packages.${pkgs.stdenv.hostPlatform.system}.mesa_git
-    # lib32-mesa-tkg-git
-    # lib32-vkbasalt
-
-    # ricing:
-    #
-    cmatrix
-    cava
-    catnip
-    pipes
-    pipes-rs
-    fastfetch
-    openrazer-daemon
-    # themix-full-git
-    # lxappearance
-    # wraith-master-bin
-    wallust
-    # matugen-bin
-    # neo-matrix-git
-    # neofetch
-    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
-    # capitaine-cursors
-    #
-    # razer things:
-    #
-    # razercommander-git
-    # python-openrazer-git
-    # polychromatic
-
-    # status bar
-    waybar
-    wttrbar # TODO: track git?
-    inputs.gpu-usage-waybar.packages.${pkgs.stdenv.hostPlatform.system}.default
-
-    # compilers:
-    #
-    gcc
-    clang
-    #
-    # build systems:
-    #
-    # make
-    # autoconf
-    # automake
-    #
-    # dev tools:
-    #
-    # binutils
-    # bison
-    # flex
-    #
-    # language servers:
-    #
-    bash-language-server
-    # pyright
-    #
-    # containers:
-    #
-    # docker
-    # docker-buildx
-    # podman
-    buildah
-    #
-    # cache:
-    #
-    ccache
-    #
-    # debugging:
-    gdb
-
-    # sys admin
-    bottom
-
-    # browsers:
-    #
-    inputs.firefox-nightly.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin
-    brave
-    # chaotic.packages.${pkgs.stdenv.hostPlatform.system}.firefox_nightly
-    # firefox
-    # latest.firefox-nightly-bin
-    # librewolf
-    # firedragon
-    tor-browser
-    qutebrowser
-    # lynx
-
-    # browser utils
-    browserpass
-
-    # gpu:
-    #
-    # xf86-video-amdgpu
-    # rocmPackages
-    # rocmPackages.rocm-smi
-    nvtopPackages.amd
-
-    # terminals
-    kitty
-    ghostty
-    alacritty
-    # foot
-    # wezterm-git
-
-    vdirsyncer
-
-    # file management
-    yazi
-    yaziPlugins.piper
-    yaziPlugins.ouch
-    yaziPlugins.git
-    lf
-    dragon-drop
-
-    # media:
-    #
-    ffmpeg_7-full
-    yt-dlp
-    # mediainfo
-    # atomicparsley
-    # vdpauinfo
-    # ffmpegthumbnailer
-    #
-    # music:
-    mpc
-    mpd
-    mpdris2
-    (pkgs.ncmpcpp.override { visualizerSupport = true; })
-    # mpdscribble
-    mpris-scrobbler
-    spotify
-    # spotifyd
-    #
-    # video player:
-    #
-    mpv
-    # mpv-mpris
-    # mpv-quality-menu-git
-    # mpv-thumbfast-git
-    # mpv-visualizer-git
-    #
-    # vlc
-
-    # pdf readers:
-    #
-    zathura
-    zathuraPkgs.zathura_djvu
-    zathuraPkgs.zathura_pdf_mupdf
-    # evince
-
-    # firmware:
-    #
-    # linux-firmware-amdgpu
-    # linux-firmware-intel
-    # linux-firmware-other
-    # linux-firmware-whence
-    #
-    # amd-ucode
-    # zenpower3-dkms
-    # fwupd
-    #
-    # modprobed-db # hardware prober
-    #
-    # hardware testing:
-    #
-    # memtest86+
-
-
-    # do these exist on NixOS?
-    #
-    # linux-headers
-    # linux-zen-headers
-
-    # notifications:
-    #
-    mako
-    # dunst
-
-    # mail:
-    #
-    neomutt
-    # mutt-wizard-git
-
-    # text editors:
-    #
-    neovim
-    neovim-remote
-    # kakoune
-    # helix
-    libreoffice-fresh
-    sc-im
-
-    nixVersions.latest # nixVersions.git
-    nix-index
-
-    sway
-
-    # messaging:
-    #
-    teams-for-linux
-    # discord
-    vesktop
-
-    # menus:
-    #
-    fuzzel # TODO: move to -git?
-    fzf
-    # dmenu
-    # rofi
-
-    # asciiquarium
-
-    # 3d modeling:
-    #
-    # assimp
-    # blender
-
-    # bluetooth:
-    #
-    # blueman
-    # bluez
-    # bluez-libs
-    # bluez-utils
-
-    # security:
-    #
-    # ca-certificates-mozilla
-
-    # libraries:
-    #
-    icu
-    # capnproto
-
-    chafa
-
-    # audio:
-    #
-    # chromaprint-fftw
-    # cli-visualizer-git
-
-    # compute:
-    #
-    # clinfo
-
-    # compilers:
-    #
-    # llvm:
-    #
-    # compiler-rt
-
-    # clipboard management:
-    #
-    # clipman
-    # clipmenu
-    # clipnotify
-
-    # fortune cookies:
-    #
-    fortune
-    cowsay
-    # cowfortune
-    # fortune-mod-off
-    # sex
-
-    libnotify # for notify-send
-
-    # cpio
-    # criu
-    # csvtools-git
-    # cups
-
-    # dash
-    # dashbinsh
-
-    # davfs2
-
-    # dbus
-
-    # ddcutil
-    # ddrescue
-    # dhcpcd
-    # dialog
-
-    # motherboard info:
-    #
-    # dmidecode
-
-    # dos2unix
-    # dosbox
-    # dosfstools
-
-    # drm_monitor-git
-
-    # disk usage:
-    #
-    # dua-cli
-    dust
-
-    # gaming:
-    #
-    # dualsensectl-git
-    # dxvk-mingw-git
-
-    # e3
-
-    # easyeffects
-    # easyeffects-git-debug
-
-    # editline
-    # efibootmgr
-    # fakeroot
-    # fcft
-
-    # featherwallet-bin
-
-    # festival
-
-    # ff2mpv-native-messaging-host-git
-
-    # flatpak
-
-    # file system:
-    #
-    # fuse-overlayfs
-
-    # gammastep
-
-    # gegl
-    # gengetopt
-    # ghostscript
-
-    # gifsicle
-
-    gimp
-
-    # window manager utilities:
-    hypridle
-    hyprland
-    hyprlock
-    hyprpaper
-    hyprpicker
-    # i3-wm
-    # i3blocks
-    # i3lock-color
-
-    # git-credential-manager-bin
-    # git-lfs
-    # github-cli
-
-    # system monitors:
-    #
-    # glances
-    htop
-    # btop
-    lm_sensors
-
-    # gjs
-    # glfw
-    # glibmm-2.68
-    # glslang
-    # gmni-git
-
-    # language toolchains:
-    #
-    # go
-    # ghc
-    # gcc-fortran
-    # nodejs
-    # nuget # c#
-
-    # game dev:
-    #
-    # godot
-
-    # google-earth-pro
-
-    # grabc
-
-    # gst-plugins-base
-    # gstreamer
-
-    # gtk-vnc
-    # gtk4
-    # gtkmm-4.0
-    # gurk
-    # gutenprint
-    # hashcat
-    # hidapi
-    # highlight
-    # ht-editor
-    # hunspell-en_us
-
-    # i2c-tools
-    # ifuse
-
-    # imv
-
-    # inotify-info-git
-    # inotify-tools
-
-    # iperf
-    # itch-setup-bin
-
-    # kooha
-
-    inkscape
-    krita
-
-    # kdeconnect
-    lan-mouse
-
-    lazygit
-
-    # legendary
-    # lensfun
-
-    # lib32-dbus
-    # lib32-giflib
-
-    # lib32-gst-plugins-base-libs
-
-    # lib32-gtk3
-    # lib32-libdrm-git
-    # lib32-libomxil-bellagio
-    # lib32-libxslt
-    # lib32-llvm-libs
-
-    # lib32-mpg123
-    # lib32-nss
-    # lib32-openal
-
-    # audio:
-    #
-    # lib32-pipewire
-    # wireplumber
-    # lib32-libpulse
-    # alsa-card-profiles
-    # alsa-utils
-
-    # lib32-sdl2-compat
-
-    # camera:
-    #
-    # lib32-v4l-utils
-
-    # libclc
-    # libcurlpp
-
-    # gpu:
-    #
-    # libdrm-git
-
-    # libirecovery-git
-
-    # libnfc
-
-    # audio:
-    #
-    # libldac
-    # libpulse
-
-    # cad:
-    #
-    # librecad
-
-    # libretro-flycast
-    # libretro-ppsspp
-
-    # librist
-    # libsixel
-    # libtool
-    # libva-utils
-
-    # virtualization:
-    #
-    # libvirt
-
-    # linuxwave
-
-    # liquidctl-git
-    # lksctp-tools
-
-    # lld
-
-    # lldb
-    # llvm-libs
-
-    # lolcat
-
-    # love
-    # lowdown
-
-    # lshw
-
-    # lsof
-    # luarocks
-    # luit
-
-    # lvm2
-
-    # screenshotting:
-    #
-    # maim
-    slurp
-    grim
-    # grimblast-git
-
-    # mame
-
-    # documentation:
-    #
-    # mdbook
-    # man-pages
-    # m4
-
-    # microsoft -_-:
-    #
-    # mingw-w64-binutils
-    # mingw-w64-crt
-    # mingw-w64-gcc
-    # mingw-w64-headers
-    # mingw-w64-winpthreads
-    #
-    # mono
-    # mono-msbuild
-
-    # mpg123
-    # mtools
-
-    # music:
-    #
-    # ncspot
-    # nicotine+
-
-    # rss reader:
-    #
-    # newsboat
-
-    # library:
-    #
-    # nlohmann-json
-
-    # networking:
-    #
-    # nmap
-    # nspr
-    # nss
-
-    # audio:
-    #
-    # noise-repellent
-
-    # ntfs-3g
-
-    nvimpager
-
-    # obs-studio
-    # obs-vaapi
-
-    # note taking:
-    #
-    # obsidian
-
-    # openmp
-
-    # opencv
-
-    # opensc
-    # opensmtpd
-
-    # openssh
-
-    # fonts:
-    #
     # otf-aurulent-nerd
     # otf-codenewroman-nerd
     # otf-comicshanns-nerd
@@ -944,220 +110,6 @@
     # otf-overpass-nerd
     # otf-unifont
 
-    # pacman
-    # pacman-contrib
-    # paru
-
-    # pam-gnupg-git
-
-    pass # TODO: -git?
-
-    # passff-host
-    # patch
-
-    pavucontrol
-
-    # emulation:
-    #
-    # pcsx2-git
-    # retroarch
-    # qemu-system-x86
-    # qemu-user-static
-    # virt-manager
-
-    # pdfjs
-    # pdftk
-
-    # peda
-
-    # peek
-
-    # pegtl
-
-    # perf
-
-    # perl-image-exiftool
-
-    # audio server:
-    #
-    # pipewire
-    # pipewire-alsa
-    # pipewire-pulse
-    # portaudio
-
-    # social media:
-    #
-    # pleroma-bin
-
-    # databases:
-    #
-    # postgresql
-
-    # premake
-
-    # music visualizer:
-    # projectm
-
-    # audio controller:
-    #
-    # pulsemixer
-
-    # python-asciimatics
-    # python-beautifulsoup4
-    # python-defusedxml
-    # python-frontmatter
-    # python-graphviz
-    # python-mutagen
-    # python-notify2
-    # python-opencv
-    # python-pillow
-    # python-pipx
-    # python-psycopg2
-    # python-pyalsa
-    # python-pybluez
-    # python-pycryptodome
-    # python-pylast
-    # python-pynvim
-    # python-pyscard
-    # python-pystray
-
-    pywalfox-native
-    # python-pywalfox
-
-    # python-regex
-    # python-scikit-learn
-    # python-seaborn
-    # python-sympy
-    # python-tldextract
-    # python-typing_extensions
-
-    # AI/ML/NLP:
-    # python-vadersentiment
-
-    # qrencode
-    # qt5-base
-    # qt5-styleplugins
-    # quickjs-ng
-
-    # r
-
-    # rapidcheck
-
-    # monitor metadata:
-    #
-    # read-edid
-
-    # redshift
-
-    # dev tools:
-    #
-    # repo
-
-    # gaming:
-    #
-    # reshade-shaders-git
-
-    # ruby
-    # ruby-dbus
-    # ruby-rexml
-    # ruffle-nightly-bin
-    # rust-bindgen
-    # ryzen_smu-dkms-git
-    # samba
-
-    # scrcpy
-    # shaderc
-
-    # code linters:
-    #
-    # shellcheck
-    # shfmt
-
-    signal-desktop
-
-    # smartmontools
-    # speedtest++
-    # spicetify-cli-git
-    # spin
-    # ssh-audit
-
-    # shell:
-    #
-    # starship
-
-    # sshfs
-
-    # astronomy:
-    #
-    # stellarium
-
-    # stig-git
-
-    # stonks
-
-    # sudo
-
-    # swayidle
-
-    # swaylock-effects
-
-    # swww
-
-    # system-config-printer
-
-    # system monitors:
-    #
-    # systemctl-tui
-
-    # taplo-cli
-
-    # networking:
-    #
-    # tcpdump
-
-    # data recovery:
-    #
-    # testdisk
-
-    # texinfo
-    # texlab
-    #
-    # texlive-bibtexextra
-    # texlive-fontsextra
-    # texlive-formatsextra
-    # texlive-games
-    # texlive-humanities
-    # texlive-latexextra
-    # texlive-mathscience
-    # texlive-music
-    # texlive-pictures
-    # texlive-pstricks
-    # texlive-publishers
-    #
-    # groff
-
-    # the_silver_searcher
-
-    # thunderbird
-
-    # tllist
-
-    # tmux
-
-    # toml11
-
-    # tor
-    # torsocks
-
-    # traceroute
-    # transg-tui-git
-    # transgender
-
-    # transmission-cli
-    # transmission-gtk
-
-    # fonts:
-    #
     # ttf-0xproto-nerd
     # ttf-3270-nerd
     # ttf-agave-nerd
@@ -1211,22 +163,367 @@
     # ttf-ubuntu-mono-nerd
     # ttf-ubuntu-nerd
     # ttf-victor-mono-nerd
+  ];
 
-    # usbutils
+  services.xserver = {
+    enable = false;
 
-    # terminal utilities:
+    # xkb.layout = "us";
+    xkb.options = "caps:swapescape";
+  };
+
+  services.interception-tools = {
+    enable = true;
+    plugins = with pkgs.interception-tools-plugins; [
+      caps2esc
+      dual-function-keys
+    ];
+    udevmonConfig =
+      let
+        dualFunctionKeysConfig = {
+          TIMING = {
+            TAP_MILLISEC = 200;
+            DOUBLE_TAP_MILLISEC = 0;
+          };
+
+          MAPPINGS = [
+            {
+              KEY  = "KEY_LEFTALT";
+              TAP  = "KEY_F12";
+              HOLD = "KEY_LEFTALT";
+            }
+            # {
+            #   KEY  = "KEY_CAPSLOCK";
+            #   TAP  = "KEY_ESC";
+            #   HOLD = "KEY_LEFTMETA";
+            # }
+            {
+              KEY  = "KEY_ESC";
+              TAP  = "KEY_CAPSLOCK";
+              HOLD = "KEY_LEFTSHIFT";
+            }
+          ];
+        };
+        dualFunctionKeysConfigFile = (pkgs.formats.yaml {}).generate "dual-function-keys.yaml" dualFunctionKeysConfig;
+      in
+        lib.strings.toJSON [
+          {
+            JOB = builtins.concatStringsSep " | " [
+              "${pkgs.interception-tools}/bin/intercept -g $DEVNODE"
+              "${pkgs.interception-tools-plugins.dual-function-keys}/bin/dual-function-keys -c ${dualFunctionKeysConfigFile}"
+              "${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
+            ];
+            DEVICE.EVENTS.EV_KEY = [ "KEY_F12" ];
+          }
+          {
+            JOB = builtins.concatStringsSep " | " [
+              "${pkgs.interception-tools}/bin/intercept -g $DEVNODE"
+              "${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc"
+              "${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
+            ];
+            DEVICE.EVENTS.EV_KEY = [ "KEY_CAPSLOCK" "KEY_ESC" ];
+          }
+        ];
+  };
+
+  # CUPS
+  services.printing.enable = true;
+
+  # sound
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+  };
+
+  # Pretty colors
+  services.hardware.openrgb.enable = true; # TODO: -git?
+  hardware.openrazer.enable = true;
+  hardware.openrazer.users = ["ty"];
+
+  # gaming
+  hardware.steam-hardware.enable = true;
+  programs.steam.extraCompatPackages = with pkgs; [
+    proton-ge-bin
+  ];
+  programs.steam.enable = true;
+  programs.steam.extraPackages = with pkgs; [
+    gamescope
+    gamemode
+    mangohud
+  ];
+  programs.gamescope.enable = true;
+
+  # nix utilities
+  programs.nh.enable = true;
+  # FIXME: isn't this a chicken-and-egg sort of problem?
+  # programs.nh.flake = "${config.users.users.ty.home}/.config/nixos";
+  programs.nix-ld.enable = true;
+
+  programs.uwsm.enable = true;
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  };
+  programs.hyprlock.enable = true;
+  programs.waybar.enable = true;
+
+  programs.git.enable = true;
+  programs.git.lfs.enable = true;
+
+  # shells
+  programs.zsh.enable = true;
+  programs.fish.enable = true;
+  # programs.dash.enable = true; TODO: set as legacy /bin/sh?
+
+  # Touchpad support (enabled by default in most DEs)
+  services.libinput.enable = true;
+
+  # firefox nightly upstream overlay
+  #
+  # nixpkgs.overlays =
+  #   let
+  #     moz-rev = "master";
+  #     moz-url = builtins.fetchTarball {
+  #       url = "https://github.com/mozilla/nixpkgs-mozilla/archive/${moz-rev}.tar.gz";
+  #       # sha256 = lib.fakeSha256;
+  #       sha256 = "sha256:0xxhiads5fd4jwbr685k1m527za50sl5z4bliigz99ciqxvzyf0z";
+  #     };
+  #     nightlyOverlay = (import "${moz-url}/firefox-overlay.nix");
+  #   in [
+  #     (final: prev: {
+  #       firefox-bin = { channel ? "release", ... } @ args: prev.firefox-bin;
+  #     })
+  #
+  #     nightlyOverlay
+  #   ];
+
+  programs.firefox = {
+    enable = true;
+    package = inputs.firefox-nightly.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin;
+    nativeMessagingHosts.packages = with pkgs; [
+      pywalfox-native
+      # ff2mpv-native-messaging-host-git
+    ];
+    # package = pkgs.latest.firefox-nightly-bin;
+    # package = chaotic.packages.${pkgs.stdenv.hostPlatform.system}.firefox_nightly;
+    # package = pkgs.firefox;
+    # package = latest.firefox-nightly-bin;
+    # package = pkgs.librewolf;
+    # package = pkgs.firedragon;
+    policies = {
+      Preferences = {
+        "sidebar.revamp" = true;
+        "sidebar.verticalTabs" = true;
+        "browser.compactmode.show" = true;
+        "image.jxl.enabled" = true;
+      };
+    };
+  };
+
+  # programs.neovim = {
+  #   enable = true;
+  #   vimAlias = true;
+  #   viAlias = true;
+  #   defaultEditor = true;
+  # };
+
+  environment.variables.EDITOR = "nvim";
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.ty = {
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "video"
+      # audio
+      # render
+      "libvirt"
+      # human # is this better than 'users' as a group name?
+      # i2c
+      # boinc
+      # plugdev
+    ];
+    uid = 1000;
+    shell = pkgs.zsh;
+  };
+
+  # mesa-git.enable = true;
+  chaotic.mesa-git.enable = false;
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+    ];
+  };
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.settings = {
+    General = {
+      Experimental = true;
+    };
+  };
+
+  systemd.tmpfiles.rules =
+    let
+      rocmEnv = pkgs.symlinkJoin {
+        name = "rocm-combined";
+        paths = with pkgs.rocmPackages; [
+          rocblas
+          hipblas
+          clr
+        ];
+      };
+    in
+    [
+      "L+ /opt/rocm     - - - - ${rocmEnv}"
+      "L+ /opt/rocm/hip - - - - ${pkgs.rocmPackages.clr}"
+    ];
+
+  # Packages installed in system profile.
+  # You can use https://search.nixos.org/ to find more packages (and options).
+  environment.systemPackages = with pkgs; [
+    # util
+    eza
+    ripgrep
+    file
+    bat
+    rsync
+    croc
+    wget
+    p7zip
+    jq
+    yq-go
+    # silver-searcher
+    fd
+    killall
+    pandoc
+    tree
+    broot
+    just
+    khal
+    khard
+    bc
+    # which
+    # buku
+
+    # gaming:
     #
-    # ttyqr-git
-    # ueberzugpp
-    # urlscan
-    # tty-clock-git
-    # trash-cli
-
+    mangohud   # -git
+    # lutris   # -git
+    # steamcmd
+    #
+    # chaotic.packages.${pkgs.stdenv.hostPlatform.system}.mesa_git
+    # mesa-tkg       # -git
+    # lib32-mesa-tkg # -git
+    #
+    # gamemode
+    # lib32-gamemode
+    # gamescope
+    # reshade-shaders-git
+    # vkbasalt
+    # lib32-vkbasalt
+    #
+    # mesa-demos
+    #
+    # dualsensectl-git
+    # dxvk-mingw-git
+    #
+    # game dev:
+    #
+    # godot
+    # love # lua game engine?
+    #
     # games:
     #
-    # tty-solitaire-git
+    # tty-solitaire # TODO: -git?
     # vitetris
+    # moon-buggy
+    #
+    # supertuxkart
+    # neverball
+    xonotic
 
+    # ricing:
+    #
+    fastfetch
+    wallust
+    cmatrix
+    cava
+    catnip
+    pipes
+    pipes-rs
+    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
+    openrazer-daemon
+    # themix-full   -git
+    # lxappearance
+    # wraith-master -bin
+    # matugen       -bin
+    # neo-matrix    -git
+    # neofetch
+    # capitaine-cursors
+    #
+    # razer things:
+    #
+    # razercommander   -git
+    # python-openrazer -git
+    # polychromatic
+    #
+    # spicetify-cli-git
+
+    # dev tools:
+    #
+    # compilers:
+    #
+    gcc
+    clang
+    # go
+    # gcc-fortran
+    # ghc
+    #
+    # llvm:
+    #
+    # llvm-libs
+    # lib32-llvm-libs
+    # compiler-rt
+    #
+    # toolchains:
+    #
+    # binutils
+    # bison
+    # flex
+    # lld
+    #
+    # nodejs
+    # nuget # c#
+    # r
+    # ruby
+    #
+    # language servers:
+    #
+    bash-language-server
+    # pyright
+    #
+    # containers:
+    #
+    # docker
+    # docker-buildx
+    # podman
+    buildah
+    #
+    # debugging:
+    #
+    gdb
+    # lldb
+    #
+    # build systems:
+    #
+    # make
+    # autoconf
+    # automake
+    # pkgconf
+    #
     # package managers:
     #
     # pixi
@@ -1235,21 +532,707 @@
     # npm
     # cpanminus
     #
-    # build tools:
-    #
-    # pkgconf
+    # repo # git wrapper for android dev
+    ccache # cache (for c)
 
-    # camera utils:
+    # browsers:
     #
+    brave
+    tor-browser
+    qutebrowser
+    # lynx
+
+    # browser utils
+    browserpass
+    pywalfox-native
+
+    # gpu:
+    #
+    # xf86-video-amdgpu
+    # rocmPackages
+    # rocmPackages.rocm-smi
+    nvtopPackages.amd
+    # drm_monitor -git
+    # libdrm      -git
+
+    # terminals
+    kitty
+    ghostty
+    alacritty
+    # foot
+    # wezterm -git
+
+    # terminal utilities:
+    #
+    chafa
+    # trash-cli
+    # ueberzugpp
+    # urlscan
+    # vimv      -git
+    # ttyqr     -git
+    # tty-clock -git
+    # libsixel
+
+    vdirsyncer # contacts/calendar sync
+
+    # file management
+    yazi
+    yaziPlugins.piper
+    yaziPlugins.ouch
+    yaziPlugins.git
+    lf
+    dragon-drop
+    # transgender
+
+    # media:
+    #
+    ffmpeg_7-full
+    yt-dlp
+    # mediainfo
+    # atomicparsley
+    # vdpauinfo
+    # ffmpegthumbnailer
+    #
+    # music:
+    mpc
+    mpd
+    mpdris2
+    (pkgs.ncmpcpp.override { visualizerSupport = true; })
+    # mpdscribble
+    mpris-scrobbler
+    spotify
+    # spotifyd
+    # ncspot
+    # nicotine+
+    #
+    # video player:
+    #
+    mpv
+    # mpv-mpris
+    # mpv-quality-menu-git
+    # mpv-thumbfast-git
+    # mpv-visualizer-git
+    #
+    # vlc
+    #
+    # gstreamer
+    # gst-plugins-base
+
+    # pdf:
+    #
+    zathura
+    zathuraPkgs.zathura_djvu
+    zathuraPkgs.zathura_pdf_mupdf
+    # evince
+    #
+    # pdfjs
+    # pdftk
+
+    # firmware:
+    #
+    # linux-firmware-amdgpu
+    # linux-firmware-intel
+    # linux-firmware-other
+    # linux-firmware-whence
+    #
+    # amd-ucode
+    # zenpower3-dkms
+    # fwupd
+    #
+    # modprobed-db # hardware prober
+    #
+    # hardware testing:
+    #
+    # memtest86+
+
+    # notifications:
+    #
+    mako
+    # dunst
+
+    # mail:
+    #
+    neomutt
+    # thunderbird
+    # mutt-wizard-git
+
+    # text editors:
+    #
+    neovim
+    neovim-remote
+    # kakoune
+    # helix
+    libreoffice-fresh
+    sc-im
+
+    nixVersions.latest # nixVersions.git
+    nix-index
+    nixfmt-rfc-style
+
+    # window managers:
+    #
+    sway
+    # i3-wm
+    hyprland
+    #
+    # window manager utilities:
+    #
+    # status bar:
+    waybar
+    wttrbar # -git
+    inputs.gpu-usage-waybar.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # i3blocks
+    # i3lock-color
+    #
+    hypridle
+    # swayidle
+    #
+    hyprlock
+    # swaylock-effects
+    #
+    hyprpaper
+    hyprpicker
+    #
+    # wallpaper utilities:
+    #
+    # swww
+    #
+    # clipboard management:
+    #
+    wl-clipboard
+    # xsel
+    # xclip
+    # clipman
+    # clipmenu
+    # clipnotify
+    #
+    wdisplays # TODO: -git?
+    # arandr
+    #
+    wev
+    # xorg-xev
+    #
+    # wlr-randr-git
+    # xorg-xrandr
+    #
+    # wf-recorder-git
+    # wlrobs-hg
+    # obs-studio
+    # obs-vaapi
+    #
+    # desktop portals:
+    #
+    # xdg-desktop-portal-gtk
+    # xdg-desktop-portal-hyprland
+    # xdg-desktop-portal-wlr
+    #
+    # xorg-xinit
+    # xorg-xset
+    # xdo
+
+    # messaging:
+    #
+    vesktop
+    teams-for-linux
+    # discord
+
+    # menus:
+    #
+    fuzzel # TODO: move to -git?
+    fzf
+    dmenu-wayland
+    # dmenu
+    # rofi
+
+    # asciiquarium
+
+    # 3d modeling:
+    #
+    # assimp
+    # blender
+
+    # bluetooth:
+    #
+    # blueman
+    # bluez
+    # bluez-libs
+    # bluez-utils
+
+    # security:
+    #
+    # ca-certificates-mozilla
+
+    # libraries:
+    #
+    icu
+    # capnproto
+    # nlohmann-json
+
+    # compute:
+    #
+    # clinfo
+
+    # fortune cookies:
+    #
+    fortune
+    cowsay
+    # cowfortune
+    # fortune-mod-off
+    # sex
+
+    libnotify # for notify-send
+
+    # cpio
+    # criu
+    # csvtools-git
+    # cups
+
+    # dbus
+
+    # ddcutil
+    #
+    # dialog
+
+    # motherboard info:
+    #
+    # dmidecode
+
+    # dos2unix
+    # dosbox
+    # dosfstools
+
+    # disk usage:
+    #
+    # dua-cli
+    dust
+
+    # e3
+
+    # easyeffects
+    # easyeffects-git-debug
+
+    # editline
+    # efibootmgr
+    # fakeroot
+    # fcft
+
+    # featherwallet-bin
+
+    # festival
+
+    # flatpak
+
+    # file system:
+    #
+    # fuse-overlayfs
+    # davfs2
+
+    # gammastep
+
+    # gegl
+    # gengetopt
+    # ghostscript
+
+    # gifsicle
+
+    gimp
+
+    # git-credential-manager-bin
+    # git-lfs
+    # github-cli
+
+    # system monitors:
+    #
+    # glances
+    htop
+    # btop
+    lm_sensors
+    bottom
+
+    # gjs
+    # glibmm-2.68
+    # gmni-git
+
+    # graphics:
+    #
+    # glfw
+    # glslang
+
+    # google-earth-pro
+
+    # grabc
+
+    # gtk-vnc
+
+    # gtk:
+    #
+    # lib32-gtk3
+    # gtk4
+
+    # gtkmm-4.0
+    # gurk
+    # gutenprint
+
+    # hashcat # password cracking:
+
+    # hidapi
+    # highlight
+    # ht-editor
+    # hunspell-en_us
+
+    # i2c-tools
+    # ifuse
+
+    # imv
+
+    # inotify-info-git
+    # inotify-tools
+
+    # iperf
+    # itch-setup-bin
+
+    # kooha
+
+    inkscape
+    krita
+
+    # kdeconnect
+    lan-mouse
+
+    lazygit
+
+    # legendary
+    # lensfun
+
+    # lib32-dbus
+    # lib32-giflib
+
+    # lib32-gst-plugins-base-libs
+
+    # lib32-libdrm-git
+    # lib32-libomxil-bellagio
+    # lib32-libxslt
+
+    # lib32-mpg123
+    # lib32-nss
+    # lib32-openal
+
+    # audio:
+    #
+    # lib32-pipewire
+    # wireplumber
+    # lib32-libpulse
+    # alsa-card-profiles
+    # alsa-utils
+    #
+    # chromaprint-fftw
+    # cli-visualizer-git
+    #
+    # libldac
+    # libpulse
+    #
+    # noise-repellent
+
+    # graphics engine:
+    #
+    # lib32-sdl2-compat
+
+    # camera:
+    #
+    # lib32-v4l-utils
     # v4l2loopback-dkms
     # v4l2loopback-utils
     # cheese
 
-    # vapoursynth-git
+    # libclc
+    # libcurlpp
 
-    # terminal utils:
+    # libirecovery-git
+
+    # libnfc
+
+    # cad:
     #
-    # vimv-git
+    # librecad
+
+    # librist
+    # libtool
+
+    # video:
+    # libva-utils
+
+    # virtualization:
+    #
+    # libvirt
+
+    # linuxwave
+
+    # liquidctl-git
+    # lksctp-tools
+
+    # lolcat
+
+    # lowdown
+
+    # lshw
+
+    # lsof
+    # luarocks
+    # luit
+
+    # lvm2
+
+    # screenshotting:
+    #
+    # maim
+    slurp
+    grim
+    # grimblast-git
+
+    # mame
+
+    # microsoft -_-:
+    #
+    # mingw-w64-binutils
+    # mingw-w64-crt
+    # mingw-w64-gcc
+    # mingw-w64-headers
+    # mingw-w64-winpthreads
+    #
+    # mono
+    # mono-msbuild
+
+    # mpg123
+    # mtools
+
+    # rss reader:
+    #
+    # newsboat
+
+    # ntfs-3g
+
+    nvimpager
+
+    # note taking:
+    #
+    # obsidian
+
+    # openmp
+
+    # opencv
+
+    # opensc
+    # opensmtpd
+
+    # auth:
+    #
+    # pam-gnupg # TODO: -git?
+
+    pass # TODO: -git?
+    # passff-host
+
+    # patch
+
+    pavucontrol
+
+    # emulation:
+    #
+    # pcsx2 # TODO: -git?
+    # qemu-system-x86
+    # qemu-user-static
+    # virt-manager
+    # retroarch
+    # libretro-flycast
+    # libretro-ppsspp
+
+    # peda
+
+    # peek
+
+    # pegtl
+
+    # perf
+
+    # perl-image-exiftool
+
+    # audio server:
+    #
+    # pipewire
+    # pipewire-alsa
+    # pipewire-pulse
+    # portaudio
+
+    # social media:
+    #
+    # pleroma-bin
+
+    # databases:
+    #
+    # postgresql
+
+    # premake
+
+    # music visualizer:
+    #
+    # projectm
+
+    # audio controller:
+    #
+    # pulsemixer
+    # ncpamixer
+
+    # python-asciimatics
+    # python-beautifulsoup4
+    # python-defusedxml
+    # python-frontmatter
+    # python-graphviz
+    # python-mutagen
+    # python-notify2
+    # python-opencv
+    # python-pillow
+    # python-pipx
+    # python-psycopg2
+    #
+    # audio:
+    # python-pyalsa
+    #
+    # bluetooth:
+    # python-pybluez
+    #
+    # python-pycryptodome
+    # python-pylast
+    #
+    # neovim:
+    # python-pynvim
+    #
+    # python-pyscard
+    # python-pystray
+
+    # python-pywalfox
+
+    # python-regex
+    # python-scikit-learn
+    # python-seaborn
+    # python-sympy
+    # python-tldextract
+    # python-typing_extensions
+
+    # AI/ML/NLP:
+    # python-vadersentiment
+
+    # qrencode
+    # qt5-base
+    # qt5-styleplugins
+    # quickjs-ng
+
+    # rapidcheck
+
+    # monitor metadata:
+    #
+    # read-edid
+
+    # redshift
+
+    # ruby-dbus
+    # ruby-rexml
+
+    # ruffle-nightly-bin
+    # rust-bindgen
+
+    # ryzen_smu-dkms-git
+
+    # samba
+
+    # scrcpy
+    # shaderc
+
+    # code linters:
+    #
+    # shellcheck
+    # shfmt
+
+    signal-desktop
+
+    # smartmontools
+
+    # speedtest++
+
+    # spin
+
+    # ssh:
+    #
+    # ssh-audit
+    # openssh
+    # sshfs
+
+    # shell prompt:
+    #
+    # starship
+
+    # astronomy:
+    #
+    # stellarium
+
+    # torrents:
+    #
+    # stig-git
+    # transmission-cli
+    # transmission-gtk
+    # inputs.transg-tui.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+    # stocks:
+    #
+    # stonks
+
+    # system-config-printer
+
+    # system monitors:
+    #
+    # systemctl-tui
+
+    # linters:
+    #
+    # taplo-cli # toml lint and format
+
+    # data recovery:
+    #
+    # testdisk
+    # ddrescue
+
+    # documentation:
+    #
+    # mdbook
+    # man-pages
+    # m4
+    # groff
+    #
+    # texinfo
+    # texlab
+    #
+    # texlive-bibtexextra
+    # texlive-fontsextra
+    # texlive-formatsextra
+    # texlive-games
+    # texlive-humanities
+    # texlive-latexextra
+    # texlive-mathscience
+    # texlive-music
+    # texlive-pictures
+    # texlive-pstricks
+    # texlive-publishers
+
+    # tllist
+
+    # tmux
+
+    # toml11
+
+    # tor
+    # torsocks
+
+    # usbutils
+
+    # vapoursynth-git
 
     # remote desktop:
     #
@@ -1264,7 +1247,6 @@
     # vulkan-validation-layers
     # waifu2x-ncnn-vulkan
     # dain-ncnn-vulkan-git
-    # vkbasalt
     # vkmark
     # srmd-ncnn-vulkan-git
     # lib32-vulkan-icd-loader
@@ -1275,6 +1257,7 @@
     # bearssl
     # netctl
     # networkmanager
+    # dhcpcd
     #
     # dns:
     #
@@ -1283,6 +1266,8 @@
     #
     # network debugging:
     #
+    # traceroute
+    # tcpdump
     # wireshark-cli
     # wireshark-qt
     # termshark
@@ -1290,6 +1275,10 @@
     # wireguard-tools
     # wireless_tools
     # wpa_supplicant
+    #
+    # nmap
+    # nspr
+    # nss
 
     # wine:
     #
@@ -1298,25 +1287,8 @@
     # wine-staging
     # winetricks-git
 
-    # wayland utilities:
+    # diffing:
     #
-    # wdisplays-git
-    # arandr
-    #
-    # wev
-    #
-    # wf-recorder-git
-    #
-    wl-clipboard
-    # wlr-randr-git
-    # wlrobs-hg
-    #
-    # desktop portals:
-    #
-    # xdg-desktop-portal-gtk
-    # xdg-desktop-portal-hyprland
-    # xdg-desktop-portal-wlr
-
     # xdelta3
 
     xdg-user-dirs
@@ -1347,11 +1319,9 @@
     # xorg-xcursorgen
     # xorg-xdpyinfo
     # xorg-xdriinfo
-    # xorg-xev
     # xorg-xeyes
     # xorg-xgamma
     # xorg-xhost
-    # xorg-xinit
     # xorg-xinput
     # xorg-xkbcomp
     # xorg-xkbevd
@@ -1362,35 +1332,37 @@
     # xorg-xmodmap
     # xorg-xpr
     # xorg-xprop
-    # xorg-xrandr
     # xorg-xrdb
     # xorg-xrefresh
-    # xorg-xset
     # xorg-xsetroot
     # xorg-xvinfo
     # xorg-xwayland
     # xorg-xwd
     # xorg-xwininfo
     # xorg-xwud
-    # xsel
-    # xclip
-    # xdo
 
     # zimg
 
     # zita-alsa-pcmi
     # zita-resampler
 
-    # pretty sure these are arch-specific:
+    # do these exist on NixOS?
+    #
+    # linux-headers
+    # linux-zen-headers
+
+    # arch-specific:
     #
     # base
     # base-devel
     #
     # chaotic-keyring
     # arch-install-scripts
+    #
+    # pacman
+    # pacman-contrib
+    # paru
   ];
-
-  chaotic.mesa-git.enable = false;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

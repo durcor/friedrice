@@ -34,6 +34,7 @@ addbk
 .netrc
 .notmuch-config
 .mpdscribble
+.config/nixos/secrets.nix
 
 # i don't think these are supposed to be here
 .config/itch

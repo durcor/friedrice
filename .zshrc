@@ -1,6 +1,9 @@
 # ~/.zshrc
 # vi:ft=zsh
 
+# >>> START PROFILING
+# zmodload zsh/zprof
+
 [ $(tput cols) -ge 100 ] && fastfetch
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -135,11 +138,5 @@ zvm_after_init()
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 source ~/.p10k.zsh
 
-# source /home/ty/.nix-profile/etc/profile.d/nix.sh
-# source /home/ty/.config/broot/launcher/bash/br
-
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-if [ -e /home/tyler/.nix-profile/etc/profile.d/nix.sh ]; then . /home/tyler/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+# >>> STOP PROFILING
+# zprof

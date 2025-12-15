@@ -6,6 +6,8 @@
 # Put stuff here that you only want sourced when
 # initializing login shells
 
+[ $ALREADY_BEEN_HERE ] && return
+
 . "$HOME/.mancolors"
 . "$HOME/.config/lf/ico"
 . "$HOME/.secret"
@@ -31,10 +33,9 @@ export PATH
 # Default Programs
 export EDITOR="edit"
 export VISUAL="$EDITOR"
-export TERMINAL="kitty -1"
-# export TERMINAL="wezterm"
+export TERMINAL="kitty -1" # "wezterm"
 # export TERM=xterm-kitty
-export BROWSER="firefox-nightly firedragon librewolf firefox qutebrowser"
+export BROWSER="firefox-nightly" # firedragon librewolf firefox qutebrowser
 export PAGER="nvimpager -p"
 export FILEMAN="yazi"
 export TASKMAN="htop" # btop "ytop -p" btm
@@ -51,6 +52,7 @@ export GTK_THEME="oomox"
 export QT_QPA_PLATFORMTHEME="gtk3"
 
 # Program Configuration
+export NH_FLAKE="$HOME"
 export LYNX_CFG="$HOME/.lynxrc"
 # Because some programs can't find the pulse cookie on their own I guess
 export PULSE_COOKIE="$HOME/.pulse-cookie"
@@ -109,16 +111,22 @@ hyprland
 EOF
     )
 
+    [ "$SSH_AGENT_PID" ] || {
+        eval "$(ssh-agent)"
+        ssh-add "$HOME/.ssh/id_rsa"
+    }
+
     header="How do you wish to log in?"
     disp=$(echo "$login_options" | fzf --header "$header" --header-first)
 
     case $disp in
         tty)
+            ALREADY_BEEN_HERE=1
             echo "NOTE: Setting repeat and delay rate (Requires root)"
             sudo -n kbdrate -r 35 -d 150 >/dev/null
             # TODO: Remap caps lock and escape using interception
             echo "NOTE: Remapping keys (Requires root)"
-            sudo loadkeys /etc/keystrings
+            sudo loadkeys .config/root/etc/keystrings
             ;;
         xorg)
             # Set up multi-monitor FreeSync correctly by piggy-backing off wayland's better FreeSync support
@@ -149,16 +157,17 @@ EOF
     sudo -n kbdrate -r 35 -d 150 >/dev/null
     # TODO: Remap caps lock and escape using interception
     echo "NOTE: Remapping keys (Requires root)"
-    sudo loadkeys /etc/keystrings
+    sudo loadkeys .config/root/etc/keystrings
 }
-
-# FIXME: uh is this recommended? we're currently spawning hella ssh agents
-# [ "$SSH_AGENT_PID" ] || {
-#     eval "$(ssh-agent)"
-#     ssh-add "$HOME/.ssh/id_rsa"
-# }
 
 source_if_exists() { [ -e "$1" ] && . "$1"; }
 
 source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh" # added by Nix installer
 source_if_exists "$HOME/.cargo/env"
+# source_if_exists "$HOME/.config/broot/launcher/bash/br"
+
+export NVM_DIR="$HOME/.config/nvm"
+source_if_exists "$NVM_DIR/nvm.sh"          # This loads nvm
+source_if_exists "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
+# export PATH="$HOME/.pixi/bin:$PATH"
