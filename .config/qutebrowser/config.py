@@ -5,7 +5,7 @@
 
 ## This is here so configs done via the GUI are still loaded.
 ## Remove it to not load settings done via the GUI.
-# config.load_autoconfig()
+config.load_autoconfig(False)
 
 ## Aliases for commands. The keys of the given dictionary are the
 ## aliases, while the values are the commands they map to.
@@ -270,7 +270,7 @@ c.content.cookies.accept = 'no-3rdparty'
 c.content.headers.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'
 ## Enable host blocking.
 ## Type: Bool
-c.content.host_blocking.enabled = False
+# c.content.host_blocking.enabled = False
 
 ## List of URLs of lists which contain hosts to block.  The file can be
 ## in one of the following formats:  - An `/etc/hosts`-like file - One
@@ -426,12 +426,12 @@ c.content.proxy = 'system'
 ## Type: List of File, or File
 # c.content.user_stylesheets = []
 c.content.user_stylesheets = [
-        '/home/ty/.config/wpg/templates/pywal-everywhere.css',
-        # '/home/ty/doc/css/inv-low_contrast.css',
-        # '/home/ty/doc/css/solarized-dark-all-sites.css',
-        # '/home/ty/doc/css/searx-dark.css',
-        # '/home/ty/doc/css/hooktube.css',
-        # '/home/ty/doc/css/gruvbox-all-sites.css',
+        '../wpg/templates/pywal-everywhere.css',
+        # '../../doc/css/inv-low_contrast.css',
+        # '../../doc/css/solarized-dark-all-sites.css',
+        # '../../doc/css/searx-dark.css',
+        # '../../doc/css/hooktube.css',
+        # '../../doc/css/gruvbox-all-sites.css',
         ]
 
 ## Enable WebGL.
