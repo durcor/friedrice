@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Assumes your $EDITOR of choice is nvim
 # Uses nvr (neovim-remote) to create new buffers for files within an existing nvim instance
 
-[ $XDG_CONFIG_DIR ] || XDG_CONFIG_DIR=$HOME/.config
+[ "$XDG_CONFIG_DIR" ] || XDG_CONFIG_DIR=$HOME/.config
 
 edit_with_nvim() {
     case $_ in
@@ -49,7 +49,7 @@ case $(file --mime-type -b "$1") in
         # TODO: ask the user if they want to extract it
         ;;
     application/x-shockwave-flash | application/vnd.microsoft.portable-executable | application/x-pie-executable | application/*-executable | application/octet-stream)
-        echo >&2 "warning: this is a binary. idk what to do here"
+        echo >&2 "warning: this is a binary. you should probably use a hexeditor"
         ;;
     *) edit_with_nvim $@ ;;
 esac

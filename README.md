@@ -64,4 +64,4 @@ rsync --remove-source-files friedrice $HOME
 - hy3 on hyprland
 - Flash windows/window borders on mode/submap change w/ overlay of transparent text in center of screen instead of notifications
 - move from hyprland/sway + waybar to cosmic?
-- nixos?
+- investigate home-manager/hjem

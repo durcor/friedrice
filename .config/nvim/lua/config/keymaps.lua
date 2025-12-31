@@ -209,11 +209,11 @@
 local map = vim.keymap.set
 
 map("n", "<leader>F", function()
-	Snacks.picker.files({ cwd = "~", hidden = true, ignored = true })
+  Snacks.picker.files({ cwd = "~", hidden = true, ignored = true })
 end, { desc = "Find Files (All under ~)" })
 
 map("n", "<leader>ff", function()
-	Snacks.picker.files({ cwd = "~", hidden = true, ignored = false })
+  Snacks.picker.files({ cwd = "~", hidden = true, ignored = false })
 end, { desc = "Find Files (All non-ignored under ~)" })
 
 map("n", "<leader>f/", function()
@@ -221,18 +221,18 @@ map("n", "<leader>f/", function()
 end, { desc = "Find Files (All under /)" })
 
 map("n", "<leader>fs", function()
-	Snacks.picker.smart()
+  Snacks.picker.smart()
 end, { desc = "Find Files Smartly" })
 
 map("n", "<leader>B", function()
-	Snacks.picker.buffers()
+  Snacks.picker.buffers()
 end, { desc = "Pick buffer" })
 
 map("n", "<leader>p", function()
-	Snacks.picker()
+  Snacks.picker()
 end, { desc = "Picker snack" })
 
-map("n", "<leader><leader>", "<cmd>w<cr>")
+map("n", "<leader><leader>", "<cmd>w<cr>", { desc = "Write File" })
 
 map("n", "q", "<cmd>bdelete<cr>")
 map("n", "Q", "<cmd>q<cr>")
@@ -242,20 +242,20 @@ map("n", "<C-Q>", "<cmd>q!<cr>")
 map("n", "<leader>gg", "<cmd>:G<cr>", { desc = "fugitive" })
 
 map("n", "<leader>G", function()
-	Snacks.lazygit({ cwd = LazyVim.root.git() })
+  Snacks.lazygit({ cwd = LazyVim.root.git() })
 end, { desc = "Lazygit (Root Dir)" })
 
 map("n", "<leader>gG", function()
-	Snacks.lazygit()
+  Snacks.lazygit()
 end, { desc = "Lazygit (cwd)" })
 
 -- terminal
 map("n", "<leader>t", function()
-	Snacks.terminal.toggle()
+  Snacks.terminal.toggle()
 end, { desc = "Toggle Terminal" })
 
 map("t", "<C-t>", function()
-	Snacks.terminal.toggle()
+  Snacks.terminal.toggle()
 end)
 
 -- getting out of the command line
@@ -271,12 +271,12 @@ map("n", "<F12>O", "<cmd>tab term yazi<cr>i", { desc = "New tab (yazi)" })
 
 map("n", "<F12>-", "<cmd> split | term<cr>", { desc = "Split horizontal (new terminal)" })
 map("n", "<F12>_", function()
-	Snacks.terminal(nil, { win = { position = "top" } })
+  Snacks.terminal(nil, { win = { position = "top" } })
 end, { desc = "Split horizontal (new terminal)" })
 
 map("n", "<F12>\\", "<cmd> vsplit | term<cr>i", { desc = "Split vertical (new terminal)" })
 map("n", "<F12>|", function()
-	Snacks.terminal(nil, { win = { position = "left" } })
+  Snacks.terminal(nil, { win = { position = "left" } })
 end, { desc = "Split vertical (new terminal)" })
 
 -- buffer navigation
@@ -307,5 +307,5 @@ map("n", "<F12>x", "<cmd>bdelete!<cr>", { desc = "Change focus to the window to 
 map("n", "<F12>i", "<Esc>", { desc = "Exit mode" })
 
 map("n", "gb", function()
-	Snacks.picker.buffers()
+  Snacks.picker.buffers()
 end, { desc = "Change buffer" })

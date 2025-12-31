@@ -4,7 +4,7 @@
 
 submap_name=$1
 
-[ $submap_name ] || {
+[ "$submap_name" ] || {
     echo "Error: No submap name provided"
     exit 1
 }
@@ -24,30 +24,21 @@ case $submap_name in
         ;;
 esac
 
-cur_win=$(hyprctl -j activewindow | jq -r .address)
-
-# hyprctl --batch "setprop address:$cur_win bordersize 20; submap $submap_name" \
-#     && sleep 0.2 && hyprctl dispatch setprop address:$cur_win bordersize 4
-
-# hyprctl dispatch setprop address:$cur_win bordersize 20 \
-#     && hyprctl dispatch submap $submap_name && sleep 0.2 \
-#     && hyprctl dispatch setprop address:$cur_win bordersize 4
-
 normal_color=$(hyprctl getoption general:col.active_border | awk -F: 'NR == 1 {print $2}')
 
-case $(echo $normal_color | wc -w) in
+case $(echo "$normal_color" | wc -w) in
     3)
-        set_color=$(echo $normal_color | awk '{printf "rgba(%s) rgba(%s)", $1, $2}')
-        gradient_angle=$(echo $normal_color | awk '{print $3}')
+        set_color=$(echo "$normal_color" | awk '{printf "rgba(%s) rgba(%s)", $1, $2}')
+        gradient_angle=$(echo "$normal_color" | awk '{print $3}')
         ;;
     2)
-        set_color=$(echo $normal_color | awk '{printf "rgba(%s)", $1}')
-        gradient_angle=$(echo $normal_color | awk '{print $2}')
+        set_color=$(echo "$normal_color" | awk '{printf "rgba(%s)", $1}')
+        gradient_angle=$(echo "$normal_color" | awk '{print $2}')
         ;;
     *) ;;
 esac
 
 hyprctl keyword general:col.active_border "rgb($(echo $color12 | sed 's/#//'))" \
-    && hyprctl dispatch submap $submap_name \
+    && hyprctl dispatch submap "$submap_name" \
     && sleep 0.2 \
-    && hyprctl keyword general:col.active_border $set_color $gradient_angle
+    && hyprctl keyword general:col.active_border "$set_color" "$gradient_angle"
