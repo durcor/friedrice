@@ -85,7 +85,7 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  services.kmscon.enable = true;
+  services.kmscon.enable = false;
   console = {
     font = "Lat2-Terminus16";
     # keyMap = "us";
@@ -305,7 +305,7 @@
       # ff2mpv-native-messaging-host-git
     ];
     # package = pkgs.latest.firefox-nightly-bin;
-    # package = chaotic.packages.${pkgs.stdenv.hostPlatform.system}.firefox_nightly;
+    # package = inputs.chaotic.packages.${pkgs.stdenv.hostPlatform.system}.firefox_nightly;
     # package = pkgs.firefox;
     # package = latest.firefox-nightly-bin;
     # package = pkgs.librewolf;
@@ -414,7 +414,7 @@
     # lutris   # -git
     # steamcmd
     #
-    # chaotic.packages.${pkgs.stdenv.hostPlatform.system}.mesa_git
+    # inputs.chaotic.packages.${pkgs.stdenv.hostPlatform.system}.mesa_git
     # mesa-tkg       # -git
     # lib32-mesa-tkg # -git
     #
@@ -519,7 +519,7 @@
     #
     # build systems:
     #
-    # make
+    gnumake
     # autoconf
     # automake
     # pkgconf
@@ -826,8 +826,10 @@
     #
     # fuse-overlayfs
     # davfs2
+    # ntfs-3g
 
     # gammastep
+    # redshift
 
     # gegl
     # gengetopt
@@ -1009,8 +1011,6 @@
     #
     # newsboat
 
-    # ntfs-3g
-
     nvimpager
 
     # note taking:
@@ -1027,13 +1027,12 @@
     # auth:
     #
     # pam-gnupg # TODO: -git?
+    pinentry-curses
 
     pass # TODO: -git?
     # passff-host
 
     # patch
-
-    pavucontrol
 
     # emulation:
     #
@@ -1078,6 +1077,7 @@
 
     # audio controller:
     #
+    pavucontrol
     # pulsemixer
     # ncpamixer
 
@@ -1130,8 +1130,6 @@
     # monitor metadata:
     #
     # read-edid
-
-    # redshift
 
     # ruby-dbus
     # ruby-rexml
@@ -1370,9 +1368,15 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-curses;
+    # settings = {
+    #   allow-preset-passphrase = true;
+    #   default-cache-ttl = 34560000;
+    #   max-cache-ttl = 34560000;
+    # };
   };
 
-  # Enable the OpenSSH daemon.
+  # ssh daemon
   services.openssh.enable = true;
 
   services.mullvad-vpn.enable = true; # TODO: beta?
