@@ -143,15 +143,16 @@
 }
 
 #window {
-  /* margin-right: 35pt; */
-  margin-left: 10pt;
-  /*  transition-property: background-color; */
-  /*  transition-duration: .5s; */
+  margin-right: 35pt;
+  margin-left: 35pt;
+  transition-property: background-color;
+  transition-duration: .5s;
+  border-bottom: 3px solid rgba(100, 114, 125, 0.5);
 }
 
 /* window#waybar { */
-/*   min-height: 18px; set waybar's height to 18px */
-/*   font-size: 18px; set only the font size to be bigger, which in turn will adjust the height of other elements */
+  /* min-height: 18px; */ /* set waybar's height */
+  /* font-size: 18px; */ /* set only the font size to be bigger, which in turn will adjust the height of other elements */
 /*   transition-property: background-color; */
 /*   transition-duration: .5s; */
 /*   border-bottom: 13px solid rgba(100, 114, 125, 0.5); */
