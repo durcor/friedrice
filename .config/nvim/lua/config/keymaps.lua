@@ -216,6 +216,10 @@ map("n", "<leader>ff", function()
 	Snacks.picker.files({ cwd = "~", hidden = true, ignored = false })
 end, { desc = "Find Files (All non-ignored under ~)" })
 
+map("n", "<leader>f/", function()
+	Snacks.picker.files({ cwd = "/", hidden = true, ignored = true })
+end, { desc = "Find Files (All under /)" })
+
 map("n", "<leader>fs", function()
 	Snacks.picker.smart()
 end, { desc = "Find Files Smartly" })

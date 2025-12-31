@@ -3,10 +3,10 @@
 /* Keyframes */
 
 @keyframes blink-critical {
-	to {
-		/*color: @white;*/
-		background-color: @critical;
-	}
+  to {
+    /*color: @white;*/
+    background-color: @critical;
+  }
 }
 
 /* Colors */
@@ -36,14 +36,14 @@
 
 /* Defaults */
 * {
-	border: none;
-	border-radius: 0;
-	min-height: 21px;
-	margin: 0;
-	padding: 0;
-	box-shadow: none;
-	text-shadow: none;
-	-gtk-icon-shadow: none;
+  border: none;
+  border-radius: 0;
+  min-height: 21px;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  text-shadow: none;
+  -gtk-icon-shadow: none;
 }
 
 /* The whole bar */
@@ -83,21 +83,21 @@
 #tray,
 #custom-time,
 #mpris {
-	padding-left: 5pt;
-	padding-right: 5pt;
-	padding-bottom: 1pt;
-  border-bottom: 5px solid rgba(0, 0, 0, 0.25);
+  padding-left: 7pt;
+  padding-right: 7pt;
+  padding-bottom: 1pt;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.25);
 }
 
 #memory.critical,
 #cpu.critical,
 #temperature.critical,
 #battery.critical.discharging {
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
-	animation-name: blink-critical;
-	animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-name: blink-critical;
+  animation-duration: 1s;
 }
 
 /* Each warning */
@@ -106,49 +106,48 @@
 #cpu.warning,
 #temperature.warning,
 #battery.warning.discharging {
-	color: @warning;
+  color: @warning;
 }
 
 /* Workspaces stuff */
 #workspaces button {
-	/*font-weight: bold;*/
-	padding-left: 2pt;
-	padding-right: 2pt;
-	color: @white;
-	background: @unfocused;
+  /*font-weight: bold;*/
+  padding-left: 2pt;
+  padding-right: 2pt;
+  color: @white;
+  background: @unfocused;
 }
 
 /* Inactive (on unfocused output) */
 #workspaces button.visible {
-	color: @white;
-	background: @inactive;
+  color: @white;
+  background: @inactive;
 }
 
 /* Active (on focused output) */
 #workspaces button.focused {
-	color: @black;
-	background: @focused;
+  color: @black;
+  background: @focused;
 }
 
 /* Contains an urgent window */
 #workspaces button.urgent {
-	color: @black;
-	background: @warning;
+  color: @black;
+  background: @warning;
 }
 
 /* Style when cursor is on the button */
 #workspaces button:hover {
-	background: @black;
-	color: @white;
+  background: @black;
+  color: @white;
 }
 
-/* #window { */
-/* 	margin-right: 35pt; */
-/* 	margin-left: 35pt; */
-/*   transition-property: background-color; */
-/*   transition-duration: .5s; */
-/*   border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
-/* } */
+#window {
+  /* margin-right: 35pt; */
+  margin-left: 10pt;
+  /*  transition-property: background-color; */
+  /*  transition-duration: .5s; */
+}
 
 /* window#waybar { */
 /*   min-height: 18px; set waybar's height to 18px */
@@ -162,8 +161,8 @@
 /* FIXME: Add slant nerd font char */
 
 #submap, #mode {
-	color: @foreground;
-	background: @darkgray;
+  color: @foreground;
+  background: @darkgray;
   font-weight: bold;
   /* text-transform: uppercase; */
 }
