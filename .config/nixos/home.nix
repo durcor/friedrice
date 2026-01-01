@@ -12,6 +12,7 @@
     inputs.nh.packages.${pkgs.stdenv.hostPlatform.system}.nh
     inputs.television.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
+    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.nixGL.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }
