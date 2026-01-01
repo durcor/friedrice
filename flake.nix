@@ -8,8 +8,11 @@
 
     flake-compat.url = "github:NixOS/flake-compat";
 
-    utils.url = "github:numtide/flake-utils";
-    utils.inputs.systems.follows = "systems";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils.inputs.systems.follows = "systems";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs-lib";
@@ -17,8 +20,11 @@
     rust-overlay.url = "github:oxalica/rust-overlay";
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
+    naersk.url = "github:nix-community/naersk";
+    naersk.inputs.nixpkgs.follows = "nixpkgs";
+
     lib-aggregate.url = "github:nix-community/lib-aggregate";
-    lib-aggregate.inputs.flake-utils.follows = "utils";
+    lib-aggregate.inputs.flake-utils.follows = "flake-utils";
     lib-aggregate.inputs.nixpkgs-lib.follows = "nixpkgs-lib";
 
     nix.url = "github:NixOS/nix";
@@ -33,6 +39,7 @@
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     chaotic.inputs.nixpkgs.follows = "nixpkgs";
     chaotic.inputs.rust-overlay.follows = "rust-overlay";
+    chaotic.inputs.home-manager.follows = "home-manager";
 
     firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     firefox-nightly.inputs.nixpkgs.follows = "nixpkgs";
@@ -58,7 +65,7 @@
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
     rose-pine-hyprcursor.inputs.nixpkgs.follows = "nixpkgs";
     rose-pine-hyprcursor.inputs.hyprlang.follows = "hyprlang";
-    rose-pine-hyprcursor.inputs.utils.follows = "utils";
+    rose-pine-hyprcursor.inputs.utils.follows = "flake-utils";
 
     # transg-tui.url = "github:PanAeon/transg-tui";
 
@@ -66,10 +73,31 @@
     gpu-usage-waybar.inputs.nixpkgs.follows = "nixpkgs";
     gpu-usage-waybar.inputs.flake-parts.follows = "flake-parts";
     gpu-usage-waybar.inputs.rust-overlay.follows = "rust-overlay";
+
+    yazi.url = "github:sxyazi/yazi";
+    yazi.inputs.nixpkgs.follows = "nixpkgs";
+    yazi.inputs.rust-overlay.follows = "rust-overlay";
+    yazi.inputs.flake-utils.follows = "flake-utils";
+
+    system-manager.url = "github:numtide/system-manager";
+    system-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    television.url = "github:alexpasmantier/television";
+    television.inputs.nixpkgs.follows = "nixpkgs";
+    television.inputs.flake-utils.follows = "flake-utils";
+    television.inputs.naersk.follows = "naersk";
+
+    nixGL.url = "github:nix-community/nixGL";
+    nixGL.inputs.nixpkgs.follows = "nixpkgs";
+    nixGL.inputs.flake-utils.follows = "flake-utils";
+
+    nh.url = "github:nix-community/nh";
+    nh.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, chaotic, nix, self, ... }@inputs: {
+  outputs = { nixpkgs, chaotic, home-manager, nix, self, ... }@inputs: {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+
     nixosConfigurations = {
       noveria = nixpkgs.lib.nixosSystem {
         modules = [
@@ -83,5 +111,21 @@
         };
       };
     };
+
+    homeConfigurations =
+      let
+        system = "x86_64-linux";
+        pkgs = import nixpkgs { inherit system; };
+      in {
+        tyler = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./etc/nixos/home.nix
+          ];
+        };
+      };
   };
 }
