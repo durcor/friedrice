@@ -1,12 +1,8 @@
-{ config, pkgs, inputs, ... }:
+{ self, nixpkgs, ... }
 {
-  home.username = "tyler";
-  home.homeDirectory = "/home/tyler";
-  home.stateVersion = "26.05";
+  nixpkgs.hostPlatform = "x86_64-linux";
 
-  programs.home-manager.enable = true;
-
-  home.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     inputs.yazi.packages.${pkgs.stdenv.hostPlatform.system}.yazi
     inputs.system-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.nh.packages.${pkgs.stdenv.hostPlatform.system}.nh
