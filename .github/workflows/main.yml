@@ -1,0 +1,24 @@
+on: [push]
+
+jobs:
+  check-flake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install nix
+        uses: cachix/install-nix-action@v31
+
+      - name: create flake.lock
+        run: nix flake lock
+
+      - name: check flake.lock
+        run: nix run github:tgirlcloud/locker
+
+      - name: upload flake.lock
+        uses: actions/upload-artifact@v4
+        with:
+          name: flake.lock
+          path: flake.lock
+          retention-days: 5
