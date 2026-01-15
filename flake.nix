@@ -1,8 +1,11 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    self.submodules = true;
 
-    my-nixpkgs.url = "github:durcor/nixpkgs/xonotic-fix-c23";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # my-nixpkgs.url = "github:durcor/nixpkgs/xonotic-fix-c23";
 
     nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
 
@@ -27,11 +30,6 @@
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    naersk = {
-      url = "github:nix-community/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -121,8 +119,8 @@
     television = {
       url = "github:alexpasmantier/television";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.naersk.follows = "naersk";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     nixGL = {
@@ -144,14 +142,19 @@
     # };
   };
 
-  outputs = { nixpkgs, chaotic, home-manager, system-manager, nix, self, ... }@inputs: {
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+  # home-manager
+  # nix
+  outputs = { nixpkgs, chaotic, system-manager, self, ... }@inputs: {
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
 
     nixosConfigurations = {
       noveria = nixpkgs.lib.nixosSystem {
         modules = [
-          ./etc/nixos/hosts/noveria.nix
-          ./etc/nixos/configuration.nix
+          "${self}/etc/nixos/hosts/noveria.nix"
+          "${self}/etc/nixos/configuration.nix"
+          "${self}/etc/nixos/amdgpu.nix"
+          "${self}/etc/nixos/ryzen.nix"
+          "${self}/etc/nixos/gaming.nix"
           chaotic.nixosModules.default
         ];
         specialArgs = {
@@ -164,7 +167,8 @@
     systemConfigs = {
       zorya = system-manager.lib.makeSystemConfig {
         modules = [
-          ./etc/nixos/hosts/zorya.nix
+          "${self}/etc/nixos/hosts/zorya.nix"
+          "${self}/etc/nixos/configuration.nix"
         ];
       };
     };
