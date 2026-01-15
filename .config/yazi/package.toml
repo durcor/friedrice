@@ -1,0 +1,9 @@
+[[plugin.deps]]
+use = "walldmtd/fs-usage"
+rev = "da38c3e"
+hash = "5a691c4fb17201eab2edb94643d324ae"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:dracula"
+rev = "4a1802a"
+hash = "7a870f143a4026a893ea3123be711e7a"

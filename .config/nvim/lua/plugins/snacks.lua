@@ -7,6 +7,7 @@ return {
 					pane = 1,
 					section = "terminal",
 					cmd = "cowsay -f tux $(fortune)",
+					-- cmd = "chafa ~/.cache/wal/pic --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1",
 					height = 17,
 					padding = 1,
 				},

@@ -2,7 +2,15 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, chaotic, ... }:
+{
+# self,
+# config,
+lib,
+pkgs,
+inputs,
+# chaotic,
+...
+}:
 
 {
   # NOTE: scan hardware w/ nixos-generate-config
@@ -26,30 +34,38 @@
 
     # pkgs.linuxPackages_zen
     kernelPackages = pkgs.linuxPackages_latest;
+    kernel.sysctl."kernel.sysrq" = 1;
   };
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
+    auto-optimise-store = true;
     substituters = [
       "https://cache.nixos.org"
       "https://chaotic-nyx.cachix.org"
+      "https://hyprland.cachix.org"
       "https://ghostty.cachix.org"
       "https://nix-community.cachix.org"
       "https://chaotic-nyx.cachix.org"
+      "https://simula.cachix.org"
     ];
     trusted-substituters = [
       "https://cache.nixos.org"
       "https://chaotic-nyx.cachix.org"
+      "https://hyprland.cachix.org"
       "https://ghostty.cachix.org"
       "https://nix-community.cachix.org"
       "https://chaotic-nyx.cachix.org"
+      "https://simula.cachix.org"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "chaotic-nyx.cachix.org-1:Z1OsgFx+V3eyGEIYirsc7blQLuui3CFbfvdqZQhSLaw="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+      "simula.cachix.org-1:Sr0SD5FIjc8cUVIeBHl8VJswQEJOBIE6u3wpmjslGBA="
     ];
   };
 
@@ -235,37 +251,72 @@
     pulse.enable = true;
   };
 
-  # Pretty colors
-  services.hardware.openrgb.enable = true; # TODO: -git?
-  hardware.openrazer.enable = true;
-  hardware.openrazer.users = ["ty"];
-
-  # gaming
-  hardware.steam-hardware.enable = true;
-  programs.steam.extraCompatPackages = with pkgs; [
-    proton-ge-bin
-  ];
-  programs.steam.enable = true;
-  programs.steam.extraPackages = with pkgs; [
-    gamescope
-    gamemode
-    mangohud
-  ];
-  programs.gamescope.enable = true;
-
   # nix utilities
   programs.nh.enable = true;
   # FIXME: isn't this a chicken-and-egg sort of problem?
   # programs.nh.flake = "${config.users.users.ty.home}/.config/nixos";
   programs.nix-ld.enable = true;
 
+  # wayland
   programs.uwsm.enable = true;
   programs.hyprland = {
     enable = true;
     withUWSM = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
   programs.hyprlock.enable = true;
   programs.waybar.enable = true;
+  programs.dconf.enable = true;
+  gtk.enable = true;
+  xdg.portal = {
+    enable = true;
+    config = {
+      hyprland.preferred = [ "hyprland" "gtk" ];
+    };
+  };
+  systemd.user.services.waybar = {
+    enable = true;
+    path = with pkgs; [
+      bash
+      fuzzel
+      gawk
+      bluez
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
+      inputs.gpu-usage-waybar.packages.${pkgs.stdenv.hostPlatform.system}.default
+      wttrbar # -git
+      mullvad # i wonder what you can use vpns for
+      (runCommand "user-bin" {} ''
+        mkdir -p $out/bin
+        cp -Lr ${inputs.self}/bin/* $out/bin/
+        chmod +x $out/bin/*
+      '')
+      wireplumber # for audio control
+      libnotify
+    ];
+  };
+
+  programs.yazi = {
+    enable = true;
+    package = inputs.yazi.packages.${pkgs.stdenv.hostPlatform.system}.yazi;
+
+    # FIXME: i'm not a huge fan of needing to re-apply the yazi config via a new generation
+    initLua = "${inputs.self}/etc/yazi/init.lua";
+    settings = {
+      yazi = fromTOML (builtins.readFile "${inputs.self}/etc/yazi/yazi.toml");
+      theme = fromTOML (builtins.readFile "${inputs.self}/etc/yazi/theme.toml");
+      keymap = fromTOML (builtins.readFile "${inputs.self}/etc/yazi/keymap.toml");
+    };
+
+    plugins = {
+      inherit (pkgs.yaziPlugins) piper ouch git;
+      "fs-usage.yazi" = "${inputs.self}/etc/yazi/plugins/fs-usage.yazi";
+    };
+
+    # flavors = {
+    #   "dracula.yazi" = "${inputs.self}/etc/yazi/flavors/dracula.yazi";
+    # };
+  };
 
   programs.git.enable = true;
   programs.git.lfs.enable = true;
@@ -299,17 +350,17 @@
 
   programs.firefox = {
     enable = true;
-    package = inputs.firefox-nightly.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin;
-    nativeMessagingHosts.packages = with pkgs; [
-      pywalfox-native
-      # ff2mpv-native-messaging-host-git
-    ];
     # package = pkgs.latest.firefox-nightly-bin;
     # package = inputs.chaotic.packages.${pkgs.stdenv.hostPlatform.system}.firefox_nightly;
     # package = pkgs.firefox;
     # package = latest.firefox-nightly-bin;
     # package = pkgs.librewolf;
     # package = pkgs.firedragon;
+    package = inputs.firefox-nightly.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin;
+    nativeMessagingHosts.packages = with pkgs; [
+      pywalfox-native
+      # ff2mpv-native-messaging-host-git
+    ];
     policies = {
       Preferences = {
         "sidebar.revamp" = true;
@@ -328,24 +379,17 @@
   # };
 
   environment.variables.EDITOR = "nvim";
+  # environment.extraInit = /* zsh */ ''
+  #   export PATH=$PATH:${inputs.self}/bin
+  # '';
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.ty = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "video"
-      # audio
-      # render
-      "libvirt"
-      # human # is this better than 'users' as a group name?
-      # i2c
-      # boinc
-      # plugdev
-    ];
-    uid = 1000;
-    shell = pkgs.zsh;
+  virtualisation = {
+    libvirtd.enable = true;
+    # qemu.options = [
+    #   "-device virtio-vga"
+    # ];
   };
+  programs.virt-manager.enable = true;
 
   # mesa-git.enable = true;
   chaotic.mesa-git.enable = false;
@@ -364,22 +408,6 @@
       Experimental = true;
     };
   };
-
-  systemd.tmpfiles.rules =
-    let
-      rocmEnv = pkgs.symlinkJoin {
-        name = "rocm-combined";
-        paths = with pkgs.rocmPackages; [
-          rocblas
-          hipblas
-          clr
-        ];
-      };
-    in
-    [
-      "L+ /opt/rocm     - - - - ${rocmEnv}"
-      "L+ /opt/rocm/hip - - - - ${pkgs.rocmPackages.clr}"
-    ];
 
   # Packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -408,43 +436,6 @@
     # which
     # buku
 
-    # gaming:
-    #
-    mangohud   # -git
-    # lutris   # -git
-    # steamcmd
-    #
-    # inputs.chaotic.packages.${pkgs.stdenv.hostPlatform.system}.mesa_git
-    # mesa-tkg       # -git
-    # lib32-mesa-tkg # -git
-    #
-    # gamemode
-    # lib32-gamemode
-    # gamescope
-    # reshade-shaders-git
-    # vkbasalt
-    # lib32-vkbasalt
-    #
-    # mesa-demos
-    #
-    # dualsensectl-git
-    # dxvk-mingw-git
-    #
-    # game dev:
-    #
-    # godot
-    # love # lua game engine?
-    #
-    # games:
-    #
-    # tty-solitaire # TODO: -git?
-    # vitetris
-    # moon-buggy
-    #
-    # supertuxkart
-    # neverball
-    xonotic
-
     # ricing:
     #
     fastfetch
@@ -454,15 +445,17 @@
     catnip
     pipes
     pipes-rs
-    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
     openrazer-daemon
-    # themix-full   -git
+    themix-gui # TODO: -git?
     # lxappearance
-    # wraith-master -bin
-    # matugen       -bin
-    # neo-matrix    -git
+    # wraith-master
+    # matugen
+    # neo-matrix # TODO: -git?
     # neofetch
-    # capitaine-cursors
+    #
+    # cursors:
+    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
+    capitaine-cursors
     #
     # razer things:
     #
@@ -470,7 +463,7 @@
     # python-openrazer -git
     # polychromatic
     #
-    # spicetify-cli-git
+    # spicetify-cli    -git
 
     # dev tools:
     #
@@ -503,7 +496,14 @@
     # language servers:
     #
     bash-language-server
+    nixd
     # pyright
+    #
+    # linters:
+    #
+    shellcheck
+    shfmt
+    # taplo-cli # toml lint and format
     #
     # containers:
     #
@@ -520,13 +520,12 @@
     # build systems:
     #
     gnumake
-    # autoconf
-    # automake
+    autoconf
+    automake
     # pkgconf
     #
     # package managers:
     #
-    # pixi
     # uv
     # yarn
     # npm
@@ -549,8 +548,7 @@
     # gpu:
     #
     # xf86-video-amdgpu
-    # rocmPackages
-    # rocmPackages.rocm-smi
+    rocmPackages.rocm-smi
     nvtopPackages.amd
     # drm_monitor -git
     # libdrm      -git
@@ -565,7 +563,7 @@
     # terminal utilities:
     #
     chafa
-    # trash-cli
+    trash-cli
     # ueberzugpp
     # urlscan
     # vimv      -git
@@ -576,17 +574,13 @@
     vdirsyncer # contacts/calendar sync
 
     # file management
-    yazi
-    yaziPlugins.piper
-    yaziPlugins.ouch
-    yaziPlugins.git
     lf
     dragon-drop
     # transgender
 
     # media:
     #
-    ffmpeg_7-full
+    ffmpeg-full
     yt-dlp
     # mediainfo
     # atomicparsley
@@ -609,9 +603,9 @@
     #
     mpv
     # mpv-mpris
-    # mpv-quality-menu-git
-    # mpv-thumbfast-git
-    # mpv-visualizer-git
+    # mpv-quality-menu # -git
+    # mpv-thumbfast    # -git
+    # mpv-visualizer   # -git
     #
     # vlc
     #
@@ -653,8 +647,8 @@
     # mail:
     #
     neomutt
-    # thunderbird
-    # mutt-wizard-git
+    thunderbird
+    mutt-wizard # -git
 
     # text editors:
     #
@@ -667,28 +661,25 @@
 
     nixVersions.latest # nixVersions.git
     nix-index
-    nixfmt-rfc-style
+    nixfmt
+    nixpkgs-review
 
     # window managers:
     #
     sway
-    # i3-wm
-    hyprland
+    # i3
     #
     # window manager utilities:
     #
     # status bar:
-    waybar
-    wttrbar # -git
-    inputs.gpu-usage-waybar.packages.${pkgs.stdenv.hostPlatform.system}.default
     # i3blocks
-    # i3lock-color
     #
     hypridle
     # swayidle
     #
     hyprlock
     # swaylock-effects
+    # i3lock-color
     #
     hyprpaper
     hyprpicker
@@ -735,6 +726,8 @@
     vesktop
     teams-for-linux
     # discord
+    #
+    signal-desktop
 
     # menus:
     #
@@ -784,7 +777,12 @@
 
     # cpio
     # criu
-    # csvtools-git
+
+    # csvtools # -git
+
+    # printing:
+    #
+    # system-config-printer
     # cups
 
     # dbus
@@ -816,9 +814,9 @@
     # fakeroot
     # fcft
 
-    # featherwallet-bin
+    # featherwallet # -bin
 
-    # festival
+    # festival # speech synthesis
 
     # flatpak
 
@@ -839,7 +837,7 @@
 
     gimp
 
-    # git-credential-manager-bin
+    # git-credential-manager # -bin
     # git-lfs
     # github-cli
 
@@ -852,15 +850,13 @@
     bottom
 
     # gjs
-    # glibmm-2.68
-    # gmni-git
+    # glibmm_2_68
+    # gmni # -git
 
     # graphics:
     #
     # glfw
     # glslang
-
-    # google-earth-pro
 
     # grabc
 
@@ -890,10 +886,7 @@
     # inotify-info-git
     # inotify-tools
 
-    # iperf
-    # itch-setup-bin
-
-    # kooha
+    kooha # gif recorder
 
     inkscape
     krita
@@ -969,7 +962,7 @@
 
     # linuxwave
 
-    # liquidctl-git
+    # liquidctl # -git
     # lksctp-tools
 
     # lolcat
@@ -989,7 +982,7 @@
     # maim
     slurp
     grim
-    # grimblast-git
+    # grimblast # -git
 
     # mame
 
@@ -1045,8 +1038,6 @@
     # libretro-ppsspp
 
     # peda
-
-    # peek
 
     # pegtl
 
@@ -1134,27 +1125,32 @@
     # ruby-dbus
     # ruby-rexml
 
-    # ruffle-nightly-bin
+    # ruffle-nightly # -bin
     # rust-bindgen
 
-    # ryzen_smu-dkms-git
+    # ryzen_smu-dkms # -git
 
+    # windows:
+    #
     # samba
 
+    # android utils:
+    #
     # scrcpy
+
     # shaderc
 
-    # code linters:
+    # hard drive health:
     #
-    # shellcheck
-    # shfmt
-
-    signal-desktop
-
     # smartmontools
 
+    # network benchmarking:
+    #
+    # iperf
     # speedtest++
 
+    # formal verification:
+    #
     # spin
 
     # ssh:
@@ -1164,9 +1160,10 @@
     # sshfs
 
     # shell prompt:
-    #
-    # starship
+    starship
 
+    # google-earth-pro
+    #
     # astronomy:
     #
     # stellarium
@@ -1182,20 +1179,14 @@
     #
     # stonks
 
-    # system-config-printer
-
     # system monitors:
     #
     # systemctl-tui
 
-    # linters:
-    #
-    # taplo-cli # toml lint and format
-
     # data recovery:
     #
-    # testdisk
-    # ddrescue
+    testdisk
+    ddrescue
 
     # documentation:
     #
@@ -1230,7 +1221,7 @@
 
     # usbutils
 
-    # vapoursynth-git
+    # vapoursynth # TODO: -git?
 
     # remote desktop:
     #
@@ -1241,13 +1232,16 @@
     #
     # vulkan-headers
     # vulkan-icd-loader
+    # lib32-vulkan-icd-loader
     vulkan-tools
     # vulkan-validation-layers
-    # waifu2x-ncnn-vulkan
-    # dain-ncnn-vulkan-git
     # vkmark
-    # srmd-ncnn-vulkan-git
-    # lib32-vulkan-icd-loader
+    #
+    # ncnn:
+    #
+    # waifu2x-ncnn-vulkan
+    # dain-ncnn-vulkan # -git
+    # srmd-ncnn-vulkan # -git
 
     # networking:
     #
