@@ -1,23 +1,35 @@
 ![rice](pic/rice.png)
 
 # i like to fry my rice
-*Now using [wallust](https://codeberg.org/explosion-mental/wallust) instead of pywal/wpg for templating and colorscheme generation*
+*Now on NixOS using [wallust](https://codeberg.org/explosion-mental/wallust) instead of Arch and pywal/wpg for templating and colorscheme generation*
 
 ## why should you use this
-- vim keybinds and modes literally everywhere
+- (consistent) vim keybinds and modes (hyprland calls them submaps) literally everywhere
 - shell auto suggestions
 - pretty colors that are consistent across apps (browser, discord, gtk, qt, terminal)
-- aims to be distro-agnostic (first-class support for arch, debian, fedora, etc.)
+- nix-native but adaptable to any Linux/Darwin system
+  - ubuntu, fedora, arch support via system-manager
 
 ## How to Install
 ```sh
+# If you want to try out my configs in a new nix generation
 git clone https://github.com/durcor/friedrice
 rsync --remove-source-files friedrice $HOME
+
+# On NixOS
+export NH_FLAKE=$HOME
+nix run nixpkgs#nh -- os switch
+
+# On non-NixOS (Ubuntu, Fedora, Arch)
+nix run github:numtide/system-manager os switch
+
+# OR (don't try this at home)
+sudo nixos-install --root / --flake github:durcor/friedrice#noveria
 ```
 
 ## My Workflow
 ```sh
-. /etc/os-release && [ $ID = arch ]
+. /etc/os-release && [ $ID = nixos ]
 ```
 
 * `WM`: hyprland or sway
@@ -32,7 +44,7 @@ rsync --remove-source-files friedrice $HOME
     - ublock origin + umatrix
     - dark reader wal fork
   - brave
-* `$FILEMAN`: lf or yazi
+* `$FILEMAN`: yazi, fallback: lf
 * `$EDITOR`: nvim (lazy-vim)
 * `$MAILREADER`: neomutt or thunderbird
 * `$MUSICPLAYER`: mpd (ncmpcpp(tui) + mpc(cli)) + spotfiyd (spotify-tui)
@@ -49,7 +61,7 @@ rsync --remove-source-files friedrice $HOME
 ## Bringing Vim-Like Modes to Your Own Setup
 * Text Editor/IDE: Neovim
 * Terminal Multiplexer: Neovim :terminal + tabs/windows functionality
-* Window Manager: 
+* Window Manager:
   - Wayland - sway (modes)/hyprland (submaps) + hy3
   - Xorg - i3 (modes)
 * Browser
@@ -61,7 +73,9 @@ rsync --remove-source-files friedrice $HOME
   - zsh (vi-mode)
 
 # TODO
-- hy3 on hyprland
 - Flash windows/window borders on mode/submap change w/ overlay of transparent text in center of screen instead of notifications
-- move from hyprland/sway + waybar to cosmic?
-- investigate home-manager/hjem
+- investigate:
+  - hyprland plugins (hy3, niri)
+  - standalone niri
+  - cosmic?
+  - home-manager/hjem
