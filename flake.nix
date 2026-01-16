@@ -129,6 +129,11 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    nix-system-graphics = {
+      url = "github:soupglasses/nix-system-graphics";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nh = {
       url = "github:nix-community/nh";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -142,9 +147,7 @@
     # };
   };
 
-  # home-manager
-  # nix
-  outputs = { nixpkgs, chaotic, system-manager, self, ... }@inputs: {
+  outputs = { nixpkgs, chaotic, home-manager, system-manager, nix-system-graphics, nix, self, ... }@inputs: {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
 
     nixosConfigurations = {
@@ -169,33 +172,44 @@
         modules = [
           "${self}/etc/nixos/hosts/zorya.nix"
           "${self}/etc/nixos/configuration.nix"
+          nix-system-graphics.systemModules.default
         ];
+        extraSpecialArgs = {
+          inherit inputs;
+        };
       };
     };
 
-    # homeConfigurations =
-    #   let
-    #     system = "x86_64-linux";
-    #     pkgs = import nixpkgs { inherit system; };
-    #   in {
-    #     tyler = home-manager.lib.homeManagerConfiguration {
-    #       inherit pkgs;
-    #       extraSpecialArgs = {
-    #         inherit inputs;
-    #       };
-    #       modules = [
-    #         {
-    #           home.username = "tyler";
-    #           home.homeDirectory = "/home/tyler";
-    #           home.stateVersion = "26.05";
-    #
-    #           programs.home-manager.enable = true;
-    #
-    #           home.packages = with pkgs; [
-    #           ];
-    #         }
-    #       ];
-    #     };
-    #   };
+    homeConfigurations =
+      let
+        system = "x86_64-linux";
+        pkgs = import nixpkgs { inherit system; };
+      in {
+        tyler = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            {
+              home.username = "tyler";
+              home.homeDirectory = "/home/tyler";
+              home.stateVersion = "26.05";
+
+              programs.home-manager.enable = true;
+
+              home.packages = with pkgs; [
+                inputs.yazi.packages.${pkgs.stdenv.hostPlatform.system}.yazi
+                inputs.system-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
+                inputs.nh.packages.${pkgs.stdenv.hostPlatform.system}.nh
+                inputs.television.packages.${pkgs.stdenv.hostPlatform.system}.default
+                inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
+                inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
+                inputs.nixGL.packages.${pkgs.stdenv.hostPlatform.system}.default
+              ];
+            }
+          ];
+        };
+      };
   };
 }
