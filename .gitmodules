@@ -10,9 +10,12 @@
 [submodule "src/wal-discord"]
 	path = src/wal-discord
 	url = https://github.com/guglicap/wal-discord
-[submodule "src/jpglitch"]
-	path = src/jpglitch
-	url = https://github.com/Kareeeeem/jpglitch
+# [submodule "src/jpglitch"]
+# 	path = src/jpglitch
+# 	url = https://github.com/Kareeeeem/jpglitch
 [submodule "src/prev"]
 	path = src/prev
   url = https://github.com/durcor/prev
+[submodule ".config/yazi/plugins/fs-usage.yazi"]
+	path = .config/yazi/plugins/fs-usage.yazi
+	url = https://github.com/walldmtd/fs-usage.yazi
