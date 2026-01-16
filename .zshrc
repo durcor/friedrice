@@ -4,13 +4,15 @@
 # >>> START PROFILING
 # zmodload zsh/zprof
 
-[ $(tput cols) -ge 100 ] && fastfetch
+# [ $(tput cols) -ge 100 ] && fastfetch
+fastfetch
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-[[ -r "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh" ]] &&
-    source "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh"
+# [[ -r "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh" ]] &&
+#     source "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh"
+source "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh"
 
 # [[ $- != *i* ]] && return
 
@@ -49,10 +51,14 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
 zstyle ':completion::complete:*' gain-privileges 1
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
 zmodload zsh/complist
+
 # Use zsh's modern completion system
 autoload -Uz compinit
-compinit
+local comp_dumpfile="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
+compinit -d "$comp_dumpfile" -C
+
 _comp_options+=(globdots)
 
 # Plugin loading
