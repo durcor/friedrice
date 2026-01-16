@@ -38,7 +38,7 @@ case $(echo "$normal_color" | wc -w) in
     *) ;;
 esac
 
-hyprctl keyword general:col.active_border "rgb($(echo $color12 | sed 's/#//'))" \
-    && hyprctl dispatch submap "$submap_name" \
+hyprctl -q keyword general:col.active_border "rgb($(echo $color12 | sed 's/#//'))" \
+    && hyprctl -q dispatch submap "$submap_name" \
     && sleep 0.2 \
-    && hyprctl keyword general:col.active_border "$set_color" "$gradient_angle"
+    && hyprctl -q keyword general:col.active_border "$set_color" "$gradient_angle"
