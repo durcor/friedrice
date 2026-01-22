@@ -371,12 +371,13 @@ inputs,
     };
   };
 
-  # programs.neovim = {
-  #   enable = true;
-  #   vimAlias = true;
-  #   viAlias = true;
-  #   defaultEditor = true;
-  # };
+  programs.neovim = {
+    package = inputs.nvim.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    enable = true;
+    vimAlias = true;
+    viAlias = true;
+    defaultEditor = true;
+  };
 
   environment.variables.EDITOR = "nvim";
   # environment.extraInit = /* zsh */ ''

@@ -42,8 +42,24 @@
     nix = {
       url = "github:NixOS/nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs-23-11.follows = "nixpkgs";
+      # inputs.nixpkgs-regression.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-parts.follows = "flake-parts";
+    };
+
+    nvim = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+      # • Added input 'nvim/flake-parts':
+      #     'github:hercules-ci/flake-parts/80daad04eddbbf5a4d883996a73f3f542fa437ac?narHash=sha256-PVvu7OqHBGWN16zSi6tEmPwwHQ4rLPU9Plvs8/1TUBY%3D' (2026-01-11)
+      # • Added input 'nvim/flake-parts/nixpkgs-lib':
+      #     follows 'nvim/nixpkgs'
+      # • Added input 'nvim/neovim-src':
+      #     'github:neovim/neovim/03494ad04879020eaaa1b0a50242590615eda15e?narHash=sha256-QmABbehAlmlndGSCJpNB14JNd8h4H7iSNI/Qw0bwyXI%3D' (2026-01-16)
+      # • Added input 'nvim/nixpkgs':
+      #     'github:NixOS/nixpkgs/f4606b01b39e09065df37905a2133905246db9ed?narHash=sha256-NgaL2CCiUR6nsqUIY4yxkzz07iQUlUCany44CFv%2BOxY%3D' (2026-01-15)
     };
 
     pre-commit-hooks = {
