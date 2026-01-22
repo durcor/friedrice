@@ -40,7 +40,7 @@ inputs,
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
-    substituters = [
+    extra-substituters = [
       "https://cache.nixos.org"
       "https://chaotic-nyx.cachix.org"
       "https://hyprland.cachix.org"
@@ -249,6 +249,9 @@ inputs,
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+    # NOTE: wireplumber.service from systemd NEEDS to be the same as the rest of
+    # the system, or else everything breaks
+    wireplumber.enable = true;
   };
 
   # nix utilities
@@ -262,13 +265,12 @@ inputs,
   programs.hyprland = {
     enable = true;
     withUWSM = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
   programs.hyprlock.enable = true;
   programs.waybar.enable = true;
   programs.dconf.enable = true;
-  gtk.enable = true;
   xdg.portal = {
     enable = true;
     config = {
@@ -282,10 +284,12 @@ inputs,
       fuzzel
       gawk
       bluez
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default
       inputs.gpu-usage-waybar.packages.${pkgs.stdenv.hostPlatform.system}.default
       wttrbar # -git
       mullvad # i wonder what you can use vpns for
+      kitty
+      playerctl
       (runCommand "user-bin" {} ''
         mkdir -p $out/bin
         cp -Lr ${inputs.self}/bin/* $out/bin/
@@ -348,6 +352,14 @@ inputs,
   #     nightlyOverlay
   #   ];
 
+  # faster python (NOTE: this will force a TON of rebuilds)
+  # nixpkgs.overlays = [
+  #   (final: prev: rec {
+  #     python3 = prev.python3.override { enableOptimizations = true; };
+  #     python3Packages = python3.pkgs;
+  #   })
+  # ];
+
   programs.firefox = {
     enable = true;
     # package = pkgs.latest.firefox-nightly-bin;
@@ -359,7 +371,8 @@ inputs,
     package = inputs.firefox-nightly.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin;
     nativeMessagingHosts.packages = with pkgs; [
       pywalfox-native
-      # ff2mpv-native-messaging-host-git
+      browserpass
+      ff2mpv
     ];
     policies = {
       Preferences = {
@@ -434,6 +447,7 @@ inputs,
     khal
     khard
     bc
+    unzip
     # which
     # buku
 
@@ -569,7 +583,7 @@ inputs,
     # urlscan
     # vimv      -git
     # ttyqr     -git
-    # tty-clock -git
+    tty-clock # TODO: -git?
     # libsixel
 
     vdirsyncer # contacts/calendar sync
@@ -587,6 +601,9 @@ inputs,
     # atomicparsley
     # vdpauinfo
     # ffmpegthumbnailer
+    gallery-dl
+    sacad # album cover downloader
+    glyr # music metadata search engine
     #
     # music:
     mpc
@@ -653,7 +670,7 @@ inputs,
 
     # text editors:
     #
-    neovim
+    # neovim
     neovim-remote
     # kakoune
     # helix
@@ -783,7 +800,7 @@ inputs,
 
     # printing:
     #
-    # system-config-printer
+    system-config-printer
     # cups
 
     # dbus
@@ -815,7 +832,7 @@ inputs,
     # fakeroot
     # fcft
 
-    # featherwallet # -bin
+    feather
 
     # festival # speech synthesis
 
@@ -844,7 +861,7 @@ inputs,
 
     # system monitors:
     #
-    # glances
+    glances
     htop
     # btop
     lm_sensors
@@ -963,7 +980,7 @@ inputs,
 
     # linuxwave
 
-    # liquidctl # -git
+    liquidctl # TODO: -git?
     # lksctp-tools
 
     # lolcat
@@ -1003,7 +1020,7 @@ inputs,
 
     # rss reader:
     #
-    # newsboat
+    newsboat
 
     nvimpager
 
@@ -1040,9 +1057,10 @@ inputs,
 
     # peda
 
-    # pegtl
+    # pegtl # parsing expression grammar template library
 
     # perf
+    # premake
 
     # perl-image-exiftool
 
@@ -1061,8 +1079,6 @@ inputs,
     #
     # postgresql
 
-    # premake
-
     # music visualizer:
     #
     # projectm
@@ -1070,9 +1086,11 @@ inputs,
     # audio controller:
     #
     pavucontrol
-    # pulsemixer
-    # ncpamixer
+    pulsemixer
+    ncpamixer
 
+    # python
+    python3
     # python-asciimatics
     # python-beautifulsoup4
     # python-defusedxml
@@ -1172,6 +1190,7 @@ inputs,
     # torrents:
     #
     # stig-git
+    transmission_4
     # transmission-cli
     # transmission-gtk
     # inputs.transg-tui.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -1220,7 +1239,7 @@ inputs,
     # tor
     # torsocks
 
-    # usbutils
+    usbutils
 
     # vapoursynth # TODO: -git?
 
