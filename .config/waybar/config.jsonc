@@ -1,5 +1,4 @@
 [
-  // eDP-1: Sharp Corporation 0x1515 0x00000000
   {
     "output": [
       "eDP-1",
@@ -10,6 +9,7 @@
     "position": "top",
     "modules-left": [
       // FIXME: Can we consolidate these modules to wlr/*?
+      "custom/distro",
       "hyprland/submap",
       "hyprland/workspaces",
       "hyprland/window",
@@ -47,6 +47,7 @@
     "output": "HDMI-A-1",
     "position": "top",
     "modules-left": [
+      "custom/distro",
       "hyprland/submap",
       "hyprland/workspaces",
       "hyprland/window",

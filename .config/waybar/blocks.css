@@ -46,6 +46,11 @@
   -gtk-icon-shadow: none;
 }
 
+tooltip {
+  font-family: "Terminess Nerd Font";
+  font-size: 18px;
+}
+
 /* The whole bar */
 #waybar {
 	background: @black;
@@ -87,6 +92,11 @@
   padding-right: 7pt;
   padding-bottom: 1pt;
   border-bottom: 4px solid rgba(0, 0, 0, 0.25);
+}
+
+#custom-distro {
+  padding-left: 7pt;
+  padding-right: 7pt;
 }
 
 #memory.critical,
@@ -196,6 +206,11 @@
 
 #custom-vpn {
   background: @brightgreen;
+  color: @foreground;
+}
+
+#custom-distro {
+  background: @brightred;
   color: @foreground;
 }
 

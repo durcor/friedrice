@@ -1,4 +1,17 @@
 {
+  // "user": {
+  //   "format": " ",
+  //   "interval": 60,
+  // },
+  "custom/distro": {
+    "exec": "$HOME/bin/distro icon-json",
+    "format": "{text}",
+    "return-type": "json",
+    // "tooltip-format": "{}",
+    "interval": 60,
+    "escape": true,
+    "on-click": "fuzzel",
+  },
   "hyprland/submap": {
     "on-click": "hyprmap toggle",
     "format": " {} ",

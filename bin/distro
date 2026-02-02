@@ -1,0 +1,67 @@
+#!/bin/sh
+
+. /etc/os-release
+
+case $ID in
+    nixos)
+        icon=
+        ;;
+    manjaro)
+        icon=
+        ;;
+    alpine)
+        icon=
+        ;;
+    arch)
+        icon=
+        ;;
+    debian)
+        icon=
+        ;;
+    linuxmint)
+        # icon=
+        icon=
+        ;;
+    fedora)
+        # icon=
+        icon=
+        ;;
+    gentoo)
+        icon=
+        ;;
+
+        # idk:
+        # 
+        # 
+        #
+        # obscure:
+        #  centos
+        #  devuan
+        #  elementaryos
+        #  mageia
+        #  mandriva
+        #
+        # not linux:
+        #  freebsd
+        #  macos
+        #  docker
+esac
+
+fastfetch_config=Title:OS:Host:Kernel:Uptime:Packages:Shell:Display:DE:WM:Font:CPU:GPU:Memory:Disk:LocalIP
+
+case $1 in
+    icon)
+        echo "$icon "
+        ;;
+    icon-json)
+        jq --unbuffered -nc \
+            --arg icon "$icon " \
+            --arg tooltip "$(fastfetch -l none -s $fastfetch_config)" \
+            '{text: $icon, tooltip: $tooltip}'
+        # "alt": "alt idk",
+        # "class": "class idk",
+        # "percentage": "0"
+        # "tooltip": "$(fastfetch)"
+        # "tooltip": $(fastfetch --json | jq --unbuffered -c '.[] | select(.type == "Kernel").result.version'),
+        ;;
+esac | jq -cM
