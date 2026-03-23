@@ -3,7 +3,8 @@
     self.submodules = true;
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     # my-nixpkgs.url = "github:durcor/nixpkgs/xonotic-fix-c23";
 
@@ -39,6 +40,12 @@
       inputs.nixpkgs-lib.follows = "nixpkgs-lib";
     };
 
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix = {
       url = "github:NixOS/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,6 +53,7 @@
       # inputs.nixpkgs-regression.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-parts.follows = "flake-parts";
+      inputs.git-hooks-nix.follows = "pre-commit-hooks";
     };
 
     nvim = {
@@ -53,19 +61,13 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
       # • Added input 'nvim/flake-parts':
-      #     'github:hercules-ci/flake-parts/80daad04eddbbf5a4d883996a73f3f542fa437ac?narHash=sha256-PVvu7OqHBGWN16zSi6tEmPwwHQ4rLPU9Plvs8/1TUBY%3D' (2026-01-11)
+      #     'github:hercules-ci/flake-parts'
       # • Added input 'nvim/flake-parts/nixpkgs-lib':
       #     follows 'nvim/nixpkgs'
       # • Added input 'nvim/neovim-src':
-      #     'github:neovim/neovim/03494ad04879020eaaa1b0a50242590615eda15e?narHash=sha256-QmABbehAlmlndGSCJpNB14JNd8h4H7iSNI/Qw0bwyXI%3D' (2026-01-16)
+      #     'github:neovim/neovim'
       # • Added input 'nvim/nixpkgs':
-      #     'github:NixOS/nixpkgs/f4606b01b39e09065df37905a2133905246db9ed?narHash=sha256-NgaL2CCiUR6nsqUIY4yxkzz07iQUlUCany44CFv%2BOxY%3D' (2026-01-15)
-    };
-
-    pre-commit-hooks = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.nixpkgs.follows = "nixpkgs";
+      #     'github:NixOS/nixpkgs'
     };
 
     chaotic = {
@@ -97,11 +99,18 @@
 
     hyprland = {
       url = "github:hyprwm/hyprland";
+      # url = "path:./src/hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.pre-commit-hooks.follows = "pre-commit-hooks";
       inputs.systems.follows = "systems";
       inputs.hyprlang.follows = "hyprlang";
       inputs.hyprutils.follows = "hyprutils";
+    };
+
+    hypr-dynamic-cursors = {
+      # url = "github:VirtCode/hypr-dynamic-cursors";
+      url = "path:./src/hypr-dynamic-cursors";
+      inputs.hyprland.follows = "hyprland";
     };
 
     rose-pine-hyprcursor = {
@@ -155,6 +164,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # simula = {
     #   url = "github:SimulaVR/Simula"
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -163,69 +177,117 @@
     # };
   };
 
-  outputs = { nixpkgs, chaotic, home-manager, system-manager, nix-system-graphics, nix, self, ... }@inputs: {
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
+  outputs = {
+    nixpkgs,
+    nixpkgs-stable,
+    nixpkgs-unstable,
+    chaotic,
+    home-manager,
+    system-manager,
+    nix-system-graphics,
+    nix,
+    self,
+    ...
+  }@inputs:
+    let
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+
+      mkArgs = system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in {
+          inherit pkgs;
+
+          stablePkgs = import nixpkgs-stable { inherit system; };
+          unstablePkgs = import nixpkgs-unstable { inherit system; };
+
+          yaziPkgs = inputs.yazi.packages.${system};
+          nhPkgs = inputs.nh.packages.${system};
+          hyprlandPkgs = inputs.hyprland.packages.${system};
+          gpuUsageWaybarPkgs = inputs.gpu-usage-waybar.packages.${system};
+          televisionPkgs = inputs.television.packages.${system};
+          systemManagerPkgs = inputs.system-manager.packages.${system};
+          firefoxNightlyPkgs = inputs.firefox-nightly.packages.${system};
+          nvimPkgs = inputs.nvim.packages.${system};
+          rosePineHyprcursorPkgs = inputs.rose-pine-hyprcursor.packages.${system};
+          nixGLPkgs = inputs.nixGL.packages.${system};
+          llmAgentsPkgs = inputs.llm-agents.packages.${system};
+          hyprDynamicCursorsPkgs = inputs.hypr-dynamic-cursors.packages.${system};
+        };
+
+      mkSpecialArgs = system:
+        {
+          inherit self inputs chaotic;
+        } // removeAttrs (mkArgs system) [ "pkgs" ];
+
+      mkExtraSpecialArgs = system:
+        {
+          inherit self inputs;
+        } // mkArgs system;
+    in {
+    formatter = nixpkgs.lib.genAttrs supportedSystems (
+      system: (import nixpkgs { inherit system; }).nixfmt
+    );
 
     nixosConfigurations = {
       noveria = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
         modules = [
-          "${self}/etc/nixos/hosts/noveria.nix"
           "${self}/etc/nixos/configuration.nix"
+          "${self}/etc/nixos/hosts/noveria.nix"
           "${self}/etc/nixos/amdgpu.nix"
           "${self}/etc/nixos/ryzen.nix"
           "${self}/etc/nixos/gaming.nix"
+          "${self}/etc/nixos/hacks.nix"
+          # "${self}/etc/nixos/secrets.nix"
           chaotic.nixosModules.default
         ];
-        specialArgs = {
-          inherit inputs;
-          inherit chaotic;
-        };
+        specialArgs = mkSpecialArgs "x86_64-linux";
       };
     };
 
     systemConfigs = {
       zorya = system-manager.lib.makeSystemConfig {
         modules = [
-          "${self}/etc/nixos/hosts/zorya.nix"
           "${self}/etc/nixos/configuration.nix"
+          "${self}/etc/nixos/hosts/zorya.nix"
+          "${self}/etc/nixos/hacks.nix"
           nix-system-graphics.systemModules.default
         ];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
+        extraSpecialArgs = mkExtraSpecialArgs "x86_64-linux";
       };
     };
 
-    homeConfigurations =
-      let
-        system = "x86_64-linux";
-        pkgs = import nixpkgs { inherit system; };
-      in {
-        tyler = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            {
-              home.username = "tyler";
-              home.homeDirectory = "/home/tyler";
-              home.stateVersion = "26.05";
+    homeConfigurations = {
+      tyler = home-manager.lib.homeManagerConfiguration {
+        pkgs = (mkArgs "x86_64-linux").pkgs;
+        extraSpecialArgs = mkExtraSpecialArgs "x86_64-linux";
+        modules = [
+          {
+            home.username = "tyler";
+            home.homeDirectory = "/home/tyler";
+            home.stateVersion = "26.05";
 
-              programs.home-manager.enable = true;
+            programs.home-manager.enable = true;
 
-              home.packages = with pkgs; [
-                inputs.yazi.packages.${pkgs.stdenv.hostPlatform.system}.yazi
-                inputs.system-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
-                inputs.nh.packages.${pkgs.stdenv.hostPlatform.system}.nh
-                inputs.television.packages.${pkgs.stdenv.hostPlatform.system}.default
-                inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
-                inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
-                inputs.nixGL.packages.${pkgs.stdenv.hostPlatform.system}.default
+            home.packages =
+              let
+                args = mkArgs "x86_64-linux";
+              in with args.pkgs; [
+                args.yaziPkgs.yazi
+                args.systemManagerPkgs.default
+                args.nhPkgs.nh
+                args.televisionPkgs.default
+                args.hyprlandPkgs.hyprland
+                args.rosePineHyprcursorPkgs.default
+                args.nixGLPkgs.default
               ];
-            }
-          ];
-        };
+          }
+        ];
       };
+    };
   };
 }

@@ -1,34 +1,25 @@
 {
+self,
 config,
 lib,
 pkgs,
-modulesPath,
+# modulesPath,
+hyprlandPkgs,
+gpuUsageWaybarPkgs,
+yaziPkgs,
+firefoxNightlyPkgs,
+nvimPkgs,
+# chaotic,
 # system,
 ...
 }:
 
 {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   networking.hostName = "noveria";
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.blacklistedKernelModules = [ "k10temp" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
-
   swapDevices = [ ];
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  # Pretty colors
-  services.hardware.openrgb.enable = true; # TODO: -git?
-  hardware.openrazer.enable = true;
-  hardware.openrazer.users = ["ty"];
 
   # Main user account. Password must be set with ‘passwd’.
   users.users.ty = {
@@ -47,6 +38,35 @@ modulesPath,
     uid = 1000;
     shell = pkgs.zsh;
   };
+  hardware.openrazer.users = ["ty"];
+
+  environment.systemPackages = with pkgs; [
+    liquidctl # TODO: -git?
+    # linux-firmware-intel
+  ];
+
+  # services.mpd = {
+  #   enable = true;
+  #   user = "ty";
+  #   musicDirectory = "/home/ty/data/mus";
+  #   playlistDirectory = "/home/ty/doc/playlists";
+  #   extraConfig = ''
+  #     audio_output {
+  #       type "pipewire"
+  #       name "PipeWire Output"
+  #     }
+  #     audio_output {
+  #       type "fifo"
+  #       name "ncmpcpp_fifo"
+  #       path "/tmp/mpd.fifo"
+  #       format "44100:16:2"
+  #     }
+  #   '';
+  #   network.listenAddress = "any";
+  # };
+  # systemd.services.mpd.environment = {
+  #   XDG_RUNTIME_DIR = "/run/user/1000";
+  # };
 
 
   # Drive Configuration
@@ -56,7 +76,28 @@ modulesPath,
   # "users": Allows any user to mount and unmount
   # "nofail": Prevent system from failing if this drive doesn't mount
 
-  boot.initrd.luks.devices."nix".device = "/dev/disk/by-uuid/cf94998a-6cae-45da-8ebd-b42ad8cdad64";
+  # Use the systemd-boot EFI boot loader.
+  boot = {
+    loader = {
+      systemd-boot = {
+        enable = true;
+        consoleMode = "max";
+        editor = false;
+      };
+      efi.canTouchEfiVariables = true;
+    };
+
+    initrd = {
+      systemd.enable = true;
+      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" ];
+      kernelModules = [ "dm-snapshot" ];
+      luks.devices."nix".device = "/dev/disk/by-uuid/cf94998a-6cae-45da-8ebd-b42ad8cdad64";
+    };
+
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernel.sysctl."kernel.sysrq" = 1;
+  };
+
   fileSystems = {
     "/" = {
       device = "/dev/mapper/nix";
@@ -132,4 +173,227 @@ modulesPath,
     #   ];
     # };
   };
+
+  networking.networkmanager.enable = true;
+  security.sudo.wheelNeedsPassword = false;
+
+  time.timeZone = "America/Los_Angeles";
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  services.kmscon.enable = false;
+  console = {
+    font = "Lat2-Terminus12";
+    useXkbConfig = true;
+    earlySetup = true;
+  };
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.terminess-ttf
+  ];
+
+  services.xserver = {
+    enable = false;
+    xkb.options = "caps:swapescape";
+  };
+
+  services.interception-tools = {
+    enable = true;
+    plugins = with pkgs.interception-tools-plugins; [
+      caps2esc
+      dual-function-keys
+    ];
+    udevmonConfig =
+      let
+        dualFunctionKeysConfig = {
+          TIMING = {
+            TAP_MILLISEC = 200;
+            DOUBLE_TAP_MILLISEC = 0;
+          };
+
+          MAPPINGS = [
+            {
+              KEY = "KEY_LEFTALT";
+              TAP = "KEY_F12";
+              HOLD = "KEY_LEFTALT";
+            }
+            {
+              KEY = "KEY_ESC";
+              TAP = "KEY_CAPSLOCK";
+              HOLD = "KEY_LEFTSHIFT";
+            }
+          ];
+        };
+        dualFunctionKeysConfigFile = (pkgs.formats.yaml {}).generate "dual-function-keys.yaml" dualFunctionKeysConfig;
+      in
+      lib.strings.toJSON [
+        {
+          JOB = builtins.concatStringsSep " | " [
+            "${pkgs.interception-tools}/bin/intercept -g $DEVNODE"
+            "${pkgs.interception-tools-plugins.dual-function-keys}/bin/dual-function-keys -c ${dualFunctionKeysConfigFile}"
+            "${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
+          ];
+          DEVICE.EVENTS.EV_KEY = [ "KEY_F12" ];
+        }
+        {
+          JOB = builtins.concatStringsSep " | " [
+            "${pkgs.interception-tools}/bin/intercept -g $DEVNODE"
+            "${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc"
+            "${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
+          ];
+          DEVICE.EVENTS.EV_KEY = [ "KEY_CAPSLOCK" "KEY_ESC" ];
+        }
+      ];
+  };
+
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      cups-filters
+      cups-browsed
+    ];
+  };
+
+  services.homed.enable = true;
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  services.transmission.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    wireplumber.enable = true;
+  };
+
+  programs.nh.enable = true;
+  programs.nix-ld.enable = true;
+
+  programs.uwsm.enable = true;
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    package = hyprlandPkgs.default;
+    portalPackage = hyprlandPkgs.xdg-desktop-portal-hyprland;
+  };
+  programs.hyprlock.enable = true;
+  programs.waybar.enable = true;
+  programs.dconf.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    config.hyprland.preferred = [ "hyprland" "gtk" ];
+  };
+
+  systemd.user.services.waybar = {
+    enable = true;
+    path = with pkgs; [
+      bash
+      fuzzel
+      gawk
+      bluez
+      hyprlandPkgs.default
+      gpuUsageWaybarPkgs.default
+      wttrbar
+      mullvad
+      kitty
+      playerctl
+      wireplumber
+      libnotify
+      jq
+      fastfetch
+    ];
+
+    serviceConfig.Environment = [
+      "PATH=%h/bin:${lib.makeBinPath config.systemd.user.services.waybar.path}"
+    ];
+  };
+
+  programs.yazi = {
+    enable = true;
+    package = yaziPkgs.yazi;
+
+    initLua = "${self}/etc/yazi/init.lua";
+    settings = {
+      yazi = builtins.fromTOML (builtins.readFile "${self}/etc/yazi/yazi.toml");
+      theme = builtins.fromTOML (builtins.readFile "${self}/etc/yazi/theme.toml");
+      keymap = builtins.fromTOML (builtins.readFile "${self}/etc/yazi/keymap.toml");
+    };
+
+    plugins = {
+      inherit (pkgs.yaziPlugins) piper ouch git;
+      "fs-usage.yazi" = "${self}/etc/yazi/plugins/fs-usage.yazi";
+    };
+  };
+
+  programs.git.enable = true;
+  programs.git.lfs.enable = true;
+  programs.ccache.enable = true;
+  programs.ccache.cacheDir = "/nix/var/cache/ccache";
+  systemd.tmpfiles.rules = [
+    "d /nix/var/cache/ccache 0770 root nixbld - -"
+  ];
+  programs.ccache.packageNames = [
+    "hyprland"
+    "xdg-desktop-portal-hyprland"
+    "mesa"
+  ];
+
+  programs.zsh.enable = true;
+  programs.fish.enable = true;
+
+  services.libinput.enable = true;
+
+  programs.firefox = {
+    enable = true;
+    package = firefoxNightlyPkgs.firefox-nightly-bin;
+    nativeMessagingHosts.packages = with pkgs; [
+      pywalfox-native
+      browserpass
+      ff2mpv
+    ];
+    policies.Preferences = {
+      "sidebar.revamp" = true;
+      "sidebar.verticalTabs" = true;
+      "browser.compactmode.show" = true;
+      "image.jxl.enabled" = true;
+    };
+  };
+
+  programs.neovim = {
+    package = nvimPkgs.default;
+    enable = true;
+    vimAlias = true;
+    viAlias = true;
+    defaultEditor = true;
+  };
+
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
+  chaotic.mesa-git.enable = false;
+
+  hardware.graphics.enable = true;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.settings.General.Experimental = true;
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-curses;
+  };
+
+  services.openssh.enable = true;
+  services.mullvad-vpn.enable = true;
+  services.playerctld.enable = true;
+
+  services.fstrim = {
+    enable = true;
+    interval = "weekly";
+  };
+
+  system.stateVersion = "26.05";
 }

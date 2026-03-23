@@ -3,41 +3,25 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
-# self,
-# config,
-lib,
 pkgs,
-inputs,
-# chaotic,
+stablePkgs,
+unstablePkgs,
+yaziPkgs,
+nhPkgs,
+hyprlandPkgs,
+televisionPkgs,
+systemManagerPkgs,
+nvimPkgs,
+rosePineHyprcursorPkgs,
+nixGLPkgs,
+llmAgentsPkgs,
+hyprDynamicCursorsPkgs,
 ...
 }:
 
 {
-  # NOTE: scan hardware w/ nixos-generate-config
-  # imports = [
-  #   ./hosts/noveria.nix
-  #   # ./secrets.nix # FIXME: sops-nix or agenix are the way
-  # ];
-
-  # Use the systemd-boot EFI boot loader.
-  boot = {
-    loader = {
-      systemd-boot = {
-        enable = true;
-        consoleMode = "max";
-        editor = false;
-      };
-      efi.canTouchEfiVariables = true;
-    };
-
-    initrd.systemd.enable = true;
-
-    # pkgs.linuxPackages_zen
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernel.sysctl."kernel.sysrq" = 1;
-  };
-
   nix.settings = {
+    max-jobs = 1;
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
     extra-substituters = [
@@ -48,6 +32,7 @@ inputs,
       "https://nix-community.cachix.org"
       "https://chaotic-nyx.cachix.org"
       "https://simula.cachix.org"
+      "https://cache.numtide.com"
     ];
     trusted-substituters = [
       "https://cache.nixos.org"
@@ -57,6 +42,7 @@ inputs,
       "https://nix-community.cachix.org"
       "https://chaotic-nyx.cachix.org"
       "https://simula.cachix.org"
+      "https://cache.numtide.com"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -66,6 +52,7 @@ inputs,
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "simula.cachix.org-1:Sr0SD5FIjc8cUVIeBHl8VJswQEJOBIE6u3wpmjslGBA="
+      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
     ];
   };
 
@@ -76,356 +63,43 @@ inputs,
     dates = "weekly";
   };
   nixpkgs.config.allowUnfree = true;
-
-  networking = {
-    # useNetworkd = true;
-
-    # Configure network connections interactively with nmcli or nmtui.
-    networkmanager.enable = true;
-
-    # Configure network proxy if necessary
-    # proxy.default = "http://user:password@proxy:port/";
-    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-    # Open ports in the firewall.
-    # firewall.allowedTCPPorts = [ ... ];
-    # firewall.allowedUDPPorts = [ ... ];
-    # Or disable the firewall altogether.
-    # firewall.enable = false;
-  };
-
-  security.sudo.wheelNeedsPassword = false;
-
-  # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  services.kmscon.enable = false;
-  console = {
-    font = "Lat2-Terminus16";
-    # keyMap = "us";
-    useXkbConfig = true; # use xkb.options in tty.
-    earlySetup = true;
-  };
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.terminess-ttf
-
-    # otf-aurulent-nerd
-    # otf-codenewroman-nerd
-    # otf-comicshanns-nerd
-    # otf-commit-mono-nerd
-    # otf-droid-nerd
-    # otf-firamono-nerd
-    # otf-geist-mono-nerd
-    # otf-hasklig-nerd
-    # otf-hermit-nerd
-    # otf-monaspace-nerd
-    # otf-opendyslexic-nerd
-    # otf-overpass-nerd
-    # otf-unifont
-
-    # ttf-0xproto-nerd
-    # ttf-3270-nerd
-    # ttf-agave-nerd
-    # ttf-anonymouspro-nerd
-    # ttf-arimo-nerd
-    # ttf-bigblueterminal-nerd
-    # ttf-bitstream-vera-mono-nerd
-    # ttf-cascadia-code-nerd
-    # ttf-cascadia-mono-nerd
-    # ttf-cousine-nerd
-    # ttf-d2coding-nerd
-    # ttf-daddytime-mono-nerd
-    # ttf-dejavu-nerd
-    # ttf-envycoder-nerd
-    # ttf-fantasque-nerd
-    # ttf-firacode-nerd
-    # ttf-go-nerd
-    # ttf-greybeard-bin
-    # ttf-hack-nerd
-    # ttf-heavydata-nerd
-    # ttf-iawriter-nerd
-    # ttf-ibmplex-mono-nerd
-    # ttf-inconsolata-go-nerd
-    # ttf-inconsolata-lgc-nerd
-    # ttf-inconsolata-nerd
-    # ttf-intone-nerd
-    # ttf-iosevka-nerd
-    # ttf-iosevkaterm-nerd
-    # ttf-jetbrains-mono-nerd
-    # ttf-lekton-nerd
-    # ttf-liberation-mono-nerd
-    # ttf-lilex-nerd
-    # ttf-martian-mono-nerd
-    # ttf-meslo-nerd
-    # ttf-monofur-nerd
-    # ttf-monoid-nerd
-    # ttf-mononoki-nerd
-    # ttf-mplus-nerd
-    # ttf-nerd-fonts-symbols
-    # ttf-nerd-fonts-symbols-mono
-    # ttf-noto-nerd
-    # ttf-profont-nerd
-    # ttf-proggyclean-nerd
-    # ttf-roboto-mono-nerd
-    # ttf-sharetech-mono-nerd
-    # ttf-sourcecodepro-nerd
-    # ttf-space-mono-nerd
-    # ttf-terminus-nerd
-    # ttf-tinos-nerd
-    # ttf-twemoji-color
-    # ttf-ubuntu-mono-nerd
-    # ttf-ubuntu-nerd
-    # ttf-victor-mono-nerd
+  nix.settings.extra-sandbox-paths = [
+    "/nix/var/cache/ccache"
   ];
-
-  services.xserver = {
-    enable = false;
-
-    # xkb.layout = "us";
-    xkb.options = "caps:swapescape";
-  };
-
-  services.interception-tools = {
-    enable = true;
-    plugins = with pkgs.interception-tools-plugins; [
-      caps2esc
-      dual-function-keys
-    ];
-    udevmonConfig =
-      let
-        dualFunctionKeysConfig = {
-          TIMING = {
-            TAP_MILLISEC = 200;
-            DOUBLE_TAP_MILLISEC = 0;
-          };
-
-          MAPPINGS = [
-            {
-              KEY  = "KEY_LEFTALT";
-              TAP  = "KEY_F12";
-              HOLD = "KEY_LEFTALT";
-            }
-            # {
-            #   KEY  = "KEY_CAPSLOCK";
-            #   TAP  = "KEY_ESC";
-            #   HOLD = "KEY_LEFTMETA";
-            # }
-            {
-              KEY  = "KEY_ESC";
-              TAP  = "KEY_CAPSLOCK";
-              HOLD = "KEY_LEFTSHIFT";
-            }
-          ];
-        };
-        dualFunctionKeysConfigFile = (pkgs.formats.yaml {}).generate "dual-function-keys.yaml" dualFunctionKeysConfig;
-      in
-        lib.strings.toJSON [
-          {
-            JOB = builtins.concatStringsSep " | " [
-              "${pkgs.interception-tools}/bin/intercept -g $DEVNODE"
-              "${pkgs.interception-tools-plugins.dual-function-keys}/bin/dual-function-keys -c ${dualFunctionKeysConfigFile}"
-              "${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
-            ];
-            DEVICE.EVENTS.EV_KEY = [ "KEY_F12" ];
-          }
-          {
-            JOB = builtins.concatStringsSep " | " [
-              "${pkgs.interception-tools}/bin/intercept -g $DEVNODE"
-              "${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc"
-              "${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
-            ];
-            DEVICE.EVENTS.EV_KEY = [ "KEY_CAPSLOCK" "KEY_ESC" ];
-          }
-        ];
-  };
-
-  # CUPS
-  services.printing.enable = true;
-
-  # sound
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    # NOTE: wireplumber.service from systemd NEEDS to be the same as the rest of
-    # the system, or else everything breaks
-    wireplumber.enable = true;
-  };
-
-  # nix utilities
-  programs.nh.enable = true;
-  # FIXME: isn't this a chicken-and-egg sort of problem?
-  # programs.nh.flake = "${config.users.users.ty.home}/.config/nixos";
-  programs.nix-ld.enable = true;
-
-  # wayland
-  programs.uwsm.enable = true;
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  };
-  programs.hyprlock.enable = true;
-  programs.waybar.enable = true;
-  programs.dconf.enable = true;
-  xdg.portal = {
-    enable = true;
-    config = {
-      hyprland.preferred = [ "hyprland" "gtk" ];
-    };
-  };
-  systemd.user.services.waybar = {
-    enable = true;
-    path = with pkgs; [
-      bash
-      fuzzel
-      gawk
-      bluez
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default
-      inputs.gpu-usage-waybar.packages.${pkgs.stdenv.hostPlatform.system}.default
-      wttrbar # -git
-      mullvad # i wonder what you can use vpns for
-      kitty
-      playerctl
-      (runCommand "user-bin" {} ''
-        mkdir -p $out/bin
-        cp -Lr ${inputs.self}/bin/* $out/bin/
-        chmod +x $out/bin/*
-      '')
-      wireplumber # for audio control
-      libnotify
-    ];
-  };
-
-  programs.yazi = {
-    enable = true;
-    package = inputs.yazi.packages.${pkgs.stdenv.hostPlatform.system}.yazi;
-
-    # FIXME: i'm not a huge fan of needing to re-apply the yazi config via a new generation
-    initLua = "${inputs.self}/etc/yazi/init.lua";
-    settings = {
-      yazi = fromTOML (builtins.readFile "${inputs.self}/etc/yazi/yazi.toml");
-      theme = fromTOML (builtins.readFile "${inputs.self}/etc/yazi/theme.toml");
-      keymap = fromTOML (builtins.readFile "${inputs.self}/etc/yazi/keymap.toml");
-    };
-
-    plugins = {
-      inherit (pkgs.yaziPlugins) piper ouch git;
-      "fs-usage.yazi" = "${inputs.self}/etc/yazi/plugins/fs-usage.yazi";
-    };
-
-    # flavors = {
-    #   "dracula.yazi" = "${inputs.self}/etc/yazi/flavors/dracula.yazi";
-    # };
-  };
-
-  programs.git.enable = true;
-  programs.git.lfs.enable = true;
-
-  # shells
-  programs.zsh.enable = true;
-  programs.fish.enable = true;
-  # programs.dash.enable = true; TODO: set as legacy /bin/sh?
-
-  # Touchpad support (enabled by default in most DEs)
-  services.libinput.enable = true;
-
-  # firefox nightly upstream overlay
-  #
-  # nixpkgs.overlays =
-  #   let
-  #     moz-rev = "master";
-  #     moz-url = builtins.fetchTarball {
-  #       url = "https://github.com/mozilla/nixpkgs-mozilla/archive/${moz-rev}.tar.gz";
-  #       # sha256 = lib.fakeSha256;
-  #       sha256 = "sha256:0xxhiads5fd4jwbr685k1m527za50sl5z4bliigz99ciqxvzyf0z";
-  #     };
-  #     nightlyOverlay = (import "${moz-url}/firefox-overlay.nix");
-  #   in [
-  #     (final: prev: {
-  #       firefox-bin = { channel ? "release", ... } @ args: prev.firefox-bin;
-  #     })
-  #
-  #     nightlyOverlay
-  #   ];
-
-  # faster python (NOTE: this will force a TON of rebuilds)
-  # nixpkgs.overlays = [
-  #   (final: prev: rec {
-  #     python3 = prev.python3.override { enableOptimizations = true; };
-  #     python3Packages = python3.pkgs;
-  #   })
-  # ];
-
-  programs.firefox = {
-    enable = true;
-    # package = pkgs.latest.firefox-nightly-bin;
-    # package = inputs.chaotic.packages.${pkgs.stdenv.hostPlatform.system}.firefox_nightly;
-    # package = pkgs.firefox;
-    # package = latest.firefox-nightly-bin;
-    # package = pkgs.librewolf;
-    # package = pkgs.firedragon;
-    package = inputs.firefox-nightly.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin;
-    nativeMessagingHosts.packages = with pkgs; [
-      pywalfox-native
-      browserpass
-      ff2mpv
-    ];
-    policies = {
-      Preferences = {
-        "sidebar.revamp" = true;
-        "sidebar.verticalTabs" = true;
-        "browser.compactmode.show" = true;
-        "image.jxl.enabled" = true;
-      };
+  nixpkgs.config.packageOverrides = pkgs: {
+    ccacheWrapper = pkgs.ccacheWrapper.override {
+      extraConfig = ''
+        export CCACHE_DIR=/nix/var/cache/ccache
+        export CCACHE_UMASK=007
+        export CCACHE_COMPRESS=1
+        export CCACHE_NOCONFIG=1
+        export CCACHE_TEMPDIR=$TMPDIR/ccache
+        export HOME=$TMPDIR
+        export CCACHE_BASEDIR=$NIX_BUILD_TOP
+        export CCACHE_NOHASHDIR=1
+      '';
     };
   };
 
-  programs.neovim = {
-    package = inputs.nvim.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    enable = true;
-    vimAlias = true;
-    viAlias = true;
-    defaultEditor = true;
+  environment.variables = {
+    EDITOR = "nvim";
   };
 
-  environment.variables.EDITOR = "nvim";
+  environment.homeBinInPath = true;
+
   # environment.extraInit = /* zsh */ ''
-  #   export PATH=$PATH:${inputs.self}/bin
   # '';
-
-  virtualisation = {
-    libvirtd.enable = true;
-    # qemu.options = [
-    #   "-device virtio-vga"
-    # ];
-  };
-  programs.virt-manager.enable = true;
-
-  # mesa-git.enable = true;
-  chaotic.mesa-git.enable = false;
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = with pkgs; [
-      rocmPackages.clr.icd
-    ];
-  };
-
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.settings = {
-    General = {
-      Experimental = true;
-    };
-  };
 
   # Packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
+    systemManagerPkgs.default
+    nhPkgs.nh
+    televisionPkgs.default
+    hyprlandPkgs.hyprland
+    nvimPkgs.default
+    # nixGLPkgs.default
+
     # util
     eza
     ripgrep
@@ -448,7 +122,7 @@ inputs,
     khard
     bc
     unzip
-    # which
+    # which <- pulled in by other packages
     # buku
 
     # ricing:
@@ -460,8 +134,9 @@ inputs,
     catnip
     pipes
     pipes-rs
-    openrazer-daemon
+    # openrazer-daemon
     themix-gui # TODO: -git?
+    quickshell
     # lxappearance
     # wraith-master
     # matugen
@@ -469,7 +144,7 @@ inputs,
     # neofetch
     #
     # cursors:
-    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
+    rosePineHyprcursorPkgs.default
     capitaine-cursors
     #
     # razer things:
@@ -518,6 +193,7 @@ inputs,
     #
     shellcheck
     shfmt
+    rustfmt
     # taplo-cli # toml lint and format
     #
     # containers:
@@ -526,6 +202,7 @@ inputs,
     # docker-buildx
     # podman
     buildah
+    bubblewrap # sandboxing
     #
     # debugging:
     #
@@ -547,7 +224,10 @@ inputs,
     # cpanminus
     #
     # repo # git wrapper for android dev
-    ccache # cache (for c)
+    #
+    # AI
+    llmAgentsPkgs.codex
+    llmAgentsPkgs.claude-code
 
     # browsers:
     #
@@ -562,9 +242,6 @@ inputs,
 
     # gpu:
     #
-    # xf86-video-amdgpu
-    rocmPackages.rocm-smi
-    nvtopPackages.amd
     # drm_monitor -git
     # libdrm      -git
 
@@ -596,6 +273,7 @@ inputs,
     # media:
     #
     ffmpeg-full
+    # handbrake
     yt-dlp
     # mediainfo
     # atomicparsley
@@ -642,13 +320,9 @@ inputs,
 
     # firmware:
     #
-    # linux-firmware-amdgpu
-    # linux-firmware-intel
     # linux-firmware-other
     # linux-firmware-whence
     #
-    # amd-ucode
-    # zenpower3-dkms
     # fwupd
     #
     # modprobed-db # hardware prober
@@ -665,7 +339,7 @@ inputs,
     # mail:
     #
     neomutt
-    thunderbird
+    stablePkgs.thunderbird
     mutt-wizard # -git
 
     # text editors:
@@ -674,7 +348,7 @@ inputs,
     neovim-remote
     # kakoune
     # helix
-    libreoffice-fresh
+    libreoffice
     sc-im
 
     nixVersions.latest # nixVersions.git
@@ -741,11 +415,17 @@ inputs,
 
     # messaging:
     #
+    stablePkgs.equibop
     vesktop
     teams-for-linux
     # discord
     #
-    signal-desktop
+    unstablePkgs.signal-desktop
+    telegram-desktop
+    #
+    # matrix:
+    # cinny-desktop
+    iamb
 
     # menus:
     #
@@ -754,6 +434,8 @@ inputs,
     dmenu-wayland
     # dmenu
     # rofi
+
+    hyprDynamicCursorsPkgs.hypr-dynamic-cursors
 
     # asciiquarium
 
@@ -980,7 +662,6 @@ inputs,
 
     # linuxwave
 
-    liquidctl # TODO: -git?
     # lksctp-tools
 
     # lolcat
@@ -1147,8 +828,6 @@ inputs,
     # ruffle-nightly # -bin
     # rust-bindgen
 
-    # ryzen_smu-dkms # -git
-
     # windows:
     #
     # samba
@@ -1294,9 +973,7 @@ inputs,
 
     # wine:
     #
-    # wine-gecko
-    # wine-mono
-    # wine-staging
+    wineWow64Packages.stagingFull
     # winetricks-git
 
     # diffing:
@@ -1375,78 +1052,4 @@ inputs,
     # pacman-contrib
     # paru
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryPackage = pkgs.pinentry-curses;
-    # settings = {
-    #   allow-preset-passphrase = true;
-    #   default-cache-ttl = 34560000;
-    #   max-cache-ttl = 34560000;
-    # };
-  };
-
-  # ssh daemon
-  services.openssh.enable = true;
-
-  services.mullvad-vpn.enable = true; # TODO: beta?
-
-  # services.mpd = {
-  #   enable = true;
-  #   user = "ty";
-  #   musicDirectory = "/home/ty/data/mus";
-  #   playlistDirectory = "/home/ty/doc/playlists";
-  #   extraConfig = ''
-  #     audio_output {
-  #       type "pipewire"
-  #       name "PipeWire Output"
-  #     }
-  #     audio_output {
-  #       type "fifo"
-  #       name "ncmpcpp_fifo"
-  #       path "/tmp/mpd.fifo"
-  #       format "44100:16:2"
-  #     }
-  #   '';
-
-  #   network.listenAddress = "any";
-  # };
-  # systemd.services.mpd.environment = {
-  #   XDG_RUNTIME_DIR = "/run/user/1000";
-  # };
-
-  services.playerctld.enable = true;
-
-  services.fstrim = {
-    enable = true;
-    interval = "weekly";
-  };
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
-
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "26.05"; # Did you read the comment?
 }
