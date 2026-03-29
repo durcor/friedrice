@@ -26,6 +26,10 @@ pkgs,
     enable32Bit = true;
   };
 
+  boot.kernelModules = [
+    "ntsync"
+  ];
+
   environment.systemPackages = with pkgs; [
     mangohud   # -git
     # lutris   # -git
