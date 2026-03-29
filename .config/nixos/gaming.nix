@@ -54,6 +54,8 @@ pkgs,
     # dualsensectl # -git
     # dxvk-mingw   # -git
 
+    legendary-gl
+
     # game dev:
 
     # godot

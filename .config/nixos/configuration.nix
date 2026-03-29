@@ -149,6 +149,7 @@ hyprDynamicCursorsPkgs,
     # matugen
     # neo-matrix # TODO: -git?
     # neofetch
+    # asciiquarium
     #
     # cursors:
     rosePineHyprcursorPkgs.default
@@ -284,6 +285,8 @@ hyprDynamicCursorsPkgs,
     # mediainfo
     # atomicparsley
     # vdpauinfo
+    # mpg123
+    # lib32-mpg123
     # ffmpegthumbnailer
     gallery-dl
     sacad # album cover downloader
@@ -313,6 +316,7 @@ hyprDynamicCursorsPkgs,
     #
     # gstreamer
     # gst-plugins-base
+    # lib32-gst-plugins-base-libs
 
     # pdf:
     #
@@ -347,6 +351,9 @@ hyprDynamicCursorsPkgs,
     neomutt
     stablePkgs.thunderbird
     mutt-wizard # -git
+    isync # store imap locally
+    msmtp # send email
+    notmuch # mail searcher
 
     # text editors:
     #
@@ -427,7 +434,7 @@ hyprDynamicCursorsPkgs,
     # discord
     #
     unstablePkgs.signal-desktop
-    telegram-desktop
+    unstablePkgs.telegram-desktop
     #
     # matrix:
     # cinny-desktop
@@ -442,8 +449,6 @@ hyprDynamicCursorsPkgs,
     # rofi
 
     # hyprDynamicCursorsPkgs.hypr-dynamic-cursors
-
-    # asciiquarium
 
     # 3d modeling:
     #
@@ -493,8 +498,6 @@ hyprDynamicCursorsPkgs,
 
     # dbus
 
-    ddcutil
-
     # dialog
 
     # motherboard info:
@@ -502,7 +505,7 @@ hyprDynamicCursorsPkgs,
     # dmidecode
 
     # dos2unix
-    # dosbox
+
     # dosfstools
 
     # disk usage:
@@ -544,6 +547,7 @@ hyprDynamicCursorsPkgs,
     # git-credential-manager # -bin
     # git-lfs
     # github-cli
+    lazygit
 
     # system monitors:
     #
@@ -552,6 +556,7 @@ hyprDynamicCursorsPkgs,
     # btop
     lm_sensors
     bottom
+    systemctl-tui
 
     # gjs
     # glibmm_2_68
@@ -593,28 +598,25 @@ hyprDynamicCursorsPkgs,
     kooha # gif recorder
 
     inkscape
-    krita
+    unstablePkgs.krita
 
     # kdeconnect
     lan-mouse
 
-    lazygit
-
-    # legendary
     # lensfun
 
     # lib32-dbus
     # lib32-giflib
 
-    # lib32-gst-plugins-base-libs
-
     # lib32-libdrm-git
     # lib32-libomxil-bellagio
     # lib32-libxslt
 
-    # lib32-mpg123
-    # lib32-nss
     # lib32-openal
+
+    # security:
+    #
+    # lib32-nss
 
     # audio:
     #
@@ -675,7 +677,9 @@ hyprDynamicCursorsPkgs,
     # lshw
 
     # lsof
+
     # luarocks
+
     # luit
 
     # lvm2
@@ -686,8 +690,6 @@ hyprDynamicCursorsPkgs,
     slurp
     grim
     # grimblast # -git
-
-    # mame
 
     # microsoft -_-:
     #
@@ -700,7 +702,6 @@ hyprDynamicCursorsPkgs,
     # mono
     # mono-msbuild
 
-    # mpg123
     # mtools
 
     # rss reader:
@@ -732,13 +733,17 @@ hyprDynamicCursorsPkgs,
 
     # emulation:
     #
-    # pcsx2 # TODO: -git?
     # qemu-system-x86
     # qemu-user-static
     # virt-manager
+    #
+    # pcsx2 # TODO: -git?
     # retroarch
     # libretro-flycast
     # libretro-ppsspp
+    # dosbox
+    # mame
+    # ruffle-nightly # -bin
 
     # peda
 
@@ -824,12 +829,12 @@ hyprDynamicCursorsPkgs,
 
     # monitor metadata:
     #
-    # read-edid
+    read-edid
+    ddcutil
 
     # ruby-dbus
     # ruby-rexml
 
-    # ruffle-nightly # -bin
     # rust-bindgen
 
     # windows:
@@ -873,10 +878,6 @@ hyprDynamicCursorsPkgs,
     # stocks:
     #
     # stonks
-
-    # system monitors:
-    #
-    # systemctl-tui
 
     # data recovery:
     #
