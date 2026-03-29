@@ -3,6 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
+config,
 pkgs,
 stablePkgs,
 unstablePkgs,
@@ -10,10 +11,8 @@ yaziPkgs,
 nhPkgs,
 hyprlandPkgs,
 televisionPkgs,
-systemManagerPkgs,
 nvimPkgs,
 rosePineHyprcursorPkgs,
-nixGLPkgs,
 llmAgentsPkgs,
 hyprDynamicCursorsPkgs,
 ...
@@ -56,12 +55,6 @@ hyprDynamicCursorsPkgs,
     ];
   };
 
-  nix.optimise.automatic = true;
-  nix.optimise.dates = ["03:45"];
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-  };
   nixpkgs.config.allowUnfree = true;
   nix.settings.extra-sandbox-paths = [
     "/nix/var/cache/ccache"
@@ -79,26 +72,40 @@ hyprDynamicCursorsPkgs,
         export CCACHE_NOHASHDIR=1
       '';
     };
+
+    python3 = pkgs.python3.override {
+      packageOverrides = _: pyPrev: {
+        sphinx-argparse = pyPrev.sphinx-argparse.overridePythonAttrs (old: {
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace sphinxarg/ext.py               --replace-fail                 'from sphinx.ext.autodoc import mock'                 'from sphinx.ext.autodoc.mock import mock'
+          '';
+        });
+      };
+    };
+
+    iamb = pkgs.iamb.overrideAttrs (old: {
+      postPatch = (old.postPatch or "") + ''
+        sed -i '1i #![recursion_limit = "256"]' src/main.rs
+      '';
+    });
   };
+
+  security.sudo.wheelNeedsPassword = false;
 
   environment.variables = {
     EDITOR = "nvim";
   };
-
-  environment.homeBinInPath = true;
 
   # environment.extraInit = /* zsh */ ''
   # '';
 
   # Packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
-  environment.systemPackages = with pkgs; [
-    systemManagerPkgs.default
+  environment.systemPackages = with config.nixpkgs.pkgs; [
     nhPkgs.nh
     televisionPkgs.default
     hyprlandPkgs.hyprland
     nvimPkgs.default
-    # nixGLPkgs.default
 
     # util
     eza
@@ -160,7 +167,7 @@ hyprDynamicCursorsPkgs,
     # compilers:
     #
     gcc
-    clang
+    # clang
     # go
     # gcc-fortran
     # ghc
@@ -232,7 +239,6 @@ hyprDynamicCursorsPkgs,
     # browsers:
     #
     brave
-    tor-browser
     qutebrowser
     # lynx
 
@@ -435,7 +441,7 @@ hyprDynamicCursorsPkgs,
     # dmenu
     # rofi
 
-    hyprDynamicCursorsPkgs.hypr-dynamic-cursors
+    # hyprDynamicCursorsPkgs.hypr-dynamic-cursors
 
     # asciiquarium
 
@@ -487,8 +493,8 @@ hyprDynamicCursorsPkgs,
 
     # dbus
 
-    # ddcutil
-    #
+    ddcutil
+
     # dialog
 
     # motherboard info:
@@ -513,8 +519,6 @@ hyprDynamicCursorsPkgs,
     # efibootmgr
     # fakeroot
     # fcft
-
-    feather
 
     # festival # speech synthesis
 
@@ -865,14 +869,6 @@ hyprDynamicCursorsPkgs,
     # astronomy:
     #
     # stellarium
-
-    # torrents:
-    #
-    # stig-git
-    transmission_4
-    # transmission-cli
-    # transmission-gtk
-    # inputs.transg-tui.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # stocks:
     #

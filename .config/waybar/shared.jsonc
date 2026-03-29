@@ -257,14 +257,13 @@
     "interval": "30"
   },
   "custom/vpn": {
-    "interval": "30",
     "return-type": "",
     // "exec": "~/.local/bin/i3blocks/vpn",
     "exec": "~/src/mercury/mercury status mullvad",
     "on-click": "~/src/mercury/mercury toggle",
     "on-click-right": "~/src/mercury/mercury menu",
     "on-click-middle": "~/src/mercury/mercury ip-clip",
-    "interval": 5,
+    "interval": 5
     // "format": "<label>",
     // "format-background": "#111111",
   },
@@ -285,5 +284,5 @@
   "custom/time": {
     "exec": "~/.local/bin/i3blocks/time",
     "interval": "1"
-  },
+  }
 }

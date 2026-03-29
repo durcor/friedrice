@@ -29,6 +29,9 @@ case $ID in
     gentoo)
         icon=
         ;;
+    ubuntu)
+        icon=
+        ;;
 
         # idk:
         # 
@@ -57,11 +60,11 @@ case $1 in
         jq --unbuffered -nc \
             --arg icon "$icon " \
             --arg tooltip "$(fastfetch -l none -s $fastfetch_config)" \
-            '{text: $icon, tooltip: $tooltip}'
+            '{text: $icon, tooltip: $tooltip}' | jq -cM
         # "alt": "alt idk",
         # "class": "class idk",
         # "percentage": "0"
         # "tooltip": "$(fastfetch)"
         # "tooltip": $(fastfetch --json | jq --unbuffered -c '.[] | select(.type == "Kernel").result.version'),
         ;;
-esac | jq -cM
+esac
