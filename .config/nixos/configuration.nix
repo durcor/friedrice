@@ -7,7 +7,7 @@ config,
 pkgs,
 stablePkgs,
 unstablePkgs,
-yaziPkgs,
+# yaziPkgs,
 nhPkgs,
 hyprlandPkgs,
 televisionPkgs,
@@ -101,7 +101,7 @@ hyprDynamicCursorsPkgs,
 
   # Packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
-  environment.systemPackages = with config.nixpkgs.pkgs; [
+  environment.systemPackages = with pkgs; [
     nhPkgs.nh
     televisionPkgs.default
     hyprlandPkgs.hyprland
@@ -154,6 +154,7 @@ hyprDynamicCursorsPkgs,
     # cursors:
     rosePineHyprcursorPkgs.default
     capitaine-cursors
+    hyprDynamicCursorsPkgs.hypr-dynamic-cursors
     #
     # razer things:
     #
@@ -349,7 +350,7 @@ hyprDynamicCursorsPkgs,
     # mail:
     #
     neomutt
-    stablePkgs.thunderbird
+    unstablePkgs.thunderbird
     mutt-wizard # -git
     isync # store imap locally
     msmtp # send email
@@ -426,20 +427,6 @@ hyprDynamicCursorsPkgs,
     # xorg-xset
     # xdo
 
-    # messaging:
-    #
-    stablePkgs.equibop
-    vesktop
-    teams-for-linux
-    # discord
-    #
-    unstablePkgs.signal-desktop
-    unstablePkgs.telegram-desktop
-    #
-    # matrix:
-    # cinny-desktop
-    iamb
-
     # menus:
     #
     fuzzel # TODO: move to -git?
@@ -447,8 +434,6 @@ hyprDynamicCursorsPkgs,
     dmenu-wayland
     # dmenu
     # rofi
-
-    # hyprDynamicCursorsPkgs.hypr-dynamic-cursors
 
     # 3d modeling:
     #
@@ -461,10 +446,6 @@ hyprDynamicCursorsPkgs,
     # bluez
     # bluez-libs
     # bluez-utils
-
-    # security:
-    #
-    # ca-certificates-mozilla
 
     # libraries:
     #
@@ -560,6 +541,7 @@ hyprDynamicCursorsPkgs,
 
     # gjs
     # glibmm_2_68
+
     # gmni # -git
 
     # graphics:
@@ -597,9 +579,6 @@ hyprDynamicCursorsPkgs,
 
     kooha # gif recorder
 
-    inkscape
-    unstablePkgs.krita
-
     # kdeconnect
     lan-mouse
 
@@ -613,10 +592,6 @@ hyprDynamicCursorsPkgs,
     # lib32-libxslt
 
     # lib32-openal
-
-    # security:
-    #
-    # lib32-nss
 
     # audio:
     #
@@ -660,11 +635,8 @@ hyprDynamicCursorsPkgs,
     # libtool
 
     # video:
-    # libva-utils
-
-    # virtualization:
     #
-    # libvirt
+    # libva-utils
 
     # linuxwave
 
@@ -731,11 +703,14 @@ hyprDynamicCursorsPkgs,
 
     # patch
 
-    # emulation:
+    # virtualization:
     #
     # qemu-system-x86
     # qemu-user-static
     # virt-manager
+    # libvirt
+    #
+    # emulation:
     #
     # pcsx2 # TODO: -git?
     # retroarch
@@ -754,16 +729,16 @@ hyprDynamicCursorsPkgs,
 
     # perl-image-exiftool
 
+    # social media:
+    #
+    # pleroma-bin
+
     # audio server:
     #
     # pipewire
     # pipewire-alsa
     # pipewire-pulse
     # portaudio
-
-    # social media:
-    #
-    # pleroma-bin
 
     # databases:
     #
@@ -779,7 +754,8 @@ hyprDynamicCursorsPkgs,
     pulsemixer
     ncpamixer
 
-    # python
+    # python:
+    #
     python3
     # python-asciimatics
     # python-beautifulsoup4
@@ -807,16 +783,16 @@ hyprDynamicCursorsPkgs,
     #
     # python-pyscard
     # python-pystray
-
+    #
     # python-pywalfox
-
+    #
     # python-regex
     # python-scikit-learn
     # python-seaborn
     # python-sympy
     # python-tldextract
     # python-typing_extensions
-
+    #
     # AI/ML/NLP:
     # python-vadersentiment
 
@@ -827,7 +803,7 @@ hyprDynamicCursorsPkgs,
 
     # rapidcheck
 
-    # monitor metadata:
+    # display metadata:
     #
     read-edid
     ddcutil
@@ -837,19 +813,19 @@ hyprDynamicCursorsPkgs,
 
     # rust-bindgen
 
-    # windows:
+    # disk utils:
     #
     # samba
+    #
+    # hard drive health:
+    #
+    # smartmontools
 
     # android utils:
     #
     # scrcpy
 
     # shaderc
-
-    # hard drive health:
-    #
-    # smartmontools
 
     # network benchmarking:
     #
@@ -912,9 +888,6 @@ hyprDynamicCursorsPkgs,
 
     # toml11
 
-    # tor
-    # torsocks
-
     usbutils
 
     # vapoursynth # TODO: -git?
@@ -967,6 +940,9 @@ hyprDynamicCursorsPkgs,
     # nmap
     # nspr
     # nss
+    # lib32-nss
+    #
+    # ca-certificates-mozilla
 
     # wine:
     #

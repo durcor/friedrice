@@ -109,7 +109,8 @@
     };
 
     ghostty = {
-      url = "path:./src/ghostty";
+      url = "github:ghostty-org/ghostty";
+      # url = "path:./src/ghostty";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

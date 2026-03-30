@@ -1,7 +1,8 @@
 {
-  pkgs,
-  ...
-}
+pkgs,
+unstablePkgs,
+...
+}:
 {
   environment.systemPackages = with pkgs; [
     # torrents:
@@ -16,6 +17,25 @@
     #
     feather
 
+    # tor
+    # torsocks
     tor-browser
+
+    inkscape
+    unstablePkgs.krita
+
+    # messaging:
+    #
+    unstablePkgs.equibop
+    vesktop
+    teams-for-linux
+    # discord
+    #
+    unstablePkgs.signal-desktop
+    unstablePkgs.telegram-desktop
+    #
+    # matrix:
+    # cinny-desktop
+    iamb
   ];
 }
