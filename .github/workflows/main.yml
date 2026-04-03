@@ -13,12 +13,12 @@ jobs:
       - name: create flake.lock
         run: nix flake lock
 
-      - name: check flake.lock
-        run: nix run github:tgirlcloud/locker
-
       - name: upload flake.lock
         uses: actions/upload-artifact@v4
         with:
           name: flake.lock
           path: flake.lock
           retention-days: 5
+
+      - name: check flake.lock
+        run: nix run github:tgirlcloud/locker
