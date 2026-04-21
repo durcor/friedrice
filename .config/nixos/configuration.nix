@@ -223,6 +223,7 @@ hyprDynamicCursorsPkgs,
     gnumake
     autoconf
     automake
+    cmake
     # pkgconf
     #
     # package managers:
@@ -235,8 +236,12 @@ hyprDynamicCursorsPkgs,
     # repo # git wrapper for android dev
     #
     # AI
-    llmAgentsPkgs.codex
-    llmAgentsPkgs.claude-code
+    codex
+    # llmAgentsPkgs.codex
+    claude-code
+    # llmAgentsPkgs.claude-code
+    #
+    glab
 
     # browsers:
     #
@@ -680,7 +685,7 @@ hyprDynamicCursorsPkgs,
     #
     newsboat
 
-    nvimpager
+    unstablePkgs.nvimpager
 
     # note taking:
     #

@@ -145,6 +145,7 @@
 
     system-manager = {
       url = "github:numtide/system-manager";
+      # url = "path:./src/system-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -167,7 +168,8 @@
     };
 
     nh = {
-      url = "github:nix-community/nh";
+      # url = "github:nix-community/nh";
+      url = "path:./src/nh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

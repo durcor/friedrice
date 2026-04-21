@@ -22,6 +22,12 @@ systemManagerPkgs,
     enable32Bit = true;
   };
 
+  # system-manager already exposes profile terminfo via TERMINFO_DIRS, so we
+  # only need to link it into the managed profile.
+  environment.pathsToLink = [
+    "/share/terminfo"
+  ];
+
   # users.users.tyler = {
   #   isNormalUser = true;
   #   extraGroups = [
@@ -185,6 +191,14 @@ systemManagerPkgs,
   environment.systemPackages = with pkgs; [
     rofi
 
+    awscli2
+    azure-cli
+    argocd
+    k9s
+    kubectl
+
+    util-linux # NOTE: will this mess with our host?
+
     yaziPkgs.yazi
 
     # nixGLPkgs.default
@@ -203,6 +217,8 @@ systemManagerPkgs,
     # xdg-desktop-portal
     # xdg-desktop-portal-gtk
     hyprlandPkgs.xdg-desktop-portal-hyprland
+
+    nix-output-monitor
 
     # gnome-keyring
     # libsecret
