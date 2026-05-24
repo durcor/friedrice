@@ -234,6 +234,10 @@ end, { desc = "Picker snack" })
 
 map("n", "<leader><leader>", "<cmd>w<cr>", { desc = "Write File" })
 
+map("n", "<leader>u~", function()
+  require("config.terminal_titles").toggle_home_path()
+end, { desc = "Toggle window title ~ path" })
+
 map("n", "q", "<cmd>bdelete<cr>")
 map("n", "Q", "<cmd>q<cr>")
 map("n", "<C-Q>", "<cmd>q!<cr>")

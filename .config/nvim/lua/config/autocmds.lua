@@ -22,6 +22,21 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 	end,
 })
 
+-- Keep the outer terminal/window-manager title in sync with the active Neovim buffer.
+-- For terminal buffers, use the title reported by the program running inside them.
+vim.api.nvim_create_autocmd({ "VimEnter", "BufEnter", "WinEnter", "TabEnter", "TermOpen", "TermEnter", "TermLeave", "TermRequest", "DirChanged" }, {
+	group = augroup("window_title"),
+	callback = function()
+		vim.schedule(function()
+			require("config.terminal_titles").apply_window_title()
+		end)
+	end,
+})
+
+vim.api.nvim_create_user_command("WindowTitleToggleHome", function()
+	require("config.terminal_titles").toggle_home_path()
+end, { desc = "Toggle window title cwd between ~ and /home/$USER" })
+
 -- Make terminal as clean as possible
 -- vim.api.nvim_create_autocmd({ "TermOpen" }, {
 --   group = augroup("cleanterm"),
