@@ -14,7 +14,7 @@ abbrev-alias p="paru" # pacman
 abbrev-alias a="apt"
 abbrev-alias d="docker" # podman
 abbrev-alias o="xdg-open"
-abbrev-alias v="edit"
+abbrev-alias v="$HOME/bin/edit"
 abbrev-alias b="$BROWSER"
 abbrev-alias q="exit"
 
@@ -59,7 +59,7 @@ abbrev-alias ki="kitty -1"
 abbrev-alias -g scim="sc-im"
 
 # neovim-remote really needs to be mainlined into nvim
-abbrev-alias ed="edit"
+abbrev-alias ed="$HOME/bin/edit"
 abbrev-alias nv="nvim"
 abbrev-alias sv="sudo -e"
 abbrev-alias vt="nvr --remote -p"
@@ -187,7 +187,7 @@ abbrev-alias pandochtml="pandoc $1 -o $1.html"
 abbrev-alias rzsh="source ~/.zshrc"
 # abbrev-alias scrw="maim -i $(xdotool getactivewindow) -o"
 abbrev-alias smci="sudo make clean install"
-abbrev-alias scratchpad="edit $(mktemp)"
+abbrev-alias scratchpad="$HOME/bin/edit $(mktemp)"
 
 # FIXME: move to yt-dlp?
 abbrev-alias -g ytdl="youtube-dl"

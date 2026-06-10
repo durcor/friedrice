@@ -14,7 +14,10 @@ televisionPkgs,
 nvimPkgs,
 rosePineHyprcursorPkgs,
 llmAgentsPkgs,
+codexPkgs,
+piPkgs,
 hyprDynamicCursorsPkgs,
+hyprlockPkg ? pkgs.hyprlock,
 ...
 }:
 
@@ -90,6 +93,7 @@ hyprDynamicCursorsPkgs,
     });
   };
 
+  security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = false;
 
   environment.variables = {
@@ -104,7 +108,6 @@ hyprDynamicCursorsPkgs,
   environment.systemPackages = with pkgs; [
     nhPkgs.nh
     televisionPkgs.default
-    hyprlandPkgs.hyprland
     nvimPkgs.default
 
     # util
@@ -132,6 +135,8 @@ hyprDynamicCursorsPkgs,
     # which <- pulled in by other packages
     # buku
 
+    mesa-demos
+
     # ricing:
     #
     fastfetch
@@ -143,6 +148,7 @@ hyprDynamicCursorsPkgs,
     pipes-rs
     # openrazer-daemon
     themix-gui # TODO: -git?
+    papirus-icon-theme # fuzzel.ini uses icon-theme=Papirus
     quickshell
     # lxappearance
     # wraith-master
@@ -158,11 +164,11 @@ hyprDynamicCursorsPkgs,
     #
     # razer things:
     #
-    # razercommander   -git
-    # python-openrazer -git
+    # razercommander
+    # python-openrazer
     # polychromatic
     #
-    # spicetify-cli    -git
+    # spicetify-cli
 
     # dev tools:
     #
@@ -190,7 +196,7 @@ hyprDynamicCursorsPkgs,
     # nodejs
     # nuget # c#
     # r
-    # ruby
+    ruby
     #
     # language servers:
     #
@@ -207,7 +213,7 @@ hyprDynamicCursorsPkgs,
     #
     # containers:
     #
-    # docker
+    docker
     # docker-buildx
     # podman
     buildah
@@ -234,13 +240,14 @@ hyprDynamicCursorsPkgs,
     # cpanminus
     #
     # repo # git wrapper for android dev
-    #
+
     # AI
-    codex
-    # llmAgentsPkgs.codex
-    claude-code
-    # llmAgentsPkgs.claude-code
-    #
+    llmAgentsPkgs.opencode
+    # codexPkgs.codex-rs
+    llmAgentsPkgs.codex
+    # llmAgentsPkgs.pi
+    piPkgs.default
+
     glab
 
     # browsers:
@@ -255,8 +262,8 @@ hyprDynamicCursorsPkgs,
 
     # gpu:
     #
-    # drm_monitor -git
-    # libdrm      -git
+    # drm_monitor
+    # libdrm
 
     # terminals
     kitty
@@ -273,7 +280,7 @@ hyprDynamicCursorsPkgs,
     # urlscan
     # vimv      -git
     # ttyqr     -git
-    tty-clock # TODO: -git?
+    tty-clock
     # libsixel
 
     vdirsyncer # contacts/calendar sync
@@ -314,9 +321,9 @@ hyprDynamicCursorsPkgs,
     #
     mpv
     # mpv-mpris
-    # mpv-quality-menu # -git
-    # mpv-thumbfast    # -git
-    # mpv-visualizer   # -git
+    # mpv-quality-menu
+    # mpv-thumbfast
+    # mpv-visualizer
     #
     # vlc
     #
@@ -388,7 +395,7 @@ hyprDynamicCursorsPkgs,
     hypridle
     # swayidle
     #
-    hyprlock
+    hyprlockPkg
     # swaylock-effects
     # i3lock-color
     #
@@ -434,7 +441,7 @@ hyprDynamicCursorsPkgs,
 
     # menus:
     #
-    fuzzel # TODO: move to -git?
+    fuzzel
     fzf
     dmenu-wayland
     # dmenu
@@ -468,7 +475,6 @@ hyprDynamicCursorsPkgs,
     cowsay
     # cowfortune
     # fortune-mod-off
-    # sex
 
     libnotify # for notify-send
 
@@ -530,7 +536,7 @@ hyprDynamicCursorsPkgs,
 
     gimp
 
-    # git-credential-manager # -bin
+    # git-credential-manager
     # git-lfs
     # github-cli
     lazygit
@@ -762,6 +768,7 @@ hyprDynamicCursorsPkgs,
     # python:
     #
     python3
+    python313Packages.pyyaml
     # python-asciimatics
     # python-beautifulsoup4
     # python-defusedxml
@@ -835,7 +842,7 @@ hyprDynamicCursorsPkgs,
     # network benchmarking:
     #
     # iperf
-    # speedtest++
+    speedtest-cli
 
     # formal verification:
     #
@@ -914,8 +921,8 @@ hyprDynamicCursorsPkgs,
     # ncnn:
     #
     # waifu2x-ncnn-vulkan
-    # dain-ncnn-vulkan # -git
-    # srmd-ncnn-vulkan # -git
+    # dain-ncnn-vulkan
+    # srmd-ncnn-vulkan
 
     # networking:
     #

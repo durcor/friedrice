@@ -1,36 +1,141 @@
 #!/usr/bin/env bash
 #
-# Assumes your $EDITOR of choice is nvim
-# Uses nvr (neovim-remote) to create new buffers for files within an existing nvim instance
+# Assumes your $EDITOR of choice is nvim.
+#
+# Normal shell usage is single-instance: the first invocation starts an
+# interactive Neovim listening on a stable per-user socket; later invocations
+# open files in that same instance.  This lets LSP servers like nixd be shared
+# by the long-lived Neovim process instead of being restarted for every edit.
+#
+# Blocking editor use-cases such as sudo/systemctl still use --remote-*-wait so
+# the caller does not continue until the temporary buffer is closed.
 
 [ "$XDG_CONFIG_DIR" ] || XDG_CONFIG_DIR=$HOME/.config
 
+nvim_socket="${NVIM_LISTEN_ADDRESS:-${XDG_RUNTIME_DIR:-/tmp}/nvim/main.sock}"
+
+nvim_server_alive() {
+    [ -n "$1" ] && nvim --server "$1" --remote-expr '1' >/dev/null 2>&1
+}
+
+ensure_socket_dir() {
+    mkdir -p "$(dirname "$nvim_socket")"
+}
+
+remove_stale_socket() {
+    if [ -S "$nvim_socket" ] && ! nvim_server_alive "$nvim_socket"; then
+        rm -f "$nvim_socket"
+    fi
+}
+
+nvim_remote_args=()
+absolutize_nvim_remote_args() {
+    # Neovim resolves --remote file arguments in the server's cwd, not the
+    # caller's cwd. Convert relative file paths to absolute paths so
+    # `cd ~; edit flake.nix` still opens ~/flake.nix even if the server's cwd is
+    # currently ~/bin.
+    nvim_remote_args=()
+
+    local arg
+    local after_double_dash=0
+    for arg in "$@"; do
+        if [ "$after_double_dash" -eq 0 ]; then
+            case $arg in
+                --)
+                    after_double_dash=1
+                    nvim_remote_args+=("$arg")
+                    continue
+                    ;;
+                +* | -*)
+                    nvim_remote_args+=("$arg")
+                    continue
+                    ;;
+            esac
+        fi
+
+        case $arg in
+            "" | /* | *://*) nvim_remote_args+=("$arg") ;;
+            *) nvim_remote_args+=("$PWD/$arg") ;;
+        esac
+    done
+}
+
+open_in_nvim_server() {
+    local server=$1
+    shift
+
+    if [ "$#" -gt 0 ]; then
+        absolutize_nvim_remote_args "$@"
+        exec nvim --server "$server" --remote-tab-silent "${nvim_remote_args[@]}"
+    else
+        exec nvim --server "$server" --remote-send '<Esc>:tabnew | terminal<CR>'
+    fi
+}
+
+open_in_nvim_server_and_wait() {
+    local server=$1
+    shift
+
+    if [ "$#" -gt 0 ]; then
+        absolutize_nvim_remote_args "$@"
+        exec nvim --server "$server" --remote-tab-wait-silent "${nvim_remote_args[@]}"
+    else
+        exec nvim --server "$server" --remote-send '<Esc>:tabnew | terminal<CR>'
+    fi
+}
+
 edit_with_nvim() {
+    # Commands that invoke $EDITOR expect it to block until editing is done.
     case $_ in
-        */bin/sudo | */bin/systemctl) exec nvr --remote-tab-wait $@ ;;
+        */bin/sudo | */bin/systemctl)
+            if [ -n "$NVIM" ] && nvim_server_alive "$NVIM"; then
+                open_in_nvim_server_and_wait "$NVIM" "$@"
+            fi
+            if nvim_server_alive "$nvim_socket"; then
+                open_in_nvim_server_and_wait "$nvim_socket" "$@"
+            fi
+            ensure_socket_dir
+            remove_stale_socket
+            exec nvim --listen "$nvim_socket" "$@"
+            ;;
     esac
-    if [ "$NVIM" ]; then
+
+    # If invoked from inside Neovim, target that exact instance instead of the
+    # global socket. This preserves the old nested-edit behavior while avoiding
+    # the nvr dependency.
+    if [ -n "$NVIM" ] && nvim_server_alive "$NVIM"; then
         case $1 in
-            /dev/shm/pass.* | $XDG_CONFIG_DIR/systemd/user/.#* | /tmp/vimv.*)
-                exec nvr --remote-tab-wait $@
+            /dev/shm/pass.* | "$XDG_CONFIG_DIR"/systemd/user/.#* | /tmp/vimv.*)
+                open_in_nvim_server_and_wait "$NVIM" "$@"
                 ;;
             *)
                 if [ "$1" ]; then
-                    if [ -f "$1" ] && [ "$(stat -c '%u' $1)" -eq 0 ]; then
-                        exec sudo -e $1
+                    if [ -f "$1" ] && [ "$(stat -c '%u' "$1")" -eq 0 ]; then
+                        exec sudo -e "$1"
                     else
-                        exec nvr --remote -p "$@"
+                        open_in_nvim_server "$NVIM" "$@"
                     fi
                 else
-                    exec nvr --remote -c ':terminal'
+                    open_in_nvim_server "$NVIM"
                 fi
                 ;;
         esac
-    else
-        # NVIM_LISTEN_ADDRESS=/tmp/nvimsocket exec nvim "$@"
-        exec nvim "$@"
     fi
+
+    # Normal shell invocation: reuse the long-lived Neovim if it exists;
+    # otherwise start this Neovim as the long-lived listener.
+    if nvim_server_alive "$nvim_socket"; then
+        open_in_nvim_server "$nvim_socket" "$@"
+    fi
+
+    ensure_socket_dir
+    remove_stale_socket
+    exec nvim --listen "$nvim_socket" "$@"
 }
+
+if [ "$#" -eq 0 ]; then
+    edit_with_nvim
+fi
 
 case $(file --mime-type -b "$1") in
     image/*)
@@ -45,11 +150,11 @@ case $(file --mime-type -b "$1") in
         ;;
     application/zip)
         echo >&2 "warning: this is a zip file. here's what's in it though:"
-        unzip -l $1
+        unzip -l "$1"
         # TODO: ask the user if they want to extract it
         ;;
     application/x-shockwave-flash | application/vnd.microsoft.portable-executable | application/x-pie-executable | application/*-executable | application/octet-stream)
         echo >&2 "warning: this is a binary. you should probably use a hexeditor"
         ;;
-    *) edit_with_nvim $@ ;;
+    *) edit_with_nvim "$@" ;;
 esac

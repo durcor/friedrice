@@ -4,6 +4,9 @@
 # >>> START PROFILING
 # zmodload zsh/zprof
 
+# Source the global shell-agnostic script
+. $HOME/.shrc
+
 # [ $(tput cols) -ge 100 ] && fastfetch
 fastfetch
 
@@ -12,12 +15,9 @@ fastfetch
 # confirmations, etc.) must go above this block; everything else may go below.
 # [[ -r "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh" ]] &&
 #     source "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh"
-source "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh"
+source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 
 # [[ $- != *i* ]] && return
-
-# Source the global shell-agnostic script
-. $HOME/.shrc
 
 # autoload -U colors && colors
 # Set up the prompt

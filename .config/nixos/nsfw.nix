@@ -21,8 +21,14 @@ unstablePkgs,
     # torsocks
     tor-browser
 
+    # sex
+
     inkscape
     unstablePkgs.krita
+
+    # AI
+    claude-code
+    # llmAgentsPkgs.claude-code
 
     # messaging:
     #

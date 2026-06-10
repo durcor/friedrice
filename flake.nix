@@ -149,6 +149,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    pam-shim = {
+      url = "github:Cu3PO42/pam_shim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     television = {
       url = "github:alexpasmantier/television";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -178,6 +183,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    codex = {
+      # url = "github:openai/codex";
+      url = "path:./src/codex";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+
+    pi = {
+      url = "path:./src/pi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    yensid.url = "github:garnix-io/yensid";
+
     # simula = {
     #   url = "github:SimulaVR/Simula"
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -194,7 +213,8 @@
     home-manager,
     system-manager,
     nix-system-graphics,
-    nix,
+    # yensid,
+    # nix,
     self,
     ...
   }@inputs:
@@ -219,11 +239,14 @@
           gpuUsageWaybarPkgs = inputs.gpu-usage-waybar.packages.${system};
           televisionPkgs = inputs.television.packages.${system};
           systemManagerPkgs = inputs.system-manager.packages.${system};
+          pamShimPkgs = inputs.pam-shim.packages.${system};
           firefoxNightlyPkgs = inputs.firefox-nightly.packages.${system};
           nvimPkgs = inputs.nvim.packages.${system};
           rosePineHyprcursorPkgs = inputs.rose-pine-hyprcursor.packages.${system};
           nixGLPkgs = inputs.nixGL.packages.${system};
           llmAgentsPkgs = inputs.llm-agents.packages.${system};
+          codexPkgs = inputs.codex.packages.${system};
+          piPkgs = inputs.pi.packages.${system};
           hyprDynamicCursorsPkgs = inputs.hypr-dynamic-cursors.packages.${system};
         };
 
@@ -232,10 +255,6 @@
           inherit self inputs chaotic;
         } // removeAttrs (mkArgs system) [ "pkgs" ];
 
-      mkExtraSpecialArgs = system:
-        {
-          inherit self inputs;
-        } // removeAttrs (mkArgs system) [ "pkgs" ];
     in {
     formatter = nixpkgs.lib.genAttrs supportedSystems (
       system: (import nixpkgs { inherit system; }).nixfmt
@@ -265,8 +284,36 @@
           "${self}/etc/nixos/configuration.nix"
           "${self}/etc/nixos/hosts/zorya.nix"
           nix-system-graphics.systemModules.default
+          # {
+          #   imports = [
+          #     yensid.nixosModules.proxy
+          #     # yensid.nixosModules.ca
+          #   ];
+          #   config = {
+          #     yensid = {
+          #       proxy = {
+          #         enable = true;
+          #         builders = {
+          #           # Change the IP addresses (and names) as needed.
+          #           tylers-nix-builder.ip = "10.173.41.169";
+          #           # builder2.ip = <IP>;
+          #         };
+          #         loadBalancing.strategy = "leastconn";
+          #       };
+          #       # If you enable CA, the generated CA key must be placed in
+          #       # /etc/ca-signing-key/ca-signing-key
+          #       # ca = {
+          #       #   enable = true;
+          #       #   builders = {
+          #       #     builder1.sshPubKeyFile = ./somefile1;
+          #       #     builder2.sshPubKeyFile = ./somefile2;
+          #       #   };
+          #       # };
+          #     };
+          #   };
+          # }
         ];
-        extraSpecialArgs = mkExtraSpecialArgs "x86_64-linux";
+        specialArgs = mkSpecialArgs "x86_64-linux";
       };
     };
 
@@ -287,10 +334,10 @@
       in {
         tyler = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          # extraSpecialArgs = {
+          # specialArgs = {
           #   inherit inputs;
           # };
-          extraSpecialArgs = mkExtraSpecialArgs "x86_64-linux";
+          specialArgs = mkSpecialArgs "x86_64-linux";
           modules = [
             {
               home.username = "tyler";
