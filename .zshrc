@@ -44,7 +44,7 @@ HISTFILE=$HOME/.shhis
 HISTCONTROL=ignoreboth
 
 # Use zinit as the zsh plugin manager
-source $XDG_DATA_HOME/zinit/zinit.git/zinit.zsh
+source ${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git/zinit.zsh
 
 setopt COMPLETE_ALIASES
 zstyle ':completion:*' menu select

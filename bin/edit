@@ -84,6 +84,13 @@ open_in_nvim_server_and_wait() {
     fi
 }
 
+KERNEL=$(uname)
+if [ "$KERNEL" = Linux ]; then
+    stat_arg='-c'
+elif [ "$KERNEL" = Darwin ]; then
+    stat_arg='-f'
+fi
+
 edit_with_nvim() {
     # Commands that invoke $EDITOR expect it to block until editing is done.
     case $_ in
@@ -110,7 +117,7 @@ edit_with_nvim() {
                 ;;
             *)
                 if [ "$1" ]; then
-                    if [ -f "$1" ] && [ "$(stat -c '%u' "$1")" -eq 0 ]; then
+                    if [ -f "$1" ] && [ "$(stat $stat_arg '%u' "$1")" -eq 0 ]; then
                         exec sudo -e "$1"
                     else
                         open_in_nvim_server "$NVIM" "$@"

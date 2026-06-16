@@ -7,6 +7,7 @@
 # initializing login shells
 
 [ $ALREADY_BEEN_HERE ] && return
+export KERNEL="$(uname)"
 
 . "$HOME/.mancolors"
 . "$HOME/.config/lf/ico"
@@ -95,13 +96,15 @@ export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
     && [ -f "$XDG_CACHE_HOME/wal/colors-tty.sh" ] \
     && . "$XDG_CACHE_HOME/wal/colors-tty.sh"
 
-[ -d "$HOME/.themes/$GTK_THEME" ] || {
-    echo >&2 "Error: $GTK_THEME is not installed."
-    echo "Fix this right now!"
-}
+if [ "$KERNEL" = "Linux" ]; then
+    [ -d "$HOME/.themes/$GTK_THEME" ] || {
+        echo >&2 "Error: $GTK_THEME is not installed."
+        echo "Fix this right now!"
+    }
+fi
 
 # my super simple login manager
-[ "$WAYLAND_DISPLAY" ] || [ "$DISPLAY" ] || [ "$SSH_TTY" ] || [ "$TMUX" ] || {
+[ "$WAYLAND_DISPLAY" ] || [ "$DISPLAY" ] || [ "$SSH_TTY" ] || [ "$TMUX" ] || [ "$TERM_PROGRAM" ] || {
     login_options=$(
         cat <<EOF
 tty
@@ -113,7 +116,8 @@ EOF
 
     [ "$SSH_AGENT_PID" ] || {
         eval "$(ssh-agent)"
-        ssh-add "$HOME/.ssh/id_rsa"
+        [ -f "$HOME/.ssh/id_rsa" ] && ssh-add "$HOME/.ssh/id_rsa"
+        [ -f "$HOME/.ssh/id_ed25519" ] && ssh-add "$HOME/.ssh/id_ed25519"
     }
 
     header="How do you wish to log in?"
@@ -122,11 +126,6 @@ EOF
     case $disp in
         tty)
             ALREADY_BEEN_HERE=1
-            echo "NOTE: Setting repeat and delay rate (Requires root)"
-            sudo -n kbdrate -r 35 -d 150 >/dev/null
-            # TODO: Remap caps lock and escape using interception
-            echo "NOTE: Remapping keys (Requires root)"
-            sudo loadkeys .config/root/etc/keystrings
             ;;
         xorg)
             # Set up multi-monitor FreeSync correctly by piggy-backing off wayland's better FreeSync support
@@ -169,5 +168,3 @@ source_if_exists "$HOME/.cargo/env"
 export NVM_DIR="$HOME/.config/nvm"
 source_if_exists "$NVM_DIR/nvm.sh"          # This loads nvm
 source_if_exists "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-
-# export PATH="$HOME/.pixi/bin:$PATH"

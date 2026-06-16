@@ -154,6 +154,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     television = {
       url = "github:alexpasmantier/television";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -212,6 +217,7 @@
     chaotic,
     home-manager,
     system-manager,
+    nix-darwin,
     nix-system-graphics,
     # yensid,
     # nix,
@@ -222,6 +228,7 @@
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
+        "aarch64-darwin"
       ];
 
       mkArgs = system:
@@ -266,6 +273,7 @@
         modules = [
           "${self}/etc/nixos/configuration.nix"
           "${self}/etc/nixos/nixos-only.nix"
+          "${self}/etc/nixos/linux-only.nix"
           "${self}/etc/nixos/hosts/noveria.nix"
           "${self}/etc/nixos/amdgpu.nix"
           "${self}/etc/nixos/ryzen.nix"
@@ -283,6 +291,7 @@
         modules = [
           "${self}/etc/nixos/configuration.nix"
           "${self}/etc/nixos/hosts/zorya.nix"
+          "${self}/etc/nixos/linux-only.nix"
           nix-system-graphics.systemModules.default
           # {
           #   imports = [
@@ -314,6 +323,16 @@
           # }
         ];
         specialArgs = mkSpecialArgs "x86_64-linux";
+      };
+    };
+
+    darwinConfigurations = {
+      feros = nix-darwin.lib.darwinSystem {
+        modules = [
+          "${self}/etc/nixos/configuration.nix"
+          "${self}/etc/nixos/hosts/feros.nix"
+        ];
+        specialArgs = mkSpecialArgs "aarch64-darwin";
       };
     };
 

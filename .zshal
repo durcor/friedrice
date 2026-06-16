@@ -18,9 +18,24 @@ abbrev-alias v="$HOME/bin/edit"
 abbrev-alias b="$BROWSER"
 abbrev-alias q="exit"
 
-abbrev-alias mk="make -j$(nproc)"
-abbrev-alias nr="nh os switch"
-# abbrev-alias nr="sudo nixos-rebuild switch"
+if [ $KERNEL = Linux ]; then
+  abbrev-alias mk="make -j$(nproc)"
+elif [ $KERNEL = Darwin ]; then
+  abbrev-alias mk="make -j$(sysctl -n hw.logicalcpu)"
+fi
+
+if [ "$KERNEL" = Darwin ]; then
+  abbrev-alias nr="nh darwin switch"
+elif [ "$KERNEL" = Linux ]; then
+  . /etc/os-release
+  if [ "$NAME" = "NixOS" ]; then
+    abbrev-alias nr="nh os switch"
+    # abbrev-alias nr="sudo nixos-rebuild switch"
+  else
+    abbrev-alias nr="nh system switch"
+  fi
+fi
+
 abbrev-alias bm="builderman"
 abbrev-alias pg="$PAGER"
 abbrev-alias rs="rsync"
@@ -129,7 +144,13 @@ abbrev-alias la="eza -A"
 abbrev-alias ncdu="dua i"
 abbrev-alias du="\du -Lhd1"
 abbrev-alias sort="\sort -h"
-abbrev-alias df="\df -hT -x tmpfs -x squashfs -x devtmpfs"
+
+if [ $KERNEL = Linux ]; then
+  abbrev-alias df="\df -hT -x tmpfs -x squashfs -x devtmpfs"
+elif [ $KERNEL = Darwin ]; then
+  abbrev-alias df="\df -h"
+fi
+
 abbrev-alias dd="\dd conv=noerror,sync status=progress bs=64K"
 abbrev-alias whatsbig="du -hs * | sort -h"
 

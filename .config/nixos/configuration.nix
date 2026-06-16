@@ -93,9 +93,6 @@ hyprlockPkg ? pkgs.hyprlock,
     });
   };
 
-  security.sudo.enable = true;
-  security.sudo.wheelNeedsPassword = false;
-
   environment.variables = {
     EDITOR = "nvim";
   };
@@ -147,20 +144,12 @@ hyprlockPkg ? pkgs.hyprlock,
     pipes
     pipes-rs
     # openrazer-daemon
-    themix-gui # TODO: -git?
-    papirus-icon-theme # fuzzel.ini uses icon-theme=Papirus
-    quickshell
     # lxappearance
     # wraith-master
     # matugen
     # neo-matrix # TODO: -git?
     # neofetch
     # asciiquarium
-    #
-    # cursors:
-    rosePineHyprcursorPkgs.default
-    capitaine-cursors
-    hyprDynamicCursorsPkgs.hypr-dynamic-cursors
     #
     # razer things:
     #
@@ -217,7 +206,6 @@ hyprlockPkg ? pkgs.hyprlock,
     # docker-buildx
     # podman
     buildah
-    bubblewrap # sandboxing
     #
     # debugging:
     #
@@ -245,6 +233,7 @@ hyprlockPkg ? pkgs.hyprlock,
     llmAgentsPkgs.opencode
     # codexPkgs.codex-rs
     llmAgentsPkgs.codex
+    # codex
     # llmAgentsPkgs.pi
     piPkgs.default
 
@@ -253,7 +242,6 @@ hyprlockPkg ? pkgs.hyprlock,
     # browsers:
     #
     brave
-    qutebrowser
     # lynx
 
     # browser utils
@@ -267,7 +255,7 @@ hyprlockPkg ? pkgs.hyprlock,
 
     # terminals
     kitty
-    ghostty
+    kitty.terminfo # avoid "can't find terminal definition for xterm-kitty" over SSH
     alacritty
     # foot
     # wezterm -git
@@ -280,14 +268,12 @@ hyprlockPkg ? pkgs.hyprlock,
     # urlscan
     # vimv      -git
     # ttyqr     -git
-    tty-clock
     # libsixel
 
     vdirsyncer # contacts/calendar sync
 
     # file management
     lf
-    dragon-drop
     # transgender
 
     # media:
@@ -331,16 +317,6 @@ hyprlockPkg ? pkgs.hyprlock,
     # gst-plugins-base
     # lib32-gst-plugins-base-libs
 
-    # pdf:
-    #
-    zathura
-    zathuraPkgs.zathura_djvu
-    zathuraPkgs.zathura_pdf_mupdf
-    # evince
-    #
-    # pdfjs
-    # pdftk
-
     # firmware:
     #
     # linux-firmware-other
@@ -353,11 +329,6 @@ hyprlockPkg ? pkgs.hyprlock,
     # hardware testing:
     #
     # memtest86+
-
-    # notifications:
-    #
-    mako
-    # dunst
 
     # mail:
     #
@@ -374,7 +345,6 @@ hyprlockPkg ? pkgs.hyprlock,
     neovim-remote
     # kakoune
     # helix
-    libreoffice
     sc-im
 
     nixVersions.latest # nixVersions.git
@@ -382,70 +352,9 @@ hyprlockPkg ? pkgs.hyprlock,
     nixfmt
     nixpkgs-review
 
-    # window managers:
+    # terminal menus:
     #
-    sway
-    # i3
-    #
-    # window manager utilities:
-    #
-    # status bar:
-    # i3blocks
-    #
-    hypridle
-    # swayidle
-    #
-    hyprlockPkg
-    # swaylock-effects
-    # i3lock-color
-    #
-    hyprpaper
-    hyprpicker
-    #
-    # wallpaper utilities:
-    #
-    # swww
-    #
-    # clipboard management:
-    #
-    wl-clipboard
-    # xsel
-    # xclip
-    # clipman
-    # clipmenu
-    # clipnotify
-    #
-    wdisplays # TODO: -git?
-    # arandr
-    #
-    wev
-    # xorg-xev
-    #
-    # wlr-randr-git
-    # xorg-xrandr
-    #
-    # wf-recorder-git
-    # wlrobs-hg
-    # obs-studio
-    # obs-vaapi
-    #
-    # desktop portals:
-    #
-    # xdg-desktop-portal-gtk
-    # xdg-desktop-portal-hyprland
-    # xdg-desktop-portal-wlr
-    #
-    # xorg-xinit
-    # xorg-xset
-    # xdo
-
-    # menus:
-    #
-    fuzzel
     fzf
-    dmenu-wayland
-    # dmenu
-    # rofi
 
     # 3d modeling:
     #
@@ -485,7 +394,6 @@ hyprlockPkg ? pkgs.hyprlock,
 
     # printing:
     #
-    system-config-printer
     # cups
 
     # dbus
@@ -546,9 +454,7 @@ hyprlockPkg ? pkgs.hyprlock,
     glances
     htop
     # btop
-    lm_sensors
     bottom
-    systemctl-tui
 
     # gjs
     # glibmm_2_68
@@ -587,11 +493,6 @@ hyprlockPkg ? pkgs.hyprlock,
 
     # inotify-info-git
     # inotify-tools
-
-    kooha # gif recorder
-
-    # kdeconnect
-    lan-mouse
 
     # lensfun
 
@@ -670,8 +571,6 @@ hyprlockPkg ? pkgs.hyprlock,
     # screenshotting:
     #
     # maim
-    slurp
-    grim
     # grimblast # -git
 
     # microsoft -_-:
@@ -759,12 +658,6 @@ hyprlockPkg ? pkgs.hyprlock,
     #
     # projectm
 
-    # audio controller:
-    #
-    pavucontrol
-    pulsemixer
-    ncpamixer
-
     # python:
     #
     python3
@@ -815,11 +708,6 @@ hyprlockPkg ? pkgs.hyprlock,
 
     # rapidcheck
 
-    # display metadata:
-    #
-    read-edid
-    ddcutil
-
     # ruby-dbus
     # ruby-rexml
 
@@ -853,6 +741,7 @@ hyprlockPkg ? pkgs.hyprlock,
     # ssh-audit
     # openssh
     # sshfs
+    sshuttle
 
     # shell prompt:
     starship
@@ -958,7 +847,6 @@ hyprlockPkg ? pkgs.hyprlock,
 
     # wine:
     #
-    wineWow64Packages.stagingFull
     # winetricks-git
 
     # diffing:
