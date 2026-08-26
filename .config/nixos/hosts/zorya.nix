@@ -3,7 +3,7 @@
 pkgs,
 lib,
 config,
-yaziPkgs,
+# yaziPkgs,
 hyprlandPkgs,
 firefoxNightlyPkgs,
 gpuUsageWaybarPkgs,
@@ -118,7 +118,7 @@ pamShimPkgs,
   # sessions like this host's ~/.profile -> Hyprland flow, while preserving host
   # distro data.  man-db usually infers /run/system-manager/sw/share/man from
   # /run/system-manager/sw/bin on PATH, so MANPATH is intentionally not set.
-  environment.extraInit = ''
+  environment.extraInit = /* sh */ ''
     if [ -z "''${XDG_DATA_DIRS:-}" ]; then
       export XDG_DATA_DIRS="/usr/local/share:/usr/share"
     fi
@@ -328,25 +328,14 @@ pamShimPkgs,
     # AI
     openspec
 
-    # cloud
-    awscli2
-    ssm-session-manager-plugin
-    azure-cli
-    argocd
-    k9s
-    kubectl
-    terraform
-
     util-linux # NOTE: will this mess with our host?
-
-    yaziPkgs.yazi
 
     # nixGLPkgs.default
     systemManagerPkgs.default
-    nix-output-monitor
-    nix-fast-build
 
     docker-credential-helpers
+
+    teams-for-linux
 
     waybar
 

@@ -1,3 +1,3 @@
 return {
-  "tpope/vim-fugitive",
+  dir = "~/src/vim-fugitive",
 }

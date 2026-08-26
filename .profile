@@ -6,7 +6,7 @@
 # Put stuff here that you only want sourced when
 # initializing login shells
 
-[ $ALREADY_BEEN_HERE ] && return
+[ "$ALREADY_BEEN_HERE" ] && return
 export KERNEL="$(uname)"
 
 . "$HOME/.mancolors"
@@ -89,6 +89,7 @@ export VAAPI_MPEG4_ENABLED=true
 export GOPATH="$XDG_DATA_HOME/go"
 export CLASSPATH="$CLASSPATH:/usr/share/java/*"
 export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
+export LIBVIRT_DEFAULT_URI=qemu:///system
 ## LaTeX plugins
 export TEXINPUTS="$HOME/doc/tex/*/:$TEXINPUTS"
 
@@ -161,9 +162,12 @@ EOF
 
 source_if_exists() { [ -e "$1" ] && . "$1"; }
 
+source_if_exists "$HOME/.work.profile"
+
+# source_if_exists "$HOME/.config/broot/launcher/bash/br"
+
 source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh" # added by Nix installer
 source_if_exists "$HOME/.cargo/env"
-# source_if_exists "$HOME/.config/broot/launcher/bash/br"
 
 export NVM_DIR="$HOME/.config/nvm"
 source_if_exists "$NVM_DIR/nvm.sh"          # This loads nvm

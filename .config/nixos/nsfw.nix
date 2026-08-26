@@ -34,7 +34,6 @@ unstablePkgs,
     #
     unstablePkgs.equibop
     vesktop
-    teams-for-linux
     # discord
     #
     unstablePkgs.signal-desktop

@@ -37,3 +37,6 @@
 [submodule "src/nh"]
   path = src/nh
   url = https://github.com/nix-community/nh
+[submodule "src/vim-fugitive"]
+  path = src/vim-fugitive
+  url = https://github.com/tpope/vim-fugitive

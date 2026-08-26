@@ -3,6 +3,7 @@
 . ~/.cache/wal/colors.sh
 
 submap_name=$1
+colors_hypr=${XDG_CACHE_HOME:-"$HOME/.cache"}/wal/colors.hypr
 
 [ "$submap_name" ] || {
     echo "Error: No submap name provided"
@@ -24,21 +25,17 @@ case $submap_name in
         ;;
 esac
 
-normal_color=$(hyprctl getoption general:col.active_border | awk -F: 'NR == 1 {print $2}')
+active_border1=$(awk '/^\$active_border1 = / { print $3; exit }' "$colors_hypr" 2>/dev/null)
+active_border2=$(awk '/^\$active_border2 = / { print $3; exit }' "$colors_hypr" 2>/dev/null)
 
-case $(echo "$normal_color" | wc -w) in
-    3)
-        set_color=$(echo "$normal_color" | awk '{printf "rgba(%s) rgba(%s)", $1, $2}')
-        gradient_angle=$(echo "$normal_color" | awk '{print $3}')
-        ;;
-    2)
-        set_color=$(echo "$normal_color" | awk '{printf "rgba(%s)", $1}')
-        gradient_angle=$(echo "$normal_color" | awk '{print $2}')
-        ;;
-    *) ;;
-esac
+if [ "$active_border1" ] && [ "$active_border2" ]; then
+    restore_args="rgba($active_border1) rgba($active_border2) 45deg"
+elif [ "$active_border1" ]; then
+    restore_args="rgba($active_border1)"
+else
+    restore_args=
+fi
 
-hyprctl -q keyword general:col.active_border "rgb($(echo $color12 | sed 's/#//'))" \
-    && hyprctl -q dispatch submap "$submap_name" \
-    && sleep 0.2 \
-    && hyprctl -q keyword general:col.active_border "$set_color" "$gradient_angle"
+if hyprctl -q keyword general:col.active_border "rgb($(echo "$color12" | sed 's/#//g'))"     && hyprctl -q dispatch submap "$submap_name"     && sleep 0.2; then
+    [ -z "$restore_args" ] || hyprctl -q keyword general:col.active_border $restore_args
+fi

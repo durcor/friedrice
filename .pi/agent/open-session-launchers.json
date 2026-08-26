@@ -1,0 +1,8 @@
+{
+  "default": "kitty",
+  "launchers": {
+    "kitty": {
+      "command": "kitty --directory {{cwd}} pi --session {{sessionPath}}"
+    }
+  }
+}

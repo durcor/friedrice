@@ -1,0 +1,23 @@
+{
+  "defaultModel": "gpt-5.6-terra",
+  "defaultProvider": "portkey_com",
+  "defaultThinkingLevel": "medium",
+  "extensions": [],
+  "inputMode": "vim",
+  "lastChangelogVersion": "0.80.3",
+  "packages": [
+    "~/src/shieldai/pi-personal-extensions",
+    "~/src/pi-code-previews",
+    "~/wrk/timecard-cli/pi-extension",
+    "npm:pi-subagents"
+  ],
+  "showHardwareCursor": true,
+  "skills": [
+    "/home/tyler/.agents/plugins/springboard/skills"
+  ],
+  "terminal": {
+    "fullscreen": true,
+    "showTerminalProgress": true
+  },
+  "theme": "dark"
+}

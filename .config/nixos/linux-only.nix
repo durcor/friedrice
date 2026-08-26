@@ -2,7 +2,7 @@
 pkgs,
 hyprlandPkgs,
 rosePineHyprcursorPkgs,
-hyprDynamicCursorsPkgs,
+# hyprDynamicCursorsPkgs,
 ...
 }:
 
@@ -16,7 +16,7 @@ hyprDynamicCursorsPkgs,
     # cursors:
     rosePineHyprcursorPkgs.default
     capitaine-cursors
-    hyprDynamicCursorsPkgs.hypr-dynamic-cursors
+    # hyprDynamicCursorsPkgs.hypr-dynamic-cursors
 
     tty-clock
 
@@ -142,4 +142,3 @@ hyprDynamicCursorsPkgs,
     qutebrowser
   ];
 }
-

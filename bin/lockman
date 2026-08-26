@@ -18,11 +18,22 @@ make_blur_lock_screen() {
 
 case $XDG_CURRENT_DESKTOP in
     *yprland)
-        hash hyprlock 2>/dev/null || {
-            echo "Error: hyprlock is not installed"
+        hash swaylock 2>/dev/null || {
+            echo "Error: swaylock is not installed"
             exit 1
         }
-        hyprlock
+        make_blur_lock_screen
+
+        swaylock -f -K -i "/tmp/$wal_name" \
+            --font "mononoki Nerd Font" --font-size 30 \
+            --indicator-idle-visible --indicator-radius 100 --indicator-thickness 10 \
+            --ring-color "$color13" \
+            --text-color "$color15" \
+            --key-hl-color "$color12" \
+            --line-color "$color8" \
+            --inside-color "$color8" \
+            --separator-color "$color0" \
+            --inside-clear-color "$color11" --line-clear-color "$color12" --ring-clear-color "$color13"
         ;;
     sway)
         # resolution=$(swaymsg -t get_outputs |

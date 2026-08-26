@@ -1,0 +1,2 @@
+"npm:pi-pokepet"
+"../../src/pi-vim"

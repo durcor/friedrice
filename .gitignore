@@ -65,6 +65,7 @@ addbk
 .npm
 .cpanm
 .stack
+.conan2
 
 # vidya
 .neverball

@@ -3,21 +3,21 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
-config,
+# config,
 pkgs,
-stablePkgs,
+# stablePkgs,
 unstablePkgs,
 # yaziPkgs,
 nhPkgs,
-hyprlandPkgs,
+# hyprlandPkgs,
 televisionPkgs,
 nvimPkgs,
-rosePineHyprcursorPkgs,
+# rosePineHyprcursorPkgs,
 llmAgentsPkgs,
-codexPkgs,
+# codexPkgs,
 piPkgs,
-hyprDynamicCursorsPkgs,
-hyprlockPkg ? pkgs.hyprlock,
+# hyprDynamicCursorsPkgs,
+# hyprlockPkg ? pkgs.hyprlock,
 ...
 }:
 
@@ -34,7 +34,7 @@ hyprlockPkg ? pkgs.hyprlock,
       "https://nix-community.cachix.org"
       "https://chaotic-nyx.cachix.org"
       "https://simula.cachix.org"
-      "https://cache.numtide.com"
+      # "https://cache.numtide.com"
     ];
     trusted-substituters = [
       "https://cache.nixos.org"
@@ -44,7 +44,7 @@ hyprlockPkg ? pkgs.hyprlock,
       "https://nix-community.cachix.org"
       "https://chaotic-nyx.cachix.org"
       "https://simula.cachix.org"
-      "https://cache.numtide.com"
+      # "https://cache.numtide.com"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -54,7 +54,7 @@ hyprlockPkg ? pkgs.hyprlock,
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "simula.cachix.org-1:Sr0SD5FIjc8cUVIeBHl8VJswQEJOBIE6u3wpmjslGBA="
-      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+      # "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
     ];
   };
 

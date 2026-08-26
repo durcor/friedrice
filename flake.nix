@@ -292,6 +292,7 @@
           "${self}/etc/nixos/configuration.nix"
           "${self}/etc/nixos/hosts/zorya.nix"
           "${self}/etc/nixos/linux-only.nix"
+          "${self}/etc/nixos/work.nix"
           nix-system-graphics.systemModules.default
           # {
           #   imports = [
@@ -331,6 +332,7 @@
         modules = [
           "${self}/etc/nixos/configuration.nix"
           "${self}/etc/nixos/hosts/feros.nix"
+          "${self}/etc/nixos/work.nix"
         ];
         specialArgs = mkSpecialArgs "aarch64-darwin";
       };
