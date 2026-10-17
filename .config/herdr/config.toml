@@ -1,0 +1,80 @@
+onboarding = false
+
+[keys]
+prefix = "ctrl+b"
+# prefix = "f12" # F12 is the current one-shot prefix; a modal binding would need this key freed.
+
+[[keys.command]]
+key = "prefix+m"
+type = "plugin_action"
+command = "local.pane-move.pick"
+description = "Move pane to a new or existing workspace"
+
+[theme]
+name = "terminal"
+auto_switch = false
+
+[ui]
+status_indicators = "dots"
+
+[ui.toast]
+delivery = "terminal"
+
+# Agent rows accept these built-in tokens:
+#
+# state_icon — colored icon for the agent’s semantic state.
+# state_text — idle, working, blocked, done, or unknown, including a reported display label when present.
+# machine — machine label when the client has multiple machines; omitted for a single local machine.
+# workspace — workspace name.
+# tab — tab name when available.
+# pane — pane name when available.
+# agent — detected or reported agent display name.
+# terminal_title — latest OSC 0/2 terminal title after safety normalization.
+# terminal_title_stripped — the terminal title with one recognized leading activity or spinner glyph and its following whitespace removed.
+# $name — custom pane metadata named name.
+#
+#
+# Space rows accept these built-in tokens:
+#
+# state_icon — colored icon for the space’s rolled-up agent state.
+# state_text — text for the rolled-up agent state.
+# workspace — workspace name.
+# branch — Git branch when available.
+# git_status — Git ahead and behind counts when nonzero.
+# $name — custom workspace metadata named name.
+
+# BEGIN local.agent-model sidebar rows
+[ui.sidebar.agents.rows_by_agent]
+pi = [
+  ["state_icon", "machine", "workspace"],
+  ["tab"],
+  [
+    "agent",
+    { token = "$local_pi_anthropic", fg = "#f2a778" },
+    { token = "$local_pi_openai", fg = "#9dbdff" },
+    { token = "$local_pi_google", fg = "#c9b0ff" },
+    "$local_pi_other",
+    { token = "$local_pi_thinking", fg = "#a0a0a8", rules = [{ equals = "minimal", fg = "#b0b0b8" }, { equals = "low", fg = "#acc8e2" }, { equals = "medium", fg = "#c1d8eb" }, { equals = "high", fg = "#d9bee4" }, { equals = "xhigh", fg = "#edbff4" }, { equals = "max", fg = "#ffacfa" }] },
+  ],
+]
+claude = [
+  ["state_icon", "machine", "workspace"],
+  ["tab"],
+  [
+    { token = "$local_claude_anthropic", fg = "#f2a778" },
+    { token = "$local_claude_openai", fg = "#9dbdff" },
+    { token = "$local_claude_google", fg = "#c9b0ff" },
+    "$local_claude_other",
+  ],
+]
+codex = [
+  ["state_icon", "machine", "workspace"],
+  ["tab"],
+  [
+    { token = "$local_codex_anthropic", fg = "#f2a778" },
+    { token = "$local_codex_openai", fg = "#9dbdff" },
+    { token = "$local_codex_google", fg = "#c9b0ff" },
+    "$local_codex_other",
+  ],
+]
+# END local.agent-model sidebar rows
